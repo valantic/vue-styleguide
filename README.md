@@ -1,1 +1,1 @@
-# vue-lib
+# vue-styleguide

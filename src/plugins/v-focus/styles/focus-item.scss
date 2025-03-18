@@ -1,0 +1,11 @@
+@use '../../../setup/scss/mixins';
+@use '../../../setup/scss/variables';
+
+.v-focus-item {
+  &--focus {
+    @include mixins.z-index(focusItem);
+
+    position: relative;
+    background-color: variables.$color-grayscale--1000;
+  }
+}

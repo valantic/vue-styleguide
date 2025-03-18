@@ -1,0 +1,69 @@
+{
+  "globalMessages": {
+    "unknownApiError": "Es ist ein unbekannter Fehler aufgetreten.",
+    "noResults": "Keine Ergebnisse gefunden."
+  },
+  "e-logo": {
+    "linkTitle": "zur Startseite"
+  },
+  "e-select": {
+    "chooseOption": "Bitte wählen"
+  },
+  "e-table": {
+    "deselectAll": "Auswahl aufheben",
+    "selectAll": "Alle auswählen",
+    "selectItem": "Auswählen",
+    "showDetailsHeader": "Details anzeigen",
+    "sort": "Nach {name} sortieren",
+    "toggleSortingOptions": "Sortierung"
+  },
+  "e-progress": {
+    "loading": "Lade …"
+  },
+  "e-multiselect": {
+    "defaultPlaceholder": "Bitte wählen",
+    "searchFieldPlaceholder": "Suche"
+  },
+  "c-breadcrumb": {
+    "linkTitle": "Gehe zu {name}"
+  },
+  "c-confirmation-modal": {
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen"
+  },
+  "c-consent-gatekeeper": {
+    "noConsentMessage": "Diese Funktionalität benötigt Ihre Zustimmung für \"{consentGroup}\"-Cookies. Bitte aktualisieren Sie Ihre Zustimmung.",
+    "showConsentButtonLabel": "Zustimmung anpassen"
+  },
+  "c-notification": {
+    "confirm": "OK",
+    "decline": "Abbrechen",
+    "close": "Schliessen"
+  },
+  "c-modal": {
+    "buttonClose": "Fenster schliessen"
+  },
+  "c-multiselect": {
+    "search": "suchen",
+    "save": "Speichern",
+    "itemsEmpty": "Keine Ergebnisse.",
+    "searchTitle": "Suche"
+  },
+  "c-date-picker": {
+    "calendarRangeTitle": "Datumsbereich auswählen",
+    "calendarTitle": "Datum auswählen",
+    "inputEndLabel": "Ende",
+    "inputLabel": "Datum",
+    "inputStartLabel": "Start",
+    "nextMonth": "Nächster Monat",
+    "previousMonth": "Vorheriger Monat"
+  },
+  "c-slider": {
+    "navigationPrevious": "Zurück",
+    "navigationNext": "Vorwärts"
+  },
+  "s-language": {
+    "de": "Deutsch",
+    "fr": "Französisch"
+  }
+}

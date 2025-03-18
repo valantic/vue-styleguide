@@ -71,8 +71,8 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
   @use 'sass:color';
+  @use '../../setup/scss/variables';
 
   // stylelint-disable max-line-length
 

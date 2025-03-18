@@ -84,7 +84,7 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
 
   $_s-slider__size: 1.2em;
 

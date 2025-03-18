@@ -93,7 +93,7 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
 
   .s-navigation-block {
     min-width: 200px;

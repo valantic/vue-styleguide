@@ -2,10 +2,7 @@
 // Vitest instead of Vite was used because of extended Interface.
 import vue from '@vitejs/plugin-vue';
 import { resolve } from 'path';
-import { visualizer } from 'rollup-plugin-visualizer';
-import type { PluginOption } from 'vite';
 import { defineConfig } from 'vite';
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 import { UserConfigExport } from 'vitest/config';
 import viteBuilds from './vite.builds.json';
@@ -40,10 +37,6 @@ export default defineConfig(({ command, mode }) => {
   const config: UserConfigExport = {
     plugins: [
       vue(),
-      // eslint-disable-next-line new-cap
-      ViteImageOptimizer({
-        // logStats: false,
-      }),
       mdPlugin({
         mode: [Mode.VUE],
       }),
@@ -135,22 +128,6 @@ export default defineConfig(({ command, mode }) => {
           },
         },
       };
-
-      if (mode === 'profile') {
-        if (!Array.isArray(config.plugins)) {
-          config.plugins = [];
-        }
-
-        config.plugins.push(
-          visualizer({
-            // NOTE: the sizes reported by this plugin relate to the source, not build size... @see https://github.com/btd/rollup-plugin-visualizer/issues/96
-            filename: './stats/index.html',
-            open: true,
-            template: 'treemap',
-          }) as PluginOption
-        );
-      }
-
     // no default
   }
 

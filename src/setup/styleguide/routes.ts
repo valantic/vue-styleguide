@@ -1,5 +1,5 @@
 import { ComponentPublicInstance } from 'vue';
-import index from '@/styleguide/demo-pages/r-index.vue';
+import index from '../../styleguide/demo-pages/r-index.vue';
 
 declare module 'vue-router' {
   interface RouteMeta {

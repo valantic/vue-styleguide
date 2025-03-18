@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sNavigation from '@/styleguide/components/s-navigation.vue';
+  import sNavigation from '../components/s-navigation.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -48,5 +48,5 @@
 </script>
 
 <style lang="scss">
-  // Define #app styles in @/setup/scss/_globals.scss
+  // Define #app styles in setup/scss/_globals.scss
 </style>

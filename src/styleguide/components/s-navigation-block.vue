@@ -26,7 +26,7 @@
 <script lang="ts">
   import { PropType, defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
-  import { Modifiers } from '@/plugins/vue-bem-cn/src/globals';
+  import { Modifiers } from '../../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};

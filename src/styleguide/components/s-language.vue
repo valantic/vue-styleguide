@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import i18n, { I18N_LOCALES } from '@/setup/i18n';
+  import i18n, { I18N_LOCALES } from '../../setup/i18n';
 
   // type Setup = {};
 

@@ -20,7 +20,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sReadme from '@/styleguide/components/s-readme.vue';
+  import sReadme from '../components/s-readme.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -49,8 +49,8 @@
 
 <style lang="scss">
   @use 'sass:map';
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/mixins';
+  @use '../../setup/scss/variables';
 
   .r-index {
     max-width: map.get(variables.$breakpoints, xl);

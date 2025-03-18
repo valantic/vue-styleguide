@@ -2,7 +2,6 @@
   <div :class="b()">
     <div :class="b('content')">
       <div :class="b('inner')">
-        <c-notification-container />
         <slot></slot>
       </div>
     </div>
@@ -11,29 +10,21 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import useNotificationStore from '@/stores/notification';
-  import cNotificationContainer from '@/components/c-notification-container.vue';
 
-  type Setup = {
-    notificationStore: ReturnType<typeof useNotificationStore>;
-  };
+  // type Setup = {};
 
   // type Data = {};
 
   export default defineComponent({
     name: 'l-default',
 
-    components: {
-      cNotificationContainer,
-    },
+    // components: {},
 
     // props: {},
 
-    setup(): Setup {
-      return {
-        notificationStore: useNotificationStore(),
-      };
-    },
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },
@@ -44,9 +35,7 @@
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    mounted() {
-      this.getNotificationsFromStorage();
-    },
+    // mounted() {},
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
@@ -54,27 +43,7 @@
     // beforeUnmount() {},
     // unmounted() {},
 
-    methods: {
-      /**
-       * Gets localStorage messages and pushes them in the notification store to display.
-       */
-      getNotificationsFromStorage() {
-        try {
-          const messages = window.localStorage.getItem('vueNotification');
-          const messagesParsed = messages ? JSON.parse(messages) : null;
-
-          if (Array.isArray(messagesParsed) && messagesParsed.length) {
-            messagesParsed.forEach(this.notificationStore.showNotification);
-
-            // Clears the localStorage notifications.
-            window.localStorage.removeItem('vueNotification');
-          }
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-          throw new Error('An error occurred why retrieving messages from the localStorage.');
-        }
-      },
-    },
+    // methods: {},
     // render() {},
   });
 </script>
@@ -99,13 +68,7 @@
       max-width: #{map.get(variables.$breakpoints, xl) - 20px};
       margin: 0 auto;
       background: variables.$color-grayscale--1000;
-      box-shadow: 0 4px 10px 1px rgba(variables.$color-grayscale--400, 0.3);
-    }
-
-    .c-notification-container {
-      @include mixins.z-index(globalNotification);
-
-      position: absolute;
+      box-shadow: 0 4px 10px 1px rgba(#cccccc, 0.3);
     }
   }
 </style>

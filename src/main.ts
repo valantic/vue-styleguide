@@ -4,7 +4,6 @@ import { createApp } from 'vue';
 import options from './setup/options';
 import plugins from './setup/plugins';
 import './setup/styles.scss';
-import api from './stores/plugins/api';
 
 const vuePlugins = plugins;
 const pinia = createPinia();
@@ -22,8 +21,6 @@ if (import.meta.env.DEV) {
 }
 
 const app = createApp(vueOptions);
-
-pinia.use(api);
 
 vuePlugins.forEach(({ plugin, options: pluginOptions }) => app.use(plugin, pluginOptions));
 

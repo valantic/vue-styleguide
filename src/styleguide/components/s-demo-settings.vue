@@ -89,7 +89,7 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
 
   .s-demo-settings {
     margin-top: variables.$spacing--10;

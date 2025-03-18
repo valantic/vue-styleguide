@@ -52,8 +52,8 @@
 
 <!-- eslint-disable -->
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
+  @use '../../setup/scss/mixins';
 
   /* stylelint-disable */
 

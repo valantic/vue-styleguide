@@ -103,7 +103,7 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
 
   .s-color-specimen {
     border: 1px solid variables.$color-secondary--1;

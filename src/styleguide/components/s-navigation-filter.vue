@@ -6,20 +6,14 @@
       type="button"
       @click.stop="onReset"
     >
-      <e-icon
-        icon="i-close"
-        size="16"
-      />
+      x
     </button>
     <div
       v-else
       :class="b('navigation-filter-icon')"
       type="button"
     >
-      <e-icon
-        icon="i-search"
-        size="16"
-      />
+      S
     </div>
     <input
       v-model.trim="internalValue"
@@ -34,16 +28,13 @@
 
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
-  import eIcon from '@/elements/e-icon.vue';
 
   // type Setup = {};
   // type Data = {};
 
   export default defineComponent({
     name: 's-navigation-filter',
-    components: {
-      eIcon,
-    },
+    // components: {},
     // directives: {},
     props: {
       /**

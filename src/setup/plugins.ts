@@ -1,8 +1,9 @@
 /* eslint-disable import/first */
 import { Plugin } from 'vue';
 // MUST come after i18n because of build order.
-import i18n from '@/setup/i18n';
-import VueBemCn from '@/plugins/vue-bem-cn';
+import i18n from './i18n';
+import VueBemCn from '../plugins/vue-bem-cn';
+import viewport from '../plugins/viewport';
 
 // import tooltip from '@/plugins/tooltip';
 
@@ -13,6 +14,7 @@ export type CustomPlugin = {
 
 export default [
   { plugin: i18n },
+  { plugin: viewport },
   {
     plugin: VueBemCn,
     options: {

@@ -18,7 +18,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import i18n, { I18N_LOCALES, i18nSetLocale } from '@/setup/i18n';
+  import i18n, { I18N_LOCALES } from '@/setup/i18n';
 
   // type Setup = {};
 
@@ -52,7 +52,7 @@
           return i18n.global.locale?.value;
         },
         set(value: string) {
-          i18nSetLocale(value);
+          // TODO: we need to set the locale.
         },
       },
     },

@@ -1,16 +1,24 @@
 <template>
   <div id="app">
     <router-view />
-    <s-navigation nav-position="bottom-right" />
+    <s-navigation nav-position="bottom-right"
+                  :theme-path="themePath"
+                  :available-themes="availableThemes"
+                  @update-theme="onUpdateTheme"
+    />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sNavigation from '../components/s-navigation.vue';
+  import sNavigation from './s-navigation.vue';
+  import { Theme } from './s-theme-selector.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    themePath: string;
+    availableThemes: Theme[];
+  };
 
   export default defineComponent({
     name: 'app',
@@ -24,9 +32,23 @@
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        themePath: 'src/setup/scss/themes',
+        availableThemes: [
+          {
+            name: 'theme-01',
+            id: 'theme-01',
+            selected: true,
+          },
+          {
+            name: 'theme-02',
+            id: 'theme-02',
+            selected: false,
+          },
+        ],
+      };
+    },
 
     // computed: {},
     // watch: {},
@@ -42,7 +64,11 @@
     // beforeUnmount() {},
     // unmounted() {},
 
-    // methods: {},
+    methods: {
+      onUpdateTheme() {
+        // TODO: Update theme in the app.
+      }
+    },
     // render() {},
   });
 </script>

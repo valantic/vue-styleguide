@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { CustomPlugin } from '@/setup/plugins';
+import { CustomPlugin } from '../plugins';
 import styleguideRoutes from './routes';
 
 const router = createRouter({

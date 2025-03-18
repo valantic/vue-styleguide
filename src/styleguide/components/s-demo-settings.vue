@@ -2,36 +2,31 @@
   <ul :class="b()">
     <li :class="b('item')">
       <s-html-validation />
-      <e-checkbox
-        v-model="loggedIn"
-        variant="toggle"
-        name="logged-in"
-        value
-      >
+      <label>
+        <input
+          v-model="loggedIn"
+          type="checkbox"
+          name="logged-in"
+          value
+        />
         Logged in
-      </e-checkbox>
+      </label>
 
-      <e-checkbox
-        v-model="showApiHandlerConfiguration"
-        variant="toggle"
-        name="api-mock"
-        value
-      >
+      <label>
+        <input
+          v-model="showApiHandlerConfiguration"
+          type="checkbox"
+          name="api-mock"
+          value
+        />
         API Mock Test
-      </e-checkbox>
+      </label>
     </li>
   </ul>
-  <s-api-mock-test
-    v-if="showApiHandlerConfiguration"
-    @click.stop
-    @close="showApiHandlerConfiguration = false"
-  />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eCheckbox from '@/elements/e-checkbox.vue';
-  import sApiMockTest from '@/styleguide/components/s-api-mock-test.vue';
   import sHtmlValidation from '@/styleguide/components/s-html-validation.vue';
 
   // type Setup = {};
@@ -52,8 +47,6 @@
     name: 's-demo-settings',
 
     components: {
-      eCheckbox,
-      sApiMockTest,
       sHtmlValidation,
     },
 

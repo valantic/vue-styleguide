@@ -1,17 +1,17 @@
 <template>
-  <e-checkbox
-    v-model="enabled"
-    variant="toggle"
-    name="html-validation"
-    value
-  >
+  <label>
+    <input
+      v-model="enabled"
+      type="checkbox"
+      name="html-validation"
+      value
+    >
     HTML validation
-  </e-checkbox>
+  </label>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eCheckbox from '@/elements/e-checkbox.vue';
 
   // type Setup = {};
 
@@ -28,9 +28,7 @@
   export default defineComponent({
     name: 's-html-validation',
 
-    components: {
-      eCheckbox,
-    },
+    // components: {},
     // mixins: [],
 
     // props: {},

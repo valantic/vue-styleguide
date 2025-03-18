@@ -19,7 +19,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import useSessionStore from '@/stores/session';
   import buildConfig from '@/../vite.builds.json';
 
   type Theme = {
@@ -32,9 +31,7 @@
     availableThemes: string[];
   };
 
-  type Setup = {
-    sessionStore: ReturnType<typeof useSessionStore>;
-  };
+  // type Setup = {};
 
   export default defineComponent({
     name: 's-theme-selector',
@@ -43,11 +40,10 @@
 
     // props: {},
 
-    setup(): Setup {
-      return {
-        sessionStore: useSessionStore(),
-      };
-    },
+    // setup(): Setup {
+    //   return {
+    //   };
+    // },
     data(): Data {
       return {
         availableThemes: buildConfig.themeFiles,
@@ -59,7 +55,7 @@
        * Returns the currently active theme.
        */
       getTheme(): string {
-        return this.sessionStore.getTheme;
+        return 'theme-01'; // TODO: This needs to be changed.
       },
 
       /**
@@ -112,10 +108,8 @@
       /**
        * Event handler for the change event of the theme selector.
        */
-      onChange(event: Event) {
-        const element = event.target as HTMLSelectElement;
-
-        this.sessionStore.setTheme(element.value);
+      onChange() {
+        // TODO: we need set the change somewhere.
       },
 
       /**

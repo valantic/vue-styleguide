@@ -1,5 +1,4 @@
-import '@/styleguide/api/browser';
-import app from '@/styleguide/components/app.vue';
+import app from '../../styleguide/components/app.vue';
 
 export default {
   template: '<app />',

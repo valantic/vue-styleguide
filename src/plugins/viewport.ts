@@ -1,5 +1,5 @@
 import { Plugin, computed, reactive, ref } from 'vue';
-import { BREAKPOINTS, ViewportBreakPoint } from '@/setup/globals';
+import { BREAKPOINTS, ViewportBreakPoint } from '../setup/globals';
 
 export type Viewport = {
   isXxs: boolean;

@@ -18,18 +18,16 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import buildConfig from '../../../vite.builds.json';
 
-  type Theme = {
+  export type Theme = {
     name: string;
     id: string;
     selected?: boolean;
   };
 
-  type Data = {
-    availableThemes: string[];
-  };
+  // type Data = {};
 
   // type Setup = {};
 
@@ -38,17 +36,35 @@
 
     // components: {},
 
-    // props: {},
+    props: {
+      /**
+       * Path to the theme scss files.
+       */
+      themePath: {
+        type: String,
+        default: 'src/setup/scss/themes',
+      },
+
+      /**
+       * Array of available themes.
+       */
+      availableThemes: {
+        type: Array as PropType<Theme[]>,
+        default: () => [],
+      },
+    },
+
+    emits: {
+      'change': (theme: string) => theme,
+    },
 
     // setup(): Setup {
     //   return {
     //   };
     // },
-    data(): Data {
-      return {
-        availableThemes: buildConfig.themeFiles,
-      };
-    },
+    // data(): Data {
+    //   return {};
+    // },
 
     computed: {
       /**
@@ -66,9 +82,8 @@
         const activeTheme = this.getTheme;
 
         return themes.map((theme) => ({
-          name: theme,
-          id: theme,
-          selected: theme === activeTheme,
+          ...theme,
+          selected: theme.name === activeTheme,
         }));
       },
     },
@@ -88,7 +103,7 @@
           if (!link) {
             this.createStyleElement(theme, cssId);
           } else {
-            link.href = `/${buildConfig.themeSource}${theme}.scss`;
+            link.href = `/${this.themePath}${theme}.scss`;
           }
         },
       },
@@ -108,8 +123,8 @@
       /**
        * Event handler for the change event of the theme selector.
        */
-      onChange() {
-        // TODO: we need set the change somewhere.
+      onChange(event: Event) {
+        this.$emit('change', event.currentTarget?.value);
       },
 
       /**

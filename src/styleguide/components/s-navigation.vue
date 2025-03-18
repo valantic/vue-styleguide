@@ -28,10 +28,13 @@
           <s-language />
         </li>
         <li
+          v-if="availableThemes.length"
           :class="b('navigation-item', { theme: true })"
           @click.stop
         >
-          <s-theme-selector />
+          <s-theme-selector :theme-path="themePath"
+                            :available-themes="availableThemes"
+                            @change="onUpdateTheme" />
         </li>
         <li :class="b('navigation-item', { settings: true })">
           <h2>Settings</h2>
@@ -50,14 +53,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
   import { Modifiers } from '../../plugins/vue-bem-cn/src/globals';
   import sDemoSettings from './s-demo-settings.vue';
   import sLanguage from './s-language.vue';
   import sNavigationBlock from './s-navigation-block.vue';
   import sNavigationFilter from './s-navigation-filter.vue';
-  import sThemeSelector from './s-theme-selector.vue';
+  import sThemeSelector, { Theme } from './s-theme-selector.vue';
 
   // type Setup = {};
 
@@ -85,6 +88,26 @@
         default: 'top-right',
         validator: (value: string) => ['top-left', 'top-right', 'bottom-right', 'bottom-left'].includes(value),
       },
+
+      /**
+       * Path to the theme scss files.
+       */
+      themePath: {
+        type: String,
+        default: 'src/setup/scss/themes',
+      },
+
+      /**
+       * Array of available themes.
+       */
+      availableThemes: {
+        type: Array as PropType<Theme[]>,
+        default: () => [],
+      },
+    },
+
+    emits: {
+      'updateTheme': (theme: string) => typeof theme === 'string',
     },
     // setup(): Setup {
     //   return {
@@ -150,6 +173,10 @@
           return filteredRoutes;
         }, []);
       },
+
+      onUpdateTheme(theme: string) {
+        this.$emit('updateTheme', theme);
+      }
     },
   });
 </script>

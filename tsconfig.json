@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "target": "es2021",
+    "verbatimModuleSyntax": false,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "moduleDetection": "force",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "moduleResolution": "Node",
+    "module": "ESNext",
+    "noEmit": true,
+    "importHelpers": true,
+    "lib": ["es2021", "dom", "dom.iterable"],
+    "typeRoots": ["./src/types", "./node_modules/@types/", "./node_modules/"],
+    "types": ["node", "vite/client", "google.maps", "cookiebot-sdk"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@!production/*": ["src/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    ".storybook/**/*.ts",
+    ".storybook/**/*.tsx",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules"]
+}

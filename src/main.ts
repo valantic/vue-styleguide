@@ -1,12 +1,10 @@
 // It's mandatory that common styles are imported before the application. Else they will come last in the CSS build
-import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 import options from './setup/options';
 import plugins from './setup/plugins';
 import './setup/styles.scss';
 
 const vuePlugins = plugins;
-const pinia = createPinia();
 let vueOptions = options;
 
 if (import.meta.env.DEV) {
@@ -23,7 +21,5 @@ if (import.meta.env.DEV) {
 const app = createApp(vueOptions);
 
 vuePlugins.forEach(({ plugin, options: pluginOptions }) => app.use(plugin, pluginOptions));
-
-app.use(pinia);
 
 app.mount('#app');

@@ -17,10 +17,7 @@
     "typeRoots": ["./src/types", "./node_modules/@types/", "./node_modules/"],
     "types": ["node", "vite/client"],
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "@!production/*": ["src/*"]
-    }
+    "paths": {}
   },
   "include": [
     "src/**/*.ts",

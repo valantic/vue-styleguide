@@ -16,7 +16,7 @@
             rel="noopener noreferrer"
           >
             <img
-              src="@/styleguide/assets/valantic.svg"
+              src="../assets/valantic.svg"
               alt="valantic"
             />
           </a>
@@ -52,7 +52,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
-  import { Modifiers } from '@/plugins/vue-bem-cn/src/globals';
+  import { Modifiers } from '../../plugins/vue-bem-cn/src/globals';
   import sDemoSettings from './s-demo-settings.vue';
   import sLanguage from './s-language.vue';
   import sNavigationBlock from './s-navigation-block.vue';

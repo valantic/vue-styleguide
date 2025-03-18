@@ -7,7 +7,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   // @ts-ignore Needed because typescript cannot resolve `.md` files.
-  import { VueComponent } from '@/../README.md';
+  import { VueComponent } from '../../../README.md';
 
   // type Setup = {};
   // type Data = {};

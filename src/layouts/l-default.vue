@@ -48,8 +48,8 @@
 
 <style lang="scss">
   @use 'sass:map';
-  @use '@/setup/scss/variables';
-  @use '@/setup/scss/mixins';
+  @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .l-default {
     display: flex;

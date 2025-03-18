@@ -27,7 +27,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sHtmlValidation from '@/styleguide/components/s-html-validation.vue';
+  import sHtmlValidation from '../components/s-html-validation.vue';
 
   // type Setup = {};
 

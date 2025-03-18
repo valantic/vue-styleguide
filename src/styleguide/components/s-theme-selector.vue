@@ -19,7 +19,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import buildConfig from '@/../vite.builds.json';
+  import buildConfig from '../../../vite.builds.json';
 
   type Theme = {
     name: string;

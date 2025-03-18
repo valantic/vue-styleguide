@@ -70,7 +70,7 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/variables';
 
   .s-color {
     font-family: variables.$font-family--primary;

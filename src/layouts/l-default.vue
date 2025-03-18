@@ -1,9 +1,7 @@
 <template>
   <div :class="b()">
     <div :class="b('content')">
-      <div :class="b('inner')">
-        <slot></slot>
-      </div>
+      <slot></slot>
     </div>
   </div>
 </template>

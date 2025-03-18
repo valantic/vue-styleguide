@@ -1,4 +1,4 @@
-import { Delimiters } from '@/plugins/vue-bem-cn/src/globals';
+import { Delimiters } from '../globals';
 import { hyphenate, isPObject, isString } from '../utils';
 import bemNames from './bem-names';
 

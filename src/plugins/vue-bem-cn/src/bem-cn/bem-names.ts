@@ -1,4 +1,4 @@
-import { Delimiters } from '@/plugins/vue-bem-cn/src/globals';
+import { Delimiters } from '../globals';
 import { isNumber, isString } from '../utils';
 
 type Modifiers = {

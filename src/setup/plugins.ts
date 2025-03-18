@@ -5,8 +5,6 @@ import i18n from './i18n';
 import VueBemCn from '../plugins/vue-bem-cn';
 import viewport from '../plugins/viewport';
 
-// import tooltip from '@/plugins/tooltip';
-
 export type CustomPlugin = {
   plugin: Plugin;
   options?: Record<string, unknown>;

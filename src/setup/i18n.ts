@@ -73,53 +73,53 @@ export default i18n;
 /**
  * Load messages for given locale if not already loaded.
  */
-export const i18nLoadMessages = (locale: string): Promise<string> => {
-  if (!Object.keys(i18n.global.messages).includes(locale)) {
-    return import(`../translations/${locale}.json`).then(({ default: localeMessages }) => {
-      // Add styleguide only translations
-      if (import.meta.env.MODE !== 'production') {
-        const styleguideTranslations = import.meta.glob('./styleguide.translations.json', { eager: true })[
-          './styleguide.translations.json'
-        ] as Record<string, object>;
-        const localeStyleguideTranslations = styleguideTranslations[locale];
-
-        if (localeStyleguideTranslations) {
-          Object.entries(localeStyleguideTranslations).forEach(([key, value]) => {
-            localeMessages[key] = value;
-          });
-        }
-      }
-
-      i18n.global.setLocaleMessage(locale, localeMessages);
-
-      return locale;
-    }); // eslint-disable-line vue/script-indent
-  }
-
-  return Promise.resolve(locale);
-};
-
-/**
- * Sets the application locale to the given value.
- * Loads locale messages if needed.
- */
-export const i18nSetLocale = (locale: string): Promise<void> => {
-  // eslint-disable-line no-param-reassign
-  if (!I18N_LOCALES.includes(locale)) {
-    locale = I18N_FALLBACK;
-  }
-
-  if (i18n.global.locale !== locale) {
-    return i18nLoadMessages(locale).then((newLocale) => {
-      import('../stores/plugins/api').then((module) => {
-        module.axiosInstance.defaults.headers.common.locale = newLocale;
-      });
-      // @ts-ignore -- 'locale' is a reactive, not a string. @see https://github.com/intlify/vue-i18n-next/issues/785
-      i18n.global.locale.value = newLocale;
-    });
-  }
-
-  return Promise.resolve();
-};
-
-i18nSetLocale(PAGE_LANG || I18N_FALLBACK);
+// export const i18nLoadMessages = (locale: string): Promise<string> => {
+//   if (!Object.keys(i18n.global.messages).includes(locale)) {
+//     return import(`../translations/${locale}.json`).then(({ default: localeMessages }) => {
+//       // Add styleguide only translations
+//       if (import.meta.env.MODE !== 'production') {
+//         const styleguideTranslations = import.meta.glob('./styleguide.translations.json', { eager: true })[
+//           './styleguide.translations.json'
+//         ] as Record<string, object>;
+//         const localeStyleguideTranslations = styleguideTranslations[locale];
+//
+//         if (localeStyleguideTranslations) {
+//           Object.entries(localeStyleguideTranslations).forEach(([key, value]) => {
+//             localeMessages[key] = value;
+//           });
+//         }
+//       }
+//
+//       i18n.global.setLocaleMessage(locale, localeMessages);
+//
+//       return locale;
+//     }); // eslint-disable-line vue/script-indent
+//   }
+//
+//   return Promise.resolve(locale);
+// };
+//
+// /**
+//  * Sets the application locale to the given value.
+//  * Loads locale messages if needed.
+//  */
+// export const i18nSetLocale = (locale: string): Promise<void> => {
+//   // eslint-disable-line no-param-reassign
+//   if (!I18N_LOCALES.includes(locale)) {
+//     locale = I18N_FALLBACK;
+//   }
+//
+//   if (i18n.global.locale !== locale) {
+//     return i18nLoadMessages(locale).then((newLocale) => {
+//       import('../stores/plugins/api').then((module) => {
+//         module.axiosInstance.defaults.headers.common.locale = newLocale;
+//       });
+//       // @ts-ignore -- 'locale' is a reactive, not a string. @see https://github.com/intlify/vue-i18n-next/issues/785
+//       i18n.global.locale.value = newLocale;
+//     });
+//   }
+//
+//   return Promise.resolve();
+// };
+//
+// i18nSetLocale(PAGE_LANG || I18N_FALLBACK);

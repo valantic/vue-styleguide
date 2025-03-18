@@ -15,7 +15,7 @@
     "importHelpers": true,
     "lib": ["es2021", "dom", "dom.iterable"],
     "typeRoots": ["./src/types", "./node_modules/@types/", "./node_modules/"],
-    "types": ["node", "vite/client", "google.maps", "cookiebot-sdk"],
+    "types": ["node", "vite/client"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],

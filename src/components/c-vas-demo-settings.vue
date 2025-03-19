@@ -1,33 +1,31 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <s-html-validation />
-      <label>
-        <input
-          v-model="loggedIn"
-          type="checkbox"
-          name="logged-in"
-          value
-        />
+      <c-vas-html-validation />
+    </li>
+    <li :class="b('item')">
+      <e-vas-toggle
+        v-model="loggedIn"
+        value
+      >
         Logged in
-      </label>
-
-      <label>
-        <input
-          v-model="showApiHandlerConfiguration"
-          type="checkbox"
-          name="api-mock"
-          value
-        />
+      </e-vas-toggle>
+    </li>
+    <li :class="b('item')">
+      <e-vas-toggle
+        v-model="showApiHandlerConfiguration"
+        value
+      >
         API Mock Test
-      </label>
+      </e-vas-toggle>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sHtmlValidation from '../components/s-html-validation.vue';
+  import cVasHtmlValidation from './c-vas-html-validation.vue';
+  import eVasToggle from '../elements/e-vas-toggle.vue';
 
   // type Setup = {};
 
@@ -44,10 +42,11 @@
   };
 
   export default defineComponent({
-    name: 's-demo-settings',
+    name: 'c-vas-demo-settings',
 
     components: {
-      sHtmlValidation,
+      eVasToggle,
+      cVasHtmlValidation,
     },
 
     // props: {},
@@ -82,13 +81,15 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
-  .s-demo-settings {
-    margin-top: variables.$spacing--10;
+  .c-vas-demo-settings {
+    &__item {
+      margin-bottom: variables.$spacing--10;
 
-    .s-toggle + .s-toggle {
-      margin-top: variables.$spacing--5;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 </style>

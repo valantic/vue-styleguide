@@ -1,24 +1,18 @@
 <template>
   <label>
     <span class="invisible">Language</span>
-    <select
+    <e-vas-select
       v-model="language"
       :class="b()"
-    >
-      <option
-        v-for="locale in i18nLocales"
-        :key="locale"
-        :value="locale"
-      >
-        {{ $t(`s-language.${locale}`) }}
-      </option>
-    </select>
+      :options="options"
+    />
   </label>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import i18n, { I18N_LOCALES } from '../../setup/i18n';
+  import i18n, { I18N_LOCALES } from '../setup/i18n';
+  import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
 
@@ -27,7 +21,11 @@
   };
 
   export default defineComponent({
-    name: 's-language',
+    name: 'c-vas-language',
+
+    components: {
+      eVasSelect
+    },
 
     // props: {},
 
@@ -43,6 +41,13 @@
 
     // components: {},
     computed: {
+      options(): Options[] {
+        return this.i18nLocales.map(locale => ({
+          value: locale,
+          label: this.$t(`s-language.${locale}`)
+        }));
+      },
+
       /**
        * The current language.
        */
@@ -73,5 +78,5 @@
 </script>
 
 <style lang="scss">
-  // .s-language {}
+  // .c-vas-language {}
 </style>

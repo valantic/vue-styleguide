@@ -1,41 +1,40 @@
 <template>
   <div :class="b('navigation-filter-wrapper')">
-    <button
-      v-if="internalValue"
-      :class="b('navigation-filter-icon', { reset: true })"
-      type="button"
-      @click.stop="onReset"
-    >
-      x
-    </button>
-    <div
-      v-else
-      :class="b('navigation-filter-icon')"
-      type="button"
-    >
-      S
-    </div>
-    <input
+    <e-vas-input
       v-model.trim="internalValue"
       ref="searchInput"
       :class="b('navigation-filter-input')"
+      name="filter"
       type="search"
       placeholder="Search …"
       @click.stop
-    />
+    >
+      <button
+        v-if="internalValue"
+        :class="b('navigation-filter-icon', { reset: true })"
+        type="button"
+        @click.stop="onReset"
+      >
+        x
+      </button>
+    </e-vas-input>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent, nextTick } from 'vue';
+  import eVasInput from '../elements/e-vas-input.vue';
 
   // type Setup = {};
   // type Data = {};
 
   export default defineComponent({
-    name: 's-navigation-filter',
-    // components: {},
-    // directives: {},
+    name: 'c-vas-navigation-filter',
+
+    components: {
+      eVasInput
+    },
+
     props: {
       /**
        * The searchTerm to filter the navigation for.
@@ -110,9 +109,9 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
-  .s-navigation-filter {
+  .c-vas-navigation-filter {
     &__navigation-filter-wrapper {
       position: relative;
     }
@@ -136,11 +135,6 @@
       width: 100%;
       margin-top: variables.$spacing--10;
       padding: variables.$spacing--10;
-      border: 1px solid transparent;
-
-      &:focus {
-        border-color: variables.$color-status--info;
-      }
     }
   }
 </style>

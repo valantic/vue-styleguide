@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-  import { PropType, StyleValue, defineComponent } from 'vue';
+  import { defineComponent, PropType, StyleValue } from 'vue';
 
   // type Setup = {};
   // type Data = {};
@@ -28,7 +28,7 @@
    * **WARNING: uses 'v-html' for the 'displayName'. Make sure, that the source for this data is trustworthy.**
    */
   export default defineComponent({
-    name: 's-color-specimen',
+    name: 'c-vas-color-specimen',
 
     // components: {},
 
@@ -103,9 +103,9 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
-  .s-color-specimen {
+  .c-vas-color-specimen {
     border: 1px solid variables.$color-secondary--1;
 
     &__color {

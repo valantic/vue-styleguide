@@ -1,6 +1,6 @@
 <template>
   <div :class="b()">
-    <s-color-item
+    <c-vas-color-item
       v-for="palette in palettes"
       :key="palette"
       :palette="palette"
@@ -11,8 +11,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import colors, { Colors } from '../../setup/js/color';
-  import sColorItem from './s-color-item.vue';
+  import colors, { Colors } from '../setup/js/color';
+  import cVasColorItem from './c-vas-color-item.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -20,10 +20,10 @@
   type ColorVariants = keyof Colors;
 
   export default defineComponent({
-    name: 's-color',
+    name: 'c-vas-color',
 
     components: {
-      sColorItem,
+      cVasColorItem,
     },
 
     // props: {},
@@ -70,9 +70,9 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
-  .s-color {
+  .c-vas-color {
     font-family: variables.$font-family--primary;
   }
 </style>

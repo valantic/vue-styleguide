@@ -14,7 +14,7 @@
       >
         {{ route.meta?.title }}
       </router-link>
-      <s-navigation-block
+      <c-vas-navigation-block
         v-if="route.children && route.children.length"
         :routes="route.children"
         has-indent
@@ -24,16 +24,18 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
-  import { Modifiers } from '../../plugins/vue-bem-cn/src/globals';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
 
   export default defineComponent({
-    name: 's-navigation-block',
+    name: 'c-vas-navigation-block',
+
     // components: {},
+
     props: {
       /**
        * An array of styleguide routes.
@@ -93,9 +95,9 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
-  .s-navigation-block {
+  .c-vas-navigation-block {
     min-width: 200px;
     overflow: auto;
 

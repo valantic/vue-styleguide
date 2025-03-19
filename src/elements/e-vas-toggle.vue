@@ -23,7 +23,7 @@
   // type Data = {};
 
   export default defineComponent({
-    name: 's-toggle',
+    name: 'e-vas-toggle',
 
     // components: {},
 
@@ -84,11 +84,11 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
   $_s-slider__size: 1.2em;
 
-  .s-toggle {
+  .e-vas-toggle {
     $this: &;
 
     display: flex;

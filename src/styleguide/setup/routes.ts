@@ -1,24 +1,11 @@
-import { ComponentPublicInstance } from 'vue';
-import index from '../../styleguide/demo-pages/r-index.vue';
+import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
+import index from '../demo-pages/r-index.vue';
 
 declare module 'vue-router' {
-  interface RouteMeta {
-    title: string;
-    params?: {
-      [key: string]: string;
-    };
-    query?: {
-      [key: string]: string;
-    };
+  interface RouteMeta extends StyleguideRouteMeta {
+    [key: string]: unknown;
   }
 }
-
-export type Route = {
-  path: string;
-  name?: string;
-  component?: ComponentPublicInstance | Record<string, unknown>;
-  children?: Route[];
-};
 
 const root = '/styleguide';
 const categoryWrapper = {

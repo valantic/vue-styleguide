@@ -1,17 +1,15 @@
 <template>
-  <label>
-    <input
-      v-model="enabled"
-      type="checkbox"
-      name="html-validation"
-      value
-    >
+  <e-vas-toggle
+    v-model="enabled"
+    value
+  >
     HTML validation
-  </label>
+  </e-vas-toggle>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import eVasToggle from '../elements/e-vas-toggle.vue';
 
   // type Setup = {};
 
@@ -26,9 +24,11 @@
    * Adds a toggle to en-/disable CSS driven HTML validation.
    */
   export default defineComponent({
-    name: 's-html-validation',
+    name: 'c-vas-html-validation',
 
-    // components: {},
+    components: {
+      eVasToggle
+    },
     // mixins: [],
 
     // props: {},
@@ -70,11 +70,11 @@
 
 <style lang="scss">
   @use 'sass:color';
-  @use '../../setup/scss/variables';
+  @use '../setup/scss/variables';
 
   // stylelint-disable max-line-length
 
-  .s-html-validation--enabled {
+  .c-vas-html-validation--enabled {
     @mixin html-validator-warning($message: '') {
       $red: #ff0000;
       $black: #000000;

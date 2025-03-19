@@ -7,13 +7,13 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   // @ts-ignore Needed because typescript cannot resolve `.md` files.
-  import { VueComponent } from '../../../README.md';
+  import { VueComponent } from '@/../README.md';
 
   // type Setup = {};
   // type Data = {};
 
   export default defineComponent({
-    name: 's-readme',
+    name: 'c-vas-readme',
     status: 1,
 
     components: {
@@ -52,8 +52,8 @@
 
 <!-- eslint-disable -->
 <style lang="scss">
-  @use '../../setup/scss/variables';
-  @use '../../setup/scss/mixins';
+  @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   /* stylelint-disable */
 
@@ -66,7 +66,7 @@
   Author: Brett Terpstra
   Description: Github README style. Includes theme for Pygmentized code blocks.
   */
-  .s-readme {
+  .c-vas-readme {
     color: black;
     background: #fff;
 

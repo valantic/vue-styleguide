@@ -19,7 +19,7 @@
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
-  import buildConfig from '../../../vite.builds.json';
+  import buildConfig from '../../vite.builds.json';
 
   export type Theme = {
     name: string;
@@ -32,7 +32,7 @@
   // type Setup = {};
 
   export default defineComponent({
-    name: 's-theme-selector',
+    name: 'c-vas-theme-selector',
 
     // components: {},
 

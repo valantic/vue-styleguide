@@ -1,18 +1,18 @@
 <template>
-  <div id="app">
+  <div id="app" :class="b()">
     <router-view />
-    <s-navigation nav-position="bottom-right"
-                  :theme-path="themePath"
-                  :available-themes="availableThemes"
-                  @update-theme="onUpdateTheme"
+    <c-vas-sidebar
+      :theme-path="themePath"
+      :available-themes="availableThemes"
+      @update-theme="onUpdateTheme"
     />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import sNavigation from './s-navigation.vue';
-  import { Theme } from './s-theme-selector.vue';
+  import cVasSidebar from '../components/c-vas-sidebar.vue';
+  import { Theme } from '../components/c-vas-theme-selector.vue';
 
   // type Setup = {};
   type Data = {
@@ -21,10 +21,10 @@
   };
 
   export default defineComponent({
-    name: 'app',
+    name: 'styleguide',
 
     components: {
-      sNavigation,
+      cVasSidebar,
     },
 
     // props: {},
@@ -74,5 +74,13 @@
 </script>
 
 <style lang="scss">
+  @use 'sass:map';
+  @use '../setup/scss/variables';
+
   // Define #app styles in setup/scss/_globals.scss
+  .styleguide {
+    max-width: map.get(variables.$breakpoints, xl);
+    margin: 0 auto;
+    padding: variables.$spacing--30;
+  }
 </style>

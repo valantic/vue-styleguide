@@ -9,7 +9,7 @@
         :key="color.name"
         :class="b('grid-item')"
       >
-        <s-color-specimen
+        <c-vas-color-specimen
           :name="color.name"
           :value="color.value"
         />
@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import sColorSpecimen from './s-color-specimen.vue';
+  import { defineComponent, PropType } from 'vue';
+  import cVasColorSpecimen from './c-vas-color-specimen.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -31,9 +31,9 @@
   };
 
   export default defineComponent({
-    name: 's-color-item',
+    name: 'c-vas-color-item',
     components: {
-      sColorSpecimen,
+      cVasColorSpecimen,
     },
 
     props: {
@@ -89,10 +89,10 @@
 
 <style lang="scss">
   @use 'sass:math';
-  @use '../../setup/scss/variables';
-  @use '../../setup/scss/mixins';
+  @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
-  .s-color-item {
+  .c-vas-color-item {
     &__grid {
       display: flex;
       flex-wrap: wrap;

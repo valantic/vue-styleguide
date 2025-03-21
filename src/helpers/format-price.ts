@@ -1,5 +1,7 @@
 import i18n from '@/setup/i18n';
 
+// TODO: Remove
+
 /**
  * Formats the price according to project standards (Price value in cents).
  */

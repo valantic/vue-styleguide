@@ -32,7 +32,16 @@ export default [
     meta: {
       title: 'test',
     },
-    children: [],
+    children: [
+      {
+        path: root,
+        name: 'index',
+        component: index,
+        meta: {
+          title: 'Welcome',
+        },
+      },
+    ],
   },
   {
     path: '/:pathMatch(.*)*',

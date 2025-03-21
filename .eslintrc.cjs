@@ -25,6 +25,7 @@ module.exports = {
   },
   // add your custom rules here
   rules: {
+    'vue/no-bare-strings-in-template': 'off',
     'vue/no-unsupported-features': [
       'error',
       {
@@ -61,7 +62,6 @@ module.exports = {
     {
       files: ['src/styleguide/**/*.*'],
       rules: {
-        'vue/no-bare-strings-in-template': 'off',
         'vue/multi-word-component-names': 'off',
         'vue/match-component-file-name': 'off',
       },

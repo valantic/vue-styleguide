@@ -1,24 +1,25 @@
 <template>
-  <div :class="b('', modifiers)">
+  <div ref="container" :class="b('', modifiers)">
+    <div :class="b('viewport', { open: isOpen })">
+      {{ $viewport.currentViewport }}
+    </div>
+
     <button
       :class="b('float-button', { menu: true, active: showMenu })"
       type="button"
-      @click="onToggleMenu"
+      @click="onToggleSidebar(true)"
     >
       <span></span>
     </button>
     <button
       :class="b('float-button', { config: true, active: showConfig })"
       type="button"
-      @click="onToggleConfig"
+      @click="onToggleSidebar(false, true)"
     >
       <span></span>
     </button>
 
     <div :class="b('wrapper')">
-      <div :class="b('viewport')">
-        {{ $viewport.currentViewport }}
-      </div>
       <div :class="b('header')">
         <a
           :class="b('header-link')"
@@ -35,73 +36,46 @@
         </a>
       </div>
 
-      <template v-if="showMenu">
-        <ul :class="b('navigation')">
-          <li :class="b('navigation-item')">
-            <c-vas-navigation-filter
-              v-model="navigationFilter"
-              :is-open="isOpen"
-            />
-            <c-vas-navigation-block :routes="routesFilteredByTitle" />
-          </li>
-        </ul>
-      </template>
-      <template v-else>
-        <ul :class="b('navigation')">
-          <li
-            :class="b('navigation-item', { language: true })"
-            @click.stop
-          >
-            <c-vas-language />
-          </li>
-          <li
-            v-if="availableThemes.length"
-            :class="b('navigation-item', { theme: true })"
-            @click.stop
-          >
-            <c-vas-theme-selector
-              :theme-path="themePath"
-              :available-themes="availableThemes"
-              @change="onUpdateTheme" />
-          </li>
-          <li :class="b('navigation-item', { settings: true })">
-            <h2>Settings</h2>
-            <c-vas-demo-settings />
-          </li>
-        </ul>
-      </template>
+      <section v-if="showMenu">
+        <div :class="b('section-header')">Menu</div>
+        <c-vas-sidebar-navigation  />
+      </section>
+
+      <section v-else>
+        <div :class="b('section-header')">Settings</div>
+        <c-vas-sidebar-config
+          :theme-path="themePath"
+          :available-themes="availableThemes"
+          @update-theme="onUpdateTheme"
+        />
+      </section>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
-  import { RouteRecordRaw } from 'vue-router';
+  import { defineComponent, PropType, Ref, ref } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import cVasDemoSettings from './c-vas-demo-settings.vue';
-  import cVasLanguage from './c-vas-language.vue';
-  import cVasNavigationBlock from './c-vas-navigation-block.vue';
-  import cVasNavigationFilter from './c-vas-navigation-filter.vue';
-  import cVasThemeSelector, { Theme } from './c-vas-theme-selector.vue';
+  import { Theme } from '../compositions/themes';
+  import cVasSidebarConfig from './c-vas-sidebar-config.vue';
+  import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue'; // type Setup = {};
 
-  // type Setup = {};
+  type Setup = {
+    container: Ref<HTMLDivElement | null | undefined>;
+  };
 
   type Data = {
     isOpen: boolean;
     showMenu: boolean;
     showConfig: boolean;
-    navigationFilter: string;
   };
 
   export default defineComponent({
     name: 'c-vas-sidebar',
 
     components: {
-      cVasDemoSettings,
-      cVasLanguage,
-      cVasThemeSelector,
-      cVasNavigationBlock,
-      cVasNavigationFilter,
+      cVasSidebarNavigation,
+      cVasSidebarConfig,
     },
     props: {
       /**
@@ -124,16 +98,16 @@
     emits: {
       'updateTheme': (theme: string) => typeof theme === 'string',
     },
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    setup(): Setup {
+      return {
+        container: ref(),
+      };
+    },
     data(): Data {
       return {
-        isOpen: true,
+        isOpen: false,
         showMenu: false,
         showConfig: false,
-        navigationFilter: '',
       };
     },
     computed: {
@@ -142,83 +116,50 @@
           open: this.isOpen,
         };
       },
-      routesFilteredByTitle(): RouteRecordRaw[] {
-        return this.filterRoutesByTitle(this.$router.options.routes, this.navigationFilter);
+    },
+    watch: {
+      isOpen() {
+        if (this.isOpen) {
+          document.addEventListener('click', this.handleOutsideClick);
+        } else {
+          document.removeEventListener('click', this.handleOutsideClick);
+        }
       },
     },
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    beforeUnmount() {
+      document.removeEventListener('click', this.handleOutsideClick);
+    },
+    // unmounted() {},
+
     methods: {
-      onToggleSidebar(showMenu: boolean = false, showConfig: boolean = false, toggle: boolean = true) {
+      onToggleSidebar(showMenu: boolean = false, showConfig: boolean = false, isOpen: boolean = true) {
+        this.isOpen = isOpen;
         this.showMenu = showMenu;
         this.showConfig = showConfig;
-
-        if (toggle) {
-          this.isOpen = !this.isOpen;
-        }
-      },
-
-      /**
-       * Click handler for the open button.
-       */
-      onToggleMenu() {
-        if (!this.isOpen) {
-          this.onToggleSidebar(true, false);
-        } else if (this.isOpen && this.showConfig) {
-          this.onToggleSidebar(true, false, false);
-        } else {
-          this.onToggleSidebar();
-        }
-      },
-
-      /**
-       * Click handler for the open button.
-       */
-      onToggleConfig() {
-        if (!this.isOpen) {
-          this.onToggleSidebar(false, true);
-        } else if (this.isOpen && this.showMenu) {
-          this.onToggleSidebar(false, true, false);
-        } else {
-          this.onToggleSidebar();
-        }
-      },
-
-      /**
-       * Filters the routes by their title.
-       *
-       * @param routes - Array of type RouteRecordRaw to be filtered
-       * @param searchTerm - String (route.meta.title) to filter the routes by
-       * @returns - Array of type RouteRecordRaw filtered by the searchTerm
-       */
-      filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
-        const lowerCaseSearchTerm = searchTerm.toLowerCase();
-
-        return routes.reduce((filteredRoutes: RouteRecordRaw[], route) => {
-          const titleMatch = route.meta?.title?.toLowerCase().includes(lowerCaseSearchTerm);
-
-          if (titleMatch) {
-            // the route matches the search term
-            filteredRoutes.push(route);
-          } else if (route.children) {
-            // the parent route does not match the search term, but its children might
-            const matchingChildren = this.filterRoutesByTitle(route.children, searchTerm);
-
-            if (matchingChildren.length > 0) {
-              // a child route matches, add the parent route with the matching child routes
-              filteredRoutes.push({
-                ...route,
-                children: matchingChildren,
-              });
-            }
-          }
-
-          return filteredRoutes;
-        }, []);
       },
 
       onUpdateTheme(theme: string) {
         this.$emit('updateTheme', theme);
-      }
+      },
+
+      /**
+       * Hides the overlay if the user clicks somewhere else than inside the container.
+       */
+      handleOutsideClick(event: Event) {
+        if (!this.container?.contains(event.target as Node)) {
+          this.onToggleSidebar(false, false, false);
+        }
+      },
     },
+    // render() {},
   });
 </script>
 
@@ -227,9 +168,10 @@
 
   .c-vas-sidebar {
     $this: &;
-    $trigger-size: 40px;
+    $button-size: 40px;
+    $sidebar-width: 320px;
 
-    z-index: 1;
+    z-index: 999;
     position: fixed;
     height: 100vh;
     width: 0;
@@ -240,45 +182,39 @@
       #{$this}__wrapper {
         border-left: 10px solid variables.$color-grayscale--400;
         display: block;
-        width: 320px;
+        width: $sidebar-width;
       }
 
+      #{$this}__viewport,
       #{$this}__float-button {
         opacity: 1;
-        right: 310px;
-      }
-
-      #{$this}__viewport {
-        padding-right: variables.$spacing--20;
+        right: $sidebar-width - 10px;
       }
     }
 
     &__float-button {
       opacity: 0.2;
       position: absolute;
-      background-color: variables.$color-grayscale--1000;
-      width: $trigger-size;
-      height: $trigger-size;
+      width: $button-size;
+      height: $button-size;
       border: 1px solid variables.$color-grayscale--400;
       cursor: pointer;
       right: 0;
       bottom: 0;
       z-index: 2;
+      background-color: variables.$color-grayscale--1000;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: $button-size - 15px;
 
       &--menu {
         background-image: url('../assets/text.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: $trigger-size - 15px;
         bottom: 0;
       }
 
       &--config {
         background-image: url('../assets/cog-wheel.svg');
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: $trigger-size - 15px;
-        bottom: $trigger-size - 1px;
+        bottom: $button-size - 1px;
       }
 
       &--active {
@@ -302,12 +238,14 @@
       background-color: variables.$color-grayscale--1000;
       font-family: variables.$font-family--primary;
       z-index: 1;
+      padding: 12px;
     }
 
     &__header {
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 25px;
     }
 
     &__header-link {
@@ -328,47 +266,22 @@
     }
 
     &__viewport {
+      display: flex;
+      align-items: center;
+      gap: 5px;
       position: absolute;
-      left: 0;
-      display: block;
-      padding-right: variables.$spacing--10;
-      transform: translateX(-100%);
-      color: variables.$color-grayscale--1000;
-      text-shadow: 1px 1px 5px variables.$color-grayscale--0;
+      z-index: 2;
+      opacity: 0.2;
+      right: 0;
+      color: variables.$color-grayscale--0;
+      background: variables.$color-grayscale--400;
+      padding: 2px 10px;
     }
 
-    &__navigation {
-      min-width: 200px;
-      max-height: 100vh;
-      overflow: auto;
-    }
-
-    &__navigation-item {
-      &--components {
-        border-top: 1px solid variables.$color-grayscale--400;
-      }
-
-      &--language,
-      &--theme,
-      &--settings {
-        padding: variables.$spacing--10 variables.$spacing--20;
-        border-bottom: 1px solid variables.$color-grayscale--400;
-      }
-
-      &--active,
-      &--active-path {
-        font-weight: 700;
-      }
-    }
-
-    &__navigation-link {
-      display: block;
-      padding: variables.$spacing--10 variables.$spacing--20;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
+    &__section-header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
   }
 </style>

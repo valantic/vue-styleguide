@@ -1,25 +1,19 @@
 <template>
   <label>
     <span class="invisible">Theme</span>
-    <select
+    <e-vas-select
+      v-model="theme"
       :class="b()"
+      :options="options"
       @change="onChange"
-    >
-      <option
-        v-for="theme in themes"
-        :key="theme.id"
-        :value="theme.id"
-        :selected="theme.selected"
-      >
-        {{ theme.name }}
-      </option>
-    </select>
+    />
   </label>
 </template>
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import buildConfig from '../../vite.builds.json';
+  import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   export type Theme = {
     name: string;
@@ -34,7 +28,9 @@
   export default defineComponent({
     name: 'c-vas-theme-selector',
 
-    // components: {},
+    components: {
+      eVasSelect,
+    },
 
     props: {
       /**
@@ -67,38 +63,35 @@
     // },
 
     computed: {
-      /**
-       * Returns the currently active theme.
-       */
-      getTheme(): string {
-        return 'theme-01'; // TODO: This needs to be changed.
+      theme: {
+        get() {
+          return 'theme-01'; // TODO: This needs to be changed.
+        },
+        set(value: string) {
+          // TODO: we need to set the theme.
+        },
       },
 
-      /**
-       * Loops the themes and mark the selected by the global theme.
-       */
-      themes(): Theme[] {
-        const themes = this.availableThemes;
-        const activeTheme = this.getTheme;
-
-        return themes.map((theme) => ({
-          ...theme,
-          selected: theme.name === activeTheme,
+      options(): Options[] {
+        return this.availableThemes.map(theme => ({
+          value: theme.id,
+          label: theme.name
         }));
       },
-    },
+
+},
 
     watch: {
       /**
        * Watches for changes of the «theme» and sets or changes the stylesheet with the
        * custom theme css-variables
        */
-      getTheme: {
+      theme: {
         immediate: true,
         handler() {
           const cssId = 'themeStylesheet';
           const link = document.getElementById(cssId) as HTMLLinkElement;
-          const theme = this.getTheme;
+          const { theme } = this;
 
           if (!link) {
             this.createStyleElement(theme, cssId);

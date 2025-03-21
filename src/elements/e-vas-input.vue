@@ -8,6 +8,7 @@
       :name="name"
       :title="title"
       v-bind="$attrs"
+      :autofocus="autofocus"
       @blur="onBlur"
       @focus="onFocus"
       @input="onInput"
@@ -137,6 +138,14 @@
         type: Boolean,
         default: false,
       },
+
+      /**
+       * Set auto focus.
+       */
+      autofocus: {
+        type: Boolean,
+        default: false,
+      }
     },
 
     emits: {
@@ -519,7 +528,7 @@
         background: none;
       }
     }
-    
+
     &--type-hidden {
       display: none;
     }

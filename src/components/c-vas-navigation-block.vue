@@ -98,25 +98,33 @@
   @use '../setup/scss/variables';
 
   .c-vas-navigation-block {
-    min-width: 200px;
+    $padding: 20px;
+
     overflow: auto;
+    //margin: 0 ($padding * -1);
 
     &--has-indent {
-      padding-left: 20px;
+      padding-left: $padding;
+      margin: 0;
     }
 
     &__navigation-link {
       display: block;
-      padding: variables.$spacing--5 variables.$spacing--20;
+      padding: 5px;
       text-decoration: none;
 
       &:hover {
         text-decoration: underline;
+        background-color: variables.$color-grayscale--500;
       }
 
       &--active,
       &--active-path {
         font-weight: bold;
+      }
+
+      &--active {
+        background-color: variables.$color-grayscale--600;
       }
     }
   }

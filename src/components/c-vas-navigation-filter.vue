@@ -1,31 +1,30 @@
 <template>
-  <div :class="b('navigation-filter-wrapper')">
+  <div :class="b()">
     <e-vas-input
       v-model.trim="internalValue"
-      ref="searchInput"
-      :class="b('navigation-filter-input')"
+      :class="b('input')"
       name="filter"
       type="search"
       placeholder="Search …"
+      autofocus
       @click.stop
+    />
+    <button
+      v-if="internalValue"
+      :class="b('button-clear')"
+      type="button"
+      @click.stop="onReset"
     >
-      <button
-        v-if="internalValue"
-        :class="b('navigation-filter-icon', { reset: true })"
-        type="button"
-        @click.stop="onReset"
-      >
-        x
-      </button>
-    </e-vas-input>
+      <span :class="b('close-icon')"></span>
+    </button>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent, nextTick } from 'vue';
+  import { defineComponent } from 'vue';
   import eVasInput from '../elements/e-vas-input.vue';
 
-  // type Setup = {};
+  // typ;
   // type Data = {};
 
   export default defineComponent({
@@ -43,13 +42,6 @@
       modelValue: {
         type: String,
         default: '',
-      },
-      /**
-       * Indicates if the navigation bar is open.
-       */
-      isOpen: {
-        type: Boolean,
-        default: false,
       },
     },
     emits: {
@@ -77,15 +69,7 @@
         },
       },
     },
-    watch: {
-      isOpen(newVal) {
-        if (newVal && this.internalValue) {
-          nextTick(() => {
-            (this.$refs.searchInput as HTMLInputElement)?.focus();
-          });
-        }
-      },
-    },
+    // watch: {},
 
     // beforeCreate() {},
     // created() {},
@@ -112,29 +96,33 @@
   @use '../setup/scss/variables';
 
   .c-vas-navigation-filter {
-    &__navigation-filter-wrapper {
+    position: relative;
+
+    &__input {
+      width: 100%;
+      padding: 10px 20px 10px 10px;
       position: relative;
     }
 
-    &__navigation-filter-icon {
+    &__button-clear {
       position: absolute;
-      top: 12px;
-      right: 8px;
+      top: 0;
+      right: 1px;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: variables.$color-primary--2;
-
-      &--reset {
-        cursor: pointer;
-        color: variables.$color-primary--1;
-      }
+      cursor: pointer;
+      height: 30px;
     }
 
-    &__navigation-filter-input {
-      width: 100%;
-      margin-top: variables.$spacing--10;
-      padding: variables.$spacing--10;
+    &__close-icon {
+      width: 20px;
+      height: 20px;
+      background-color: var(--theme-color-grayscale--1000);
+      background-image: url('../assets/close.svg');
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: center;
     }
   }
 </style>

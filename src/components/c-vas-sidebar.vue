@@ -5,14 +5,14 @@
     </div>
 
     <button
-      :class="b('float-button', { menu: true, active: showMenu })"
+      :class="b('float-button', { menu: true, active: showMenu && isOpen })"
       type="button"
       @click="onToggleSidebar(true)"
     >
       <span></span>
     </button>
     <button
-      :class="b('float-button', { config: true, active: showConfig })"
+      :class="b('float-button', { config: true, active: showConfig && isOpen })"
       type="button"
       @click="onToggleSidebar(false, true)"
     >
@@ -35,6 +35,19 @@
           <span :class="b('header-slogan')">Styleguide</span>
         </a>
       </div>
+      <ul :class="b('tabs')">
+        <li
+          :class="b('tab-item', { active: showMenu })"
+          @click="onToggleSidebar(true)">
+          <span :class="b('tab-item-icon', { menu: true })"></span>
+        </li>
+        <li
+          :class="b('tab-item', { active: showConfig })"
+          @click="onToggleSidebar(false, true)"
+        >
+          <span :class="b('tab-item-icon', { config: true })"></span>
+        </li>
+      </ul>
 
       <section v-if="showMenu">
         <div :class="b('section-header')">Menu</div>
@@ -129,13 +142,16 @@
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    // mounted() {},
+    mounted() {
+      window.addEventListener('keydown', this.handleHotKeys);
+    },
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
     // deactivated() {},
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
+      window.removeEventListener('keydown', this.handleHotKeys);
     },
     // unmounted() {},
 
@@ -158,6 +174,14 @@
           this.onToggleSidebar(false, false, false);
         }
       },
+
+      handleHotKeys(event: Event) {
+        // Check if both Control and O keys are pressed
+        if (event.ctrlKey && event.key === 'o') {
+          event.preventDefault();
+          this.onToggleSidebar(true, false, !this.isOpen);
+        }
+      }
     },
     // render() {},
   });
@@ -282,6 +306,51 @@
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 10px;
+    }
+
+    &__tabs {
+      display: flex;
+      border-bottom: 1px solid variables.$color-grayscale--400;
+      margin-bottom: 10px;
+    }
+
+    &__tab-item {
+      display: flex;
+      align-items: center;
+      padding: 3px 6px;
+      border: 1px solid variables.$color-grayscale--400;
+      border-bottom: 0;
+      cursor: pointer;
+      gap: 5px;
+
+      &--active {
+        background-color: variables.$color-grayscale--400;
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: variables.$color-grayscale--500;
+        opacity: 0.9;
+      }
+    }
+
+    &__tab-item-icon {
+      $icon-size: 17px;
+
+      display: block;
+      width: $icon-size;
+      height: $icon-size;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: $icon-size;
+
+      &--menu {
+        background-image: url('../assets/text.svg');
+      }
+
+      &--config {
+        background-image: url('../assets/cog-wheel.svg');
+      }
     }
   }
 </style>

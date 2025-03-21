@@ -36,8 +36,8 @@
   import { defineComponent, PropType } from 'vue';
   import cVasLanguage from './c-vas-language.vue';
   import cVasThemeSelector, { Theme } from './c-vas-theme-selector.vue';
-  import eVasToggle from '@/elements/e-vas-toggle.vue';
-  import cVasHtmlValidation from '@/components/c-vas-html-validation.vue';
+  import eVasToggle from '../elements/e-vas-toggle.vue';
+  import cVasHtmlValidation from './c-vas-html-validation.vue';
 
   // type Setup = {};
   type Data = {

@@ -1,4 +1,4 @@
-import scrollbarWidth from '@/helpers/scrollbar-width';
+import scrollbarWidth from './scrollbar-width';
 
 /**
  * Sets a max-width to the header and l-default wrapper so the hidden scrollbar will not cause content resizing.

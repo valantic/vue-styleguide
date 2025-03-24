@@ -80,8 +80,8 @@
   // Define #app styles in setup/scss/_globals.scss
   // stylelint-disable selector-class-pattern
   .styleguide {
-    max-width: map.get(variables.$breakpoints, xl);
+    max-width: map.get(variables.$vas-breakpoints, xl);
     margin: 0 auto;
-    padding: variables.$spacing--30;
+    padding: variables.$vas-spacing--30;
   }
 </style>

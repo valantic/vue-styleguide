@@ -153,7 +153,7 @@
     $this: &;
     $e-vas-radio--label-size: 18px;
 
-    font-size: variables.$font-size--16;
+    font-size: variables.$vas-font-size--16;
     position: relative;
     display: block;
     cursor: pointer;
@@ -167,14 +167,14 @@
     &__label {
       display: block;
       margin: 0;
-      padding-left: variables.$spacing--25;
+      padding-left: variables.$vas-spacing--25;
       padding-top: 2px;
 
       &:hover {
-        color: variables.$color-grayscale--0;
+        color: variables.$vas-color-grayscale--0;
 
         &::before {
-          border-color: variables.$color-grayscale--0;
+          border-color: variables.$vas-color-grayscale--0;
         }
       }
 
@@ -190,20 +190,20 @@
       }
 
       &::before {
-        border: 1px solid variables.$color-grayscale--400;
+        border: 1px solid variables.$vas-color-grayscale--400;
       }
 
       &::after {
         opacity: 0;
         border: 1px solid transparent;
-        background: variables.$color-grayscale--0;
+        background: variables.$vas-color-grayscale--0;
         transform: scale(0);
         transition: transform 0.1s ease-in-out;
       }
     }
 
     &__field:checked + &__label {
-      color: variables.$color-grayscale--0;
+      color: variables.$vas-color-grayscale--0;
 
       &::after {
         opacity: 1;
@@ -213,10 +213,10 @@
 
     &__field:disabled + &__label {
       cursor: not-allowed;
-      color: variables.$color-grayscale--400;
+      color: variables.$vas-color-grayscale--400;
 
       &::before {
-        border-color: variables.$color-grayscale--500;
+        border-color: variables.$vas-color-grayscale--500;
       }
     }
 
@@ -224,7 +224,7 @@
       cursor: not-allowed;
 
       &::after {
-        background: variables.$color-grayscale--500;
+        background: variables.$vas-color-grayscale--500;
       }
     }
   }

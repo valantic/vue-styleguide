@@ -198,7 +198,7 @@
       width: 100%;
       padding: 8px;
       outline: none;
-      border: 1px solid variables.$color-grayscale--500;
+      border: 1px solid variables.$vas-color-grayscale--500;
       border-radius: 3px;
       cursor: pointer;
       appearance: none;
@@ -216,14 +216,14 @@
     &__icon-wrapper {
       position: absolute;
       top: 50%;
-      right: variables.$spacing--5;
+      right: variables.$vas-spacing--5;
       transform: translateY(-50%);
     }
-    
+
     // hover
     &__select:hover,
     &--hover &__select {
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
     }
 
     // focus
@@ -236,9 +236,9 @@
     &__select:disabled,
     &--disabled &__select,
     &--disabled &__select:hover {
-      border-color: variables.$color-grayscale--600;
+      border-color: variables.$vas-color-grayscale--600;
       cursor: default;
-      color: variables.$color-grayscale--400;
+      color: variables.$vas-color-grayscale--400;
     }
 
     &__progress-container {

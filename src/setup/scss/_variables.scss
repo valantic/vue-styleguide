@@ -1,6 +1,56 @@
-@forward 'variables/breakpoints';
-@forward 'variables/color';
-@forward 'variables/spacing';
-@forward 'variables/font';
-@forward 'variables/z-index';
-@forward 'variables/transitions';
+// --- Breakpoints
+$vas-breakpoints: (
+  xxs: 0,
+  xs: 480px,
+  sm: 768px,
+  md: 1024px,
+  lg: 1200px,
+  xl: 1440px
+);
+
+// --- Colors
+$vas-color-grayscale--0: #222222;
+$vas-color-grayscale--100: #333333;
+$vas-color-grayscale--200: #646464;
+$vas-color-grayscale--300: #8f8f8f;
+$vas-color-grayscale--400: #afafaf;
+$vas-color-grayscale--500: #d8d8d8;
+$vas-color-grayscale--600: #f3f3f3;
+$vas-color-grayscale--700: #fcfcfc;
+$vas-color-grayscale--1000: #ffffff;
+
+$vas-color-status--error: #ff0000;
+
+// --- Font
+// Font families
+$vas-font-family--primary: Arial, Helvetia, Arial, sans-serif;
+
+// Font weight
+$vas-font-weight--regular: 400;
+$vas-font-weight--semi-bold: 600;
+$vas-font-weight--bold: 700;
+
+// Font size
+$vas-font-size--12: 12px;
+$vas-font-size--14: 14px;
+$vas-font-size--16: 16px;
+$vas-font-size--18: 18px;
+$vas-font-size--24: 24px;
+$vas-font-size--30: 30px;
+
+// --- Spacings
+$vas-spacing--5: 5px;
+$vas-spacing--10: 10px;
+$vas-spacing--15: 15px;
+$vas-spacing--20: 20px;
+$vas-spacing--25: 25px;
+$vas-spacing--30: 30px;
+
+// --- transition
+$vas-transition-duration--default: 300ms;
+
+// --- Form
+$vas-form-field-padding: 8px;
+$vas-form-border-radius: 3px;
+$vas-form-border-color: $vas-color-grayscale--500;
+$vas-form-border-color--hover: $vas-color-grayscale--400;

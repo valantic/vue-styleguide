@@ -90,15 +90,15 @@
     $this: &;
     $e-vas-toggle-size: 18px;
 
-    --e-vas-toggle-background-color: #{variables.$color-grayscale--500};
-    --e-vas-toggle-toggle-color: #{variables.$color-grayscale--0};
-    
+    --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--500};
+    --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--0};
+
     display: flex;
     justify-content: space-between;
 
     &--active {
-      --e-vas-toggle-background-color: #{variables.$color-grayscale--0};
-      --e-vas-toggle-toggle-color: #{variables.$color-grayscale--1000};
+      --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--0};
+      --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--1000};
     }
 
     &__slider {
@@ -109,7 +109,7 @@
       border-radius: $e-vas-toggle-size;
       background-color: var(--e-vas-toggle-background-color);
       cursor: pointer;
-      transition: variables.$transition-duration--300;
+      transition: variables.$vas-transition-duration--default;
 
       &::before {
         position: absolute;
@@ -120,7 +120,7 @@
         height: 0.8 * $e-vas-toggle-size;
         border-radius: 50%;
         background-color: var(--e-vas-toggle-toggle-color);
-        transition: variables.$transition-duration--300;
+        transition: variables.$vas-transition-duration--default;
       }
     }
 

@@ -286,16 +286,16 @@
   @use '../setup/scss/variables';
 
   .e-vas-button {
-    --e-vas-button-font-color: #{variables.$color-grayscale--0};
-    --e-vas-button-border-color: #{variables.$color-grayscale--0};
-    --e-vas-button-background-color: #{variables.$color-grayscale--700};
+    --e-vas-button-font-color: #{variables.$vas-color-grayscale--0};
+    --e-vas-button-border-color: #{variables.$vas-color-grayscale--0};
+    --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
 
-    font-size: variables.$font-size--16;
+    font-size: variables.$vas-font-size--16;
     position: relative;
     display: inline-block;
-    padding: variables.$form-field-padding (variables.$form-field-padding * 3);
+    padding: variables.$vas-form-field-padding (variables.$vas-form-field-padding * 3);
     outline: none;
-    border-radius: variables.$form-border-radius;
+    border-radius: variables.$vas-form-border-radius;
     cursor: pointer;
     text-align: center;
     background-color: var(--e-vas-button-background-color);
@@ -308,22 +308,22 @@
 
     &--focus,
     &:focus {
-      --e-vas-button-border-color: #{variables.$color-grayscale--700};
-      --e-vas-button-background-color: #{variables.$color-grayscale--600};
+      --e-vas-button-border-color: #{variables.$vas-color-grayscale--700};
+      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
 
       outline: none;
     }
 
     &:active:not([disabled]),
     &--active:not([disabled]) {
-      --e-vas-button-background-color: #{variables.$color-grayscale--600};
+      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
 
       position: relative;
     }
 
     &--hover:not(&--touch),
     &:hover:not(&--touch) {
-      --e-vas-button-background-color: #{variables.$color-grayscale--600};
+      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
     }
 
     &--focus path,
@@ -366,20 +366,20 @@
   }
 
   .e-vas-button--primary {
-    --e-vas-button-font-color: #{variables.$color-grayscale--1000};
-    --e-vas-button-border-color: #{variables.$color-grayscale--0};
-    --e-vas-button-background-color: #{variables.$color-grayscale--0};
+    --e-vas-button-font-color: #{variables.$vas-color-grayscale--1000};
+    --e-vas-button-border-color: #{variables.$vas-color-grayscale--0};
+    --e-vas-button-background-color: #{variables.$vas-color-grayscale--0};
 
     &.e-vas-button:hover:not(.e-vas-button--touch),
     &.e-vas-button--hover:not(.e-vas-button--touch) {
-      --e-vas-button-border-color: #{variables.$color-grayscale--100};
-      --e-vas-button-background-color: #{variables.$color-grayscale--100};
+      --e-vas-button-border-color: #{variables.$vas-color-grayscale--100};
+      --e-vas-button-background-color: #{variables.$vas-color-grayscale--100};
     }
 
     &.e-vas-button:active:not([disabled]),
     &.e-vas-button--active:not([disabled]) {
-      --e-vas-button-border-color: #{variables.$color-grayscale--100};
-      --e-vas-button-background-color: #{variables.$color-grayscale--100};
+      --e-vas-button-border-color: #{variables.$vas-color-grayscale--100};
+      --e-vas-button-background-color: #{variables.$vas-color-grayscale--100};
     }
   }
 </style>

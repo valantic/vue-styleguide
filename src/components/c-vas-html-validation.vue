@@ -76,17 +76,17 @@
 
   .c-vas-html-validation--enabled {
     @mixin html-validator-warning($message: '') {
-      outline: 5px solid variables.$color-status--error;
+      outline: 5px solid variables.$vas-color-status--error;
 
       &::before {
         position: absolute;
         z-index: 1000;
         content: $message;
         max-width: 200px;
-        padding: 2px variables.$spacing--5;
-        border: 1px solid variables.$color-status--error;
-        background: color.adjust(variables.$color-status--error, $lightness: 40%);
-        color: variables.$color-grayscale--0;
+        padding: 2px variables.$vas-spacing--5;
+        border: 1px solid variables.$vas-color-status--error;
+        background: color.adjust(variables.$vas-color-status--error, $lightness: 40%);
+        color: variables.$vas-color-grayscale--0;
         font-size: 0.8rem;
       }
     }

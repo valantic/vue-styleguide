@@ -209,7 +209,7 @@
 
     &--open {
       #{$this}__wrapper {
-        border-left: 10px solid variables.$color-grayscale--400;
+        border-left: 10px solid variables.$vas-color-grayscale--400;
         display: block;
         width: $c-vas-sidebar--sidebar-width;
       }
@@ -226,12 +226,12 @@
       position: absolute;
       width: $c-vas-sidebar--button-size;
       height: $c-vas-sidebar--button-size;
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
       cursor: pointer;
       right: 0;
       bottom: 0;
       z-index: 2;
-      background-color: variables.$color-grayscale--1000;
+      background-color: variables.$vas-color-grayscale--1000;
       background-repeat: no-repeat;
       background-position: center;
       background-size: $c-vas-sidebar--button-size - 15px;
@@ -247,12 +247,12 @@
       }
 
       &--active {
-        background-color: variables.$color-grayscale--400;
+        background-color: variables.$vas-color-grayscale--400;
         opacity: 1;
       }
 
       &:hover {
-        background-color: variables.$color-grayscale--500;
+        background-color: variables.$vas-color-grayscale--500;
         opacity: 0.9;
       }
     }
@@ -264,8 +264,8 @@
       bottom: 0;
       width: 0;
       height: 100%;
-      background-color: variables.$color-grayscale--1000;
-      font-family: variables.$font-family--primary;
+      background-color: variables.$vas-color-grayscale--1000;
+      font-family: variables.$vas-font-family--primary;
       z-index: 1;
       padding: 12px;
     }
@@ -292,7 +292,7 @@
       bottom: 0;
       left: 0;
       font-size: 10px;
-      color: variables.$color-grayscale--0;
+      color: variables.$vas-color-grayscale--0;
     }
 
     &__viewport {
@@ -303,8 +303,8 @@
       z-index: 2;
       opacity: 0.2;
       right: 0;
-      color: variables.$color-grayscale--0;
-      background: variables.$color-grayscale--400;
+      color: variables.$vas-color-grayscale--0;
+      background: variables.$vas-color-grayscale--400;
       padding: 2px 10px;
     }
 
@@ -316,7 +316,7 @@
 
     &__tabs {
       display: flex;
-      border-bottom: 1px solid variables.$color-grayscale--400;
+      border-bottom: 1px solid variables.$vas-color-grayscale--400;
       margin-bottom: 10px;
     }
 
@@ -324,18 +324,18 @@
       display: flex;
       align-items: center;
       padding: 3px 6px;
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
       border-bottom: 0;
       cursor: pointer;
       gap: 5px;
 
       &--active {
-        background-color: variables.$color-grayscale--400;
+        background-color: variables.$vas-color-grayscale--400;
         opacity: 1;
       }
 
       &:hover {
-        background-color: variables.$color-grayscale--500;
+        background-color: variables.$vas-color-grayscale--500;
         opacity: 0.9;
       }
     }

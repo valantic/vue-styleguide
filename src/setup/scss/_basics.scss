@@ -10,8 +10,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
-  background-color: variables.$color-grayscale--1000;
-  font-family: variables.$font-family--primary;
+  background-color: variables.$vas-color-grayscale--1000;
+  font-family: variables.$vas-font-family--primary;
 
   h1 {
     @include mixins.heading-h1();
@@ -38,14 +38,14 @@
   }
 
   p {
-    @include mixins.font(variables.$font-size--14);
+    @include mixins.font(variables.$vas-font-size--14);
   }
 
   a {
-    color: variables.$color-grayscale--0;
+    color: variables.$vas-color-grayscale--0;
 
     &:hover {
-      color: variables.$color-grayscale--0;
+      color: variables.$vas-color-grayscale--0;
     }
   }
 

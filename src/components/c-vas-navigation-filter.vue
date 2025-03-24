@@ -118,7 +118,7 @@
     &__close-icon {
       width: 20px;
       height: 20px;
-      background-color: variables.$color-grayscale--1000;
+      background-color: variables.$vas-color-grayscale--1000;
       background-image: url('../assets/close.svg');
       background-size: 12px;
       background-repeat: no-repeat;

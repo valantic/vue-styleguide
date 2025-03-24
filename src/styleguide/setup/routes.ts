@@ -1,5 +1,5 @@
 import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
-import rReadme from '../demo-pages/r-index.vue';
+import rReadme from '../demo-pages/r-readme.vue';
 import rElements from '../demo-pages/r-elements.vue';
 
 declare module 'vue-router' {

@@ -15,7 +15,7 @@
   // type Data = {};
 
   export default defineComponent({
-    name: 'r-index',
+    name: 'r-readme',
     components: {
       lVasLayout,
       cVasReadme

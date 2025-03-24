@@ -326,14 +326,14 @@
 
     // input
     &__field {
-      font-size: variables.$font-size--16;
+      font-size: variables.$vas-font-size--16;
       position: relative;
       width: 100%;
-      padding: variables.$form-field-padding;
-      border: 1px solid variables.$color-grayscale--500;
-      border-radius: variables.$form-border-radius;
-      color: variables.$color-grayscale--0;
-      font-family: variables.$font-family--primary;
+      padding: variables.$vas-form-field-padding;
+      border: 1px solid variables.$vas-color-grayscale--500;
+      border-radius: variables.$vas-form-border-radius;
+      color: variables.$vas-color-grayscale--0;
+      font-family: variables.$vas-font-family--primary;
 
       // disable iPhone styling
       -webkit-appearance: none;
@@ -362,53 +362,53 @@
     &__field::-webkit-input-placeholder {
       // WebKit, Blink, Edge
       opacity: 1;
-      color: variables.$color-grayscale--400;
-      font-family: variables.$font-family--primary;
+      color: variables.$vas-color-grayscale--400;
+      font-family: variables.$vas-font-family--primary;
     }
 
     &__field:-moz-placeholder {
       // Mozilla Firefox 4 to 18
       opacity: 1;
-      color: variables.$color-grayscale--400;
-      font-family: variables.$font-family--primary;
+      color: variables.$vas-color-grayscale--400;
+      font-family: variables.$vas-font-family--primary;
     }
 
     &__field::placeholder {
       // Most modern browsers support this now
       opacity: 1;
-      color: variables.$color-grayscale--400;
-      font-family: variables.$font-family--primary;
+      color: variables.$vas-color-grayscale--400;
+      font-family: variables.$vas-font-family--primary;
     }
 
     &__fixed-label {
-      font-size: variables.$font-size--14;
+      font-size: variables.$vas-font-size--14;
       position: absolute;
       top: 50%;
-      left: variables.$spacing--5;
+      left: variables.$vas-spacing--5;
       display: flex;
       transform: translateY(-50%);
-      color: variables.$color-grayscale--400;
+      color: variables.$vas-color-grayscale--400;
     }
 
     &__slot-wrapper {
       position: absolute;
       top: 50%;
-      right: variables.$spacing--5;
+      right: variables.$vas-spacing--5;
       display: flex;
       transform: translateY(-50%);
       pointer-events: none;
     }
 
     &__slot {
-      font-size: variables.$font-size--14;
+      font-size: variables.$vas-font-size--14;
       display: flex;
-      color: variables.$color-grayscale--400;
+      color: variables.$vas-color-grayscale--400;
     }
 
     // active
     &:not(&--border-0) &__field:active,
     &--active:not(&--border-0) &__field {
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
     }
 
     // focus
@@ -419,13 +419,13 @@
 
     &:not(&--border-0) &__field:focus,
     &--focus:not(&--border-0) &__field {
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
     }
 
     // hover
     &:not(&--border-0) &__field:hover,
     &--hover:not(&--border-0) &__field {
-      border: 1px solid variables.$color-grayscale--400;
+      border: 1px solid variables.$vas-color-grayscale--400;
     }
 
     // disabled
@@ -435,18 +435,18 @@
     &--disabled:not(&--border-0) &__field,
     &--disabled &__field:hover,
     &--disabled:not(&--border-0) &__field:hover {
-      border-color: variables.$color-grayscale--600;
-      background-color: variables.$color-grayscale--1000;
-      color: variables.$color-grayscale--400;
+      border-color: variables.$vas-color-grayscale--600;
+      background-color: variables.$vas-color-grayscale--1000;
+      color: variables.$vas-color-grayscale--400;
 
       &::placeholder {
-        color: variables.$color-grayscale--400;
+        color: variables.$vas-color-grayscale--400;
       }
     }
 
     &--disabled {
       #{$this}__slot {
-        color: variables.$color-grayscale--300;
+        color: variables.$vas-color-grayscale--300;
       }
     }
 

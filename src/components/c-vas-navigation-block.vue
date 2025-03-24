@@ -111,7 +111,7 @@
       text-decoration: none;
 
       &:hover {
-        background-color: variables.$color-grayscale--500;
+        background-color: variables.$vas-color-grayscale--500;
       }
 
       &--active,
@@ -120,7 +120,7 @@
       }
 
       &--active {
-        background-color: variables.$color-grayscale--600;
+        background-color: variables.$vas-color-grayscale--600;
       }
     }
   }

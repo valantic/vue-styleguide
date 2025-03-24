@@ -66,8 +66,8 @@
   Description: Github README style. Includes theme for Pygmentized code blocks.
   */
   .c-vas-readme {
-    color: variables.$color-grayscale--0;
-    background: variables.$color-grayscale--1000;
+    color: variables.$vas-color-grayscale--0;
+    background: variables.$vas-color-grayscale--1000;
     border-radius: 3px;
 
     > * {
@@ -112,7 +112,7 @@
         }
       }
       &.footnote {
-        font-size: variables.$font-size--14;
+        font-size: variables.$vas-font-size--14;
         height: 0;
         line-height: 1;
         vertical-align: super;
@@ -229,7 +229,7 @@
       }
     }
     pre {
-      font-size: variables.$font-size--14;
+      font-size: variables.$vas-font-size--14;
       background-color: #f8f8f8;
       border: 1px solid #ccc;
       line-height: 19px;
@@ -259,7 +259,7 @@
       list-style: disc;
 
       li + li {
-        margin-top: variables.$spacing--10;
+        margin-top: variables.$vas-spacing--10;
       }
     }
     ol {
@@ -267,7 +267,7 @@
       list-style: decimal;
 
       li + li {
-        margin-top: variables.$spacing--10;
+        margin-top: variables.$vas-spacing--10;
       }
     }
     hr {
@@ -313,7 +313,7 @@
     dl {
       padding: 0;
       dt {
-        font-size: variables.$font-size--14;
+        font-size: variables.$vas-font-size--14;
         font-weight: bold;
         font-style: italic;
         padding: 0;
@@ -360,7 +360,7 @@
     }
 
     tt {
-      font-size: variables.$font-size--12;
+      font-size: variables.$vas-font-size--12;
       margin: 0 2px;
       padding: 0 5px;
       white-space: nowrap;
@@ -374,7 +374,7 @@
 
     .highlight {
       pre {
-        font-size: variables.$font-size--12;
+        font-size: variables.$vas-font-size--12;
         background-color: #f8f8f8;
         border: 1px solid #ccc;
         line-height: 19px;
@@ -585,14 +585,14 @@
       }
     }
     sup {
-      font-size: variables.$font-size--14;
+      font-size: variables.$vas-font-size--14;
       height: 0;
       line-height: 1;
       vertical-align: super;
       position: relative;
     }
     sub {
-      font-size: variables.$font-size--14;
+      font-size: variables.$vas-font-size--14;
       height: 0;
       line-height: 1;
       position: relative;

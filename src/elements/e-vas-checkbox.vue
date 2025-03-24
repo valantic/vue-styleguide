@@ -182,7 +182,7 @@
     $e-vas-checkbox--label-size: 20px;
     $e-vas-checkbox--toggle-size: 1rem;
 
-    font-size: variables.$font-size--16;
+    font-size: variables.$vas-font-size--16;
     position: relative;
     display: block;
     cursor: pointer;
@@ -205,9 +205,9 @@
         align-items: center;
         width: $e-vas-checkbox--label-size;
         height: $e-vas-checkbox--label-size;
-        border: 1px solid variables.$form-border-color;
-        border-radius: variables.$form-border-radius;
-        background: variables.$color-grayscale--1000;
+        border: 1px solid variables.$vas-form-border-color;
+        border-radius: variables.$vas-form-border-radius;
+        background: variables.$vas-color-grayscale--1000;
 
         &::before {
           content: '';
@@ -216,7 +216,7 @@
           opacity: 0;
           border: 1px solid transparent;
           border-radius: 3px;
-          background: variables.$color-grayscale--0;
+          background: variables.$vas-color-grayscale--0;
           transform: scale(0);
           transition-timing-function: ease-in-out;
           transition-duration: 100ms;
@@ -244,8 +244,8 @@
         height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
         margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
         border-radius: $e-vas-checkbox--toggle-size;
-        background-color: variables.$color-grayscale--500;
-        transition: background-color variables.$transition-duration--300;
+        background-color: variables.$vas-color-grayscale--500;
+        transition: background-color variables.$vas-transition-duration--default;
 
         &::before {
           position: absolute;
@@ -255,10 +255,10 @@
           width: $e-vas-checkbox--toggle-size;
           height: $e-vas-checkbox--toggle-size;
           border-radius: 50%;
-          background-color: variables.$color-grayscale--1000;
-          box-shadow: 0 1px 2px 1px rgba(variables.$color-grayscale--0, 0.2);
+          background-color: variables.$vas-color-grayscale--1000;
+          box-shadow: 0 1px 2px 1px rgba(variables.$vas-color-grayscale--0, 0.2);
           transform: translateY(-50%);
-          transition: left variables.$transition-duration--300;
+          transition: left variables.$vas-transition-duration--default;
         }
       }
 
@@ -266,7 +266,7 @@
         &:checked ~ #{$this}__indicator {
           &::before {
             left: calc(100% - (#{$e-vas-checkbox--toggle-size} / 2));
-            background-color: variables.$color-grayscale--0;
+            background-color: variables.$vas-color-grayscale--0;
             transform: translateY(-50%);
           }
         }
@@ -276,46 +276,46 @@
     &__label-text {
       display: block;
       margin: 0;
-      padding-left: variables.$spacing--10;
+      padding-left: variables.$vas-spacing--10;
 
       &:hover {
-        color: variables.$color-grayscale--0;
+        color: variables.$vas-color-grayscale--0;
 
         &::before {
-          border-color: variables.$color-grayscale--0;
+          border-color: variables.$vas-color-grayscale--0;
         }
       }
     }
 
     &__field:checked {
       ~ #{$this}__label-text {
-        color: variables.$color-grayscale--0;
+        color: variables.$vas-color-grayscale--0;
       }
     }
 
     &__field:checked:disabled {
       ~ #{$this}__indicator {
-        border-color: variables.$color-grayscale--500;
+        border-color: variables.$vas-color-grayscale--500;
       }
 
       ~ #{$this}__indicator:before {
-        background: variables.$color-grayscale--500;
+        background: variables.$vas-color-grayscale--500;
         cursor: not-allowed;
       }
     }
 
     &__field:disabled {
       ~ #{$this}__indicator {
-        border-color: variables.$color-grayscale--500;
+        border-color: variables.$vas-color-grayscale--500;
         cursor: not-allowed;
       }
 
       ~ #{$this}__label-text {
         cursor: not-allowed;
-        color: variables.$color-grayscale--400;
+        color: variables.$vas-color-grayscale--400;
 
         &::before {
-          border-color: variables.$color-grayscale--500;
+          border-color: variables.$vas-color-grayscale--500;
         }
       }
     }

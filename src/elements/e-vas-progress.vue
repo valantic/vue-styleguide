@@ -143,9 +143,9 @@
       display: block;
       width: 0.6em;
       height: 0.6em;
-      margin: variables.$spacing--5 auto 0;
+      margin: variables.$vas-spacing--5 auto 0;
       border-radius: 50%;
-      background-color: variables.$color-grayscale--0;
+      background-color: variables.$vas-color-grayscale--0;
       animation: e-progress-rotation-animation $e-vas-progress--animation-duration linear infinite;
 
       &:nth-child(1) {
@@ -164,7 +164,7 @@
 
   .e-vas-progress--negative {
     .e-vas-progress__bubble {
-      background-color: variables.$color-grayscale--1000;
+      background-color: variables.$vas-color-grayscale--1000;
     }
   }
 </style>

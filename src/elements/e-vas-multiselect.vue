@@ -362,10 +362,10 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: variables.$form-field-padding;
-      border: 1px solid variables.$form-border-color;
-      border-radius: variables.$form-border-radius;
-      background-color: variables.$color-grayscale--1000;
+      padding: variables.$vas-form-field-padding;
+      border: 1px solid variables.$vas-form-border-color;
+      border-radius: variables.$vas-form-border-radius;
+      background-color: variables.$vas-color-grayscale--1000;
       cursor: pointer;
 
       &:focus {
@@ -376,11 +376,11 @@
     // hover
     &__field-wrapper:hover,
     &--hover &__field-wrapper {
-      border-color: variables.$form-border-color--hover;
+      border-color: variables.$vas-form-border-color--hover;
     }
 
     &__field-wrapper--open {
-      border-color: variables.$color-grayscale--400;
+      border-color: variables.$vas-color-grayscale--400;
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
 
@@ -389,12 +389,12 @@
       }
 
       + #{$this}__options-wrapper {
-        border-color: variables.$color-grayscale--400;
+        border-color: variables.$vas-color-grayscale--400;
       }
     }
 
     &__field-wrapper--disabled {
-      color: variables.$color-grayscale--500;
+      color: variables.$vas-color-grayscale--500;
       pointer-events: none;
     }
 
@@ -416,11 +416,11 @@
       width: 100%;
       max-height: 300px;
       overflow: auto;
-      border: 1px solid variables.$form-border-color;
+      border: 1px solid variables.$vas-form-border-color;
       border-top: 0;
-      background-color: variables.$color-grayscale--1000;
+      background-color: variables.$vas-color-grayscale--1000;
       transform-origin: top;
-      padding-top: variables.$form-field-padding;
+      padding-top: variables.$vas-form-field-padding;
     }
 
     &__options-list {
@@ -428,7 +428,7 @@
     }
 
     &__options-item {
-      padding: math.div(variables.$form-field-padding, 2) variables.$form-field-padding;
+      padding: math.div(variables.$vas-form-field-padding, 2) variables.$vas-form-field-padding;
     }
 
     &__progress-wrapper {
@@ -444,11 +444,11 @@
 
     &__search-field {
       width: 100%;
-      padding: variables.$form-field-padding;
+      padding: variables.$vas-form-field-padding;
       outline: none;
-      border: 1px solid variables.$form-border-color;
-      border-top-left-radius: variables.$form-border-radius;
-      border-top-right-radius: variables.$form-border-radius;
+      border: 1px solid variables.$vas-form-border-color;
+      border-top-left-radius: variables.$vas-form-border-radius;
+      border-top-right-radius: variables.$vas-form-border-radius;
     }
   }
 </style>

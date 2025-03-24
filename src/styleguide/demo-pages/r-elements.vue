@@ -61,7 +61,7 @@
   import eVasMultiselect from '../../elements/e-vas-multiselect.vue';
   import eVasToggle from '../../elements/e-vas-toggle.vue';
   import eVasRadio from '../../elements/e-vas-radio.vue';
-  import eVasProgress from '@/elements/e-vas-progress.vue';
+  import eVasProgress from '../../elements/e-vas-progress.vue';
 
   // type Setup = {};
   // type Data = {};

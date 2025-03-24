@@ -87,12 +87,12 @@
   @use '../setup/scss/variables';
 
   .e-vas-toggle {
-    --e-vas-toggle-background-color: #{variables.$color-grayscale--500};
-    --e-vas-toggle-toggle-color: #{variables.$color-grayscale--0};
-
     $this: &;
     $e-vas-toggle-size: 18px;
 
+    --e-vas-toggle-background-color: #{variables.$color-grayscale--500};
+    --e-vas-toggle-toggle-color: #{variables.$color-grayscale--0};
+    
     display: flex;
     justify-content: space-between;
 

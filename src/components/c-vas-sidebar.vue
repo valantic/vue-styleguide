@@ -69,9 +69,14 @@
 <script lang="ts">
   import { defineComponent, PropType, Ref, ref } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { Theme } from '../compositions/themes';
+  import { Theme } from './c-vas-theme-selector.vue';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
   import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
+
+  type KeyEvent = Event & {
+    ctrlKey: boolean;
+    key: string;
+  };
 
   type Setup = {
     container: Ref<HTMLDivElement | null | undefined>;
@@ -175,7 +180,7 @@
         }
       },
 
-      handleHotKeys(event: Event) {
+      handleHotKeys(event: KeyEvent) {
         // Check if both Control and O keys are pressed
         if (event.ctrlKey && event.key === 'o') {
           event.preventDefault();

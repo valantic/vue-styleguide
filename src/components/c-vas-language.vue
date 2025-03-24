@@ -58,6 +58,7 @@
         },
         set(value: string) {
           // TODO: we need to set the locale.
+          console.log('set: ', value);
         },
       },
     },

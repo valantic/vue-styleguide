@@ -38,7 +38,6 @@
 
 <script lang="ts">
   import { defineComponent, PropType, toRefs } from 'vue';
-  import i18n from '../setup/i18n';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
@@ -91,7 +90,7 @@
        */
       placeholder: {
         type: [String, Boolean],
-        default: i18n.global.t('e-vas-select.chooseOption'),
+        default: 'Choose an option',
         validator: (value: string | boolean) => typeof value === 'string' || !value,
       },
 
@@ -187,35 +186,32 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
-
-  $e-select-height: 30px;
 
   .e-vas-select {
     $this: &;
-    $height: 30px;
 
     position: relative;
     display: block;
 
     &__select {
-      @include mixins.icon(arrow--down, 22px, right 5px center, $mask: false); // FF does not support mask on <select>.
-
       width: 100%;
-      height: $height;
-      padding: variables.$spacing--5 variables.$spacing--30 variables.$spacing--0 variables.$spacing--10;
+      padding: 8px;
       outline: none;
       border: 1px solid variables.$color-grayscale--500;
       border-radius: 3px;
       cursor: pointer;
       appearance: none;
+      background-image: url('../assets/chevron--down.svg');
+      background-size: 10px;
+      background-repeat: no-repeat;
+      background-position: calc(100% - 8px) center;
 
       &::-ms-expand {
         display: none;
       }
     }
-    
+
     // separator for state icons
     &__icon-wrapper {
       position: absolute;
@@ -223,15 +219,7 @@
       right: variables.$spacing--5;
       transform: translateY(-50%);
     }
-
-    &__icon-splitter {
-      position: absolute;
-      top: 2px;
-      right: 30px;
-      height: calc(100% - 4px);
-      border-left: 1px solid;
-    }
-
+    
     // hover
     &__select:hover,
     &--hover &__select {
@@ -251,42 +239,6 @@
       border-color: variables.$color-grayscale--600;
       cursor: default;
       color: variables.$color-grayscale--400;
-    }
-
-    /**
-     * states
-     */
-    /* stylelint-disable no-descending-specificity */
-    &--state-error {
-      color: variables.$color-status--error;
-
-      #{$this}__select {
-        @include mixins.icon(error, 22px, right 5px center, false); // FF does not support mask on <select>.
-
-        border-color: variables.$color-status--error;
-      }
-
-      #{$this}__icon-splitter {
-        border-color: variables.$color-status--error;
-      }
-    }
-
-    &--state-error &__select:hover {
-      border-color: variables.$color-status--error;
-    }
-
-    &--state-error &__select:focus {
-      border: 1px solid variables.$color-status--error;
-    }
-
-    &--state-success {
-      #{$this}__select {
-        @include mixins.icon(check, 22px, right 5px center, false); // FF does not support mask on <select>.
-      }
-
-      #{$this}__icon-splitter {
-        display: none;
-      }
     }
 
     &__progress-container {

@@ -18,7 +18,7 @@
       <e-vas-progress
         v-if="progress"
         :spacing="0"
-        negative
+        :negative="primary"
       />
       <!-- @slot Button content. -->
       <slot v-else></slot>
@@ -28,7 +28,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import propScale from '../helpers/prop.scale';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
 
@@ -68,30 +67,6 @@
     },
 
     props: {
-      /**
-       * Defines the width of the button
-       *
-       * Valid values: `[full, auto]`
-       */
-      width: {
-        type: String,
-        default: null,
-        validator: (value: string) => ['full', 'auto'].includes(value),
-      },
-
-      /**
-       * Modifies the inner spacing for the button.
-       */
-      spacing: propScale(500, [0, 500]),
-
-      /**
-       * If `true` the button gets the negative style
-       */
-      negative: {
-        type: Boolean,
-        default: false,
-      },
-
       /**
        * If `true` the button shows a progress animation
        */
@@ -190,9 +165,6 @@
        */
       modifiers(): Modifiers {
         return {
-          width: this.width,
-          spacing: this.spacing,
-          negative: this.negative,
           progress: this.progress,
           disabled: this.disabled,
           primary: this.primary,
@@ -210,7 +182,7 @@
         return {
           role: this.$attrs.href ? 'button' : null, // Fallback
           ...this.$attrs,
-          disabled: this.disabled || this.progress,
+          disabled: this.disabled,
         };
       },
 
@@ -218,7 +190,7 @@
        * Returns inline styles to keep dimensions during progress state.
        */
       style(): ElementDimensions | null {
-        return this.progress && this.width !== 'full' ? this.getElementDimensions() : null;
+        return this.progress ? this.getElementDimensions() : null;
       },
 
       /**
@@ -311,25 +283,24 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
 
   .e-vas-button {
-    $border-radius: 3px;
+    --e-vas-button-font-color: #{variables.$color-grayscale--0};
+    --e-vas-button-border-color: #{variables.$color-grayscale--0};
+    --e-vas-button-background-color: #{variables.$color-grayscale--700};
 
-    @include mixins.font(14, 18, variables.$font-weight--semi-bold);
-
+    font-size: variables.$font-size--16;
     position: relative;
     display: inline-block;
-    min-width: 165px;
-    padding: 6px variables.$spacing--10;
+    padding: variables.$form-field-padding (variables.$form-field-padding * 3);
     outline: none;
-    border: 1px solid variables.$color-grayscale--500;
-    border-radius: $border-radius;
-    background: transparent;
+    border-radius: variables.$form-border-radius;
     cursor: pointer;
-    color: variables.$color-grayscale--400;
     text-align: center;
+    background-color: var(--e-vas-button-background-color);
+    border: 1px solid var(--e-vas-button-border-color);
+    color: var(--e-vas-button-font-color);
 
     &:hover {
       text-decoration: none;
@@ -337,59 +308,37 @@
 
     &--focus,
     &:focus {
+      --e-vas-button-border-color: #{variables.$color-grayscale--700};
+      --e-vas-button-background-color: #{variables.$color-grayscale--600};
+
       outline: none;
-      border: 1px solid variables.$color-grayscale--500;
-      background-color: variables.$color-grayscale--500;
-      color: variables.$color-primary--3;
     }
 
     &:active:not([disabled]),
     &--active:not([disabled]) {
       position: relative;
-      background-color: variables.$color-grayscale--400;
-      color: variables.$color-primary--3;
+      --e-vas-button-background-color: #{variables.$color-grayscale--600};
     }
 
     &--hover:not(&--touch),
     &:hover:not(&--touch) {
-      background-color: variables.$color-grayscale--500;
-      color: variables.$color-primary--3;
+      --e-vas-button-background-color: #{variables.$color-grayscale--600};
     }
 
     &--focus path,
     &--hover:not(&--touch) path,
     &:focus path,
     &:hover:not(&--touch) path {
-      fill: variables.$color-primary--3;
+      fill: var(--e-vas-button-font-color);
     }
 
     &[disabled],
     &--disabled,
     &[disabled]:hover,
     &--disabled:hover {
-      border-color: variables.$color-grayscale--600;
-      background-color: transparent;
       cursor: default;
-      color: variables.$color-grayscale--300;
       pointer-events: none;
-    }
-
-    &--width-full {
-      display: block;
-      width: 100%;
-    }
-
-    &--width-auto {
-      min-width: 0;
-    }
-
-    &--negative {
-      background: variables.$color-primary--2;
-      color: variables.$color-primary--3;
-    }
-
-    &--spacing-0 {
-      padding: 0;
+      opacity: 0.4;
     }
 
     &--progress,
@@ -398,8 +347,9 @@
     &--progress[disabled]:focus,
     &--progress:hover,
     &--progress:focus {
+      cursor: default;
+      pointer-events: none;
       overflow: hidden; // Prevents overflow of animation
-      background-color: variables.$color-grayscale--400;
     }
 
     &__inner {
@@ -415,35 +365,20 @@
   }
 
   .e-vas-button--primary {
-    &:not([disabled]) {
-      color: variables.$color-secondary--2;
+    --e-vas-button-font-color: #{variables.$color-grayscale--1000};
+    --e-vas-button-border-color: #{variables.$color-grayscale--0};
+    --e-vas-button-background-color: #{variables.$color-grayscale--0};
 
-      &.e-vas-button:focus,
-      &.e-vas-button--focus {
-        background-color: variables.$color-primary--1;
-        color: variables.$color-primary--3;
-      }
-
-      &.e-vas-button:hover:not(.e-vas-button--touch),
-      &.e-vas-button--hover:not(.e-vas-button--touch) {
-        background-color: variables.$color-primary--1;
-        color: variables.$color-primary--3;
-      }
-
-      &.e-vas-button:active:not([disabled]),
-      &.e-vas-button--active:not([disabled]) {
-        background-color: variables.$color-secondary--2;
-        color: variables.$color-primary--3;
-      }
+    &.e-vas-button:hover:not(.e-vas-button--touch),
+    &.e-vas-button--hover:not(.e-vas-button--touch) {
+      --e-vas-button-border-color: #{variables.$color-grayscale--100};
+      --e-vas-button-background-color: #{variables.$color-grayscale--100};
     }
 
-    &.e-vas-button--progress,
-    &.e-vas-button--progress[disabled],
-    &.e-vas-button--progress[disabled]:hover,
-    &.e-vas-button--progress[disabled]:focus,
-    &.e-vas-button--progress:hover,
-    &.e-vas-button--progress:focus {
-      background-color: variables.$color-secondary--2;
+    &.e-vas-button:active:not([disabled]),
+    &.e-vas-button--active:not([disabled]) {
+      --e-vas-button-border-color: #{variables.$color-grayscale--100};
+      --e-vas-button-background-color: #{variables.$color-grayscale--100};
     }
   }
 </style>

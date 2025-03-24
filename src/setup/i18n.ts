@@ -1,4 +1,4 @@
-import { IntlDateTimeFormat, createI18n } from 'vue-i18n';
+import { createI18n, IntlDateTimeFormat } from 'vue-i18n';
 import fallbackMessages from '../translations/de.json';
 
 type MessagesSchema = typeof fallbackMessages;
@@ -20,11 +20,15 @@ const datetimeFormats: IntlDateTimeFormat = {
   },
 };
 
+const getStyleguideTranslations = (): Record<string, object> =>
+  import.meta.glob('../styleguide/translations.json', { eager: true })['../styleguide/translations.json'] as Record<
+    string,
+    object
+  >;
+
 // Add styleguide only translations
 if (import.meta.env.MODE !== 'production') {
-  const styleguideTranslations = import.meta.glob('./styleguide.translations.json', { eager: true })[
-    './styleguide.translations.json'
-  ] as Record<string, object>;
+  const styleguideTranslations = getStyleguideTranslations();
 
   if (styleguideTranslations[I18N_FALLBACK]) {
     Object.entries(styleguideTranslations[I18N_FALLBACK]).forEach(([key, value]) => {

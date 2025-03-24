@@ -71,7 +71,7 @@
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { Theme } from '../compositions/themes';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
-  import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue'; // type Setup = {};
+  import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
 
   type Setup = {
     container: Ref<HTMLDivElement | null | undefined>;
@@ -192,8 +192,8 @@
 
   .c-vas-sidebar {
     $this: &;
-    $button-size: 40px;
-    $sidebar-width: 320px;
+    $c-vas-sidebar--button-size: 40px;
+    $c-vas-sidebar--sidebar-width: 320px;
 
     z-index: 999;
     position: fixed;
@@ -206,21 +206,21 @@
       #{$this}__wrapper {
         border-left: 10px solid variables.$color-grayscale--400;
         display: block;
-        width: $sidebar-width;
+        width: $c-vas-sidebar--sidebar-width;
       }
 
       #{$this}__viewport,
       #{$this}__float-button {
         opacity: 1;
-        right: $sidebar-width - 10px;
+        right: $c-vas-sidebar--sidebar-width - 10px;
       }
     }
 
     &__float-button {
       opacity: 0.2;
       position: absolute;
-      width: $button-size;
-      height: $button-size;
+      width: $c-vas-sidebar--button-size;
+      height: $c-vas-sidebar--button-size;
       border: 1px solid variables.$color-grayscale--400;
       cursor: pointer;
       right: 0;
@@ -229,7 +229,7 @@
       background-color: variables.$color-grayscale--1000;
       background-repeat: no-repeat;
       background-position: center;
-      background-size: $button-size - 15px;
+      background-size: $c-vas-sidebar--button-size - 15px;
 
       &--menu {
         background-image: url('../assets/text.svg');
@@ -238,7 +238,7 @@
 
       &--config {
         background-image: url('../assets/cog-wheel.svg');
-        bottom: $button-size - 1px;
+        bottom: $c-vas-sidebar--button-size - 1px;
       }
 
       &--active {
@@ -285,6 +285,7 @@
       width: 100%;
       text-align: center;
       bottom: 0;
+      left: 0;
       font-size: 10px;
       color: variables.$color-grayscale--0;
     }
@@ -335,14 +336,12 @@
     }
 
     &__tab-item-icon {
-      $icon-size: 17px;
-
       display: block;
-      width: $icon-size;
-      height: $icon-size;
+      width: 17px;
+      height: 17px;
       background-repeat: no-repeat;
       background-position: center;
-      background-size: $icon-size;
+      background-size: 17px;
 
       &--menu {
         background-image: url('../assets/text.svg');

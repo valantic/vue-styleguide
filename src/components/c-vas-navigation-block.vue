@@ -98,13 +98,10 @@
   @use '../setup/scss/variables';
 
   .c-vas-navigation-block {
-    $padding: 20px;
-
     overflow: auto;
-    //margin: 0 ($padding * -1);
 
     &--has-indent {
-      padding-left: $padding;
+      padding-left: 20px;
       margin: 0;
     }
 
@@ -114,7 +111,6 @@
       text-decoration: none;
 
       &:hover {
-        text-decoration: underline;
         background-color: variables.$color-grayscale--500;
       }
 

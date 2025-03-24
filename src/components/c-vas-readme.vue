@@ -53,7 +53,6 @@
 <!-- eslint-disable -->
 <style lang="scss">
   @use '../setup/scss/variables';
-  @use '../setup/scss/mixins';
 
   /* stylelint-disable */
 
@@ -67,9 +66,8 @@
   Description: Github README style. Includes theme for Pygmentized code blocks.
   */
   .c-vas-readme {
-    color: black;
-    background: #fff;
-
+    color: variables.$color-grayscale--0;
+    background: variables.$color-grayscale--1000;
     border-radius: 3px;
 
     > * {
@@ -85,6 +83,8 @@
     }
 
     a {
+      text-decoration: underline;
+
       &:first-child {
         h1 {
           margin-top: 0;
@@ -112,17 +112,15 @@
         }
       }
       &.footnote {
-        @include mixins.font(14);
-
+        font-size: variables.$font-size--14;
         height: 0;
         line-height: 1;
         vertical-align: super;
         position: relative;
       }
     }
-    h1 {
-      @include mixins.font(38);
 
+    h1 {
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -133,9 +131,8 @@
         margin-top: 0;
       }
     }
-    h2 {
-      @include mixins.font(30);
 
+    h2 {
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -146,9 +143,8 @@
         margin-top: 0;
       }
     }
+
     h3 {
-      @include mixins.font(22);
-
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -158,9 +154,8 @@
         margin-top: 0;
       }
     }
+
     h4 {
-      @include mixins.font(18);
-
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -170,9 +165,8 @@
         margin-top: 0;
       }
     }
-    h5 {
-      @include mixins.font(16);
 
+    h5 {
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -184,8 +178,6 @@
     }
 
     h6 {
-      @include mixins.font(14);
-
       cursor: text;
       position: relative;
       margin: 1em 0 15px;
@@ -210,9 +202,8 @@
         }
       }
     }
-    table {
-      @include mixins.font(14);
 
+    table {
       margin: 15px 0;
       border-collapse: collapse;
       border-spacing: 0;
@@ -223,10 +214,12 @@
         border: 1px solid #ccc;
         padding: 6px 13px;
       }
+
       td {
         border: 1px solid #ccc;
         padding: 6px 13px;
       }
+
       tr {
         border-top: 1px solid #ccc;
         background-color: #fff;
@@ -236,8 +229,7 @@
       }
     }
     pre {
-      @include mixins.font(14);
-
+      font-size: variables.$font-size--14;
       background-color: #f8f8f8;
       border: 1px solid #ccc;
       line-height: 19px;
@@ -321,8 +313,7 @@
     dl {
       padding: 0;
       dt {
-        @include mixins.font(14);
-
+        font-size: variables.$font-size--14;
         font-weight: bold;
         font-style: italic;
         padding: 0;
@@ -369,8 +360,7 @@
     }
 
     tt {
-      @include mixins.font(12);
-
+      font-size: variables.$font-size--12;
       margin: 0 2px;
       padding: 0 5px;
       white-space: nowrap;
@@ -384,8 +374,7 @@
 
     .highlight {
       pre {
-        @include mixins.font(13);
-
+        font-size: variables.$font-size--12;
         background-color: #f8f8f8;
         border: 1px solid #ccc;
         line-height: 19px;
@@ -596,16 +585,14 @@
       }
     }
     sup {
-      @include mixins.font(14);
-
+      font-size: variables.$font-size--14;
       height: 0;
       line-height: 1;
       vertical-align: super;
       position: relative;
     }
     sub {
-      @include mixins.font(14);
-
+      font-size: variables.$font-size--14;
       height: 0;
       line-height: 1;
       position: relative;

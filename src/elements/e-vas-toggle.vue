@@ -1,5 +1,5 @@
 <template>
-  <label :class="b()">
+  <label :class="b('', { active: internalValue })">
     <span
       v-if="$slots.default"
       :class="b('label')"
@@ -86,33 +86,40 @@
 <style lang="scss">
   @use '../setup/scss/variables';
 
-  $_s-slider__size: 1.2em;
-
   .e-vas-toggle {
+    --e-vas-toggle-background-color: #{variables.$color-grayscale--500};
+    --e-vas-toggle-toggle-color: #{variables.$color-grayscale--0};
+
     $this: &;
+    $e-vas-toggle-size: 18px;
 
     display: flex;
     justify-content: space-between;
 
+    &--active {
+      --e-vas-toggle-background-color: #{variables.$color-grayscale--0};
+      --e-vas-toggle-toggle-color: #{variables.$color-grayscale--1000};
+    }
+
     &__slider {
       position: relative;
       align-self: flex-end;
-      width: 2 * $_s-slider__size;
-      height: $_s-slider__size;
-      border-radius: $_s-slider__size;
-      background-color: variables.$color-grayscale--600;
+      width: 2 * $e-vas-toggle-size;
+      height: $e-vas-toggle-size;
+      border-radius: $e-vas-toggle-size;
+      background-color: var(--e-vas-toggle-background-color);
       cursor: pointer;
       transition: variables.$transition-duration--300;
 
       &::before {
         position: absolute;
-        top: 0.1 * $_s-slider__size;
-        left: 0.1 * $_s-slider__size;
+        top: 0.1 * $e-vas-toggle-size;
+        left: 0.1 * $e-vas-toggle-size;
         content: '';
-        width: 0.8 * $_s-slider__size;
-        height: 0.8 * $_s-slider__size;
+        width: 0.8 * $e-vas-toggle-size;
+        height: 0.8 * $e-vas-toggle-size;
         border-radius: 50%;
-        background-color: variables.$color-primary--3;
+        background-color: var(--e-vas-toggle-toggle-color);
         transition: variables.$transition-duration--300;
       }
     }
@@ -120,12 +127,8 @@
     &__input {
       display: none;
 
-      &:checked + #{$this}__slider {
-        background-color: variables.$color-primary--1;
-      }
-
       &:checked + #{$this}__slider::before {
-        transform: translateX($_s-slider__size);
+        transform: translateX($e-vas-toggle-size);
       }
     }
   }

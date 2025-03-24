@@ -1,5 +1,6 @@
 import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
-import index from '../demo-pages/r-index.vue';
+import rReadme from '../demo-pages/r-index.vue';
+import rElements from '../demo-pages/r-elements.vue';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {
@@ -7,8 +8,8 @@ declare module 'vue-router' {
   }
 }
 
-const root = '/styleguide';
-const categoryWrapper = {
+export const styleguideRoot = '/styleguide';
+export const sectionWrapper = {
   template: '<router-view />',
 };
 
@@ -17,34 +18,34 @@ const categoryWrapper = {
  */
 export default [
   {
-    path: root,
-    name: 'index',
-    component: index,
+    path: styleguideRoot,
+    name: 'styleguide',
+    redirect: `${styleguideRoot}/readme`,
+    component: sectionWrapper,
     meta: {
-      title: 'Welcome',
-    },
-  },
-  {
-    path: `${root}/test`,
-    name: 'test',
-    redirect: `${root}/test`,
-    component: categoryWrapper,
-    meta: {
-      title: 'test',
+      title: 'Styleguide',
     },
     children: [
       {
-        path: root,
-        name: 'index',
-        component: index,
+        path: 'readme',
+        name: 'Readme',
+        component: rReadme,
         meta: {
-          title: 'Welcome',
+          title: 'Readme',
+        },
+      },
+      {
+        path: 'elements',
+        name: 'Elements',
+        component: rElements,
+        meta: {
+          title: 'Elements',
         },
       },
     ],
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: root,
+    redirect: styleguideRoot,
   },
 ];

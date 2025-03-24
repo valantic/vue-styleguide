@@ -30,13 +30,6 @@
         <slot></slot>
       </span>
     </span>
-    <span
-      v-if="showNotification"
-      :class="b('notification', { state })"
-    >
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <span v-html="notification"></span>
-    </span>
   </span>
 </template>
 
@@ -58,8 +51,6 @@
 
   /**
    * Input form component
-   *
-   * **WARNING: uses 'v-html' for the 'notification'. Make sure, that the source for this data is trustworthy.**
    */
   export default defineComponent({
     name: 'e-vas-input',
@@ -103,14 +94,6 @@
       autocomplete: {
         type: String,
         default: 'off',
-      },
-
-      /**
-       * Defines the notification content in a state container below the input field
-       */
-      notification: {
-        type: String,
-        default: null,
       },
 
       /**
@@ -175,21 +158,13 @@
     },
     computed: {
       /**
-       * Returns a flag, if field notifications should be displayed.
-       */
-      showNotification(): boolean {
-        return !!(this.state && this.state !== 'default' && this.notification && this.focus);
-      },
-
-      /**
        * Defines state modifier classes.
        */
       modifiers(): Modifiers {
-        const { border, noNativeControl, notification } = this;
+        const { border, noNativeControl } = this;
 
         return {
           ...this.stateModifiers,
-          notification: notification && this.focus,
           type: this.$attrs.type !== null || 'text',
           border,
           noNativeControl,
@@ -337,12 +312,7 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
-  // stylelint-disable no-descending-specificity
-  // TODO: refactor style to get rid of no-descending-specificity
-
-  $e-input-height: 30px;
 
   .e-vas-input {
     $this: &;
@@ -356,15 +326,13 @@
 
     // input
     &__field {
-      @include mixins.font(variables.$font-size--14, 18px);
-
+      font-size: variables.$font-size--16;
       position: relative;
       width: 100%;
-      height: $e-input-height;
-      padding: variables.$spacing--5 variables.$spacing--10;
+      padding: variables.$form-field-padding;
       border: 1px solid variables.$color-grayscale--500;
-      border-radius: variables.$border-radius--500;
-      color: variables.$color-secondary--1;
+      border-radius: variables.$form-border-radius;
+      color: variables.$color-grayscale--0;
       font-family: variables.$font-family--primary;
 
       // disable iPhone styling
@@ -413,23 +381,13 @@
     }
 
     &__fixed-label {
-      @include mixins.font(variables.$font-size--14, 18px);
-
+      font-size: variables.$font-size--14;
       position: absolute;
       top: 50%;
       left: variables.$spacing--5;
       display: flex;
       transform: translateY(-50%);
       color: variables.$color-grayscale--400;
-    }
-
-    &__notification {
-      @include mixins.z-index(form-notification);
-
-      position: absolute;
-      top: calc(#{$e-input-height} - 1px);
-      display: block;
-      width: 100%;
     }
 
     &__slot-wrapper {
@@ -442,11 +400,9 @@
     }
 
     &__slot {
-      @include mixins.font(variables.$font-size--14);
-
+      font-size: variables.$font-size--14;
       display: flex;
       color: variables.$color-grayscale--400;
-      line-height: $e-input-height;
     }
 
     // active
@@ -494,63 +450,8 @@
       }
     }
 
-    /**
-      * states
-      **/
-    &--state-default {
-      .e-vas-input__slot-wrapper {
-        right: variables.$spacing--5;
-      }
-    }
-
-    &--state-error:not(.e-vas-input--border-0) &__field {
-      border-color: variables.$color-status--error;
-    }
-
-    &--state-error:not(.e-vas-input--border-0) &__field:hover {
-      border: 1px solid variables.$color-status--error;
-    }
-
-    &--state-error:not(.e-vas-input--border-0) &__field:focus {
-      border: 1px solid variables.$color-status--error;
-    }
-
-    &--state-error {
-      color: variables.$color-status--error;
-    }
-
-    /**
-     * Notification is visible
-     */
-    &--notification {
-      .e-vas-input__field {
-        padding: variables.$spacing--5 variables.$spacing--10;
-        background: none;
-      }
-    }
-
     &--type-hidden {
       display: none;
-    }
-  }
-
-  .e-vas-input--no-native-control {
-    .e-vas-input__field {
-      // NOTE: FF also uses webkit style. But it will be overwritten by 'appearance' (and vendor prefixing).
-      // 'none' must be used to remove native webkit shadow.
-      -webkit-appearance: none;
-      appearance: textfield;
-
-      &::-webkit-inner-spin-button,
-      &::-webkit-outer-spin-button {
-        margin: 0;
-        -webkit-appearance: none;
-      }
-    }
-
-    .e-vas-input__field::-webkit-inner-spin-button {
-      margin: 0;
-      -webkit-appearance: none;
     }
   }
 </style>

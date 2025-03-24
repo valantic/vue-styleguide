@@ -1,5 +1,5 @@
 <template>
-  <span :class="b(modifiers)">
+  <span ref="container" :class="b(modifiers)">
     <!-- Search field -->
     <input
       v-if="isOpen && hasSearch"
@@ -35,7 +35,6 @@
     <transition name="top-slide">
       <span
         v-show="isOpen"
-        v-outside-click="{ excludeRefs: ['fieldWrapper', 'searchField'], handler: close }"
         :class="b('options-wrapper')"
       >
         <ul :class="b('options-list')">
@@ -75,8 +74,9 @@
 
   type Setup = FormStates &
     Uuid & {
-    searchField: Ref<HTMLInputElement | null>;
-    fieldWrapper: Ref<HTMLButtonElement | null>;
+    container: Ref<HTMLDivElement | null | undefined>;
+    searchField: Ref<HTMLInputElement | null | undefined>;
+    fieldWrapper: Ref<HTMLButtonElement | null | undefined>;
   };
 
   type Data = {
@@ -173,14 +173,12 @@
     },
 
     setup(props): Setup {
-      const searchField = ref();
-      const fieldWrapper = ref();
-
       return {
         ...useFormStates(toRefs(props).state),
         ...useUuid(),
-        searchField,
-        fieldWrapper,
+        container: ref(),
+        searchField: ref(),
+        fieldWrapper: ref(),
       };
     },
 
@@ -282,6 +280,12 @@
             this.searchField?.focus();
           });
         }
+
+        if (this.isOpen) {
+          document.addEventListener('click', this.handleOutsideClick);
+        } else {
+          document.removeEventListener('click', this.handleOutsideClick);
+        }
       },
     },
 
@@ -295,8 +299,10 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeDestroy() {},
-    // destroyed() {},
+    beforeUnmount() {
+      document.removeEventListener('click', this.handleOutsideClick);
+    },
+    // unmounted() {},
 
     methods: {
       /**
@@ -327,18 +333,26 @@
          */
         this.$emit('close', this.internalValue);
       },
+
+      /**
+       * Hides the overlay if the user clicks somewhere else than inside the container.
+       */
+      handleOutsideClick(event: Event) {
+        if (!this.container?.contains(event.target as Node)) {
+          this.close();
+        }
+      },
     },
     // render() {},
   });
 </script>
 
 <style lang="scss">
+  @use 'sass:math';
   @use '../setup/scss/variables';
-  @use '../setup/scss/mixins';
 
   .e-vas-multiselect {
     $this: &;
-    $e-multiselect-height: 30px;
 
     position: relative;
     display: block;
@@ -348,10 +362,9 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      min-height: $e-multiselect-height;
-      padding: 0 variables.$spacing--5 0 variables.$spacing--10;
-      border: 1px solid variables.$color-grayscale--500;
-      border-radius: 3px;
+      padding: variables.$form-field-padding;
+      border: 1px solid variables.$form-border-color;
+      border-radius: variables.$form-border-radius;
       background-color: variables.$color-grayscale--1000;
       cursor: pointer;
 
@@ -363,7 +376,7 @@
     // hover
     &__field-wrapper:hover,
     &--hover &__field-wrapper {
-      border-color: variables.$color-grayscale--400;
+      border-color: variables.$form-border-color--hover;
     }
 
     &__field-wrapper--open {
@@ -403,10 +416,11 @@
       width: 100%;
       max-height: 300px;
       overflow: auto;
-      border: 1px solid variables.$color-grayscale--500;
+      border: 1px solid variables.$form-border-color;
       border-top: 0;
       background-color: variables.$color-grayscale--1000;
       transform-origin: top;
+      padding-top: variables.$form-field-padding;
     }
 
     &__options-list {
@@ -414,7 +428,7 @@
     }
 
     &__options-item {
-      padding: variables.$spacing--2 variables.$spacing--5;
+      padding: math.div(variables.$form-field-padding, 2) variables.$form-field-padding;
     }
 
     &__progress-wrapper {
@@ -430,62 +444,11 @@
 
     &__search-field {
       width: 100%;
-      min-height: $e-multiselect-height;
-      padding: 0 variables.$spacing--5;
+      padding: variables.$form-field-padding;
       outline: none;
-      border: 1px solid variables.$color-grayscale--500;
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
-    }
-
-    // States
-    &--state-error {
-      #{$this}__field-wrapper {
-        @include mixins.icon(error, 22px, right 5px center, false); // FF does not support mask on <select>.
-
-        border-color: variables.$color-status--error;
-        color: variables.$color-status--error;
-
-        &:hover {
-          border-color: variables.$color-status--error;
-        }
-
-        &:focus {
-          border: 1px solid variables.$color-status--error;
-        }
-      }
-
-      #{$this}__icon-splitter {
-        border-color: variables.$color-status--error;
-      }
-    }
-
-    &--state-success {
-      #{$this}__field-wrapper {
-        @include mixins.icon(check, 22px, right 5px center, false); // FF does not support mask on <select>.
-      }
-
-      #{$this}__icon-splitter {
-        display: none;
-      }
-    }
-
-    // Transition
-    .top-slide-enter-active,
-    .top-slide-leave-active {
-      transition: all variables.$transition-duration--200 ease-in-out;
-    }
-
-    .top-slide-enter,
-    .top-slide-leave-to {
-      opacity: 0;
-      transform: scaleY(0);
-    }
-
-    .top-slide-enter-to,
-    .top-slide-leave {
-      opacity: 1;
-      transform: scaleY(1);
+      border: 1px solid variables.$form-border-color;
+      border-top-left-radius: variables.$form-border-radius;
+      border-top-right-radius: variables.$form-border-radius;
     }
   }
 </style>

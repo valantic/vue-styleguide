@@ -175,23 +175,23 @@
 
 <style lang="scss">
   @use 'sass:math';
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
 
   .e-vas-checkbox {
     $this: &;
-    $label-size: 16px;
+    $e-vas-checkbox--label-size: 20px;
+    $e-vas-checkbox--toggle-size: 1rem;
 
-    @include mixins.font(variables.$font-size--16, 22px);
-
+    font-size: variables.$font-size--16;
     position: relative;
     display: block;
     cursor: pointer;
+    margin-bottom: 8px;
 
     &__field {
       position: absolute;
       left: -200vw;
-      -webkit-appearance: none;
+      visibility: hidden;
     }
 
     &--variant-default {
@@ -203,16 +203,16 @@
         display: flex;
         flex: 0 0 auto;
         align-items: center;
-        width: $label-size;
-        height: $label-size;
-        border: 1px solid variables.$color-grayscale--400;
-        border-radius: 3px;
+        width: $e-vas-checkbox--label-size;
+        height: $e-vas-checkbox--label-size;
+        border: 1px solid variables.$form-border-color;
+        border-radius: variables.$form-border-radius;
         background: variables.$color-grayscale--1000;
 
         &::before {
           content: '';
-          width: $label-size;
-          height: $label-size;
+          width: $e-vas-checkbox--label-size;
+          height: $e-vas-checkbox--label-size;
           opacity: 0;
           border: 1px solid transparent;
           border-radius: 3px;
@@ -234,28 +234,26 @@
     }
 
     &--variant-toggle {
-      $toggle--size: 1rem;
-
       display: flex;
       align-items: center;
       cursor: pointer;
 
       #{$this}__indicator {
         position: relative;
-        width: 1.5 * $toggle--size;
-        height: math.div($toggle--size, 3) * 2;
-        margin: 0 math.div($toggle--size, 2);
-        border-radius: $toggle--size;
+        width: 1.5 * $e-vas-checkbox--toggle-size;
+        height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
+        margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
+        border-radius: $e-vas-checkbox--toggle-size;
         background-color: variables.$color-grayscale--500;
         transition: background-color variables.$transition-duration--300;
 
         &::before {
           position: absolute;
           top: 50%;
-          left: math.div($toggle--size, -2);
+          left: math.div($e-vas-checkbox--toggle-size, -2);
           content: '';
-          width: $toggle--size;
-          height: $toggle--size;
+          width: $e-vas-checkbox--toggle-size;
+          height: $e-vas-checkbox--toggle-size;
           border-radius: 50%;
           background-color: variables.$color-grayscale--1000;
           box-shadow: 0 1px 2px 1px rgba(variables.$color-grayscale--0, 0.2);
@@ -267,7 +265,7 @@
       #{$this}__field {
         &:checked ~ #{$this}__indicator {
           &::before {
-            left: calc(100% - (#{$toggle--size} / 2));
+            left: calc(100% - (#{$e-vas-checkbox--toggle-size} / 2));
             background-color: variables.$color-grayscale--0;
             transform: translateY(-50%);
           }

@@ -87,8 +87,6 @@
 
 <style lang="scss">
   .c-vas-sidebar-navigation {
-    $this: &;
-
     &__filter {
       margin-bottom: 20px;
     }

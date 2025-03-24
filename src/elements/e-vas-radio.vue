@@ -147,15 +147,13 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
 
   .e-vas-radio {
     $this: &;
-    $label-size: 16px;
+    $e-vas-radio--label-size: 18px;
 
-    @include mixins.font(variables.$font-size--16, 20px);
-
+    font-size: variables.$font-size--16;
     position: relative;
     display: block;
     cursor: pointer;
@@ -170,6 +168,7 @@
       display: block;
       margin: 0;
       padding-left: variables.$spacing--25;
+      padding-top: 2px;
 
       &:hover {
         color: variables.$color-grayscale--0;
@@ -185,8 +184,8 @@
         top: 3px;
         left: 0;
         content: '';
-        width: $label-size;
-        height: $label-size;
+        width: $e-vas-radio--label-size;
+        height: $e-vas-radio--label-size;
         border-radius: 50%;
       }
 

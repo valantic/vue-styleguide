@@ -76,10 +76,7 @@
 
   .c-vas-html-validation--enabled {
     @mixin html-validator-warning($message: '') {
-      $red: #ff0000;
-      $black: #000000;
-
-      outline: 5px solid $red;
+      outline: 5px solid variables.$color-status--error;
 
       &::before {
         position: absolute;
@@ -87,9 +84,9 @@
         content: $message;
         max-width: 200px;
         padding: 2px variables.$spacing--5;
-        border: 1px solid $red;
-        background: color.adjust($red, $lightness: 40%);
-        color: $black;
+        border: 1px solid variables.$color-status--error;
+        background: color.adjust(variables.$color-status--error, $lightness: 40%);
+        color: variables.$color-grayscale--0;
         font-size: 0.8rem;
       }
     }

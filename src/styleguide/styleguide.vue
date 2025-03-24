@@ -78,6 +78,7 @@
   @use '../setup/scss/variables';
 
   // Define #app styles in setup/scss/_globals.scss
+  // stylelint-disable selector-class-pattern
   .styleguide {
     max-width: map.get(variables.$breakpoints, xl);
     margin: 0 auto;

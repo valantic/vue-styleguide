@@ -316,8 +316,9 @@
 
     &:active:not([disabled]),
     &--active:not([disabled]) {
-      position: relative;
       --e-vas-button-background-color: #{variables.$color-grayscale--600};
+
+      position: relative;
     }
 
     &--hover:not(&--touch),

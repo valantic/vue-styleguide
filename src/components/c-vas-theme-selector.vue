@@ -15,6 +15,12 @@
   import buildConfig from '../../vite.builds.json';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
+  type SelectEvent = Event & {
+    currentTarget: {
+      value: string;
+    }
+  };
+
   export type Theme = {
     name: string;
     id: string;
@@ -69,6 +75,7 @@
         },
         set(value: string) {
           // TODO: we need to set the theme.
+          console.log('set: ', value);
         },
       },
 
@@ -116,7 +123,7 @@
       /**
        * Event handler for the change event of the theme selector.
        */
-      onChange(event: Event) {
+      onChange(event: SelectEvent) {
         this.$emit('change', event.currentTarget?.value);
       },
 

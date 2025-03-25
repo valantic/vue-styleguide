@@ -13,6 +13,7 @@
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
   import buildConfig from '../../vite.builds.json';
+  import { ThemeConfig } from '../types/settings';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   type SelectEvent = Event & {
@@ -21,14 +22,7 @@
     }
   };
 
-  export type Theme = {
-    name: string;
-    id: string;
-    selected?: boolean;
-  };
-
   // type Data = {};
-
   // type Setup = {};
 
   export default defineComponent({
@@ -51,7 +45,7 @@
        * Array of available themes.
        */
       availableThemes: {
-        type: Array as PropType<Theme[]>,
+        type: Array as PropType<ThemeConfig[]>,
         default: () => [],
       },
     },

@@ -2,8 +2,7 @@
   <div id="app" :class="b()">
     <router-view />
     <c-vas-sidebar
-      :theme-path="themePath"
-      :available-themes="availableThemes"
+      :settings="styleguideSettings"
       @update-theme="onUpdateTheme"
     />
   </div>
@@ -12,12 +11,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import cVasSidebar from '../components/c-vas-sidebar.vue';
-  import { Theme } from '../components/c-vas-theme-selector.vue';
+  import { StyleguideSettings } from '@/types/settings';
 
   // type Setup = {};
   type Data = {
-    themePath: string;
-    availableThemes: Theme[];
+    styleguideSettings: StyleguideSettings;
   };
 
   export default defineComponent({
@@ -34,19 +32,21 @@
     // },
     data(): Data {
       return {
-        themePath: 'src/setup/scss/themes',
-        availableThemes: [
-          {
-            name: 'theme-01',
-            id: 'theme-01',
-            selected: true,
-          },
-          {
-            name: 'theme-02',
-            id: 'theme-02',
-            selected: false,
-          },
-        ],
+        styleguideSettings: {
+          themePath: 'src/setup/scss/themes',
+          availableThemes: [
+            {
+              name: 'theme-01',
+              id: 'theme-01',
+              selected: true,
+            },
+            {
+              name: 'theme-02',
+              id: 'theme-02',
+              selected: false,
+            },
+          ],
+        }
       };
     },
 

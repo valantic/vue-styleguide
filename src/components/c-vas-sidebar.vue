@@ -57,8 +57,8 @@
       <section v-else>
         <div :class="b('section-header')">Settings</div>
         <c-vas-sidebar-config
-          :theme-path="themePath"
-          :available-themes="availableThemes"
+          :theme-path="settings.themePath"
+          :available-themes="settings.availableThemes"
           @update-theme="onUpdateTheme"
         />
       </section>
@@ -69,9 +69,9 @@
 <script lang="ts">
   import { defineComponent, PropType, Ref, ref } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { Theme } from './c-vas-theme-selector.vue';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
   import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
+  import { StyleguideSettings } from '@/types/settings';
 
   type KeyEvent = Event & {
     ctrlKey: boolean;
@@ -97,19 +97,11 @@
     },
     props: {
       /**
-       * Path to the theme scss files.
+       * Settings for the styleguide.
        */
-      themePath: {
-        type: String,
-        default: 'src/setup/scss/themes',
-      },
-
-      /**
-       * Array of available themes.
-       */
-      availableThemes: {
-        type: Array as PropType<Theme[]>,
-        default: () => [],
+      settings: {
+        type: Object as PropType<StyleguideSettings>,
+        required: true,
       },
     },
 

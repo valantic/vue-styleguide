@@ -10,8 +10,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { StyleguideSettings } from '../types/settings';
   import cVasSidebar from '../components/c-vas-sidebar.vue';
-  import { StyleguideSettings } from '@/types/settings';
 
   // type Setup = {};
   type Data = {

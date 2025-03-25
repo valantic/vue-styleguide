@@ -34,8 +34,9 @@
 
 <script lang="ts">
   import { defineComponent, PropType } from 'vue';
+  import { ThemeConfig } from '../types/settings';
   import cVasLanguage from './c-vas-language.vue';
-  import cVasThemeSelector, { Theme } from './c-vas-theme-selector.vue';
+  import cVasThemeSelector from './c-vas-theme-selector.vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
 
@@ -67,7 +68,7 @@
        * Array of available themes.
        */
       availableThemes: {
-        type: Array as PropType<Theme[]>,
+        type: Array as PropType<ThemeConfig[]>,
         default: () => [],
       },
     },

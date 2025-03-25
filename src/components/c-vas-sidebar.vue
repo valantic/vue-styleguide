@@ -68,10 +68,10 @@
 
 <script lang="ts">
   import { defineComponent, PropType, Ref, ref } from 'vue';
+  import { StyleguideSettings } from '../types/settings';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
   import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
-  import { StyleguideSettings } from '@/types/settings';
 
   type KeyEvent = Event & {
     ctrlKey: boolean;

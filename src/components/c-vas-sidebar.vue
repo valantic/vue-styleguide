@@ -204,6 +204,7 @@
         border-left: 10px solid variables.$vas-color-grayscale--400;
         display: block;
         width: $c-vas-sidebar--sidebar-width;
+        overflow: auto;
       }
 
       #{$this}__viewport,

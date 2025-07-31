@@ -69,7 +69,7 @@
         },
         set(value: string) {
           // TODO: we need to set the theme.
-          console.log('set: ', value);
+          console.log('set: ', value); /* eslint-disable-line no-console */
         },
       },
 

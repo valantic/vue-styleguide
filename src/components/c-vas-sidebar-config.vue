@@ -41,7 +41,7 @@
   import cVasThemeSelector from './c-vas-theme-selector.vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
-  import type { Options } from '@/elements/e-vas-select.vue';
+  import type { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
   type Data = {

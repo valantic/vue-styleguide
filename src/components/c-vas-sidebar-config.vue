@@ -1,7 +1,9 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <c-vas-language @update-language="onUpdateLanguage" />
+      <c-vas-language :selected-language="selectedLanguage"
+                      :available-languages="availableLanguages"
+                      @update-language="onUpdateLanguage" />
     </li>
     <li :class="b('item')">
       <c-vas-theme-selector
@@ -70,6 +72,16 @@
       availableThemes: {
         type: Array as PropType<ThemeConfig[]>,
         default: () => [],
+      },
+
+      availableLanguages: {
+        type: Array as () => string[],
+        default: () => [],
+      },
+
+      selectedLanguage: {
+        type: String,
+        default: '',
       },
     },
 

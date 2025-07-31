@@ -4,20 +4,18 @@
     <e-vas-select
       v-model="language"
       :class="b()"
-      :options="options"
+      :options="availableLanguages"
     />
   </label>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, PropType } from 'vue';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
 
-  type Data = {
-    language: string;
-  };
+  // type Data = {};
 
   export default defineComponent({
     name: 'c-vas-language',
@@ -31,8 +29,16 @@
        * Array of available languages.
        */
       availableLanguages: {
-        type: Array as () => string[],
+        type: Array as PropType<Options[]>,
         default: () => [],
+      },
+
+      /**
+       * The currently selected language.
+       */
+      selectedLanguage: {
+        type: String,
+        default: '',
       },
     },
 
@@ -44,19 +50,22 @@
     //   return {
     //   };
     // },
-    data(): Data {
-      return {
-        language: '',
-      };
-    },
+    // data(): Data {
+    //   return {};
+    // },
 
     // components: {},
     computed: {
-      options(): Options[] {
-        return this.availableLanguages.map(language => ({
-          value: language,
-          label: language,
-        }));
+      /**
+       * The current language.
+       */
+      language: {
+        get() {
+          return this.selectedLanguage
+        },
+        set(value: string) {
+          this.$emit('updateLanguage', value);
+        },
       },
     },
     // methods: {},

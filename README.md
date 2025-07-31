@@ -199,7 +199,6 @@ git subtree pull --prefix assets/vue https://github.com/valantic/vue-template.gi
 .  |- setup             Configuration and setup of the application
 .  |- stores            Pinia stores
 .  |- styleguide        Assets, components, mock data and routes for the stylguide
-.  |- translations      Translations for the application
 |- blueprints           File blueprints
 |- (dist)               Build folder
 |- (node_modules)       Node modules used by this project

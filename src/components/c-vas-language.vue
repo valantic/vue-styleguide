@@ -29,6 +29,10 @@
 
     // props: {},
 
+    emits: {
+      'updateLanguage': (language: string) => typeof language === 'string',
+    },
+
     // setup(): Setup {
     //   return {
     //   };
@@ -57,8 +61,7 @@
           return i18n.global.locale?.value;
         },
         set(value: string) {
-          // TODO: we need to set the locale.
-          console.log('set: ', value);
+          this.$emit('updateLanguage', value);
         },
       },
     },

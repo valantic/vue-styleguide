@@ -1,7 +1,7 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <c-vas-language />
+      <c-vas-language @update-language="onUpdateLanguage" />
     </li>
     <li :class="b('item')">
       <c-vas-theme-selector
@@ -75,6 +75,7 @@
 
     emits: {
       'updateTheme': (theme: string) => typeof theme === 'string',
+      'updateLanguage': (language: string) => typeof language === 'string',
     },
     // setup(): Setup {
     //   return {
@@ -90,7 +91,11 @@
     methods: {
       onUpdateTheme(theme: string) {
         this.$emit('updateTheme', theme);
-      }
+      },
+
+      onUpdateLanguage(language: string) {
+        this.$emit('updateLanguage', language);
+      },
     },
   });
 </script>

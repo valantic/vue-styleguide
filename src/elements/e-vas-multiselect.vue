@@ -5,7 +5,6 @@
       v-if="isOpen && hasSearch"
       v-model="searchTerm"
       ref="searchField"
-      :placeholder="$t('e-multiselect.searchFieldPlaceholder')"
       :class="b('search-field')"
       type="text"
       @mouseenter="hover = true"

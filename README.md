@@ -602,48 +602,6 @@ In cases where HTML is pre-rendered by twig, slots can be used to give the HTML 
 </html>
 ```
 
-## Translations
-
-All text which is defined in frontend MUST be placed trough translations. There should NOT be any hard coded inline text in the component templates or JavaScript.
-
-### Plugin
-
-We use the [vue-i18n](https://github.com/kazupon/vue-i18n) plugin to handle translations. This tool also allows us to handle localizations (e.g. number or date formats). The documentation can be found [here](https://kazupon.github.io/vue-i18n/guide/started.html).
-
-We discovered that the provided directive `v-t` accelerates the memory leak issue in IE11 since it creates copies of the translation JSON for each use (as of v8.15.3). For this reason, please use the `{{$t()}}` method.
-
-### Keys
-
-Translations should be marked with a specific translation key. Don't use English text as ab identifier key, since it might interfere with other uses in the application or can simply have different meanings in other languages, that need to be distinguished.
-
-The key should always be namespaced with the components name. E.g. `c-component.specificKey`
-
-```js
-// Bad
-this.$t('Some translateable text.');
-
-// Good
-this.$t('e-button.defaultLabel');
-```
-
-### Placeholders
-
-vue-i18n allows the usage of [placeholders](https://kazupon.github.io/vue-i18n/guide/formatting.html#named-formatting). This means you should add dynamic parts with a placeholder to the translation and not concatenate them in the component template or JavaScript.
-
-### Pluralization
-
-Be aware that [vue-i18n](https://github.com/kazupon/vue-i18n) also supports a [pluralization](https://kazupon.github.io/vue-i18n/guide/pluralization.html) syntax. So you should not define multiple translations and then switch them in templates.
-
-### Use outside of component or Vue instance
-
-If you need to use translations outside of a component or Vue instance, where the utilities are injected, you can use the vue-i18n instance which is exported from `setup/i18n.js`.
-
-```javascript
-import { i18n } from '@/setup/i18n';
-
-const translation = i18n.global.t('c-add-to-cart.notLoggedInTitle');
-```
-
 ## Blueprints
 
 In the `/blueprints` folder you'll find templates for several tasks like a new component, test or styleguide entry. Please always base new files on this blueprints and not on an empty or copied existing file.

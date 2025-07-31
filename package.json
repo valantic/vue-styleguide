@@ -45,8 +45,7 @@
     "body-scroll-lock": "~4.0.0-beta.0",
     "the-new-css-reset": "~1.11.3",
     "vite": "~6.2.0",
-    "vue": "~3.5.13",
-    "vue-i18n": "~11.1.1"
+    "vue": "~3.5.13"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "~4.3.0",

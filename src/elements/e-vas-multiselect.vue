@@ -59,7 +59,6 @@
 
 <script lang="ts">
   import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
-  import i18n from '../setup/i18n';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import useUuid, { Uuid } from '../compositions/uuid';
   import eVasCheckbox from './e-vas-checkbox.vue';
@@ -122,7 +121,7 @@
        */
       placeholder: {
         type: [String, Boolean],
-        default: i18n.global.t('e-multiselect.defaultPlaceholder'),
+        default: 'placeholder',
         validator: (value: string | boolean) => typeof value === 'string' || !value,
       },
 

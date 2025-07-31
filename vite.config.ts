@@ -44,12 +44,6 @@ export default defineConfig(({ command, mode }) => {
     resolve: {
       alias,
     },
-    define: {
-      // Was required to get rid of esm build warning for Vue-i18n.
-      // @see https://vue-i18n.intlify.dev/guide/advanced/optimization.html#reduce-bundle-size-with-feature-build-flags
-      __VUE_I18N_FULL_INSTALL__: true,
-      __VUE_I18N_LEGACY_API__: false,
-    },
     json: {
       stringify: true,
     },

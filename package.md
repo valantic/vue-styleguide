@@ -68,8 +68,6 @@ This will test the current state of TS, JS and CSS code. Tests **MUST** be execu
   > core, css
 - [vue](https://www.npmjs.com/package/vue) - Vue.js is a progressive, incrementally-adoptable JavaScript framework for building UI on the web.
   > core, cue
-- [vue-i18n](https://www.npmjs.com/package/vue-i18n) - Internationalization plugin for Vue.js
-  > core, vue
 
 ## Dev-Dependencies
 

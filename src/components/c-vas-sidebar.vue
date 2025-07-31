@@ -59,6 +59,8 @@
         <c-vas-sidebar-config
           :theme-path="settings.themePath"
           :available-themes="settings.availableThemes"
+          :available-languages="settings.availableLanguages"
+          :selected-language="settings.selectedLanguage"
           @update-theme="onUpdateTheme"
           @update-language="onUpdateLanguage"
         />

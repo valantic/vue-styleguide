@@ -46,6 +46,17 @@
               selected: false,
             },
           ],
+          availableLanguages: [
+            {
+              label: 'English',
+              value: 'en',
+            },
+            {
+              label: 'Deutsch',
+              value: 'de',
+            },
+          ],
+          selectedLanguage: 'de',
         }
       };
     },

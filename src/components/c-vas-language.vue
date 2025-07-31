@@ -11,13 +11,12 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import i18n, { I18N_LOCALES } from '../setup/i18n';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
 
   type Data = {
-    i18nLocales: string[];
+    language: string;
   };
 
   export default defineComponent({
@@ -27,7 +26,15 @@
       eVasSelect
     },
 
-    // props: {},
+    props: {
+      /**
+       * Array of available languages.
+       */
+      availableLanguages: {
+        type: Array as () => string[],
+        default: () => [],
+      },
+    },
 
     emits: {
       'updateLanguage': (language: string) => typeof language === 'string',
@@ -39,34 +46,25 @@
     // },
     data(): Data {
       return {
-        i18nLocales: I18N_LOCALES,
+        language: '',
       };
     },
 
     // components: {},
     computed: {
       options(): Options[] {
-        return this.i18nLocales.map(locale => ({
-          value: locale,
-          label: this.$t(`s-language.${locale}`)
+        return this.availableLanguages.map(language => ({
+          value: language,
+          label: language,
         }));
-      },
-
-      /**
-       * The current language.
-       */
-      language: {
-        get() {
-          // @ts-ignore -- 'locale' is a reactive, not a string. @see https://github.com/intlify/vue-i18n-next/issues/785
-          return i18n.global.locale?.value;
-        },
-        set(value: string) {
-          this.$emit('updateLanguage', value);
-        },
       },
     },
     // methods: {},
-    // watch: {},
+    watch: {
+      language(newLanguage: string) {
+        this.$emit('updateLanguage', newLanguage);
+      },
+    },
 
     // beforeCreate() {},
     // created() {},

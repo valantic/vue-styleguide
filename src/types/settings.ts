@@ -7,4 +7,9 @@ export type ThemeConfig = {
 export type StyleguideSettings = {
   themePath: string;
   availableThemes: ThemeConfig[];
+  selectedLanguage: string;
+  availableLanguages: {
+    label: string;
+    value: string;
+  }[];
 };

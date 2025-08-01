@@ -1,7 +1,9 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <c-vas-language />
+      <c-vas-language :selected-language="selectedLanguage"
+                      :available-languages="availableLanguages"
+                      @update-language="onUpdateLanguage" />
     </li>
     <li :class="b('item')">
       <c-vas-theme-selector
@@ -39,6 +41,7 @@
   import cVasThemeSelector from './c-vas-theme-selector.vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
+  import type { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
   type Data = {
@@ -71,10 +74,27 @@
         type: Array as PropType<ThemeConfig[]>,
         default: () => [],
       },
+
+      /**
+       * Array of available languages.
+       */
+      availableLanguages: {
+        type: Array as PropType<Options[]>,
+        default: () => [],
+      },
+
+      /**
+       * The currently selected language.
+       */
+      selectedLanguage: {
+        type: String,
+        default: '',
+      },
     },
 
     emits: {
       'updateTheme': (theme: string) => typeof theme === 'string',
+      'updateLanguage': (language: string) => typeof language === 'string',
     },
     // setup(): Setup {
     //   return {
@@ -90,7 +110,11 @@
     methods: {
       onUpdateTheme(theme: string) {
         this.$emit('updateTheme', theme);
-      }
+      },
+
+      onUpdateLanguage(language: string) {
+        this.$emit('updateLanguage', language);
+      },
     },
   });
 </script>

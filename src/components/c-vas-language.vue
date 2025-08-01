@@ -4,21 +4,18 @@
     <e-vas-select
       v-model="language"
       :class="b()"
-      :options="options"
+      :options="availableLanguages"
     />
   </label>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import i18n, { I18N_LOCALES } from '../setup/i18n';
+  import { defineComponent, PropType } from 'vue';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
 
-  type Data = {
-    i18nLocales: string[];
-  };
+  // type Data = {};
 
   export default defineComponent({
     name: 'c-vas-language',
@@ -27,43 +24,56 @@
       eVasSelect
     },
 
-    // props: {},
+    props: {
+      /**
+       * Array of available languages.
+       */
+      availableLanguages: {
+        type: Array as PropType<Options[]>,
+        default: () => [],
+      },
+
+      /**
+       * The currently selected language.
+       */
+      selectedLanguage: {
+        type: String,
+        default: '',
+      },
+    },
+
+    emits: {
+      'updateLanguage': (language: string) => typeof language === 'string',
+    },
 
     // setup(): Setup {
     //   return {
     //   };
     // },
-    data(): Data {
-      return {
-        i18nLocales: I18N_LOCALES,
-      };
-    },
+    // data(): Data {
+    //   return {};
+    // },
 
     // components: {},
     computed: {
-      options(): Options[] {
-        return this.i18nLocales.map(locale => ({
-          value: locale,
-          label: this.$t(`s-language.${locale}`)
-        }));
-      },
-
       /**
        * The current language.
        */
       language: {
         get() {
-          // @ts-ignore -- 'locale' is a reactive, not a string. @see https://github.com/intlify/vue-i18n-next/issues/785
-          return i18n.global.locale?.value;
+          return this.selectedLanguage
         },
         set(value: string) {
-          // TODO: we need to set the locale.
-          console.log('set: ', value);
+          this.$emit('updateLanguage', value);
         },
       },
     },
     // methods: {},
-    // watch: {},
+    watch: {
+      language(newLanguage: string) {
+        this.$emit('updateLanguage', newLanguage);
+      },
+    },
 
     // beforeCreate() {},
     // created() {},

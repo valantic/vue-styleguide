@@ -59,7 +59,10 @@
         <c-vas-sidebar-config
           :theme-path="settings.themePath"
           :available-themes="settings.availableThemes"
+          :available-languages="settings.availableLanguages"
+          :selected-language="settings.selectedLanguage"
           @update-theme="onUpdateTheme"
+          @update-language="onUpdateLanguage"
         />
       </section>
     </div>
@@ -107,6 +110,7 @@
 
     emits: {
       'updateTheme': (theme: string) => typeof theme === 'string',
+      'updateLanguage': (language: string) => typeof language === 'string',
     },
     setup(): Setup {
       return {
@@ -161,6 +165,10 @@
 
       onUpdateTheme(theme: string) {
         this.$emit('updateTheme', theme);
+      },
+
+      onUpdateLanguage(language: string) {
+        this.$emit('updateLanguage', language);
       },
 
       /**

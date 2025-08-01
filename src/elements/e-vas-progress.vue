@@ -68,7 +68,7 @@
        * Returns a readable loading message.
        */
       loadingMessage(): string {
-        return this.message || this.$t('e-progress.loading');
+        return this.message || 'loading';
       },
 
       /**

@@ -1,9 +1,11 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <c-vas-language :selected-language="selectedLanguage"
-                      :available-languages="availableLanguages"
-                      @update-language="onUpdateLanguage" />
+      <c-vas-language
+        :selected-language="selectedLanguage"
+        :available-languages="availableLanguages"
+        @update-language="onUpdateLanguage"
+      />
     </li>
     <li :class="b('item')">
       <c-vas-theme-selector
@@ -35,13 +37,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { PropType, defineComponent } from 'vue';
+  import type { Options } from '../elements/e-vas-select.vue';
+  import eVasToggle from '../elements/e-vas-toggle.vue';
   import { ThemeConfig } from '../types/settings';
+  import cVasHtmlValidation from './c-vas-html-validation.vue';
   import cVasLanguage from './c-vas-language.vue';
   import cVasThemeSelector from './c-vas-theme-selector.vue';
-  import eVasToggle from '../elements/e-vas-toggle.vue';
-  import cVasHtmlValidation from './c-vas-html-validation.vue';
-  import type { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
   type Data = {
@@ -93,8 +95,8 @@
     },
 
     emits: {
-      'updateTheme': (theme: string) => typeof theme === 'string',
-      'updateLanguage': (language: string) => typeof language === 'string',
+      updateTheme: (theme: string) => typeof theme === 'string',
+      updateLanguage: (language: string) => typeof language === 'string',
     },
     // setup(): Setup {
     //   return {

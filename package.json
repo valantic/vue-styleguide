@@ -1,7 +1,7 @@
 {
   "name": "@valantic/vue-styleguide",
-  "version": "8.0.0",
-  "description": "A customized Vue.js project template",
+  "version": "0.0.2",
+  "description": "A demo tool to test a vue project locally.",
   "type": "module",
   "lastDependencyUpdate": "27.02.2025",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valantic/vue-template.git"
+    "url": "git+https://github.com/valantic/vue-styleguide.git"
   },
   "engines": {
     "node": ">=22 <23",
@@ -37,9 +37,9 @@
   "author": "valantic CEC",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/valantic/vue-template/issues"
+    "url": "https://github.com/valantic/vue-styleguide/issues"
   },
-  "homepage": "https://github.com/valantic/vue-template",
+  "homepage": "https://github.com/valantic/vue-styleguide",
   "dependencies": {
     "@popperjs/core": "~2.11.8",
     "body-scroll-lock": "~4.0.0-beta.0",

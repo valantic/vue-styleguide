@@ -354,7 +354,11 @@
       background-color: #f8f8f8;
 
       border-radius: 3px;
-      font-family: Consolas, Liberation Mono, Courier, monospace;
+      font-family:
+        Consolas,
+        Liberation Mono,
+        Courier,
+        monospace;
       font-size: 12px;
       color: #333;
     }
@@ -368,7 +372,11 @@
       background-color: #f8f8f8;
 
       border-radius: 3px;
-      font-family: Consolas, Liberation Mono, Courier, monospace;
+      font-family:
+        Consolas,
+        Liberation Mono,
+        Courier,
+        monospace;
       color: #333;
     }
 

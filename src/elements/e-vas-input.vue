@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, ref, toRefs } from 'vue';
+  import { Ref, defineComponent, ref, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import propScale from '../helpers/prop.scale';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
@@ -128,7 +128,7 @@
       autofocus: {
         type: Boolean,
         default: false,
-      }
+      },
     },
 
     emits: {

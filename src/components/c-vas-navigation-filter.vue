@@ -31,7 +31,7 @@
     name: 'c-vas-navigation-filter',
 
     components: {
-      eVasInput
+      eVasInput,
     },
 
     props: {

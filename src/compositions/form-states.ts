@@ -1,4 +1,4 @@
-import { computed, ComputedRef, PropType, Ref, ref } from 'vue';
+import { ComputedRef, PropType, Ref, computed, ref } from 'vue';
 
 export enum FieldState {
   Default = 'default',
@@ -23,7 +23,6 @@ export type FormStates = {
   hasDefaultState: ComputedRef<boolean>;
 };
 
-// eslint-disable-next-line -- TODO: did not know how to fix the return type so it is valid on component side.
 export const withProps = () => ({
   /**
    * Form states for class names (default, error, success, warning, info)
@@ -36,7 +35,7 @@ export const withProps = () => ({
 });
 
 /**
- * Defines the reactive properties which can be used for form elements
+ * Defines the reactive properties which can be used for form elements.
  */
 const formStates = (inputState: Ref<FieldState>): FormStates => {
   const active = ref<boolean>(false);

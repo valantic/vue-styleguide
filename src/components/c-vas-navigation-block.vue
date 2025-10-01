@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
@@ -76,6 +76,7 @@
       filteredRoutes(): RouteRecordRaw[] {
         const filteredRoutes = this.routes.filter((route) => route.meta && !route.meta.hideInStyleguide);
 
+        // eslint-disable-next-line unicorn/no-array-sort
         return filteredRoutes.sort((first, second) => {
           if (!first.meta || !second.meta) {
             return 0;

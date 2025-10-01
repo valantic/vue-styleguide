@@ -8,7 +8,7 @@ const vuePlugins = plugins;
 let vueOptions = options;
 
 if (import.meta.env.DEV) {
-  const styleguideOptions = await import('./styleguide/setup'); // eslint-disable-line import/no-webpack-loader-syntax
+  const styleguideOptions = await import('./styleguide/setup');
 
   vueOptions = {
     ...vueOptions,

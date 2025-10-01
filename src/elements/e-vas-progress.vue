@@ -54,7 +54,7 @@
       showLoadingMessage: {
         type: Boolean,
         default: false,
-      }
+      },
     },
     // setup(): Setup {
     //   return {};

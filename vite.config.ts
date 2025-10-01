@@ -54,7 +54,6 @@ export default defineConfig(({ command, mode }) => {
       devSourcemap: true,
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler', // or "modern"
           silenceDeprecations: ['legacy-js-api'],
         },
       },

@@ -11,15 +11,15 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import buildConfig from '../../vite.builds.json';
-  import { ThemeConfig } from '../types/settings';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
+  import { ThemeConfig } from '../types/settings';
 
   type SelectEvent = Event & {
     currentTarget: {
       value: string;
-    }
+    };
   };
 
   // type Data = {};
@@ -34,14 +34,6 @@
 
     props: {
       /**
-       * Path to the theme scss files.
-       */
-      themePath: {
-        type: String,
-        default: 'src/setup/scss/themes',
-      },
-
-      /**
        * Array of available themes.
        */
       availableThemes: {
@@ -51,7 +43,7 @@
     },
 
     emits: {
-      'change': (theme: string) => theme,
+      change: (theme: string) => theme,
     },
 
     // setup(): Setup {
@@ -69,18 +61,17 @@
         },
         set(value: string) {
           // TODO: we need to set the theme.
-          console.log('set: ', value); /* eslint-disable-line no-console */
+          console.log('set:', value); /* eslint-disable-line no-console */
         },
       },
 
       options(): Options[] {
-        return this.availableThemes.map(theme => ({
+        return this.availableThemes.map((theme) => ({
           value: theme.id,
-          label: theme.name
+          label: theme.name,
         }));
       },
-
-},
+    },
 
     watch: {
       /**
@@ -94,10 +85,10 @@
           const link = document.getElementById(cssId) as HTMLLinkElement;
           const { theme } = this;
 
-          if (!link) {
-            this.createStyleElement(theme, cssId);
+          if (link) {
+            link.href = `/${buildConfig.themeSource}${theme}.scss`;
           } else {
-            link.href = `/${this.themePath}${theme}.scss`;
+            this.createStyleElement(theme, cssId);
           }
         },
       },
@@ -134,7 +125,7 @@
         link.href = `/${buildConfig.themeSource}${theme}.scss`;
         link.media = 'all';
 
-        head?.appendChild(link);
+        head?.append(link);
       },
     },
     // render() {},

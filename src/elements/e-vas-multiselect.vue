@@ -1,5 +1,8 @@
 <template>
-  <span ref="container" :class="b(modifiers)">
+  <span
+    ref="container"
+    :class="b(modifiers)"
+  >
     <!-- Search field -->
     <input
       v-if="isOpen && hasSearch"
@@ -57,12 +60,12 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, Ref, ref, toRefs } from 'vue';
+  import { PropType, Ref, defineComponent, ref, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import useUuid, { Uuid } from '../compositions/uuid';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasCheckbox from './e-vas-checkbox.vue';
   import eVasProgress from './e-vas-progress.vue';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   type Option = {
     value: string;
@@ -72,10 +75,10 @@
 
   type Setup = FormStates &
     Uuid & {
-    container: Ref<HTMLDivElement | null | undefined>;
-    searchField: Ref<HTMLInputElement | null | undefined>;
-    fieldWrapper: Ref<HTMLButtonElement | null | undefined>;
-  };
+      container: Ref<HTMLDivElement | null | undefined>;
+      searchField: Ref<HTMLInputElement | null | undefined>;
+      fieldWrapper: Ref<HTMLButtonElement | null | undefined>;
+    };
 
   type Data = {
     isOpen: boolean;
@@ -239,7 +242,7 @@
             .filter((option) => {
               const value = option[this.valueField];
 
-              return typeof value !== 'undefined' && this.internalValue.includes(value);
+              return value !== undefined && this.internalValue.includes(value);
             })
             .map((option) => option[this.labelField])
             .join(', ');
@@ -304,7 +307,7 @@
 
     methods: {
       /**
-       * Checks if the dropdown needs to be closed because of an outside click
+       * Checks if the dropdown needs to be closed because of an outside click.
        */
       onClick(event: MouseEvent) {
         if (this.$el !== event.target && !this.$el.contains(event.target)) {

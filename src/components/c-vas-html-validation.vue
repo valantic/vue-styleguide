@@ -27,7 +27,7 @@
     name: 'c-vas-html-validation',
 
     components: {
-      eVasToggle
+      eVasToggle,
     },
     // mixins: [],
 

@@ -1,7 +1,6 @@
-/* eslint-disable import/first */
 import { Plugin } from 'vue';
-import VueBemCn from '../plugins/vue-bem-cn';
 import viewport from '../plugins/viewport';
+import VueBemCn from '../plugins/vue-bem-cn';
 
 export type CustomPlugin = {
   plugin: Plugin;

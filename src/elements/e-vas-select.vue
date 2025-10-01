@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, toRefs } from 'vue';
+  import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';

@@ -1,5 +1,8 @@
 <template>
-  <div ref="container" :class="b('', modifiers)">
+  <div
+    ref="container"
+    :class="b('', modifiers)"
+  >
     <div :class="b('viewport', { open: isOpen })">
       {{ $viewport.currentViewport }}
     </div>
@@ -38,7 +41,8 @@
       <ul :class="b('tabs')">
         <li
           :class="b('tab-item', { active: showMenu })"
-          @click="onToggleSidebar(true)">
+          @click="onToggleSidebar(true)"
+        >
           <span :class="b('tab-item-icon', { menu: true })"></span>
         </li>
         <li
@@ -51,7 +55,7 @@
 
       <section v-if="showMenu">
         <div :class="b('section-header')">Menu</div>
-        <c-vas-sidebar-navigation  />
+        <c-vas-sidebar-navigation />
       </section>
 
       <section v-else>
@@ -70,9 +74,9 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, Ref, ref } from 'vue';
-  import { StyleguideSettings } from '../types/settings';
+  import { PropType, Ref, defineComponent, ref } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { StyleguideSettings } from '../types/settings';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
   import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
 
@@ -109,8 +113,8 @@
     },
 
     emits: {
-      'updateTheme': (theme: string) => typeof theme === 'string',
-      'updateLanguage': (language: string) => typeof language === 'string',
+      updateTheme: (theme: string) => typeof theme === 'string',
+      updateLanguage: (language: string) => typeof language === 'string',
     },
     setup(): Setup {
       return {
@@ -186,7 +190,7 @@
           event.preventDefault();
           this.onToggleSidebar(true, false, !this.isOpen);
         }
-      }
+      },
     },
     // render() {},
   });

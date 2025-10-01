@@ -12,5 +12,3 @@ declare module 'vue' {
     bem: VueBemFunction;
   }
 }
-
-export {};

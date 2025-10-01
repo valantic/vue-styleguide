@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
 
   // type Setup = {};
@@ -21,7 +21,7 @@
     name: 'c-vas-language',
 
     components: {
-      eVasSelect
+      eVasSelect,
     },
 
     props: {
@@ -43,7 +43,7 @@
     },
 
     emits: {
-      'updateLanguage': (language: string) => typeof language === 'string',
+      updateLanguage: (language: string) => typeof language === 'string',
     },
 
     // setup(): Setup {
@@ -61,7 +61,7 @@
        */
       language: {
         get() {
-          return this.selectedLanguage
+          return this.selectedLanguage;
         },
         set(value: string) {
           this.$emit('updateLanguage', value);

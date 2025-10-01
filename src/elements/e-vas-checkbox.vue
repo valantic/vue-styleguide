@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, toRefs } from 'vue';
+  import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
@@ -77,8 +77,8 @@
     },
 
     emits: {
-      'update:modelValue': (payload: unknown): boolean => typeof payload !== 'undefined',
-      'change': (payload: unknown): boolean => typeof payload !== 'undefined',
+      'update:modelValue': (payload: unknown): boolean => payload !== undefined,
+      'change': (payload: unknown): boolean => payload !== undefined,
       'focus': (): boolean => true,
       'blur': (): boolean => true,
     },

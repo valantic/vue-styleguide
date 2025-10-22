@@ -31,7 +31,7 @@
     name: 'c-vas-navigation-filter',
 
     components: {
-      eVasInput
+      eVasInput,
     },
 
     props: {
@@ -112,7 +112,7 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      height: 30px;
+      height: 100%;
     }
 
     &__close-icon {

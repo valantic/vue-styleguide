@@ -1,7 +1,7 @@
-/* eslint-disable capitalized-comments, no-case-declarations */
+/* eslint-disable no-case-declarations */
 // Vitest instead of Vite was used because of extended Interface.
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path';
+import path from 'node:path';
 import { defineConfig } from 'vite';
 import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 import { UserConfigExport } from 'vitest/config';
@@ -24,8 +24,8 @@ interface ViteBuilds {
 }
 
 export const alias = {
-  '@': resolve(__dirname, 'src/'),
-  '@!production': resolve(__dirname, 'src/'), // Workaround so that no assets from conditional styleguide related imports become part of the build.
+  '@': path.resolve(import.meta.dirname, 'src/'),
+  '@!production': path.resolve(import.meta.dirname, 'src/'), // Workaround so that no assets from conditional styleguide related imports become part of the build.
   'vue': 'vue/dist/vue.esm-bundler.js', // Was required because inline import of vue.esm-bundler.js resulted in TS issues.
 };
 
@@ -54,7 +54,6 @@ export default defineConfig(({ command, mode }) => {
       devSourcemap: true,
       preprocessorOptions: {
         scss: {
-          api: 'modern-compiler', // or "modern"
           silenceDeprecations: ['legacy-js-api'],
         },
       },
@@ -67,7 +66,7 @@ export default defineConfig(({ command, mode }) => {
       const { base, outDir, assetsDir, modes, profileBuild } = (viteBuilds as ViteBuilds) || {};
 
       if (!isProfileBuild && !modes[mode]) {
-        throw Error(`Given mode '${mode}' is unknown.`);
+        throw new Error(`Given mode '${mode}' is unknown.`);
       }
 
       const { input } = modes[isProfileBuild ? profileBuild : mode] || {};
@@ -90,13 +89,13 @@ export default defineConfig(({ command, mode }) => {
           output: {
             entryFileNames: 'index.[hash].js',
             chunkFileNames(chunkInfo): string {
-              const path = `${assetsDir}/js`;
+              const jsPath = `${assetsDir}/js`;
 
               if (!chunkInfo.facadeModuleId) {
-                return `${path}/shared.${chunkInfo.moduleIds.length}-[hash].js`;
+                return `${jsPath}/shared.${chunkInfo.moduleIds.length}-[hash].js`;
               }
 
-              return `${path}/[name].[hash].js`;
+              return `${jsPath}/[name].[hash].js`;
             },
             assetFileNames(assetInfo): string {
               const fileName = assetInfo?.name || '';

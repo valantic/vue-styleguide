@@ -18,7 +18,7 @@
     name: 'r-readme',
     components: {
       lVasLayout,
-      cVasReadme
+      cVasReadme,
     },
 
     // setup(): Setup {
@@ -32,4 +32,3 @@
     // computed: {},
   });
 </script>
-

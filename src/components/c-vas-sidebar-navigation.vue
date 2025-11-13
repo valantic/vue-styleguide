@@ -16,7 +16,9 @@
   import { defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
-  import cVasNavigationFilter from './c-vas-navigation-filter.vue'; // type Setup = {};
+  import cVasNavigationFilter from './c-vas-navigation-filter.vue';
+
+  // type Setup = {};
 
   // type Setup = {};
 

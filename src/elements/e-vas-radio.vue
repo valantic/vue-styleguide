@@ -153,10 +153,10 @@
     $this: &;
     $e-vas-radio--label-size: 18px;
 
-    font-size: variables.$vas-font-size--16;
     position: relative;
     display: block;
     cursor: pointer;
+    font-size: variables.$vas-font-size--16;
 
     &__field {
       position: absolute;
@@ -167,8 +167,8 @@
     &__label {
       display: block;
       margin: 0;
-      padding-left: variables.$vas-spacing--25;
       padding-top: 2px;
+      padding-left: variables.$vas-spacing--25;
 
       &:hover {
         color: variables.$vas-color-grayscale--0;

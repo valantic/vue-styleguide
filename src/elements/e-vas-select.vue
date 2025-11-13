@@ -200,12 +200,12 @@
       outline: none;
       border: 1px solid variables.$vas-color-grayscale--500;
       border-radius: 3px;
-      cursor: pointer;
-      appearance: none;
       background-image: url('../assets/chevron--down.svg');
-      background-size: 10px;
       background-repeat: no-repeat;
       background-position: calc(100% - 8px) center;
+      background-size: 10px;
+      cursor: pointer;
+      appearance: none;
 
       &::-ms-expand {
         display: none;

@@ -290,17 +290,17 @@
     --e-vas-button-border-color: #{variables.$vas-color-grayscale--0};
     --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
 
-    font-size: variables.$vas-font-size--16;
     position: relative;
     display: inline-block;
     padding: variables.$vas-form-field-padding (variables.$vas-form-field-padding * 3);
     outline: none;
-    border-radius: variables.$vas-form-border-radius;
-    cursor: pointer;
-    text-align: center;
-    background-color: var(--e-vas-button-background-color);
     border: 1px solid var(--e-vas-button-border-color);
+    border-radius: variables.$vas-form-border-radius;
+    background-color: var(--e-vas-button-background-color);
+    cursor: pointer;
     color: var(--e-vas-button-font-color);
+    font-size: variables.$vas-font-size--16;
+    text-align: center;
 
     &:hover {
       text-decoration: none;
@@ -337,9 +337,9 @@
     &--disabled,
     &[disabled]:hover,
     &--disabled:hover {
+      opacity: 0.4;
       cursor: default;
       pointer-events: none;
-      opacity: 0.4;
     }
 
     &--progress,
@@ -348,9 +348,9 @@
     &--progress[disabled]:focus,
     &--progress:hover,
     &--progress:focus {
+      overflow: hidden; // Prevents overflow of animation
       cursor: default;
       pointer-events: none;
-      overflow: hidden; // Prevents overflow of animation
     }
 
     &__inner {

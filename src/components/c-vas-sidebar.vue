@@ -204,81 +204,81 @@
     $c-vas-sidebar--button-size: 40px;
     $c-vas-sidebar--sidebar-width: 320px;
 
-    z-index: 999;
     position: fixed;
-    height: 100vh;
-    width: 0;
-    right: 0;
     top: 0;
+    right: 0;
+    z-index: 999;
+    width: 0;
+    height: 100vh;
 
     &--open {
       #{$this}__wrapper {
-        border-left: 10px solid variables.$vas-color-grayscale--400;
         display: block;
         width: $c-vas-sidebar--sidebar-width;
         overflow: auto;
+        border-left: 10px solid variables.$vas-color-grayscale--400;
       }
 
       #{$this}__viewport,
       #{$this}__float-button {
-        opacity: 1;
         right: $c-vas-sidebar--sidebar-width - 10px;
+        opacity: 1;
       }
     }
 
     &__float-button {
-      opacity: 0.2;
       position: absolute;
-      width: $c-vas-sidebar--button-size;
-      height: $c-vas-sidebar--button-size;
-      border: 1px solid variables.$vas-color-grayscale--400;
-      cursor: pointer;
       right: 0;
       bottom: 0;
       z-index: 2;
+      width: $c-vas-sidebar--button-size;
+      height: $c-vas-sidebar--button-size;
+      opacity: 0.2;
+      border: 1px solid variables.$vas-color-grayscale--400;
       background-color: variables.$vas-color-grayscale--1000;
       background-repeat: no-repeat;
       background-position: center;
       background-size: $c-vas-sidebar--button-size - 15px;
+      cursor: pointer;
 
       &--menu {
-        background-image: url('../assets/text.svg');
         bottom: 0;
+        background-image: url('../assets/text.svg');
       }
 
       &--config {
-        background-image: url('../assets/cog-wheel.svg');
         bottom: $c-vas-sidebar--button-size - 1px;
+        background-image: url('../assets/cog-wheel.svg');
       }
 
       &--active {
-        background-color: variables.$vas-color-grayscale--400;
         opacity: 1;
+        background-color: variables.$vas-color-grayscale--400;
       }
 
       &:hover {
-        background-color: variables.$vas-color-grayscale--500;
         opacity: 0.9;
+        background-color: variables.$vas-color-grayscale--500;
       }
     }
 
     &__wrapper {
-      display: none;
       position: absolute;
       right: 0;
       bottom: 0;
+      z-index: 1;
+      display: none;
       width: 0;
       height: 100%;
+      padding: 12px;
       background-color: variables.$vas-color-grayscale--1000;
       font-family: variables.$vas-font-family--primary;
-      z-index: 1;
-      padding: 12px;
     }
 
     &__header {
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       margin-bottom: 25px;
     }
 
@@ -292,56 +292,56 @@
 
     &__header-slogan {
       position: absolute;
-      width: 100%;
-      text-align: center;
       bottom: 0;
       left: 0;
-      font-size: 10px;
+      width: 100%;
       color: variables.$vas-color-grayscale--0;
+      font-size: 10px;
+      text-align: center;
     }
 
     &__viewport {
-      display: flex;
-      align-items: center;
-      gap: 5px;
       position: absolute;
-      z-index: 2;
-      opacity: 0.2;
       right: 0;
-      color: variables.$vas-color-grayscale--0;
-      background: variables.$vas-color-grayscale--400;
+      z-index: 2;
+      display: flex;
+      gap: 5px;
+      align-items: center;
       padding: 2px 10px;
+      opacity: 0.2;
+      background: variables.$vas-color-grayscale--400;
+      color: variables.$vas-color-grayscale--0;
     }
 
     &__section-header {
+      margin-bottom: 10px;
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 10px;
     }
 
     &__tabs {
       display: flex;
-      border-bottom: 1px solid variables.$vas-color-grayscale--400;
       margin-bottom: 10px;
+      border-bottom: 1px solid variables.$vas-color-grayscale--400;
     }
 
     &__tab-item {
       display: flex;
+      gap: 5px;
       align-items: center;
       padding: 3px 6px;
       border: 1px solid variables.$vas-color-grayscale--400;
       border-bottom: 0;
       cursor: pointer;
-      gap: 5px;
 
       &--active {
-        background-color: variables.$vas-color-grayscale--400;
         opacity: 1;
+        background-color: variables.$vas-color-grayscale--400;
       }
 
       &:hover {
-        background-color: variables.$vas-color-grayscale--500;
         opacity: 0.9;
+        background-color: variables.$vas-color-grayscale--500;
       }
     }
 

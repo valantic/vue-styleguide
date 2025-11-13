@@ -104,7 +104,7 @@
     &__slider {
       position: relative;
       align-self: flex-end;
-      width: 2 * $e-vas-toggle-size;
+      width: 2 * #{$e-vas-toggle-size};
       height: $e-vas-toggle-size;
       border-radius: $e-vas-toggle-size;
       background-color: var(--e-vas-toggle-background-color);
@@ -113,11 +113,11 @@
 
       &::before {
         position: absolute;
-        top: 0.1 * $e-vas-toggle-size;
-        left: 0.1 * $e-vas-toggle-size;
+        top: 0.1 * #{$e-vas-toggle-size};
+        left: 0.1 * #{$e-vas-toggle-size};
         content: '';
-        width: 0.8 * $e-vas-toggle-size;
-        height: 0.8 * $e-vas-toggle-size;
+        width: 0.8 * #{$e-vas-toggle-size};
+        height: 0.8 * #{$e-vas-toggle-size};
         border-radius: 50%;
         background-color: var(--e-vas-toggle-toggle-color);
         transition: variables.$vas-transition-duration--default;
@@ -128,7 +128,7 @@
       display: none;
 
       &:checked + #{$this}__slider::before {
-        transform: translateX($e-vas-toggle-size);
+        transform: translateX(#{$e-vas-toggle-size});
       }
     }
   }

@@ -416,12 +416,12 @@
       display: block;
       width: 100%;
       max-height: 300px;
+      padding-top: variables.$vas-form-field-padding;
       overflow: auto;
       border: 1px solid variables.$vas-form-border-color;
       border-top: 0;
       background-color: variables.$vas-color-grayscale--1000;
       transform-origin: top;
-      padding-top: variables.$vas-form-field-padding;
     }
 
     &__options-list {

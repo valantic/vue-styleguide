@@ -182,11 +182,11 @@
     $e-vas-checkbox--label-size: 20px;
     $e-vas-checkbox--toggle-size: 1rem;
 
-    font-size: variables.$vas-font-size--16;
     position: relative;
     display: block;
-    cursor: pointer;
     margin-bottom: 8px;
+    cursor: pointer;
+    font-size: variables.$vas-font-size--16;
 
     &__field {
       position: absolute;
@@ -240,7 +240,7 @@
 
       #{$this}__indicator {
         position: relative;
-        width: 1.5 * $e-vas-checkbox--toggle-size;
+        width: 1.5 * #{$e-vas-checkbox--toggle-size};
         height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
         margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
         border-radius: $e-vas-checkbox--toggle-size;

@@ -102,8 +102,8 @@
     overflow: auto;
 
     &--has-indent {
-      padding-left: 20px;
       margin: 0;
+      padding-left: 20px;
     }
 
     &__navigation-link {

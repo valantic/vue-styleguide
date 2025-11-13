@@ -1,6 +1,9 @@
 <template>
   <section :class="b('', modifiers)">
-    <h1 v-if="showHeadline" :class="b('headline')">
+    <h1
+      v-if="showHeadline"
+      :class="b('headline')"
+    >
       {{ routeName }}
     </h1>
     <slot></slot>
@@ -35,7 +38,7 @@
       showHeadline: {
         type: Boolean,
         default: true,
-      }
+      },
     },
 
     // setup(): Setup {
@@ -48,14 +51,14 @@
 
     computed: {
       routeName(): string {
-        return this.$route?.meta?.title ? this.$route.meta.title : this.$route.name as string;
+        return this.$route?.meta?.title ?? (this.$route.name as string);
       },
 
       modifiers(): Modifiers {
         return {
-          padding: this.padding
+          padding: this.padding,
         };
-      }
+      },
     },
     // watch: {},
 

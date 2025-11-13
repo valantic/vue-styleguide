@@ -12,11 +12,31 @@
       </div>
       <div :class="b('variants')">
         <e-vas-button primary>Button Primary</e-vas-button>
-        <e-vas-button primary active>Button Primary (active)</e-vas-button>
-        <e-vas-button primary focus>Button Primary (focus)</e-vas-button>
-        <e-vas-button primary hover>Button Primary (hover)</e-vas-button>
-        <e-vas-button primary disabled>Button Primary (disabled)</e-vas-button>
-        <e-vas-button primary progress>Button (progress)</e-vas-button>
+        <e-vas-button
+          primary
+          active
+          >Button Primary (active)</e-vas-button
+        >
+        <e-vas-button
+          primary
+          focus
+          >Button Primary (focus)</e-vas-button
+        >
+        <e-vas-button
+          primary
+          hover
+          >Button Primary (hover)</e-vas-button
+        >
+        <e-vas-button
+          primary
+          disabled
+          >Button Primary (disabled)</e-vas-button
+        >
+        <e-vas-button
+          primary
+          progress
+          >Button (progress)</e-vas-button
+        >
       </div>
     </div>
     <div :class="b('section')">
@@ -25,12 +45,27 @@
     </div>
     <div :class="b('section')">
       <h2>Checkbox</h2>
-      <e-vas-checkbox v-model="checkbox" name="yes" value="yes">Checkbox</e-vas-checkbox>
-      <e-vas-checkbox v-model="checkbox" name="no" value="no">Checkbox</e-vas-checkbox>
+      <e-vas-checkbox
+        v-model="checkbox"
+        name="yes"
+        value="yes"
+        >Checkbox</e-vas-checkbox
+      >
+      <e-vas-checkbox
+        v-model="checkbox"
+        name="no"
+        value="no"
+        >Checkbox</e-vas-checkbox
+      >
     </div>
     <div :class="b('section')">
       <h2>Radio</h2>
-      <e-vas-radio v-model="radio" name="radio" value="radio 1">Radio</e-vas-radio>
+      <e-vas-radio
+        v-model="radio"
+        name="radio"
+        value="radio 1"
+        >Radio</e-vas-radio
+      >
     </div>
     <div :class="b('section')">
       <h2>Toggle</h2>
@@ -53,15 +88,15 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import lVasLayout from '../../layouts/l-vas-layout.vue';
   import eVasButton from '../../elements/e-vas-button.vue';
-  import eVasInput from '../../elements/e-vas-input.vue';
   import eVasCheckbox from '../../elements/e-vas-checkbox.vue';
-  import eVasSelect from '../../elements/e-vas-select.vue';
+  import eVasInput from '../../elements/e-vas-input.vue';
   import eVasMultiselect from '../../elements/e-vas-multiselect.vue';
-  import eVasToggle from '../../elements/e-vas-toggle.vue';
-  import eVasRadio from '../../elements/e-vas-radio.vue';
   import eVasProgress from '../../elements/e-vas-progress.vue';
+  import eVasRadio from '../../elements/e-vas-radio.vue';
+  import eVasSelect from '../../elements/e-vas-select.vue';
+  import eVasToggle from '../../elements/e-vas-toggle.vue';
+  import lVasLayout from '../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -92,7 +127,7 @@
           { label: 'Option 1', value: '1' },
           { label: 'Option 2', value: '2' },
           { label: 'Option 3', value: '3' },
-        ]
+        ],
       };
     },
 
@@ -101,15 +136,15 @@
 </script>
 
 <style lang="scss">
- .r-elements {
-   &__section {
-     padding: 2rem 0;
-   }
+  .r-elements {
+    &__section {
+      padding: 2rem 0;
+    }
 
-   &__variants {
-     display: flex;
-     gap: 1rem;
-     margin-bottom: 10px;
-   }
- }
+    &__variants {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 10px;
+    }
+  }
 </style>

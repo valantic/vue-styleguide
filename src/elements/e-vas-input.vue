@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, Ref, ref, toRefs } from 'vue';
+  import { Ref, defineComponent, ref, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import propScale from '../helpers/prop.scale';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
@@ -128,7 +128,7 @@
       autofocus: {
         type: Boolean,
         default: false,
-      }
+      },
     },
 
     emits: {
@@ -326,7 +326,6 @@
 
     // input
     &__field {
-      font-size: variables.$vas-font-size--16;
       position: relative;
       width: 100%;
       padding: variables.$vas-form-field-padding;
@@ -334,6 +333,7 @@
       border-radius: variables.$vas-form-border-radius;
       color: variables.$vas-color-grayscale--0;
       font-family: variables.$vas-font-family--primary;
+      font-size: variables.$vas-font-size--16;
 
       // disable iPhone styling
       -webkit-appearance: none;
@@ -381,13 +381,13 @@
     }
 
     &__fixed-label {
-      font-size: variables.$vas-font-size--14;
       position: absolute;
       top: 50%;
       left: variables.$vas-spacing--5;
       display: flex;
       transform: translateY(-50%);
       color: variables.$vas-color-grayscale--400;
+      font-size: variables.$vas-font-size--14;
     }
 
     &__slot-wrapper {
@@ -400,9 +400,9 @@
     }
 
     &__slot {
-      font-size: variables.$vas-font-size--14;
       display: flex;
       color: variables.$vas-color-grayscale--400;
+      font-size: variables.$vas-font-size--14;
     }
 
     // active

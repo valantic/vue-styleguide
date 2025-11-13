@@ -54,7 +54,7 @@
       showLoadingMessage: {
         type: Boolean,
         default: false,
-      }
+      },
     },
     // setup(): Setup {
     //   return {};
@@ -146,7 +146,7 @@
       margin: variables.$vas-spacing--5 auto 0;
       border-radius: 50%;
       background-color: variables.$vas-color-grayscale--0;
-      animation: e-progress-rotation-animation $e-vas-progress--animation-duration linear infinite;
+      animation: e-progress-rotation-animation #{$e-vas-progress--animation-duration} linear infinite;
 
       &:nth-child(1) {
         animation-delay: math.div($e-vas-progress--animation-duration, 3) * -1;

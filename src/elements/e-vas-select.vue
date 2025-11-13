@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, toRefs } from 'vue';
+  import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
@@ -200,12 +200,12 @@
       outline: none;
       border: 1px solid variables.$vas-color-grayscale--500;
       border-radius: 3px;
-      cursor: pointer;
-      appearance: none;
       background-image: url('../assets/chevron--down.svg');
-      background-size: 10px;
       background-repeat: no-repeat;
       background-position: calc(100% - 8px) center;
+      background-size: 10px;
+      cursor: pointer;
+      appearance: none;
 
       &::-ms-expand {
         display: none;

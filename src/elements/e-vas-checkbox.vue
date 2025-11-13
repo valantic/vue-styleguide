@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, toRefs } from 'vue';
+  import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
@@ -77,8 +77,8 @@
     },
 
     emits: {
-      'update:modelValue': (payload: unknown): boolean => typeof payload !== 'undefined',
-      'change': (payload: unknown): boolean => typeof payload !== 'undefined',
+      'update:modelValue': (payload: unknown): boolean => payload !== undefined,
+      'change': (payload: unknown): boolean => payload !== undefined,
       'focus': (): boolean => true,
       'blur': (): boolean => true,
     },
@@ -182,11 +182,11 @@
     $e-vas-checkbox--label-size: 20px;
     $e-vas-checkbox--toggle-size: 1rem;
 
-    font-size: variables.$vas-font-size--16;
     position: relative;
     display: block;
-    cursor: pointer;
     margin-bottom: 8px;
+    cursor: pointer;
+    font-size: variables.$vas-font-size--16;
 
     &__field {
       position: absolute;
@@ -240,7 +240,7 @@
 
       #{$this}__indicator {
         position: relative;
-        width: 1.5 * $e-vas-checkbox--toggle-size;
+        width: calc(1.5 * #{$e-vas-checkbox--toggle-size});
         height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
         margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
         border-radius: $e-vas-checkbox--toggle-size;

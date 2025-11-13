@@ -1,5 +1,8 @@
 <template>
-  <div id="app" :class="b()">
+  <div
+    id="app"
+    :class="b()"
+  >
     <router-view />
     <c-vas-sidebar
       :settings="styleguideSettings"
@@ -10,8 +13,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { StyleguideSettings } from '../types/settings';
   import cVasSidebar from '../components/c-vas-sidebar.vue';
+  import { StyleguideSettings } from '../types/settings';
 
   // type Setup = {};
   type Data = {
@@ -57,7 +60,7 @@
             },
           ],
           selectedLanguage: 'de',
-        }
+        },
       };
     },
 
@@ -78,7 +81,7 @@
     methods: {
       onUpdateTheme() {
         // TODO: Update theme in the app.
-      }
+      },
     },
     // render() {},
   });

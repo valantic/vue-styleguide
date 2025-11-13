@@ -99,9 +99,9 @@
     position: relative;
 
     &__input {
+      position: relative;
       width: 100%;
       padding: 10px 20px 10px 10px;
-      position: relative;
     }
 
     &__button-clear {
@@ -111,8 +111,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
       height: 100%;
+      cursor: pointer;
     }
 
     &__close-icon {
@@ -120,9 +120,9 @@
       height: 20px;
       background-color: variables.$vas-color-grayscale--1000;
       background-image: url('../assets/close.svg');
-      background-size: 12px;
       background-repeat: no-repeat;
       background-position: center;
+      background-size: 12px;
     }
   }
 </style>

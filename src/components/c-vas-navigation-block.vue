@@ -6,8 +6,8 @@
       :class="b('navigation-item')"
     >
       <router-link
-        :to="{ name: route.name, params: route.meta?.params, query: route.meta?.query }"
-        :class="b('navigation-link')"
+        :to="route.children?.length ? {} : { name: route.name, params: route.meta?.params, query: route.meta?.query }"
+        :class="b('navigation-link', { isParent: !!route.children?.length })"
         :active-class="b('navigation-link', { activePath: true })"
         :exact-active-class="b('navigation-link', { active: true })"
         exact
@@ -15,9 +15,9 @@
         {{ route.meta?.title }}
       </router-link>
       <c-vas-navigation-block
-        v-if="route.children && route.children.length"
+        v-if="route.children?.length"
         :routes="route.children"
-        has-indent
+        is-child-node
       />
     </li>
   </ul>
@@ -48,7 +48,7 @@
       /**
        * Defines if the component should have an extra indentation.
        */
-      hasIndent: {
+      isChildNode: {
         type: Boolean,
         default: false,
       },
@@ -66,7 +66,7 @@
        */
       componentModifiers(): Modifiers {
         return {
-          hasIndent: this.hasIndent,
+          isChildNode: this.isChildNode,
         };
       },
 
@@ -75,6 +75,11 @@
        */
       filteredRoutes(): RouteRecordRaw[] {
         const filteredRoutes = this.routes.filter((route) => route.meta && !route.meta.hideInStyleguide);
+
+        // Do not sort menu items on top level.
+        if (!this.isChildNode) {
+          return filteredRoutes;
+        }
 
         // eslint-disable-next-line unicorn/no-array-sort
         return filteredRoutes.sort((first, second) => {
@@ -101,9 +106,9 @@
   .c-vas-navigation-block {
     overflow: auto;
 
-    &--has-indent {
+    &--is-child-node {
+      padding-left: 16px;
       margin: 0;
-      padding-left: 20px;
     }
 
     &__navigation-link {
@@ -111,7 +116,7 @@
       padding: 5px;
       text-decoration: none;
 
-      &:hover {
+      &:hover:not(&--is-parent) {
         background-color: variables.$vas-color-grayscale--500;
       }
 
@@ -122,6 +127,10 @@
 
       &--active {
         background-color: variables.$vas-color-grayscale--600;
+      }
+
+      &--is-parent {
+        background-color: initial;
       }
     }
   }

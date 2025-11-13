@@ -20,7 +20,6 @@ export default [
   {
     path: styleguideRoot,
     name: 'styleguide',
-    redirect: `${styleguideRoot}/readme`,
     component: sectionWrapper,
     meta: {
       title: 'Styleguide',

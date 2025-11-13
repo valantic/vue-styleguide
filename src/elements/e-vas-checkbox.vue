@@ -240,7 +240,7 @@
 
       #{$this}__indicator {
         position: relative;
-        width: 1.5 * #{$e-vas-checkbox--toggle-size};
+        width: calc(1.5 * #{$e-vas-checkbox--toggle-size});
         height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
         margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
         border-radius: $e-vas-checkbox--toggle-size;

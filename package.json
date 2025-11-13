@@ -1,10 +1,13 @@
 {
   "name": "@valantic/vue-styleguide",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "description": "A demo tool to test a vue project locally.",
   "type": "module",
   "lastDependencyUpdate": "01.10.2025",
   "scripts": {
+    "release": "npm version patch -m 'Release %s' && git push --follow-tags",
+    "release:minor": "npm version minor -m 'Release %s' && git push --follow-tags",
+    "release:major": "npm version major -m 'Release %s' && git push --follow-tags",
     "clean:caches": "rm -rf .eslintcache .stylelintcache node_modules/.cache",
     "dev": "vite",
     "fix:stylelint": "npm run lint:stylelint -- --cache=false --config .stylelintrc.fix.mjs --fix",

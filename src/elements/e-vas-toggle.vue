@@ -4,7 +4,6 @@
       v-if="$slots.default"
       :class="b('label')"
     >
-      <!-- @slot renders its content as element label -->
       <slot></slot>
     </span>
     <input
@@ -50,17 +49,11 @@
     // },
 
     computed: {
-      /**
-       * Sets/gets value of component model and parent model.
-       */
       internalValue: {
         get(): boolean {
           return this.modelValue;
         },
         set(value: boolean) {
-          /**
-           * Emits checkbox value e.g. true/false or value
-           */
           this.$emit('update:modelValue', value);
         },
       },

@@ -15,7 +15,7 @@
       position: absolute;
       z-index: 1000;
       border: 1px solid $red;
-      padding: 2px variables.$vas-spacing--5;
+      padding: 2px variables.$vas-spacing--6;
       background: color.adjust($red, $lightness: 40%);
       color: $black;
       max-width: 200px;

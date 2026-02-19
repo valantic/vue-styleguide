@@ -7,6 +7,7 @@
     <c-vas-sidebar
       :settings="styleguideSettings"
       @update-theme="onUpdateTheme"
+      @update-language="onUpdateLanguage"
     />
   </div>
 </template>
@@ -36,30 +37,28 @@
     data(): Data {
       return {
         styleguideSettings: {
-          themePath: 'src/setup/scss/themes',
           availableThemes: [
             {
-              name: 'theme-01',
-              id: 'theme-01',
-              selected: true,
+              label: 'theme-01',
+              value: 'theme-01',
             },
             {
-              name: 'theme-02',
-              id: 'theme-02',
-              selected: false,
+              label: 'theme-02',
+              value: 'theme-02',
+              selected: true,
             },
           ],
           availableLanguages: [
             {
               label: 'English',
               value: 'en',
+              selected: true,
             },
             {
               label: 'Deutsch',
               value: 'de',
             },
           ],
-          selectedLanguage: 'de',
         },
       };
     },
@@ -79,8 +78,14 @@
     // unmounted() {},
 
     methods: {
-      onUpdateTheme() {
-        // TODO: Update theme in the app.
+      onUpdateTheme(theme: string) {
+        // eslint-disable-next-line no-console
+        console.log('Theme updated', theme);
+      },
+
+      onUpdateLanguage(language: string) {
+        // eslint-disable-next-line no-console
+        console.log('language updated', language);
       },
     },
     // render() {},

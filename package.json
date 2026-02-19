@@ -10,10 +10,11 @@
     "release:major": "npm version major -m 'Release %s' && git push --follow-tags",
     "clean:caches": "rm -rf .eslintcache .stylelintcache node_modules/.cache",
     "dev": "vite",
-    "fix:stylelint": "npm run lint:stylelint -- --cache=false --config .stylelintrc.fix.mjs --fix",
+    "fix:stylelint": "npm run lint:stylelint -- --cache=false --config .stylelintrc.fix.js --fix",
     "lint": "npm run lint:eslint && npm run lint:stylelint && npm run tsc",
     "lint:eslint": "eslint --ext .ts,.js,.vue ./",
     "lint:stylelint": "stylelint 'src/**/*.?(vue|scss)'",
+    "lint-staged": "lint-staged",
     "test": "npm run lint && npm run test:unit -- --watch=false",
     "test:unit": "vitest --dir tests",
     "build:watch": "npm run build -- --watch",
@@ -42,7 +43,7 @@
   },
   "homepage": "https://github.com/valantic/vue-styleguide",
   "dependencies": {
-    "vue": "~3.5.22"
+    "vue": "~3.5.28"
   },
   "devDependencies": {
     "@eslint/eslintrc": "~3.3.1",
@@ -65,6 +66,7 @@
     "globals": "~16.4.0",
     "husky": "~9.1.7",
     "jsdom": "~27.0.0",
+    "lint-staged": "~16.2.7",
     "postcss": "~8.5.6",
     "postcss-html": "~1.8.0",
     "postcss-scss": "~4.0.9",

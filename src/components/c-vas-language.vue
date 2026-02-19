@@ -1,20 +1,21 @@
 <template>
-  <label>
+  <label :class="b()">
     <span class="invisible">Language</span>
     <e-vas-select
-      v-model="language"
-      :class="b()"
-      :options="availableLanguages"
+      v-model="internalValue"
+      :options="options"
     />
   </label>
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
+  import { defineComponent } from 'vue';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
+  import { useVasSettingsStore } from '../stores/settings';
 
-  // type Setup = {};
-
+  type Setup = {
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+  };
   // type Data = {};
 
   export default defineComponent({
@@ -24,58 +25,43 @@
       eVasSelect,
     },
 
-    props: {
-      /**
-       * Array of available languages.
-       */
-      availableLanguages: {
-        type: Array as PropType<Options[]>,
-        default: () => [],
-      },
-
-      /**
-       * The currently selected language.
-       */
-      selectedLanguage: {
-        type: String,
-        default: '',
-      },
-    },
+    // props: {},
 
     emits: {
-      updateLanguage: (language: string) => typeof language === 'string',
+      change: (value: string) => typeof value === 'string',
     },
 
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    setup(): Setup {
+      return {
+        vasSettingsStore: useVasSettingsStore(),
+      };
+    },
     // data(): Data {
     //   return {};
     // },
 
     // components: {},
     computed: {
-      /**
-       * The current language.
-       */
-      language: {
+      internalValue: {
         get() {
-          return this.selectedLanguage;
+          return this.vasSettingsStore.state.language;
         },
         set(value: string) {
-          this.$emit('updateLanguage', value);
+          this.vasSettingsStore.setLanguage(value);
+          this.$emit('change', value);
         },
       },
-    },
-    // methods: {},
-    watch: {
-      language(newLanguage: string) {
-        this.$emit('updateLanguage', newLanguage);
+
+      options(): Options[] {
+        return this.vasSettingsStore.state.settings.availableLanguages.map((item) => ({
+          label: item.label,
+          value: item.value,
+        }));
       },
     },
 
-    // beforeCreate() {},
+    // watch: {},
+
     // created() {},
     // beforeMount() {},
     // mounted() {},
@@ -85,9 +71,8 @@
     // deactivated() {},
     // beforeUnmount() {},
     // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>
-
-<style lang="scss">
-  // .c-vas-language {}
-</style>

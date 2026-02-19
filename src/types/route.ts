@@ -2,6 +2,7 @@ import { ComponentPublicInstance } from 'vue';
 
 export type RouteMeta = {
   title: string;
+  alternativeTitles?: string[];
   params?: {
     [key: string]: string;
   };

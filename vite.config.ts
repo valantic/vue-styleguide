@@ -19,19 +19,16 @@ interface ViteBuilds {
   assetsDir: string;
   profileBuild: string;
   modes: Modes;
-  themeSource: string;
-  themeFiles: string[];
 }
 
 export const alias = {
   '@': path.resolve(import.meta.dirname, 'src/'),
-  '@!production': path.resolve(import.meta.dirname, 'src/'), // Workaround so that no assets from conditional styleguide related imports become part of the build.
   'vue': 'vue/dist/vue.esm-bundler.js', // Was required because inline import of vue.esm-bundler.js resulted in TS issues.
 };
 
 /**
  * Notes:
- * - Style only components are imported by src/setup/components.ts.
+ * - Style-only components are imported by src/setup/components.ts.
  */
 export default defineConfig(({ command, mode }) => {
   const config: UserConfigExport = {

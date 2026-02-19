@@ -2,43 +2,44 @@
 @use './variables';
 @use './mixins';
 
-#app {
-  min-height: 100%;
-}
-
 #valantic-vue-styleguide {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   height: 100%;
   background-color: variables.$vas-color-grayscale--1000;
+  color: variables.$vas-color-grayscale--0;
   font-family: variables.$vas-font-family--primary;
+  font-size: variables.$vas-font-size--16;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
   h1 {
-    @include mixins.heading-h1();
+    font-size: variables.$vas-font-size--30;
+    line-height: 1.15;
   }
 
   h2 {
-    @include mixins.heading-h2();
+    font-size: variables.$vas-font-size--28;
+    line-height: 1.15;
   }
 
   h3 {
-    @include mixins.heading-h3();
+    font-size: variables.$vas-font-size--26;
+    line-height: 1.15;
   }
 
   h4 {
-    @include mixins.heading-h4();
+    font-size: variables.$vas-font-size--24;
+    line-height: 1.15;
   }
 
   h5 {
-    @include mixins.heading-h5();
+    font-size: variables.$vas-font-size--20;
+    line-height: 1.15;
   }
 
   h6 {
-    @include mixins.heading-h6();
-  }
-
-  p {
-    @include mixins.font(variables.$vas-font-size--14);
+    font-size: variables.$vas-font-size--18;
+    line-height: 1.15;
   }
 
   a {

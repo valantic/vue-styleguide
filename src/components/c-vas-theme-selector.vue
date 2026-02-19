@@ -1,29 +1,22 @@
 <template>
-  <label>
+  <label :class="b()">
     <span class="invisible">Theme</span>
     <e-vas-select
-      v-model="theme"
-      :class="b()"
+      v-model="internalValue"
       :options="options"
-      @change="onChange"
     />
   </label>
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import buildConfig from '../../vite.builds.json';
+  import { defineComponent } from 'vue';
   import eVasSelect, { Options } from '../elements/e-vas-select.vue';
-  import { ThemeConfig } from '../types/settings';
+  import { useVasSettingsStore } from '../stores/settings';
 
-  type SelectEvent = Event & {
-    currentTarget: {
-      value: string;
-    };
+  type Setup = {
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
   };
-
   // type Data = {};
-  // type Setup = {};
 
   export default defineComponent({
     name: 'c-vas-theme-selector',
@@ -32,67 +25,41 @@
       eVasSelect,
     },
 
-    props: {
-      /**
-       * Array of available themes.
-       */
-      availableThemes: {
-        type: Array as PropType<ThemeConfig[]>,
-        default: () => [],
-      },
-    },
+    // props: {},
 
     emits: {
-      change: (theme: string) => theme,
+      change: (value: string) => typeof value === 'string',
     },
 
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    setup(): Setup {
+      return {
+        vasSettingsStore: useVasSettingsStore(),
+      };
+    },
     // data(): Data {
     //   return {};
     // },
 
     computed: {
-      theme: {
+      internalValue: {
         get() {
-          return 'theme-01'; // TODO: This needs to be changed.
+          return this.vasSettingsStore.state.theme;
         },
         set(value: string) {
-          // TODO: we need to set the theme.
-          console.log('set:', value); /* eslint-disable-line no-console */
+          this.vasSettingsStore.setTheme(value);
+          this.$emit('change', value);
         },
       },
 
       options(): Options[] {
-        return this.availableThemes.map((theme) => ({
-          value: theme.id,
-          label: theme.name,
+        return this.vasSettingsStore.state.settings.availableThemes.map((item) => ({
+          label: item.label,
+          value: item.value,
         }));
       },
     },
 
-    watch: {
-      /**
-       * Watches for changes of the «theme» and sets or changes the stylesheet with the
-       * custom theme css-variables
-       */
-      theme: {
-        immediate: true,
-        handler() {
-          const cssId = 'themeStylesheet';
-          const link = document.getElementById(cssId) as HTMLLinkElement;
-          const { theme } = this;
-
-          if (link) {
-            link.href = `/${buildConfig.themeSource}${theme}.scss`;
-          } else {
-            this.createStyleElement(theme, cssId);
-          }
-        },
-      },
-    },
+    // watch: {},
 
     // created() {},
     // beforeMount() {},
@@ -101,33 +68,11 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
+    // mounted() {},
     // beforeUnmount() {},
     // unmounted() {},
 
-    methods: {
-      /**
-       * Event handler for the change event of the theme selector.
-       */
-      onChange(event: SelectEvent) {
-        this.$emit('change', event.currentTarget?.value);
-      },
-
-      /**
-       * Creates a new style link element.
-       */
-      createStyleElement(theme: string, cssId: string) {
-        const head = document.getElementsByTagName('head')[0];
-        const link = document.createElement('link');
-
-        link.id = cssId;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        link.href = `/${buildConfig.themeSource}${theme}.scss`;
-        link.media = 'all';
-
-        head?.append(link);
-      },
-    },
+    // methods: {},
     // render() {},
   });
 </script>

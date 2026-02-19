@@ -1,6 +1,8 @@
 # valantic - vue styleguide
 
-This vue3 library helps to locally develop and test a vue3 project. It offers the following base features:
+> A pluggable Developer Experience (DX) utility for Vue 3 projects.
+
+This library provides a standardized, interactive sidebar designed to be integrated into any Vue 3 project during development. It acts as a "testing harness," allowing developers to quickly navigate test/demo pages and manipulate global application states (like themes and languages) through a unified interface.
 
 #### Config sidebar `c-vas-sidebar`
 
@@ -15,19 +17,20 @@ Roadmap:
 
 - Better documentation.
 - More config possibilities for a certain feature or page.
-- Slots in `l-vas-layout` for common used things like documentation link or description. 
+- Slots in `l-vas-layout` for common used things like documentation link or description.
 
 ## Introduction
 
 ### How to use:
 
-This lib is part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a more complex usage. 
+This lib is part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a more complex usage.
 
 #### Install via npm
 
-To reduce dev overhead it is currently only installable by a github link. Add this to your package.json 
+To reduce dev overhead it is currently only installable by a github link. Add this to your package.json
 
 in this example the version 0.0.2 used. Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
+
 ```
   "devDependencies": {
     "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v0.0.4",
@@ -60,7 +63,7 @@ Include the sidebar in your project.
     components: {
       cVasSidebar,
     },
-    
+
     computed: {
       styleguideSettings(): StyleguideSettings {
         return {
@@ -76,14 +79,13 @@ Include the sidebar in your project.
             {
               label: 'English',
               value: 'en',
+              selected: true,
             },
             {
               label: 'Deutsch',
               value: 'de',
             },
           ],
-
-          selectedLanguage: 'en',
         };
       },
     }

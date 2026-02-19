@@ -39,6 +39,7 @@ export default [
         component: rElements,
         meta: {
           title: 'Elements',
+          alternativeTitles: ['Elemente', 'Elementos', 'Элементы'],
         },
       },
     ],

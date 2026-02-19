@@ -1,6 +1,11 @@
-### unreleased
+# valantic vue styleguide
 
-### 0.0.2 - 2025-08-01
+## unreleased
+
+- [ENHANCEMENT]: Renamed CHANGES.md to CHANGELOG.md
+- [ENHANCEMENT]: Removed all links to storybook.
+
+## v0.0.2 - 2025-08-01
 
 - (Bugfix): Made language selector work again.
   - See: https://github.com/valantic/vue-template/src/styleguide/styleguide.vue for an implementation Example

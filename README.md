@@ -30,7 +30,7 @@ To reduce dev overhead it is currently only installable by a github link. Add th
 in this example the version 0.0.2 used. Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
 ```
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#0.0.2",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v0.0.4",
   }
 ```
 

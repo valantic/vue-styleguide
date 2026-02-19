@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [ENHANCEMENT]: Massive cleanup.
+
 ## v0.0.4 - 2026-02-19
 
 - [ENHANCEMENT]: Limit output files via npm install.

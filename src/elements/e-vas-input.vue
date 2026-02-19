@@ -16,7 +16,6 @@
       @mouseenter="hover = true"
       @mouseleave="hover = false"
     />
-
     <span
       v-if="$slots.default || !hasDefaultState"
       ref="slot"
@@ -26,7 +25,6 @@
         v-if="$slots.default"
         :class="b('slot')"
       >
-        <!-- @slot Use this slot for Content next to the input value. For e.g. icons or units. -->
         <slot></slot>
       </span>
     </span>
@@ -36,7 +34,6 @@
 <script lang="ts">
   import { Ref, defineComponent, ref, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
-  import propScale from '../helpers/prop.scale';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   type Setup = FormStates & {
@@ -66,24 +63,24 @@
        * Value passed by v-model
        */
       modelValue: {
-        default: null,
         type: String,
+        default: null,
       },
 
       /**
        * Adds name attribute
        */
       name: {
-        required: true,
         type: String,
+        required: true,
       },
 
       /**
        *  Adds title attribute
        */
       title: {
-        default: null,
         type: String,
+        default: null,
       },
 
       /**
@@ -95,14 +92,6 @@
         type: String,
         default: 'off',
       },
-
-      /**
-       * Defines the border Style
-       *
-       * Available values: [0, 500]
-       * Default: 500
-       */
-      border: propScale(500, [0, 500]),
 
       /**
        * Option for selecting value text on focus.
@@ -157,16 +146,12 @@
       };
     },
     computed: {
-      /**
-       * Defines state modifier classes.
-       */
       modifiers(): Modifiers {
-        const { border, noNativeControl } = this;
+        const { noNativeControl } = this;
 
         return {
           ...this.stateModifiers,
           type: this.$attrs.type !== null || 'text',
-          border,
           noNativeControl,
         };
       },
@@ -207,70 +192,36 @@
     },
 
     methods: {
-      /**
-       * Emits input to parent component.
-       */
-      onInput(event: Event) {
+      onInput(event: Event): void {
         const target = event.target as HTMLInputElement;
 
         this.internalValue = target.value;
-
-        /**
-         * input event fires on input
-         */
         this.$emit('update:modelValue', target.value);
       },
 
-      /**
-       * Emits focus to parent and wrapper component.
-       * Update "focus" state.
-       */
-      onFocus() {
+      onFocus(): void {
         this.focus = true;
 
         if (this.selectOnFocus) {
           this.selectValue();
         }
 
-        /**
-         * "focus" event fires on focus.
-         *
-         * @event focus
-         */
         this.$emit('focus');
       },
 
-      /**
-       * Emits blur to parent and wrapper component.
-       * Update "focus" state.
-       */
-      onBlur() {
+      onBlur(): void {
         this.focus = false;
-
-        /**
-         * blur event fires on blur
-         *
-         * @event blur
-         */
         this.$emit('blur');
       },
 
-      /**
-       * Emits enter key event to parent and wrapper component.
-       */
-      onEnterKeyUp() {
-        /**
-         * Enter keyboard event gets fired if user clicks on enter or num-pad enter.
-         *
-         * @event enter
-         */
+      onEnterKeyUp(): void {
         this.$emit('enter');
       },
 
       /**
        * Calculates the width of the slot content and sets it as a padding-right to the input-field.
        */
-      setSlotSpacings() {
+      setSlotSpacings(): void {
         if (this.slot) {
           const slotWidth = this.slot.clientWidth;
 
@@ -291,7 +242,7 @@
       /**
        * Selects the value of the input field.
        */
-      selectValue() {
+      selectValue(): void {
         if (this.modelValue) {
           // Needed to select a number value on Chrome.
           this.input?.select();
@@ -319,10 +270,6 @@
 
     position: relative;
     display: block;
-
-    &--border-0 &__field {
-      border: 1px solid transparent;
-    }
 
     // input
     &__field {
@@ -383,7 +330,7 @@
     &__fixed-label {
       position: absolute;
       top: 50%;
-      left: variables.$vas-spacing--5;
+      left: variables.$vas-spacing--6;
       display: flex;
       transform: translateY(-50%);
       color: variables.$vas-color-grayscale--400;
@@ -393,7 +340,7 @@
     &__slot-wrapper {
       position: absolute;
       top: 50%;
-      right: variables.$vas-spacing--5;
+      right: variables.$vas-spacing--6;
       display: flex;
       transform: translateY(-50%);
       pointer-events: none;

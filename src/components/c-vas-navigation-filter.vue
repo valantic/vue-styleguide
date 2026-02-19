@@ -57,9 +57,6 @@
     // },
 
     computed: {
-      /**
-       * Getter / setter for the internal value.
-       */
       internalValue: {
         get(): string {
           return this.modelValue;

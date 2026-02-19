@@ -9,17 +9,45 @@ $vas-breakpoints: (
 );
 
 // --- Colors
-$vas-color-grayscale--0: #222222;
-$vas-color-grayscale--100: #333333;
-$vas-color-grayscale--200: #646464;
-$vas-color-grayscale--300: #8f8f8f;
-$vas-color-grayscale--400: #afafaf;
-$vas-color-grayscale--500: #d8d8d8;
-$vas-color-grayscale--600: #f3f3f3;
-$vas-color-grayscale--700: #fcfcfc;
-$vas-color-grayscale--1000: #ffffff;
+$vas-color-grayscale--0: #1a1a1a; // Slightly softer black (deep charcoal)
+$vas-color-grayscale--100: #2f2f2f; // Dark gray
+$vas-color-grayscale--200: #4a4a4a; // Neutral gray
+$vas-color-grayscale--300: #6b6b6b; // Medium gray, usable for subtle borders
+$vas-color-grayscale--400: #8c8c8c; // Slightly lighter medium gray
+$vas-color-grayscale--500: #b0b0b0; // Light gray (common background tone)
+$vas-color-grayscale--600: #d3d3d3; // Soft silver/gray
+$vas-color-grayscale--700: #e9e9e9; // Light gray (close to white)
+$vas-color-grayscale--800: #f5f5f5; // Very light gray
+$vas-color-grayscale--900: #fafafa; // Almost white
+$vas-color-grayscale--1000: #ffffff; // Pure white
 
-$vas-color-status--error: #ff0000;
+// Green
+$vas-color-green-primary: #4caf50;
+$vas-color-green-light: #a8d5ba;
+$vas-color-green-dark: #388e3c;
+
+// Red
+$vas-color-red-primary: #e53935;
+$vas-color-red-light: #f9b5b5;
+$vas-color-red-dark: #c62828;
+
+// Yellow
+$vas-color-yellow-primary: #ffeb3b;
+$vas-color-yellow-light: #fff9c4;
+$vas-color-yellow-dark: #fbc02d;
+
+// Orange
+$vas-color-orange-primary: #ff9800;
+$vas-color-orange-light: #ffd699;
+$vas-color-orange-dark: #ef6c00;
+$vas-color-orange-valantic: #ff5d4d; // Amber
+
+// Blue
+$vas-color-blue-primary: #2196f3;
+$vas-color-blue-light: #bbdefb;
+$vas-color-blue-dark: #1e88e5;
+
+$vas-color-status--error: $vas-color-red-primary;
 
 // --- Font
 // Font families
@@ -35,15 +63,18 @@ $vas-font-size--12: 12px;
 $vas-font-size--14: 14px;
 $vas-font-size--16: 16px;
 $vas-font-size--18: 18px;
+$vas-font-size--20: 20px;
 $vas-font-size--24: 24px;
+$vas-font-size--26: 26px;
+$vas-font-size--28: 28px;
 $vas-font-size--30: 30px;
 
 // --- Spacings
-$vas-spacing--5: 5px;
+$vas-spacing--6: 6px;
 $vas-spacing--10: 10px;
-$vas-spacing--15: 15px;
+$vas-spacing--16: 16px;
 $vas-spacing--20: 20px;
-$vas-spacing--25: 25px;
+$vas-spacing--26: 26px;
 $vas-spacing--30: 30px;
 
 // --- transition

@@ -103,8 +103,8 @@
        * Value passed by v-model
        */
       modelValue: {
-        default: () => [],
         type: Array as PropType<string[]>,
+        default: () => [],
       },
 
       /**
@@ -113,8 +113,8 @@
        * e.g. `[{ <valueField>: 'id1', <labelField>: 'Label 1' },{ <valueField>: 'id2', <labelField>: 'Label 2' },...]`
        */
       options: {
-        required: true,
         type: Array as PropType<Option[]>,
+        required: true,
       },
 
       /**
@@ -185,14 +185,7 @@
 
     data(): Data {
       return {
-        /**
-         * @type {boolean} Holds the internal opening state of the options.
-         */
         isOpen: false,
-
-        /**
-         * @type {string} Holds the value fo the search input field.
-         */
         searchTerm: '',
       };
     },
@@ -272,10 +265,8 @@
     watch: {
       /**
        * Observes the "isOpen" property and sets the focus on the search field if it's available.
-       *
-       * @param {boolean} open - The open state.
        */
-      isOpen(open) {
+      isOpen(open: boolean): void {
         if (this.hasSearch && open) {
           this.$nextTick(() => {
             this.searchField?.focus();
@@ -306,39 +297,26 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Checks if the dropdown needs to be closed because of an outside click.
-       */
-      onClick(event: MouseEvent) {
+      onClick(event: MouseEvent): void {
         if (this.$el !== event.target && !this.$el.contains(event.target)) {
           this.close();
         }
       },
 
-      /**
-       * Close options event handler.
-       */
-      close() {
+      close(): void {
         if (this.disabled) {
           return;
         }
 
         this.isOpen = false;
         this.searchTerm = '';
-
-        /**
-         * Emits the closing event to the parent.
-         *
-         * @event close
-         * @type {array.<string>}
-         */
         this.$emit('close', this.internalValue);
       },
 
       /**
        * Hides the overlay if the user clicks somewhere else than inside the container.
        */
-      handleOutsideClick(event: Event) {
+      handleOutsideClick(event: Event): void {
         if (!this.container?.contains(event.target as Node)) {
           this.close();
         }

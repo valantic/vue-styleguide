@@ -13,7 +13,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import propScale from '../helpers/prop.scale';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
@@ -32,13 +31,6 @@
         type: Boolean,
         default: false,
       },
-
-      /**
-       * Sets the inner spacing for the animation
-       *
-       * Valid values: `[0, 500]`
-       */
-      spacing: propScale(500, [0, 500]),
 
       /**
        * Defines a fallback message. "e-progress.loading" is used by default
@@ -64,20 +56,13 @@
     // },
 
     computed: {
-      /**
-       * Returns a readable loading message.
-       */
       loadingMessage(): string {
         return this.message || 'loading';
       },
 
-      /**
-       * Returns all modifiers for the component main class.
-       */
       componentModifiers(): Modifiers {
         return {
           negative: this.negative,
-          spacing: this.spacing,
         };
       },
     },
@@ -143,7 +128,7 @@
       display: block;
       width: 0.6em;
       height: 0.6em;
-      margin: variables.$vas-spacing--5 auto 0;
+      margin: variables.$vas-spacing--6 auto 0;
       border-radius: 50%;
       background-color: variables.$vas-color-grayscale--0;
       animation: e-progress-rotation-animation #{$e-vas-progress--animation-duration} linear infinite;

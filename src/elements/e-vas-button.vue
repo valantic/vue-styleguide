@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="type"
+    :is="domElement"
     :class="b(modifiers)"
     :style="style"
     v-bind="attributes"
@@ -13,16 +13,11 @@
     @blur="onBlur"
     @click="onClick"
   >
-    <!-- span is required to prevent content shifting in E11. -->
-    <span :class="b('inner')">
-      <e-vas-progress
-        v-if="progress"
-        :spacing="0"
-        :negative="primary"
-      />
-      <!-- @slot Button content. -->
-      <slot v-else></slot>
-    </span>
+    <e-vas-progress
+      v-if="progress"
+      :negative="primary"
+    />
+    <slot v-else></slot>
   </component>
 </template>
 
@@ -137,24 +132,9 @@
     // },
     data(): Data {
       return {
-        /**
-         * Internal flag to determine hover state.
-         */
         hasHover: this.hover,
-
-        /**
-         * Internal flag to determine active state.
-         */
         isActive: this.active,
-
-        /**
-         * Internal flag to determine focus state.
-         */
         hasFocus: this.focus,
-
-        /**
-         * Determines if the current device uses touch.
-         */
         hasTouch: false,
       };
     },
@@ -180,7 +160,7 @@
        */
       attributes(): Attributes {
         return {
-          role: this.$attrs.href ? 'button' : null, // Fallback
+          role: this.$attrs.href ? 'button' : null,
           ...this.$attrs,
           disabled: this.disabled,
         };
@@ -196,7 +176,7 @@
       /**
        * Gets the type of the component (DOM element).
        */
-      type(): string {
+      domElement(): string {
         return this.element || (this.$attrs.href ? 'a' : 'button');
       },
     },
@@ -214,59 +194,34 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Mouseenter event handler.
-       */
-      onMouseEnter() {
+      onMouseEnter(): void {
         this.hasHover = true;
       },
 
-      /**
-       * Mouseleave event handler.
-       */
-      onMouseLeave() {
+      onMouseLeave(): void {
         this.hasHover = false;
         this.isActive = false;
       },
 
-      /**
-       * Mousedown event handler.
-       */
-      onMouseDown() {
+      onMouseDown(): void {
         this.isActive = true;
       },
 
-      /**
-       * Mouseup event handler.
-       */
-      onMouseUp() {
+      onMouseUp(): void {
         this.isActive = false;
       },
 
-      /**
-       * Focus event handler.
-       */
-      onFocus() {
+      onFocus(): void {
         this.hasFocus = true;
       },
 
-      /**
-       * Blur event handler.
-       */
-      onBlur() {
+      onBlur(): void {
         this.hasHover = false;
         this.hasFocus = false;
       },
 
-      /**
-       * Click event handler.
-       */
       onClick(event: Event): void {
         this.$el.blur();
-
-        /**
-         * Click event
-         */
         this.$emit('click', event);
       },
 
@@ -351,12 +306,6 @@
       overflow: hidden; // Prevents overflow of animation
       cursor: default;
       pointer-events: none;
-    }
-
-    &__inner {
-      position: relative;
-      display: inline-block;
-      vertical-align: baseline;
     }
 
     .e-progress {

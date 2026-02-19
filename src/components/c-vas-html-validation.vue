@@ -14,9 +14,6 @@
   // type Setup = {};
 
   type Data = {
-    /**
-     * Determines if the HTML validation styles should be applied.
-     */
     enabled: boolean;
   };
 
@@ -83,7 +80,7 @@
         z-index: 1000;
         content: $message;
         max-width: 200px;
-        padding: 2px variables.$vas-spacing--5;
+        padding: 2px variables.$vas-spacing--6;
         border: 1px solid variables.$vas-color-status--error;
         background: color.adjust(variables.$vas-color-status--error, $lightness: 40%);
         color: variables.$vas-color-grayscale--0;

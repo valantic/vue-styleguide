@@ -29,7 +29,6 @@
 
   /**
    * Renders a radio element. Use a v-for loop to generate a set of radio buttons.
-   *
    * The displayed name can either be provided by the property `displayName` or as a slot.
    */
   export default defineComponent({
@@ -45,16 +44,16 @@
        * The model value to be used for v-model.
        */
       modelValue: {
-        required: true,
         type: [String, Number],
+        required: true,
       },
 
       /**
        * Adds name attribute.
        */
       name: {
-        required: true,
         type: String,
+        required: true,
       },
 
       /**
@@ -82,24 +81,15 @@
     // },
 
     computed: {
-      /**
-       * Getter/setter for the internal value.
-       */
       internalValue: {
         get(): string | number {
           return this.modelValue;
         },
         set(value: string): void {
-          /**
-           * Fired on select of radio button.
-           */
           this.$emit('update:modelValue', value);
         },
       },
 
-      /**
-       * Returns a configuration Object for modifier classes.
-       */
       modifiers(): Modifiers {
         return {
           ...this.stateModifiers,
@@ -130,15 +120,9 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Emits input to parent component.
-       */
-      onChange(event: Event) {
+      onChange(event: Event): void {
         const radioButton = event.currentTarget as HTMLSelectElement;
 
-        /**
-         * Emits change event.
-         */
         this.$emit('change', radioButton.value);
       },
     },
@@ -150,7 +134,6 @@
   @use '../setup/scss/variables';
 
   .e-vas-radio {
-    $this: &;
     $e-vas-radio--label-size: 18px;
 
     position: relative;
@@ -168,7 +151,7 @@
       display: block;
       margin: 0;
       padding-top: 2px;
-      padding-left: variables.$vas-spacing--25;
+      padding-left: variables.$vas-spacing--26;
 
       &:hover {
         color: variables.$vas-color-grayscale--0;

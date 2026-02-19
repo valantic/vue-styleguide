@@ -1,18 +1,10 @@
 <template>
   <ul :class="b()">
     <li :class="b('item')">
-      <c-vas-language
-        :selected-language="selectedLanguage"
-        :available-languages="availableLanguages"
-        @update-language="onUpdateLanguage"
-      />
+      <c-vas-language />
     </li>
     <li :class="b('item')">
-      <c-vas-theme-selector
-        :theme-path="themePath"
-        :available-themes="availableThemes"
-        @change="onUpdateTheme"
-      />
+      <c-vas-theme-selector />
     </li>
     <li :class="b('item')">
       <c-vas-html-validation />
@@ -22,25 +14,15 @@
         v-model="loggedIn"
         value
       >
-        Logged in
-      </e-vas-toggle>
-    </li>
-    <li :class="b('item')">
-      <e-vas-toggle
-        v-model="showApiHandlerConfiguration"
-        value
-      >
-        API Mock Test
+        Logged in (coming soon)
       </e-vas-toggle>
     </li>
   </ul>
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import type { Options } from '../elements/e-vas-select.vue';
+  import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { ThemeConfig } from '../types/settings';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
   import cVasLanguage from './c-vas-language.vue';
   import cVasThemeSelector from './c-vas-theme-selector.vue';
@@ -48,7 +30,6 @@
   // type Setup = {};
   type Data = {
     loggedIn: boolean;
-    showApiHandlerConfiguration: boolean;
   };
 
   export default defineComponent({
@@ -60,44 +41,8 @@
       cVasLanguage,
       cVasThemeSelector,
     },
-    props: {
-      /**
-       * Path to the theme scss files.
-       */
-      themePath: {
-        type: String,
-        default: 'src/setup/scss/themes',
-      },
+    // props: {},
 
-      /**
-       * Array of available themes.
-       */
-      availableThemes: {
-        type: Array as PropType<ThemeConfig[]>,
-        default: () => [],
-      },
-
-      /**
-       * Array of available languages.
-       */
-      availableLanguages: {
-        type: Array as PropType<Options[]>,
-        default: () => [],
-      },
-
-      /**
-       * The currently selected language.
-       */
-      selectedLanguage: {
-        type: String,
-        default: '',
-      },
-    },
-
-    emits: {
-      updateTheme: (theme: string) => typeof theme === 'string',
-      updateLanguage: (language: string) => typeof language === 'string',
-    },
     // setup(): Setup {
     //   return {
     //   };
@@ -105,19 +50,10 @@
     data(): Data {
       return {
         loggedIn: true,
-        showApiHandlerConfiguration: false,
       };
     },
     // computed: {},
-    methods: {
-      onUpdateTheme(theme: string) {
-        this.$emit('updateTheme', theme);
-      },
-
-      onUpdateLanguage(language: string) {
-        this.$emit('updateLanguage', language);
-      },
-    },
+    // methods: {},
   });
 </script>
 

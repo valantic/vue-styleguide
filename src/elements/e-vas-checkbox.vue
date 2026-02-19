@@ -125,7 +125,7 @@
       /**
        * Evaluates if the checkbox is currently selected.
        */
-      isChecked() {
+      isChecked(): boolean {
         return Array.isArray(this.value) ? this.value.includes(this.modelValue) : this.value;
       },
     },
@@ -143,29 +143,13 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Emits focus to parent and wrapper component.
-       * Update "hasFocus" state.
-       */
-      onFocus() {
+      onFocus(): void {
         this.focus = true;
-
-        /**
-         * Focus event
-         */
         this.$emit('focus');
       },
 
-      /**
-       * Emits blur to parent and wrapper component.
-       * Update "hasFocus" state.
-       */
-      onBlur() {
+      onBlur(): void {
         this.focus = false;
-
-        /**
-         * Blur event.
-         */
         this.$emit('blur');
       },
     },

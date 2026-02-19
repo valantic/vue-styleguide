@@ -70,8 +70,8 @@
        * Value passed by v-model
        */
       modelValue: {
-        default: null,
         type: String,
+        default: null,
       },
 
       /**
@@ -80,8 +80,8 @@
        * e.g. `[{ <valueField>: 'id1', <labelField>: 'Label 1' },{ <valueField>: 'id2', <labelField>: 'Label 2' },...]`
        */
       options: {
-        required: true,
         type: Array as PropType<Options[]>,
+        required: true,
       },
 
       /**
@@ -111,7 +111,7 @@
       },
 
       /**
-       * Allows to change the default field, from which the value is taken for each option.
+       * Allows changing the default field, from which the value is taken for each option.
        */
       valueField: {
         type: String,
@@ -119,7 +119,7 @@
       },
 
       /**
-       * Allows to change the default field, from which the label text is taken for each option.
+       * Allows changing the default field, from which the label text is taken for each option.
        */
       labelField: {
         type: String,
@@ -144,9 +144,6 @@
     },
 
     computed: {
-      /**
-       * Defines state modifier classes.
-       */
       modifiers(): Modifiers {
         return {
           ...this.stateModifiers,
@@ -167,17 +164,10 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Emits input event for v-model.
-       */
-      onChange(event: Event) {
+      onChange(event: Event): void {
         const select = event.currentTarget as HTMLSelectElement;
 
         this.internalValue = select.value;
-
-        /**
-         * input event fires on input
-         */
         this.$emit('update:modelValue', select.value);
       },
     },
@@ -216,7 +206,7 @@
     &__icon-wrapper {
       position: absolute;
       top: 50%;
-      right: variables.$vas-spacing--5;
+      right: variables.$vas-spacing--6;
       transform: translateY(-50%);
     }
 

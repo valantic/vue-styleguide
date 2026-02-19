@@ -60,14 +60,7 @@
 
       <section v-else>
         <div :class="b('section-header')">Settings</div>
-        <c-vas-sidebar-config
-          :theme-path="settings.themePath"
-          :available-themes="settings.availableThemes"
-          :available-languages="settings.availableLanguages"
-          :selected-language="settings.selectedLanguage"
-          @update-theme="onUpdateTheme"
-          @update-language="onUpdateLanguage"
-        />
+        <c-vas-sidebar-config />
       </section>
     </div>
   </div>
@@ -76,6 +69,7 @@
 <script lang="ts">
   import { PropType, Ref, defineComponent, ref } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { useVasSettingsStore } from '../stores/settings';
   import { StyleguideSettings } from '../types/settings';
   import cVasSidebarConfig from './c-vas-sidebar-config.vue';
   import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
@@ -87,6 +81,7 @@
 
   type Setup = {
     container: Ref<HTMLDivElement | null | undefined>;
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
   };
 
   type Data = {
@@ -116,11 +111,14 @@
       updateTheme: (theme: string) => typeof theme === 'string',
       updateLanguage: (language: string) => typeof language === 'string',
     },
+
     setup(): Setup {
       return {
         container: ref(),
+        vasSettingsStore: useVasSettingsStore(),
       };
     },
+
     data(): Data {
       return {
         isOpen: false,
@@ -149,6 +147,19 @@
     // beforeMount() {},
     mounted() {
       window.addEventListener('keydown', this.handleHotKeys);
+
+      this.vasSettingsStore.initialize(this.settings);
+      this.vasSettingsStore.watchChanges((key, value) => {
+        const eventMap = {
+          theme: 'updateTheme',
+          language: 'updateLanguage',
+        } as const;
+
+        if (key in eventMap) {
+          // @ts-ignore - Vue event typing via emit.
+          this.$emit(eventMap[key], value);
+        }
+      });
     },
     // beforeUpdate() {},
     // updated() {},
@@ -161,30 +172,22 @@
     // unmounted() {},
 
     methods: {
-      onToggleSidebar(showMenu: boolean = false, showConfig: boolean = false, isOpen: boolean = true) {
+      onToggleSidebar(showMenu: boolean = false, showConfig: boolean = false, isOpen: boolean = true): void {
         this.isOpen = isOpen;
         this.showMenu = showMenu;
         this.showConfig = showConfig;
       },
 
-      onUpdateTheme(theme: string) {
-        this.$emit('updateTheme', theme);
-      },
-
-      onUpdateLanguage(language: string) {
-        this.$emit('updateLanguage', language);
-      },
-
       /**
        * Hides the overlay if the user clicks somewhere else than inside the container.
        */
-      handleOutsideClick(event: Event) {
+      handleOutsideClick(event: Event): void {
         if (!this.container?.contains(event.target as Node)) {
           this.onToggleSidebar(false, false, false);
         }
       },
 
-      handleHotKeys(event: KeyEvent) {
+      handleHotKeys(event: KeyEvent): void {
         // Check if both Control and O keys are pressed
         if (event.ctrlKey && event.key === 'o') {
           event.preventDefault();

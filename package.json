@@ -94,5 +94,8 @@
   ],
   "msw": {
     "workerDirectory": "public"
-  }
+  },
+  "files": [
+    "src"
+  ]
 }

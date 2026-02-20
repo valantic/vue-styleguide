@@ -1,7 +1,4 @@
 import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
-import rElements from '../demo-pages/r-elements.vue';
-import rNavigation from '../demo-pages/r-navigation.vue';
-import rReadme from '../demo-pages/r-readme.vue';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {
@@ -29,7 +26,7 @@ export default [
       {
         path: 'readme',
         name: 'Readme',
-        component: rReadme,
+        component: () => import('../demo-pages/r-readme.vue'),
         meta: {
           title: 'Readme',
         },
@@ -47,7 +44,7 @@ export default [
       {
         path: 'navigation',
         name: 'Navigation',
-        component: rNavigation,
+        component: () => import('../demo-pages/components/r-navigation.vue'),
         meta: {
           title: 'Navigation',
         },
@@ -65,7 +62,7 @@ export default [
       {
         path: 'elements',
         name: 'Elements',
-        component: rElements,
+        component: () => import('../demo-pages/elements/r-elements.vue'),
         meta: {
           title: 'Elements',
           alternativeTitles: ['Elemente', 'Elementos'],

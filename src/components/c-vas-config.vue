@@ -33,7 +33,7 @@
   };
 
   export default defineComponent({
-    name: 'c-vas-sidebar-config',
+    name: 'c-vas-config',
 
     components: {
       cVasHtmlValidation,
@@ -58,7 +58,7 @@
 </script>
 
 <style lang="scss">
-  .c-vas-sidebar-config {
+  .c-vas-config {
     &__item {
       margin-bottom: 15px;
 

@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="app"
-    :class="b()"
-  >
+  <div :class="b()">
     <router-view />
     <c-vas-sidebar
       :settings="styleguideSettings"
@@ -96,9 +93,14 @@
   @use 'sass:map';
   @use '../setup/scss/variables';
 
+  html,
+  #app {
+    height: 100%;
+  }
   // Define #app styles in setup/scss/_globals.scss
   // stylelint-disable selector-class-pattern
   .styleguide {
+    height: 100%;
     max-width: map.get(variables.$vas-breakpoints, xl);
     margin: 0 auto;
     padding: variables.$vas-spacing--30;

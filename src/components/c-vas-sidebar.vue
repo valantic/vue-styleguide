@@ -11,68 +11,77 @@
       :class="b('float-button', { menu: true, active: showMenu && isOpen })"
       type="button"
       @click="onToggleSidebar(true)"
-    >
-      <span></span>
-    </button>
+    />
+
     <button
       :class="b('float-button', { config: true, active: showConfig && isOpen })"
       type="button"
       @click="onToggleSidebar(false, true)"
-    >
-      <span></span>
-    </button>
+    />
 
-    <div :class="b('wrapper')">
+    <div :class="b('container')">
       <div :class="b('header')">
+        <img
+          :class="b('header-logo')"
+          src="../assets/vuejs.svg"
+          alt="vuejs"
+        />
+        <span :class="b('header-slogan')">Styleguide</span>
+      </div>
+      <div :class="b('content-wrapper')">
+        <ul :class="b('tabs')">
+          <li
+            :class="b('tab-item', { active: showMenu })"
+            @click="onToggleSidebar(true)"
+          >
+            <span :class="b('tab-item-icon', { menu: true })"></span>
+          </li>
+          <li
+            :class="b('tab-item', { active: showConfig })"
+            @click="onToggleSidebar(false, true)"
+          >
+            <span :class="b('tab-item-icon', { config: true })"></span>
+          </li>
+        </ul>
+
+        <section v-if="showMenu">
+          <div :class="b('section-header')">Menu</div>
+          <c-vas-navigation :routes="router.options.routes" />
+        </section>
+
+        <section v-else>
+          <div :class="b('section-header')">Settings</div>
+          <c-vas-config />
+        </section>
+      </div>
+      <div :class="b('footer')">
         <a
-          :class="b('header-link')"
-          href="https://www.valantic.com"
+          :href="githubUrl"
           target="_blank"
           rel="noopener noreferrer"
+          :class="b('footer-link')"
         >
           <img
-            :class="b('header-logo')"
-            src="../assets/valantic.svg"
-            alt="valantic"
+            :class="b('mini-icon')"
+            src="../assets/tag.svg"
+            alt="tag"
           />
-          <span :class="b('header-slogan')">Styleguide</span>
+          {{ version }}
         </a>
       </div>
-      <ul :class="b('tabs')">
-        <li
-          :class="b('tab-item', { active: showMenu })"
-          @click="onToggleSidebar(true)"
-        >
-          <span :class="b('tab-item-icon', { menu: true })"></span>
-        </li>
-        <li
-          :class="b('tab-item', { active: showConfig })"
-          @click="onToggleSidebar(false, true)"
-        >
-          <span :class="b('tab-item-icon', { config: true })"></span>
-        </li>
-      </ul>
-
-      <section v-if="showMenu">
-        <div :class="b('section-header')">Menu</div>
-        <c-vas-sidebar-navigation />
-      </section>
-
-      <section v-else>
-        <div :class="b('section-header')">Settings</div>
-        <c-vas-sidebar-config />
-      </section>
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import { PropType, Ref, defineComponent, ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import packageJson from '../../package.json';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { useVasSettingsStore } from '../stores/settings';
   import { StyleguideSettings } from '../types/settings';
-  import cVasSidebarConfig from './c-vas-sidebar-config.vue';
-  import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
+  import cVasConfig from './c-vas-config.vue';
+  import cVasNavigation from './c-vas-navigation.vue';
 
   type KeyEvent = Event & {
     ctrlKey: boolean;
@@ -80,8 +89,11 @@
   };
 
   type Setup = {
+    router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
     vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+    version: string;
+    githubUrl: string;
   };
 
   type Data = {
@@ -94,8 +106,8 @@
     name: 'c-vas-sidebar',
 
     components: {
-      cVasSidebarNavigation,
-      cVasSidebarConfig,
+      cVasNavigation,
+      cVasConfig,
     },
     props: {
       /**
@@ -114,8 +126,11 @@
 
     setup(): Setup {
       return {
+        router: useRouter(),
         container: ref(),
         vasSettingsStore: useVasSettingsStore(),
+        version: packageJson.version,
+        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
       };
     },
 
@@ -141,12 +156,16 @@
           document.removeEventListener('click', this.handleOutsideClick);
         }
       },
+
+      $route() {
+        this.onToggleSidebar(false, false, false);
+      },
     },
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
     mounted() {
-      window.addEventListener('keydown', this.handleHotKeys);
+      document.addEventListener('keydown', this.handleHotKeys);
 
       this.vasSettingsStore.initialize(this.settings);
       this.vasSettingsStore.watchChanges((key, value) => {
@@ -167,7 +186,7 @@
     // deactivated() {},
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
-      window.removeEventListener('keydown', this.handleHotKeys);
+      document.removeEventListener('keydown', this.handleHotKeys);
     },
     // unmounted() {},
 
@@ -201,6 +220,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .c-vas-sidebar {
     $this: &;
@@ -215,8 +235,8 @@
     height: 100vh;
 
     &--open {
-      #{$this}__wrapper {
-        display: block;
+      #{$this}__container {
+        display: grid;
         width: $c-vas-sidebar--sidebar-width;
         overflow: auto;
         border-left: 10px solid variables.$vas-color-grayscale--400;
@@ -260,12 +280,11 @@
       }
 
       &:hover {
-        opacity: 0.9;
         background-color: variables.$vas-color-grayscale--500;
       }
     }
 
-    &__wrapper {
+    &__container {
       position: absolute;
       right: 0;
       bottom: 0;
@@ -273,34 +292,30 @@
       display: none;
       width: 0;
       height: 100%;
-      padding: 12px;
       background-color: variables.$vas-color-grayscale--1000;
+      grid-template-rows: 55px 1fr 40px;
+    }
+
+    &__content-wrapper {
+      display: flex;
+      flex-direction: column;
       font-family: variables.$vas-font-family--primary;
+      padding: variables.$vas-spacing--12;
     }
 
     &__header {
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 25px;
-    }
-
-    &__header-link {
-      position: relative;
+      gap: variables.$vas-spacing--6;
+      background-color: rgba(variables.$vas-color-green-vue, 0.1);
+      color: variables.$vas-color-green-vue;
+      font-size: variables.$vas-font-size--24;
+      font-weight: 900;
     }
 
     &__header-logo {
-      width: 160px;
-    }
-
-    &__header-slogan {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      color: variables.$vas-color-grayscale--0;
-      font-size: 10px;
-      text-align: center;
+      width: 28px;
     }
 
     &__viewport {
@@ -363,6 +378,28 @@
       &--config {
         background-image: url('../assets/cog-wheel.svg');
       }
+    }
+
+    &__footer {
+      justify-self: end;
+      background-color: rgba(variables.$vas-color-green-vue, 0.1);
+      width: 100%;
+      padding: variables.$vas-spacing--8;
+      font-size: variables.$vas-font-size--12;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+    }
+
+    &__footer-link {
+      display: flex;
+      align-items: center;
+      gap: variables.$vas-spacing--6;
+    }
+
+    &__mini-icon {
+      width: 12px;
+      transform: scaleX(-1);
     }
   }
 </style>

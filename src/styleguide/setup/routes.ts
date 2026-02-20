@@ -1,5 +1,6 @@
 import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
 import rElements from '../demo-pages/r-elements.vue';
+import rNavigation from '../demo-pages/r-navigation.vue';
 import rReadme from '../demo-pages/r-readme.vue';
 
 declare module 'vue-router' {
@@ -33,13 +34,41 @@ export default [
           title: 'Readme',
         },
       },
+    ],
+  },
+  {
+    path: '/components',
+    name: 'components',
+    component: sectionWrapper,
+    meta: {
+      title: 'Components',
+    },
+    children: [
+      {
+        path: 'navigation',
+        name: 'Navigation',
+        component: rNavigation,
+        meta: {
+          title: 'Navigation',
+        },
+      },
+    ],
+  },
+  {
+    path: '/elements',
+    name: 'elements',
+    component: sectionWrapper,
+    meta: {
+      title: 'Elements',
+    },
+    children: [
       {
         path: 'elements',
         name: 'Elements',
         component: rElements,
         meta: {
           title: 'Elements',
-          alternativeTitles: ['Elemente', 'Elementos', 'Элементы'],
+          alternativeTitles: ['Elemente', 'Elementos'],
         },
       },
     ],

@@ -25,7 +25,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valantic/vue-styleguide.git"
+    "url": "git+https://github.com/valantic/vue-styleguide.git",
+    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
   },
   "engines": {
     "node": ">=22 <25",

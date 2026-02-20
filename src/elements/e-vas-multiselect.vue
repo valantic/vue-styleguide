@@ -285,7 +285,7 @@
     // created() {},
     // beforeMount() {},
     mounted() {
-      window.addEventListener('click', this.onClick, { capture: true });
+      document.addEventListener('click', this.onClick, { capture: true });
     },
     // beforeUpdate() {},
     // updated() {},

@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
   import cVasNavigationFilter from './c-vas-navigation-filter.vue';
@@ -25,13 +25,21 @@
   };
 
   export default defineComponent({
-    name: 'c-vas-sidebar-navigation',
+    name: 'c-vas-navigation',
 
     components: {
       cVasNavigationBlock,
       cVasNavigationFilter,
     },
-    // props: {},
+    props: {
+      /**
+       * An array of styleguide routes.
+       */
+      routes: {
+        type: Array as PropType<readonly RouteRecordRaw[]>,
+        default: () => [],
+      },
+    },
 
     // emits: {},
     // setup(): Setup {
@@ -45,7 +53,7 @@
     },
     computed: {
       routesFilteredByTitle(): RouteRecordRaw[] {
-        return this.filterRoutesByTitle(this.$router.options.routes, this.navigationFilter);
+        return this.filterRoutesByTitle(this.routes, this.navigationFilter);
       },
     },
     methods: {
@@ -53,16 +61,22 @@
        * Filters the routes by their title.
        */
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
-        const lowerCaseSearchTerm = searchTerm.toLowerCase();
+        const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
+
+        if (!lowerCaseSearchTerm) {
+          return [...routes];
+        }
+
+        const searchTokens = lowerCaseSearchTerm.split(/\s+/);
 
         return routes.reduce((filteredRoutes: RouteRecordRaw[], route) => {
-          const titleMatch = route.meta?.title?.toLowerCase().includes(lowerCaseSearchTerm);
-          const alternativeTitlesMatch = route.meta?.alternativeTitles
-            ?.toString()
-            .toLowerCase()
-            .includes(lowerCaseSearchTerm);
+          const title = route.meta?.title?.toLowerCase() || '';
+          const alternativeTitles = route.meta?.alternativeTitles?.toString().toLowerCase() || '';
+          const combinedTitles = `${title} ${alternativeTitles}`;
 
-          if (titleMatch || alternativeTitlesMatch) {
+          const isMatch = searchTokens.every((token) => combinedTitles.includes(token));
+
+          if (isMatch) {
             // the route matches the search term
             filteredRoutes.push(route);
           } else if (route.children) {
@@ -86,9 +100,24 @@
 </script>
 
 <style lang="scss">
-  .c-vas-sidebar-navigation {
+  @use '../setup/scss/variables';
+
+  .c-vas-navigation {
+    display: flex;
+    flex-direction: column;
+
     &__filter {
-      margin-bottom: 20px;
+      margin-bottom: variables.$vas-spacing--8;
+    }
+
+    &__menu {
+      display: flex;
+      flex-direction: column;
+      flex: 0 1 auto;
+      height: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
   }
 </style>

@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT]: Improved navigation block styling.
 - [ENHANCEMENT]: Massive cleanup.
 
 ## v0.0.4 - 2026-02-19

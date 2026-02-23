@@ -1,6 +1,7 @@
 import { Plugin } from 'vue';
 import viewport from '../plugins/viewport';
 import VueBemCn from '../plugins/vue-bem-cn';
+import directives from './directives';
 
 export type CustomPlugin = {
   plugin: Plugin;
@@ -8,6 +9,7 @@ export type CustomPlugin = {
 };
 
 export default [
+  { plugin: directives },
   { plugin: viewport },
   {
     plugin: VueBemCn,

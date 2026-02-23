@@ -18,9 +18,9 @@
    */
   export default defineComponent({
     name: 's-header',
-    components: { cVasStyleguideBrand },
-
-    // components: {},
+    components: {
+      cVasStyleguideBrand,
+    },
 
     // props: {},
     // emits: [],

@@ -255,7 +255,7 @@
       width: 12px;
       height: 12px;
       margin-right: variables.$vas-spacing--8;
-      background-image: url('../assets/chevron--down.svg');
+      background-image: url('../assets/icons/i-chevron--down.svg');
       background-repeat: no-repeat;
       background-position: center;
       background-size: contain;

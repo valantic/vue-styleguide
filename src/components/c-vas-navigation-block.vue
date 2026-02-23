@@ -198,7 +198,7 @@
       cursor: pointer;
       min-height: 32px;
       border-radius: 2px;
-      word-break: break-word;
+      overflow-wrap: break-word;
       text-wrap: wrap;
       margin-top: variables.$vas-spacing--4;
 

@@ -105,6 +105,7 @@
   @use '@/setup/scss/variables';
   @use '@/setup/scss/mixins';
 
+  // stylelint-disable selector-max-id
   html,
   #app {
     height: 100%;

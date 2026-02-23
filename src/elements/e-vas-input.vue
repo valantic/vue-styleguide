@@ -178,7 +178,7 @@
       this.setSlotSpacings();
       setTimeout(this.setSlotSpacings, 200);
 
-      window.addEventListener('resizeend', this.setSlotSpacings);
+      document.addEventListener('resizeend', this.setSlotSpacings);
     },
     // beforeUpdate() {},
     updated() {
@@ -188,7 +188,7 @@
     // deactivated() {},
     // beforeUnmount() {},
     unmounted() {
-      window.removeEventListener('resizeend', this.setSlotSpacings);
+      document.removeEventListener('resizeend', this.setSlotSpacings);
     },
 
     methods: {

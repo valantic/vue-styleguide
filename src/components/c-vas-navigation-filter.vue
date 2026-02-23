@@ -7,6 +7,7 @@
       type="search"
       placeholder="Search …"
       autofocus
+      select-on-focus
       @click.stop
     />
     <button
@@ -37,7 +38,6 @@
     props: {
       /**
        * The searchTerm to filter the navigation for.
-       * Comes in as 2-way binding (v-model) from the parent component.
        */
       modelValue: {
         type: String,
@@ -98,7 +98,7 @@
     &__input {
       position: relative;
       width: 100%;
-      padding: 10px 20px 10px 10px;
+      padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
     }
 
     &__button-clear {
@@ -110,16 +110,18 @@
       align-items: center;
       height: 100%;
       cursor: pointer;
+      background-color: rgba(variables.$vas-color-grayscale--0, 0.08);
+      padding: variables.$vas-spacing--2;
     }
 
     &__close-icon {
       width: 20px;
       height: 20px;
-      background-color: variables.$vas-color-grayscale--1000;
-      background-image: url('../assets/close.svg');
+      background-color: transparent;
+      background-image: url('../assets/icons/i-close.svg');
       background-repeat: no-repeat;
       background-position: center;
-      background-size: 12px;
+      background-size: 10px;
     }
   }
 </style>

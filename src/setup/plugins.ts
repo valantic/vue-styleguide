@@ -1,6 +1,7 @@
 import { Plugin } from 'vue';
 import viewport from '../plugins/viewport';
 import VueBemCn from '../plugins/vue-bem-cn';
+import directives from './directives';
 
 export type CustomPlugin = {
   plugin: Plugin;
@@ -16,4 +17,5 @@ export default [
       hyphenate: true,
     },
   },
+  { plugin: directives },
 ] satisfies CustomPlugin[];

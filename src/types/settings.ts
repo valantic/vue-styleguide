@@ -7,4 +7,7 @@ export type GenericSelectOption = {
 export type StyleguideSettings = {
   availableThemes: GenericSelectOption[];
   availableLanguages: GenericSelectOption[];
+  isLoggedIn: boolean;
+  activeTheme: string;
+  activeLanguage: string;
 };

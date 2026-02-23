@@ -1,15 +1,13 @@
 <template>
-  <l-vas-layout>
-    <div :class="b()">
-      <c-vas-readme />
-    </div>
+  <l-vas-layout :class="b()">
+    <c-vas-readme />
   </l-vas-layout>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasReadme from '../../components/c-vas-readme.vue';
-  import lVasLayout from '../../layouts/l-vas-layout.vue';
+  import cVasReadme from '@/components/c-vas-readme.vue';
+  import lVasLayout from '@/layouts/l-vas-layout.vue';
 
   // type Setup = {};
   // type Data = {};

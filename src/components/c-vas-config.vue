@@ -10,12 +10,7 @@
       <c-vas-html-validation />
     </li>
     <li :class="b('item')">
-      <e-vas-toggle
-        v-model="loggedIn"
-        value
-      >
-        Logged in (coming soon)
-      </e-vas-toggle>
+      <e-vas-toggle v-model="vasSettingsStore.state.settings.isLoggedIn">Logged in</e-vas-toggle>
     </li>
   </ul>
 </template>
@@ -23,17 +18,18 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
+  import { useVasSettingsStore } from '../stores/settings';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
   import cVasLanguage from './c-vas-language.vue';
   import cVasThemeSelector from './c-vas-theme-selector.vue';
 
-  // type Setup = {};
-  type Data = {
-    loggedIn: boolean;
+  type Setup = {
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
   };
+  // type Data = {};
 
   export default defineComponent({
-    name: 'c-vas-sidebar-config',
+    name: 'c-vas-config',
 
     components: {
       cVasHtmlValidation,
@@ -42,25 +38,28 @@
       cVasThemeSelector,
     },
     // props: {},
+    // emits: {},
 
-    // setup(): Setup {
+    setup(): Setup {
+      return {
+        vasSettingsStore: useVasSettingsStore(),
+      };
+    },
+    // data(): Data {
     //   return {
     //   };
     // },
-    data(): Data {
-      return {
-        loggedIn: true,
-      };
-    },
     // computed: {},
     // methods: {},
   });
 </script>
 
 <style lang="scss">
-  .c-vas-sidebar-config {
+  @use '../setup/scss/variables';
+
+  .c-vas-config {
     &__item {
-      margin-bottom: 15px;
+      margin-bottom: variables.$vas-spacing--16;
 
       &:last-child {
         margin-bottom: 0;

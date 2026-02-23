@@ -21,10 +21,14 @@ $vas-color-grayscale--800: #f5f5f5; // Very light gray
 $vas-color-grayscale--900: #fafafa; // Almost white
 $vas-color-grayscale--1000: #ffffff; // Pure white
 
+$vas-color-black: #000000;
+$vas-color-white: #ffffff;
+
 // Green
 $vas-color-green-primary: #4caf50;
 $vas-color-green-light: #a8d5ba;
 $vas-color-green-dark: #388e3c;
+$vas-color-green-vue: #213547;
 
 // Red
 $vas-color-red-primary: #e53935;
@@ -52,6 +56,8 @@ $vas-color-status--error: $vas-color-red-primary;
 // --- Font
 // Font families
 $vas-font-family--primary: Arial, Helvetia, Arial, sans-serif;
+$vas-font-color--text: $vas-color-grayscale--0;
+$vas-font-color--muted: #3c3c3cb3;
 
 // Font weight
 $vas-font-weight--regular: 400;
@@ -59,6 +65,7 @@ $vas-font-weight--semi-bold: 600;
 $vas-font-weight--bold: 700;
 
 // Font size
+$vas-font-size--10: 10px;
 $vas-font-size--12: 12px;
 $vas-font-size--14: 14px;
 $vas-font-size--16: 16px;
@@ -70,11 +77,20 @@ $vas-font-size--28: 28px;
 $vas-font-size--30: 30px;
 
 // --- Spacings
+$vas-spacing--2: 2px;
+$vas-spacing--4: 4px;
 $vas-spacing--6: 6px;
+$vas-spacing--8: 8px;
 $vas-spacing--10: 10px;
+$vas-spacing--12: 12px;
+$vas-spacing--14: 14px;
 $vas-spacing--16: 16px;
+$vas-spacing--18: 18px;
 $vas-spacing--20: 20px;
+$vas-spacing--22: 22px;
+$vas-spacing--24: 24px;
 $vas-spacing--26: 26px;
+$vas-spacing--28: 28px;
 $vas-spacing--30: 30px;
 
 // --- transition

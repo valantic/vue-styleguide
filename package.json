@@ -17,6 +17,8 @@
     "lint-staged": "lint-staged",
     "test": "npm run lint && npm run test:unit -- --watch=false",
     "test:unit": "vitest --dir tests",
+    "build": "vite build --mode=app",
+    "build:icons": "svg-sprite --config .svg-sprite.json src/assets/icons/*.svg; node ./update-ts-icon-type",
     "build:watch": "npm run build -- --watch",
     "serve": "vite preview",
     "prepare": "husky",
@@ -25,7 +27,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/valantic/vue-styleguide.git"
+    "url": "git+https://github.com/valantic/vue-styleguide.git",
+    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
   },
   "engines": {
     "node": ">=22 <25",
@@ -48,6 +51,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "~3.3.1",
     "@eslint/js": "~9.36.0",
+    "@faker-js/faker": "~10.3.0",
     "@trivago/prettier-plugin-sort-imports": "~5.2.2",
     "@types/node": "~24.6.1",
     "@vitejs/plugin-vue": "~6.0.1",
@@ -74,6 +78,7 @@
     "sass": "~1.93.2",
     "stylelint": "~16.24.0",
     "stylelint-config-valantic": "~9.1.0",
+    "svg-sprite": "~2.0.4",
     "svgo": "~4.0.0",
     "the-new-css-reset": "~1.11.3",
     "typescript": "~5.9.3",

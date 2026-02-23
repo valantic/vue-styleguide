@@ -1,42 +1,48 @@
 <template>
-  <div
-    id="app"
-    :class="b()"
-  >
-    <router-view />
-    <c-vas-sidebar
-      :settings="styleguideSettings"
-      @update-theme="onUpdateTheme"
-      @update-language="onUpdateLanguage"
-    />
+  <div :class="b()">
+    <s-header :class="b('header')" />
+    <main :class="b('container')">
+      <router-view />
+    </main>
+    <s-footer :class="b('footer')" />
+    <c-vas-sidebar :settings="settings" />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasSidebar from '../components/c-vas-sidebar.vue';
-  import { StyleguideSettings } from '../types/settings';
+  import { useVasSettingsStore } from '@/stores/settings';
+  import cVasSidebar from '@/components/c-vas-sidebar.vue';
+  import sFooter from '@/styleguide/components/s-footer.vue';
+  import sHeader from '@/styleguide/components/s-header.vue';
+  import { StyleguideSettings } from '@/types/settings';
 
-  // type Setup = {};
+  type Setup = {
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+  };
   type Data = {
-    styleguideSettings: StyleguideSettings;
+    settings: Partial<StyleguideSettings>;
   };
 
   export default defineComponent({
     name: 'styleguide',
 
     components: {
+      sHeader,
+      sFooter,
       cVasSidebar,
     },
 
     // props: {},
 
-    // setup(): Setup {
-    //   return {};
-    // },
+    setup(): Setup {
+      return {
+        vasSettingsStore: useVasSettingsStore(),
+      };
+    },
     data(): Data {
       return {
-        styleguideSettings: {
+        settings: {
           availableThemes: [
             {
               label: 'theme-01',
@@ -59,17 +65,29 @@
               value: 'de',
             },
           ],
+          isLoggedIn: true,
         },
       };
     },
 
     // computed: {},
-    // watch: {},
+    watch: {
+      'vasSettingsStore.state.settings': {
+        handler(newSettings) {
+          // eslint-disable-next-line no-console
+          console.log('settings have changed', newSettings);
+        },
+        deep: true,
+        immediate: false,
+      },
+    },
 
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    // mounted() {},
+    mounted() {
+      this.vasSettingsStore.initialize(this.settings);
+    },
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
@@ -77,30 +95,30 @@
     // beforeUnmount() {},
     // unmounted() {},
 
-    methods: {
-      onUpdateTheme(theme: string) {
-        // eslint-disable-next-line no-console
-        console.log('Theme updated', theme);
-      },
-
-      onUpdateLanguage(language: string) {
-        // eslint-disable-next-line no-console
-        console.log('language updated', language);
-      },
-    },
+    // methods: {},
     // render() {},
   });
 </script>
 
 <style lang="scss">
   @use 'sass:map';
-  @use '../setup/scss/variables';
+  @use '@/setup/scss/variables';
+  @use '@/setup/scss/mixins';
 
+  // stylelint-disable selector-max-id
+  html,
+  #app {
+    height: 100%;
+  }
   // Define #app styles in setup/scss/_globals.scss
   // stylelint-disable selector-class-pattern
   .styleguide {
-    max-width: map.get(variables.$vas-breakpoints, xl);
-    margin: 0 auto;
-    padding: variables.$vas-spacing--30;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+
+    &__container {
+      @include mixins.container;
+    }
   }
 </style>

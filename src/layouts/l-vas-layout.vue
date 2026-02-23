@@ -33,6 +33,15 @@
       },
 
       /**
+       * Define content padding class.
+       */
+      variant: {
+        type: String,
+        default: 'default',
+        validator: (value: string) => ['plain', 'default'].includes(value),
+      },
+
+      /**
        * Define if the headline should be shown.
        */
       showHeadline: {
@@ -57,6 +66,7 @@
       modifiers(): Modifiers {
         return {
           padding: this.padding,
+          variant: this.variant,
         };
       },
     },
@@ -79,9 +89,20 @@
 </script>
 
 <style lang="scss">
+  @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
+
   .l-vas-layout {
+    &--variant-default {
+      @include mixins.container;
+
+      height: 100%;
+      border-right: 1px solid variables.$vas-color-grayscale--700;
+      border-left: 1px solid variables.$vas-color-grayscale--700;
+    }
+
     &--padding-default {
-      padding: 6rem 0;
+      padding: variables.$vas-spacing--30;
     }
 
     &--padding-none {

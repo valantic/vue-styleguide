@@ -49,14 +49,24 @@
         </section>
       </div>
       <div :class="b('footer')">
+        <button
+          :class="b('hotkeys')"
+          type="button"
+          @click="isHotkeysModalOpen = true"
+        >
+          <e-vas-icon
+            icon="i-key-cmd--filled"
+            size="12"
+          />
+          Hotkeys
+        </button>
         <a
           :href="githubUrl"
           target="_blank"
           rel="noopener noreferrer"
-          :class="b('footer-link')"
+          :class="b('github-link')"
         >
           <e-vas-icon
-            :class="b('mini-icon')"
             icon="i-tag"
             size="12"
           />
@@ -64,6 +74,7 @@
         </a>
       </div>
     </div>
+    <c-vas-hotkey-modal v-model:is-open="isHotkeysModalOpen" />
   </div>
 </template>
 
@@ -74,12 +85,14 @@
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import cVasConfig from './c-vas-config.vue';
+  import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasStyleguideBrand from './c-vas-styleguide-brand.vue';
 
   type KeyEvent = Event & {
     metaKey: boolean;
     ctrlKey: boolean;
+    shiftKey: boolean;
     key: string;
   };
 
@@ -94,12 +107,14 @@
     isOpen: boolean;
     showMenu: boolean;
     showConfig: boolean;
+    isHotkeysModalOpen: boolean;
   };
 
   export default defineComponent({
     name: 'c-vas-sidebar',
 
     components: {
+      cVasHotkeyModal,
       eVasIcon,
       cVasStyleguideBrand,
       cVasNavigation,
@@ -123,6 +138,7 @@
         isOpen: false,
         showMenu: false,
         showConfig: false,
+        isHotkeysModalOpen: false,
       };
     },
     computed: {
@@ -178,20 +194,22 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
-        const isShiftKey = event.key === 'Shift';
-        // HotKey: Ctrl + o || Shift + Cmd + o
-        const toggleSidebar =
-          (event.ctrlKey && event.key === 'o') || (isShiftKey && event.metaKey && event.key === 'o');
+        const isEscKey = event.key === 'Escape';
 
-        if (toggleSidebar) {
+        if (event.metaKey && event.shiftKey && event.key === 'o') {
           event.preventDefault();
           this.onToggleSidebar(true, false, !this.isOpen);
         }
 
         // HotKey: ESC
-        if (event.key === 'Escape' && this.isOpen) {
+        if (isEscKey && this.isOpen) {
           event.preventDefault();
           this.onToggleSidebar(true, false, false);
+        }
+
+        if (event.metaKey && event.shiftKey && event.key === ':') {
+          event.preventDefault();
+          this.onToggleSidebar(false, true, true);
         }
       },
     },
@@ -353,22 +371,38 @@
       margin-top: auto;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
       width: 100%;
-      padding: variables.$vas-spacing--8;
+      padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
       font-size: variables.$vas-font-size--12;
       display: flex;
       align-items: center;
-      justify-content: end;
+      justify-content: space-between;
       height: 40px;
     }
 
-    &__footer-link {
+    &__github-link {
       display: flex;
       align-items: center;
       gap: variables.$vas-spacing--6;
+
+      .e-vas-icon {
+        transform: scaleX(-1);
+      }
     }
 
-    &__mini-icon {
-      transform: scaleX(-1);
+    &__hotkeys {
+      display: flex;
+      align-items: center;
+      gap: variables.$vas-spacing--6;
+      padding: variables.$vas-spacing--4;
+      border: 1px solid variables.$vas-color-grayscale--400;
+      border-radius: 2px;
+      background-color: rgba(variables.$vas-color-grayscale--1000, 0);
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(variables.$vas-color-grayscale--1000, 0.4);
+      }
     }
   }
 </style>

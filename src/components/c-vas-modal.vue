@@ -5,15 +5,16 @@
   >
     <dialog
       v-if="isOpen"
+      ref="scrollContainer"
       :class="b(modifiers)"
+      @click="onOutsideClick"
     >
       <div
-        v-outside-click="onOutsideClick"
-        ref="scrollContainer"
         :class="b('inner')"
+        @click.stop
       >
         <div
-          v-if="$slots.head || title || isClosable"
+          v-if="($slots.head || title || isClosable) && !hideHeader"
           :class="b('header')"
         >
           <div :class="b('header-inner')">
@@ -21,12 +22,12 @@
               name="head"
               :close="close"
             >
-              <h2
+              <div
                 v-if="title"
                 :class="b('title')"
               >
                 {{ title }}
-              </h2>
+              </div>
               <button
                 v-if="isClosable"
                 aria-label="close modal"
@@ -36,7 +37,7 @@
               >
                 <e-vas-icon
                   icon="i-close"
-                  size="30"
+                  size="16"
                 />
               </button>
             </slot>
@@ -46,10 +47,10 @@
           <slot></slot>
         </div>
         <div
-          v-if="$slots.stickyFooter"
-          :class="b('sticky-footer')"
+          v-if="$slots.footer"
+          :class="b('footer')"
         >
-          <slot name="stickyFooter"></slot>
+          <slot name="footer"></slot>
         </div>
       </div>
     </dialog>
@@ -102,6 +103,14 @@
       },
 
       /**
+       * Allows hiding the header.
+       */
+      hideHeader: {
+        type: Boolean,
+        default: false,
+      },
+
+      /**
        * Allows enabling/disabling close on outside click.
        */
       closeOnOutsideClick: {
@@ -111,24 +120,20 @@
 
       /**
        * Allows modifying the size of the modal.
-       *
-       * Valid values: `[600, 700, 800]`
        */
       size: {
         type: String,
-        default: '600',
-        validator: (value: string) => ['600', '700', '800'].includes(value),
+        default: 'default',
+        validator: (value: string) => ['default'].includes(value),
       },
 
       /**
        * Allows modifying the inner spacing of the modal.
-       *
-       * Valid values: `[0, 300, 500]`
        */
       spacing: {
         type: String,
-        default: '500',
-        validator: (value: string) => ['0', '300', '500'].includes(value),
+        default: 'default',
+        validator: (value: string) => ['default', 'none'].includes(value),
       },
     },
     emits: {
@@ -256,8 +261,22 @@
     }
 
     &::backdrop {
-      opacity: 0.75;
+      opacity: 0.4;
       background-color: variables.$vas-color-grayscale--0;
+    }
+
+    &--size-default &__inner {
+      @include mixins.media(md) {
+        width: 600px;
+      }
+    }
+
+    &--spacing-default {
+      #{$this}__header,
+      #{$this}__footer,
+      #{$this}__content {
+        padding: variables.$vas-spacing--20;
+      }
     }
 
     &__inner {
@@ -276,18 +295,9 @@
         height: auto;
         overflow-y: hidden;
       }
-
-      @include mixins.media(lg) {
-        max-width: 66vw;
-      }
-
-      @include mixins.media(xl) {
-        max-width: 66vw;
-      }
     }
 
-    &__header,
-    &__sticky-footer {
+    &__header {
       padding: variables.$vas-spacing--20;
       border-bottom: 1px variables.$vas-color-grayscale--600;
 
@@ -309,26 +319,14 @@
     &__content {
       flex: 1 0 auto;
       padding: variables.$vas-spacing--26;
-
-      @include mixins.media(md) {
-        padding: variables.$vas-spacing--30;
-      }
-    }
-
-    &__sticky-footer {
-      border-top: 1px solid variables.$vas-color-grayscale--600;
-
-      @include mixins.media($down: sm) {
-        position: sticky;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        background-color: variables.$vas-color-grayscale--1000;
-      }
+      max-height: 65vh;
+      overflow-y: auto;
     }
 
     &__title {
       margin: 0;
+      font-size: variables.$vas-font-size--18;
+      font-weight: bold;
     }
 
     &__button-close {
@@ -336,32 +334,8 @@
       cursor: pointer;
     }
 
-    &--size-600 &__inner {
-      @include mixins.media(md) {
-        width: 38rem;
-      }
-    }
-
-    &--size-700 &__inner {
-      @include mixins.media(md) {
-        width: 50rem;
-      }
-    }
-
-    &--spacing-0 &__content {
-      padding: 0;
-    }
-
-    &--spacing-300 {
-      #{$this}__header,
-      #{$this}__footer,
-      #{$this}__content {
-        padding: variables.$vas-spacing--26;
-
-        @include mixins.media(md) {
-          padding: variables.$vas-spacing--30;
-        }
-      }
+    &__footer {
+      border-top: 1px solid variables.$vas-color-grayscale--600;
     }
   }
 
@@ -369,7 +343,7 @@
   .c-vas-modal--fade-animation-leave-active {
     &,
     &::backdrop {
-      transition: opacity 200ms ease-in-out;
+      transition: opacity 150ms ease-in-out;
     }
   }
 

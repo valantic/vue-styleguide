@@ -1,7 +1,7 @@
 <template>
   <l-vas-layout>
     <div :class="b()">
-      <section>
+      <section :class="b('section')">
         <h2>Default Modal</h2>
         <e-vas-button
           primary
@@ -17,7 +17,7 @@
         </c-vas-modal>
       </section>
 
-      <section :style="{ marginTop: '2rem' }">
+      <section :class="b('section')">
         <h2>Modal with outside click closing</h2>
         <e-vas-button
           primary
@@ -34,7 +34,24 @@
         </c-vas-modal>
       </section>
 
-      <section :style="{ marginTop: '2rem' }">
+      <section :class="b('section')">
+        <h2>Modal with no header</h2>
+        <e-vas-button
+          primary
+          @click="isNoHeaderModalOpen = true"
+        >
+          Open Modal (no header)
+        </e-vas-button>
+        <c-vas-modal
+          v-model:is-open="isNoHeaderModalOpen"
+          close-on-outside-click
+          hide-header
+        >
+          <p>You can close this modal by clicking outside of it.</p>
+        </c-vas-modal>
+      </section>
+
+      <section :class="b('section')">
         <h2>Modal without close button</h2>
         <e-vas-button
           primary
@@ -55,8 +72,8 @@
         </c-vas-modal>
       </section>
 
-      <section :style="{ marginTop: '2rem' }">
-        <h2>Modal with Sticky Footer</h2>
+      <section :class="b('section')">
+        <h2>Modal with too much content</h2>
         <e-vas-button
           primary
           @click="isStickyFooterModalOpen = true"
@@ -68,15 +85,13 @@
           title="Sticky Footer Modal"
         >
           <p
-            v-for="i in 20"
+            v-for="i in 120"
             :key="i"
           >
             Scrolling content... Line {{ i }}
           </p>
-          <template #stickyFooter>
-            <div :style="{ padding: '1rem', borderTop: '1px solid #ccc', textAlign: 'right' }">
-              <e-vas-button @click="isStickyFooterModalOpen = false"> Close </e-vas-button>
-            </div>
+          <template #footer>
+            <e-vas-button @click="isStickyFooterModalOpen = false"> Close </e-vas-button>
           </template>
         </c-vas-modal>
       </section>
@@ -95,6 +110,7 @@
     isOutsideClickModalOpen: boolean;
     isNonClosableModalOpen: boolean;
     isStickyFooterModalOpen: boolean;
+    isNoHeaderModalOpen: boolean;
   };
 
   /**
@@ -115,6 +131,7 @@
         isOutsideClickModalOpen: false,
         isNonClosableModalOpen: false,
         isStickyFooterModalOpen: false,
+        isNoHeaderModalOpen: false,
       };
     },
   });
@@ -122,10 +139,8 @@
 
 <style lang="scss">
   .r-vas-modal {
-    padding: 2rem;
-
-    h2 {
-      margin-bottom: 1rem;
+    &__section {
+      margin-top: 2rem;
     }
   }
 </style>

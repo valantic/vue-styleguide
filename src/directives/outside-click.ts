@@ -69,60 +69,58 @@ function isClickOnExcludedElement(excludeElements: Node[], eventTarget: Node): b
 export default {
   name: 'outside-click',
 
-  directive: {
-    beforeMount(el: OutsideClickElement, binding: OutsideClickDirectiveBinding): void {
-      const handler: OutsideClickHandlerFunction =
-        typeof binding.value === 'function' ? binding.value : binding.value?.handler;
+  beforeMount(el: OutsideClickElement, binding: OutsideClickDirectiveBinding): void {
+    const handler: OutsideClickHandlerFunction =
+      typeof binding.value === 'function' ? binding.value : binding.value?.handler;
 
-      if (!handler) {
-        throw new Error('No event handler defined for v-outside-click.');
+    if (!handler) {
+      throw new Error('No event handler defined for v-outside-click.');
+    }
+    let userIsScrolling = false;
+
+    // Click / Touchstart handler.
+    el[storageKey] = (event): void => {
+      const eventTarget: Node = event.target as Node;
+
+      // These conditions are needed to detect scrolling on touch devices.
+      if (event.type === 'scroll') {
+        userIsScrolling = true;
+
+        return;
       }
-      let userIsScrolling = false;
 
-      // Click / Touchstart handler.
-      el[storageKey] = (event): void => {
-        const eventTarget: Node = event.target as Node;
+      if (event.type === 'touchend' && userIsScrolling) {
+        userIsScrolling = false;
 
-        // These conditions are needed to detect scrolling on touch devices.
-        if (event.type === 'scroll') {
-          userIsScrolling = true;
+        return;
+      }
 
-          return;
-        }
+      // We check to see if the clicked element is not the dialog element and not excluded.
+      if (el !== event.target && !el.contains(eventTarget)) {
+        if (typeof binding.value === 'object') {
+          const { excludeRefs = [], excludeIds = [], excludeElements = [] } = binding.value;
 
-        if (event.type === 'touchend' && userIsScrolling) {
-          userIsScrolling = false;
-
-          return;
-        }
-
-        // We check to see if the clicked element is not the dialog element and not excluded.
-        if (el !== event.target && !el.contains(eventTarget)) {
-          if (typeof binding.value === 'object') {
-            const { excludeRefs = [], excludeIds = [], excludeElements = [] } = binding.value;
-
-            if (
-              isClickOnExcludedRefElement(excludeRefs, eventTarget, binding) ||
-              isClickOnExcludedIdElement(excludeIds, eventTarget) ||
-              isClickOnExcludedElement(excludeElements, eventTarget)
-            ) {
-              return;
-            }
+          if (
+            isClickOnExcludedRefElement(excludeRefs, eventTarget, binding) ||
+            isClickOnExcludedIdElement(excludeIds, eventTarget) ||
+            isClickOnExcludedElement(excludeElements, eventTarget)
+          ) {
+            return;
           }
-
-          handler(event);
         }
-      };
 
-      document.addEventListener('click', el[storageKey], outsideClickEventConfig);
-      document.addEventListener('touchend', el[storageKey], outsideClickEventConfig);
-      document.addEventListener('scroll', el[storageKey], outsideClickEventConfig);
-    },
+        handler(event);
+      }
+    };
 
-    beforeUnmount(el: OutsideClickElement): void {
-      document.removeEventListener('click', el[storageKey], outsideClickEventConfig);
-      document.removeEventListener('touchend', el[storageKey], outsideClickEventConfig);
-      document.removeEventListener('scroll', el[storageKey], outsideClickEventConfig);
-    },
+    document.addEventListener('click', el[storageKey], outsideClickEventConfig);
+    document.addEventListener('touchend', el[storageKey], outsideClickEventConfig);
+    document.addEventListener('scroll', el[storageKey], outsideClickEventConfig);
+  },
+
+  beforeUnmount(el: OutsideClickElement): void {
+    document.removeEventListener('click', el[storageKey], outsideClickEventConfig);
+    document.removeEventListener('touchend', el[storageKey], outsideClickEventConfig);
+    document.removeEventListener('scroll', el[storageKey], outsideClickEventConfig);
   },
 };

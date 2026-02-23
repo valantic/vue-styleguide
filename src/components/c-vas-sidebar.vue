@@ -55,10 +55,10 @@
           rel="noopener noreferrer"
           :class="b('footer-link')"
         >
-          <img
+          <e-vas-icon
             :class="b('mini-icon')"
-            src="../assets/tag.svg"
-            alt="tag"
+            icon="tag"
+            size="12"
           />
           {{ version }}
         </a>
@@ -71,12 +71,14 @@
   import { Ref, defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
+  import eVasIcon from '../elements/e-vas-icon.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasStyleguideBrand from './c-vas-styleguide-brand.vue';
 
   type KeyEvent = Event & {
+    metaKey: boolean;
     ctrlKey: boolean;
     key: string;
   };
@@ -98,6 +100,7 @@
     name: 'c-vas-sidebar',
 
     components: {
+      eVasIcon,
       cVasStyleguideBrand,
       cVasNavigation,
       cVasConfig,
@@ -175,10 +178,20 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
-        // Check if both Control and O keys are pressed
-        if (event.ctrlKey && event.key === 'o') {
+        const isShiftKey = event.key === 'Shift';
+        // HotKey: Ctrl + o || Shift + Cmd + o
+        const toggleSidebar =
+          (event.ctrlKey && event.key === 'o') || (isShiftKey && event.metaKey && event.key === 'o');
+
+        if (toggleSidebar) {
           event.preventDefault();
           this.onToggleSidebar(true, false, !this.isOpen);
+        }
+
+        // HotKey: ESC
+        if (event.key === 'Escape' && this.isOpen) {
+          event.preventDefault();
+          this.onToggleSidebar(true, false, false);
         }
       },
     },
@@ -234,12 +247,12 @@
 
       &--menu {
         bottom: 0;
-        background-image: url('../assets/text.svg');
+        background-image: url('../assets/icons/i-text.svg');
       }
 
       &--config {
         bottom: $c-vas-sidebar--button-size - 1px;
-        background-image: url('../assets/cog-wheel.svg');
+        background-image: url('../assets/icons/i-cog-wheel.svg');
       }
 
       &--active {
@@ -328,11 +341,11 @@
       background-size: 17px;
 
       &--menu {
-        background-image: url('../assets/text.svg');
+        background-image: url('../assets/icons/i-text.svg');
       }
 
       &--config {
-        background-image: url('../assets/cog-wheel.svg');
+        background-image: url('../assets/icons/i-cog-wheel.svg');
       }
     }
 
@@ -355,7 +368,6 @@
     }
 
     &__mini-icon {
-      width: 12px;
       transform: scaleX(-1);
     }
   }

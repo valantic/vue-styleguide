@@ -1,9 +1,9 @@
 <template>
   <div :class="b()">
-    <img
+    <e-vas-icon
       :class="b('logo')"
-      src="../assets/vuejs.svg"
-      alt="vuejs"
+      icon="i-vuejs"
+      size="22"
     />
     <span :class="b('slogan')">Styleguide</span>
   </div>
@@ -11,6 +11,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import eVasIcon from '../elements/e-vas-icon.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -20,8 +21,9 @@
    */
   export default defineComponent({
     name: 'c-vas-styleguide-brand',
-
-    // components: {},
+    components: {
+      eVasIcon,
+    },
 
     // props: {},
     // emits: [],
@@ -53,8 +55,8 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../setup/scss/mixins';
+  @use '../setup/scss/variables';
 
   .c-vas-styleguide-brand {
     display: flex;
@@ -64,9 +66,5 @@
     color: variables.$vas-color-green-vue;
     font-size: variables.$vas-font-size--18;
     font-weight: 900;
-
-    &__logo {
-      width: 22px;
-    }
   }
 </style>

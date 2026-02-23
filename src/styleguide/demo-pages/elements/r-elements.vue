@@ -15,28 +15,33 @@
         <e-vas-button
           primary
           active
-          >Button Primary (active)</e-vas-button
         >
+          Button Primary (active)
+        </e-vas-button>
         <e-vas-button
           primary
           focus
-          >Button Primary (focus)</e-vas-button
+        >
+          Button Primary (focus)</e-vas-button
         >
         <e-vas-button
           primary
           hover
-          >Button Primary (hover)</e-vas-button
         >
+          Button Primary (hover)
+        </e-vas-button>
         <e-vas-button
           primary
           disabled
-          >Button Primary (disabled)</e-vas-button
         >
+          Button Primary (disabled)
+        </e-vas-button>
         <e-vas-button
           primary
           progress
-          >Button (progress)</e-vas-button
         >
+          Button (progress)
+        </e-vas-button>
       </div>
     </div>
     <div :class="b('section')">
@@ -49,14 +54,16 @@
         v-model="checkbox"
         name="yes"
         value="yes"
-        >Checkbox</e-vas-checkbox
       >
+        Checkbox
+      </e-vas-checkbox>
       <e-vas-checkbox
         v-model="checkbox"
         name="no"
         value="no"
-        >Checkbox</e-vas-checkbox
       >
+        Checkbox
+      </e-vas-checkbox>
     </div>
     <div :class="b('section')">
       <h2>Radio</h2>
@@ -64,8 +71,9 @@
         v-model="radio"
         name="radio"
         value="radio 1"
-        >Radio</e-vas-radio
       >
+        Radio
+      </e-vas-radio>
     </div>
     <div :class="b('section')">
       <h2>Toggle</h2>

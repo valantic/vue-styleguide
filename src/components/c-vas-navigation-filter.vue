@@ -118,7 +118,7 @@
       width: 20px;
       height: 20px;
       background-color: transparent;
-      background-image: url('../assets/close.svg');
+      background-image: url('../assets/icons/i-close.svg');
       background-repeat: no-repeat;
       background-position: center;
       background-size: 10px;

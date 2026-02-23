@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { GenericSelectOption, StyleguideSettings } from '@/types/settings';
+import { GenericSelectOption, StyleguideSettings } from '../types/settings';
 
 export type VasSettingsStoreState = {
   settings: StyleguideSettings;

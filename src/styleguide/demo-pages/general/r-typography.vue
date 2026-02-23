@@ -142,8 +142,6 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-
   .r-typography {
     &__grid {
       display: grid;
@@ -151,11 +149,6 @@
       gap: 8rem;
       order: revert;
       margin-top: 4rem;
-
-      @include mixins.media(sm) {
-        grid-template-columns: 25% 1fr;
-        order: unset;
-      }
     }
 
     &__left {

@@ -6,7 +6,7 @@ declare module 'vue-router' {
   }
 }
 
-export const styleguideRoot = '/styleguide';
+export const styleguideRoot = '/sg';
 export const sectionWrapper = {
   template: '<router-view />',
 };
@@ -17,23 +17,23 @@ export const sectionWrapper = {
 export default [
   {
     path: styleguideRoot,
-    name: 'styleguide',
+    name: 'sg-styleguide',
     component: sectionWrapper,
     meta: {
       title: 'Styleguide',
     },
     children: [
       {
-        path: 'readme',
-        name: 'Readme',
+        path: 'test-readme',
+        name: 'test-readme',
         component: () => import('../demo-pages/r-readme.vue'),
         meta: {
           title: 'Readme',
         },
       },
       {
-        path: 'typography',
-        name: 'typography',
+        path: 'test-typography',
+        name: 'test-typography',
         component: () => import('../demo-pages/general/r-typography.vue'),
         meta: {
           title: 'Typography',
@@ -43,16 +43,16 @@ export default [
     ],
   },
   {
-    path: '/components',
-    name: 'components',
+    path: '/sg-components',
+    name: 'sg-components',
     component: sectionWrapper,
     meta: {
       title: 'Components',
     },
     children: [
       {
-        path: 'navigation',
-        name: 'Navigation',
+        path: 'test-navigation',
+        name: 'test-navigation',
         component: () => import('../demo-pages/components/r-navigation.vue'),
         meta: {
           title: 'Navigation',
@@ -61,20 +61,29 @@ export default [
     ],
   },
   {
-    path: '/elements',
-    name: 'elements',
+    path: '/sg-elements',
+    name: 'sg-elements',
     component: sectionWrapper,
     meta: {
       title: 'Elements',
     },
     children: [
       {
-        path: 'elements',
-        name: 'Elements',
+        path: 'test-elements',
+        name: 'test-elements',
         component: () => import('../demo-pages/elements/r-elements.vue'),
         meta: {
           title: 'Elements',
           alternativeTitles: ['Elemente', 'Elementos'],
+        },
+      },
+      {
+        path: 'test-icons',
+        name: 'test-icons',
+        component: () => import('../demo-pages/elements/r-icon.vue'),
+        meta: {
+          title: 'Icons',
+          alternativeTitles: ['Sprite', 'Icon finder'],
         },
       },
     ],

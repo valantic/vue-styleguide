@@ -1,10 +1,9 @@
 <template>
   <div :class="b()">
     <div :class="b('container')">
-      <img
-        :class="b('logo')"
-        src="@/assets/valantic.svg"
-        alt="vuejs"
+      <e-vas-icon
+        icon="i-valantic"
+        size="100"
       />
     </div>
   </div>
@@ -12,6 +11,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import eVasIcon from '@/elements/e-vas-icon.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -21,8 +21,9 @@
    */
   export default defineComponent({
     name: 's-footer',
-
-    // components: {},
+    components: {
+      eVasIcon,
+    },
 
     // props: {},
     // emits: [],
@@ -65,10 +66,6 @@
       @include mixins.container;
 
       padding: variables.$vas-spacing--10;
-    }
-
-    &__logo {
-      width: 100px;
     }
   }
 </style>

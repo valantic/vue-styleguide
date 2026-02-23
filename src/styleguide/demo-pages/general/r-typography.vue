@@ -145,7 +145,7 @@
   .r-typography {
     &__grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 200px 1fr;
       gap: 8rem;
       order: revert;
       margin-top: 4rem;

@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [BREAKING]:
+  - Changed structure of the `StyleguideSettings` type.
+  - Introduced the `settingsStore` and refactored the settings handling.
 - [ENHANCEMENT]: Improved navigation block styling.
 - [ENHANCEMENT]: Massive cleanup.
 

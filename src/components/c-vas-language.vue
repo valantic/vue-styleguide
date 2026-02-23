@@ -27,9 +27,7 @@
 
     // props: {},
 
-    emits: {
-      change: (value: string) => typeof value === 'string',
-    },
+    // emits: {},
 
     setup(): Setup {
       return {
@@ -44,11 +42,14 @@
     computed: {
       internalValue: {
         get() {
-          return this.vasSettingsStore.state.language;
+          return this.vasSettingsStore.state.settings.activeLanguage;
         },
         set(value: string) {
-          this.vasSettingsStore.setLanguage(value);
-          this.$emit('change', value);
+          this.vasSettingsStore.state.settings.availableLanguages.forEach((item) => {
+            item.selected = item.value === value;
+          });
+
+          this.vasSettingsStore.state.settings.activeLanguage = value;
         },
       },
 

@@ -31,6 +31,15 @@ export default [
           title: 'Readme',
         },
       },
+      {
+        path: 'typography',
+        name: 'typography',
+        component: () => import('../demo-pages/general/r-typography.vue'),
+        meta: {
+          title: 'Typography',
+          alternativeTitles: ['font'],
+        },
+      },
     ],
   },
   {

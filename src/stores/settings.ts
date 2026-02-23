@@ -1,20 +1,23 @@
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 import { GenericSelectOption, StyleguideSettings } from '@/types/settings';
 
 export type VasSettingsStoreState = {
   settings: StyleguideSettings;
-  theme: string;
-  language: string;
+};
+
+const storeDefaults: StyleguideSettings = {
+  availableThemes: [],
+  availableLanguages: [],
+  isLoggedIn: false,
+  activeTheme: '',
+  activeLanguage: '',
 };
 
 // Internal state, hidden from the outside
 const state = reactive<VasSettingsStoreState>({
   settings: {
-    availableThemes: [],
-    availableLanguages: [],
+    ...storeDefaults,
   },
-  theme: '',
-  language: '',
 });
 
 /**
@@ -25,39 +28,14 @@ export const useVasSettingsStore = () => {
     // Read-only state to prevent accidental direct mutation
     state: state as Readonly<VasSettingsStoreState>,
 
-    initialize(settings: StyleguideSettings) {
-      state.settings = settings;
+    initialize(settings: Partial<StyleguideSettings>) {
+      state.settings = {
+        ...storeDefaults,
+        ...settings,
+      };
 
-      this.setTheme(getSelectedValueByGenericOptions(settings.availableThemes));
-      this.setLanguage(getSelectedValueByGenericOptions(settings.availableLanguages));
-    },
-
-    // Actions to update state
-    setTheme(newTheme: string) {
-      state.theme = newTheme;
-    },
-
-    setLanguage(newLang: string) {
-      state.language = newLang;
-    },
-
-    setSettings(newSettings: StyleguideSettings) {
-      state.settings = newSettings;
-    },
-
-    watchChanges(callback: (key: keyof VasSettingsStoreState, value: string | StyleguideSettings) => void): void {
-      watch(
-        (): string => state.theme,
-        (val: string): void => callback('theme', val),
-      );
-      watch(
-        (): string => state.language,
-        (val: string): void => callback('language', val),
-      );
-      watch(
-        (): StyleguideSettings => state.settings,
-        (val: StyleguideSettings): void => callback('settings', val),
-      );
+      state.settings.activeTheme = getSelectedValueByGenericOptions(state.settings.availableThemes);
+      state.settings.activeLanguage = getSelectedValueByGenericOptions(state.settings.availableLanguages);
     },
   };
 };

@@ -5,10 +5,13 @@
       :class="b('filter')"
     />
 
-    <c-vas-navigation-block
-      :routes="routesFilteredByTitle"
-      :class="b('menu')"
-    />
+    <div :class="b('menu')">
+      <c-vas-navigation-block
+        v-for="routeItem in filteredRoutes"
+        :key="`${routeItem.name as string}-${navigationFilter}`"
+        :route-definition="routeItem"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,7 +22,6 @@
   import cVasNavigationFilter from './c-vas-navigation-filter.vue';
 
   // type Setup = {};
-
   type Data = {
     navigationFilter: string;
   };
@@ -52,14 +54,16 @@
       };
     },
     computed: {
-      routesFilteredByTitle(): RouteRecordRaw[] {
-        return this.filterRoutesByTitle(this.routes, this.navigationFilter);
+      filteredRoutes(): RouteRecordRaw[] {
+        let routes = this.getVisibleRoutes(this.routes);
+
+        routes = this.getSortedRoutesByTitle(routes);
+        routes = this.filterRoutesByTitle(routes, this.navigationFilter);
+
+        return routes;
       },
     },
     methods: {
-      /**
-       * Filters the routes by their title.
-       */
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
         const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
 
@@ -95,6 +99,25 @@
           return filteredRoutes;
         }, []);
       },
+
+      getVisibleRoutes(routes: readonly RouteRecordRaw[]): RouteRecordRaw[] {
+        return routes.filter((route) => route.meta && !route.meta.hideInStyleguide);
+      },
+
+      getSortedRoutesByTitle(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+        // eslint-disable-next-line unicorn/no-array-sort
+        return routes.sort((first, second) => {
+          if (!first.meta || !second.meta) {
+            return 0;
+          }
+
+          if (first.meta.title < second.meta.title) {
+            return -1;
+          }
+
+          return second.meta.title < first.meta.title ? 1 : 0;
+        });
+      },
     },
   });
 </script>
@@ -105,6 +128,7 @@
   .c-vas-navigation {
     display: flex;
     flex-direction: column;
+    flex: 0 1 auto;
 
     &__filter {
       margin-bottom: variables.$vas-spacing--8;
@@ -113,11 +137,6 @@
     &__menu {
       display: flex;
       flex-direction: column;
-      flex: 0 1 auto;
-      height: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
     }
   }
 </style>

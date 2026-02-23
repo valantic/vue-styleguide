@@ -17,31 +17,29 @@
           v-if="($slots.head || title || isClosable) && !hideHeader"
           :class="b('header')"
         >
-          <div :class="b('header-inner')">
-            <slot
-              name="head"
-              :close="close"
+          <slot
+            name="head"
+            :close="close"
+          >
+            <div
+              v-if="title"
+              :class="b('title')"
             >
-              <div
-                v-if="title"
-                :class="b('title')"
-              >
-                {{ title }}
-              </div>
-              <button
-                v-if="isClosable"
-                aria-label="close modal"
-                :class="b('button-close')"
-                type="button"
-                @click="close"
-              >
-                <e-vas-icon
-                  icon="i-close"
-                  size="16"
-                />
-              </button>
-            </slot>
-          </div>
+              {{ title }}
+            </div>
+            <button
+              v-if="isClosable"
+              aria-label="close modal"
+              :class="b('button-close')"
+              type="button"
+              @click="close"
+            >
+              <e-vas-icon
+                icon="i-close"
+                size="14"
+              />
+            </button>
+          </slot>
         </div>
         <div :class="b('content')">
           <slot></slot>
@@ -279,6 +277,14 @@
       }
     }
 
+    &--spacing-none {
+      #{$this}__header,
+      #{$this}__footer,
+      #{$this}__content {
+        padding: 0;
+      }
+    }
+
     &__inner {
       display: flex;
       flex-direction: column;
@@ -298,40 +304,30 @@
     }
 
     &__header {
-      padding: variables.$vas-spacing--20;
-      border-bottom: 1px variables.$vas-color-grayscale--600;
-
-      @include mixins.media(md) {
-        padding: variables.$vas-spacing--26 variables.$vas-spacing--30;
-      }
-    }
-
-    &__header {
+      display: flex;
+      justify-content: space-between;
+      gap: variables.$vas-spacing--20;
       border-bottom: 1px solid variables.$vas-color-grayscale--600;
     }
 
-    &__header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    &__content {
-      flex: 1 0 auto;
-      padding: variables.$vas-spacing--26;
-      max-height: 65vh;
-      overflow-y: auto;
-    }
-
     &__title {
-      margin: 0;
       font-size: variables.$vas-font-size--18;
+      line-height: 22px;
       font-weight: bold;
     }
 
     &__button-close {
-      padding-left: variables.$vas-spacing--20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      height: 22px;
+    }
+
+    &__content {
+      flex: 1 0 auto;
+      max-height: 65vh;
+      overflow-y: auto;
     }
 
     &__footer {

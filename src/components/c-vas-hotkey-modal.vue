@@ -137,8 +137,7 @@
 
     &__left {
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
       align-items: start;
       gap: variables.$vas-spacing--6;
     }

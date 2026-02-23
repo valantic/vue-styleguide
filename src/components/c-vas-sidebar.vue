@@ -11,111 +11,125 @@
       :class="b('float-button', { menu: true, active: showMenu && isOpen })"
       type="button"
       @click="onToggleSidebar(true)"
-    >
-      <span></span>
-    </button>
+    />
+
     <button
       :class="b('float-button', { config: true, active: showConfig && isOpen })"
       type="button"
       @click="onToggleSidebar(false, true)"
-    >
-      <span></span>
-    </button>
+    />
 
-    <div :class="b('wrapper')">
-      <div :class="b('header')">
+    <div :class="b('container')">
+      <c-vas-styleguide-brand :class="b('header')" />
+
+      <div :class="b('content-wrapper')">
+        <ul :class="b('tabs')">
+          <li
+            :class="b('tab-item', { active: showMenu })"
+            @click="onToggleSidebar(true)"
+          >
+            <span :class="b('tab-item-icon', { menu: true })"></span>
+          </li>
+          <li
+            :class="b('tab-item', { active: showConfig })"
+            @click="onToggleSidebar(false, true)"
+          >
+            <span :class="b('tab-item-icon', { config: true })"></span>
+          </li>
+        </ul>
+
+        <section v-if="showMenu">
+          <div :class="b('section-header')">Menu</div>
+          <c-vas-navigation :routes="router.options.routes" />
+        </section>
+
+        <section v-else>
+          <div :class="b('section-header')">Settings</div>
+          <c-vas-config />
+        </section>
+      </div>
+      <div :class="b('footer')">
+        <button
+          :class="b('hotkeys')"
+          type="button"
+          @click="isHotkeysModalOpen = true"
+        >
+          <e-vas-icon
+            icon="i-key-cmd--filled"
+            size="12"
+          />
+          Hotkeys
+        </button>
         <a
-          :class="b('header-link')"
-          href="https://www.valantic.com"
+          :href="githubUrl"
           target="_blank"
           rel="noopener noreferrer"
+          :class="b('github-link')"
         >
-          <img
-            :class="b('header-logo')"
-            src="../assets/valantic.svg"
-            alt="valantic"
+          <e-vas-icon
+            icon="i-tag"
+            size="12"
           />
-          <span :class="b('header-slogan')">Styleguide</span>
+          {{ version }}
         </a>
       </div>
-      <ul :class="b('tabs')">
-        <li
-          :class="b('tab-item', { active: showMenu })"
-          @click="onToggleSidebar(true)"
-        >
-          <span :class="b('tab-item-icon', { menu: true })"></span>
-        </li>
-        <li
-          :class="b('tab-item', { active: showConfig })"
-          @click="onToggleSidebar(false, true)"
-        >
-          <span :class="b('tab-item-icon', { config: true })"></span>
-        </li>
-      </ul>
-
-      <section v-if="showMenu">
-        <div :class="b('section-header')">Menu</div>
-        <c-vas-sidebar-navigation />
-      </section>
-
-      <section v-else>
-        <div :class="b('section-header')">Settings</div>
-        <c-vas-sidebar-config />
-      </section>
     </div>
+    <c-vas-hotkey-modal v-model:is-open="isHotkeysModalOpen" />
   </div>
 </template>
 
 <script lang="ts">
-  import { PropType, Ref, defineComponent, ref } from 'vue';
+  import { Ref, defineComponent, ref } from 'vue';
+  import { useRouter } from 'vue-router';
+  import packageJson from '../../package.json';
+  import eVasIcon from '../elements/e-vas-icon.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { useVasSettingsStore } from '../stores/settings';
-  import { StyleguideSettings } from '../types/settings';
-  import cVasSidebarConfig from './c-vas-sidebar-config.vue';
-  import cVasSidebarNavigation from './c-vas-sidebar-navigation.vue';
+  import cVasConfig from './c-vas-config.vue';
+  import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
+  import cVasNavigation from './c-vas-navigation.vue';
+  import cVasStyleguideBrand from './c-vas-styleguide-brand.vue';
 
   type KeyEvent = Event & {
+    metaKey: boolean;
     ctrlKey: boolean;
+    shiftKey: boolean;
     key: string;
   };
 
   type Setup = {
+    router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
-    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+    version: string;
+    githubUrl: string;
   };
 
   type Data = {
     isOpen: boolean;
     showMenu: boolean;
     showConfig: boolean;
+    isHotkeysModalOpen: boolean;
   };
 
   export default defineComponent({
     name: 'c-vas-sidebar',
 
     components: {
-      cVasSidebarNavigation,
-      cVasSidebarConfig,
+      cVasHotkeyModal,
+      eVasIcon,
+      cVasStyleguideBrand,
+      cVasNavigation,
+      cVasConfig,
     },
-    props: {
-      /**
-       * Settings for the styleguide.
-       */
-      settings: {
-        type: Object as PropType<StyleguideSettings>,
-        required: true,
-      },
-    },
+    // props: {},
 
-    emits: {
-      updateTheme: (theme: string) => typeof theme === 'string',
-      updateLanguage: (language: string) => typeof language === 'string',
-    },
+    // emits: {},
 
     setup(): Setup {
       return {
+        router: useRouter(),
         container: ref(),
-        vasSettingsStore: useVasSettingsStore(),
+        version: packageJson.version,
+        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
       };
     },
 
@@ -124,6 +138,7 @@
         isOpen: false,
         showMenu: false,
         showConfig: false,
+        isHotkeysModalOpen: false,
       };
     },
     computed: {
@@ -141,25 +156,16 @@
           document.removeEventListener('click', this.handleOutsideClick);
         }
       },
+
+      $route() {
+        this.onToggleSidebar(false, false, false);
+      },
     },
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
     mounted() {
-      window.addEventListener('keydown', this.handleHotKeys);
-
-      this.vasSettingsStore.initialize(this.settings);
-      this.vasSettingsStore.watchChanges((key, value) => {
-        const eventMap = {
-          theme: 'updateTheme',
-          language: 'updateLanguage',
-        } as const;
-
-        if (key in eventMap) {
-          // @ts-ignore - Vue event typing via emit.
-          this.$emit(eventMap[key], value);
-        }
-      });
+      document.addEventListener('keydown', this.handleHotKeys);
     },
     // beforeUpdate() {},
     // updated() {},
@@ -167,7 +173,7 @@
     // deactivated() {},
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
-      window.removeEventListener('keydown', this.handleHotKeys);
+      document.removeEventListener('keydown', this.handleHotKeys);
     },
     // unmounted() {},
 
@@ -188,10 +194,22 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
-        // Check if both Control and O keys are pressed
-        if (event.ctrlKey && event.key === 'o') {
+        const isEscKey = event.key === 'Escape';
+
+        if (event.metaKey && event.shiftKey && event.key === 'o') {
           event.preventDefault();
           this.onToggleSidebar(true, false, !this.isOpen);
+        }
+
+        // HotKey: ESC
+        if (isEscKey && this.isOpen) {
+          event.preventDefault();
+          this.onToggleSidebar(true, false, false);
+        }
+
+        if (event.metaKey && event.shiftKey && event.key === ':') {
+          event.preventDefault();
+          this.onToggleSidebar(false, true, true);
         }
       },
     },
@@ -201,6 +219,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .c-vas-sidebar {
     $this: &;
@@ -215,8 +234,8 @@
     height: 100vh;
 
     &--open {
-      #{$this}__wrapper {
-        display: block;
+      #{$this}__container {
+        display: flex;
         width: $c-vas-sidebar--sidebar-width;
         overflow: auto;
         border-left: 10px solid variables.$vas-color-grayscale--400;
@@ -246,12 +265,12 @@
 
       &--menu {
         bottom: 0;
-        background-image: url('../assets/text.svg');
+        background-image: url('../assets/icons/i-text.svg');
       }
 
       &--config {
         bottom: $c-vas-sidebar--button-size - 1px;
-        background-image: url('../assets/cog-wheel.svg');
+        background-image: url('../assets/icons/i-cog-wheel.svg');
       }
 
       &--active {
@@ -260,12 +279,11 @@
       }
 
       &:hover {
-        opacity: 0.9;
         background-color: variables.$vas-color-grayscale--500;
       }
     }
 
-    &__wrapper {
+    &__container {
       position: absolute;
       right: 0;
       bottom: 0;
@@ -273,34 +291,18 @@
       display: none;
       width: 0;
       height: 100%;
-      padding: 12px;
       background-color: variables.$vas-color-grayscale--1000;
-      font-family: variables.$vas-font-family--primary;
+      flex-direction: column;
     }
 
     &__header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 25px;
+      background-color: rgba(variables.$vas-color-green-vue, 0.1);
+      height: 40px;
     }
 
-    &__header-link {
-      position: relative;
-    }
-
-    &__header-logo {
-      width: 160px;
-    }
-
-    &__header-slogan {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      color: variables.$vas-color-grayscale--0;
-      font-size: 10px;
-      text-align: center;
+    &__content-wrapper {
+      font-family: variables.$vas-font-family--primary;
+      padding: variables.$vas-spacing--12;
     }
 
     &__viewport {
@@ -357,11 +359,49 @@
       background-size: 17px;
 
       &--menu {
-        background-image: url('../assets/text.svg');
+        background-image: url('../assets/icons/i-text.svg');
       }
 
       &--config {
-        background-image: url('../assets/cog-wheel.svg');
+        background-image: url('../assets/icons/i-cog-wheel.svg');
+      }
+    }
+
+    &__footer {
+      margin-top: auto;
+      background-color: rgba(variables.$vas-color-green-vue, 0.1);
+      width: 100%;
+      padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
+      font-size: variables.$vas-font-size--12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+    }
+
+    &__github-link {
+      display: flex;
+      align-items: center;
+      gap: variables.$vas-spacing--6;
+
+      .e-vas-icon {
+        transform: scaleX(-1);
+      }
+    }
+
+    &__hotkeys {
+      display: flex;
+      align-items: center;
+      gap: variables.$vas-spacing--6;
+      padding: variables.$vas-spacing--4;
+      border: 1px solid variables.$vas-color-grayscale--400;
+      border-radius: 2px;
+      background-color: rgba(variables.$vas-color-grayscale--1000, 0);
+      transition: background-color 0.2s ease-in-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgba(variables.$vas-color-grayscale--1000, 0.4);
       }
     }
   }

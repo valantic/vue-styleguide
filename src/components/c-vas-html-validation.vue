@@ -1,10 +1,5 @@
 <template>
-  <e-vas-toggle
-    v-model="enabled"
-    value
-  >
-    HTML validation
-  </e-vas-toggle>
+  <e-vas-toggle v-model="enabled"> HTML validation </e-vas-toggle>
 </template>
 
 <script lang="ts">

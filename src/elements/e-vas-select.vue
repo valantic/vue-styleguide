@@ -190,7 +190,7 @@
       outline: none;
       border: 1px solid variables.$vas-color-grayscale--500;
       border-radius: 3px;
-      background-image: url('../assets/chevron--down.svg');
+      background-image: url('../assets/icons/i-chevron--down.svg');
       background-repeat: no-repeat;
       background-position: calc(100% - 8px) center;
       background-size: 10px;

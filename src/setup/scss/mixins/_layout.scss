@@ -1,0 +1,8 @@
+@use 'sass:map';
+@use '../variables';
+
+@mixin container {
+  width: 100%;
+  max-width: map.get(variables.$vas-breakpoints, lg);
+  margin: 0 auto;
+}

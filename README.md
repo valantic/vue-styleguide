@@ -45,17 +45,23 @@ Include the sidebar in your project.
 
 ```vue3
 <template>
-  <c-vas-sidebar
-    :settings="styleguideSettings"
-    @update-theme="onUpdateTheme"
-    @update-language="onUpdateLanguage"
-  />
+  <router-view />
+  <c-vas-sidebar :settings="styleguideSettings" />
 </template>
 
 <script lang="ts">
   import cVasSidebar from '@valantic/vue-styleguide/src/components/c-vas-sidebar.vue';
+  import { useVasSettingsStore } from '@valantic/vue-styleguide/src/stores/settings';
   import { StyleguideSettings } from '@valantic/vue-styleguide/src/types/settings';
   import { defineComponent } from 'vue';
+
+  type Setup = {
+    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+  };
+  
+  type Data = {
+    settings: Partial<StyleguideSettings>;
+  };
 
   export default defineComponent({
     name: 'app',
@@ -67,7 +73,6 @@ Include the sidebar in your project.
     computed: {
       styleguideSettings(): StyleguideSettings {
         return {
-          themePath: 'src/setup/scss/themes',
           availableThemes: [
             {
               name: 'theme-default',
@@ -86,9 +91,24 @@ Include the sidebar in your project.
               value: 'de',
             },
           ],
+          isLoggedIn: true,
         };
       },
-    }
+    },
+    
+    watch: {
+      'vasSettingsStore.state.settings': {
+        handler(newSettings) {
+          // eslint-disable-next-line no-console
+          console.log('settings have changed', newSettings);
+        },
+        deep: true,
+        immediate: false,
+      },
+    },
+    mounted() {
+      this.vasSettingsStore.initialize(this.settings);
+    },
   });
 </script>
 ```

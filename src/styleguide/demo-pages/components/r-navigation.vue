@@ -11,10 +11,11 @@
 </template>
 
 <script lang="ts">
+  import { faker } from '@faker-js/faker';
   import { defineComponent } from 'vue';
   import { RouteRecordRaw } from 'vue-router';
   import cVasNavigation from '@/components/c-vas-navigation.vue';
-  import lVasLayout from '../../layouts/l-vas-layout.vue';
+  import lVasLayout from '@/layouts/l-vas-layout.vue';
 
   // type Data = {};
 
@@ -42,10 +43,10 @@
           Array.from({ length: 10 }).forEach((_, index) => {
             children.push({
               path: `${section}-child-${index}`,
-              name: `${section} - Child - ${index}`,
+              name: `${section}-child-${index}`,
               component: { template: '<div>Child Content</div>' },
               meta: {
-                title: `${section}- Child - ${index}`,
+                title: faker.company.name(),
               },
             });
           });
@@ -76,7 +77,7 @@
 </script>
 
 <style lang="scss">
-  @use '../../setup/scss/variables';
+  @use '@/setup/scss/variables';
 
   .r-navigation {
     &__navigation {
@@ -84,6 +85,7 @@
       border: 1px solid variables.$vas-color-grayscale--300;
       height: 60vh;
       width: 600px;
+      overflow-y: auto;
     }
   }
 </style>

@@ -1,35 +1,35 @@
 <template>
-  <div :class="b()">
-    <div
-      v-for="routeItem in filteredRoutes"
-      :key="routeItem.name"
-      :class="b('group', { expanded: isExpanded(routeItem) })"
+  <div :class="b('', { expanded: isExpanded })">
+    <component
+      :is="hasChildren ? 'button' : 'a'"
+      :href="!hasChildren ? getLinkHref : undefined"
+      :class="
+        b('item', {
+          isParent: hasChildren,
+          activeParent: isActiveParent,
+          active: isActiveRoute,
+        })
+      "
+      @click.prevent="onItemClick"
     >
-      <component
-        :is="hasChildren(routeItem) ? 'button' : 'a'"
-        :href="!hasChildren(routeItem) ? getLinkHref(routeItem) : undefined"
-        :class="
-          b('item', {
-            isParent: hasChildren(routeItem),
-            activeParent: isActiveParent(routeItem),
-            active: isActiveRoute(routeItem),
-          })
-        "
-        @click.prevent="onItemClick(routeItem)"
-      >
-        {{ routeItem.meta?.title }}
-        <span :class="b('overlay')"></span>
-        <span :class="b('icon')"></span>
-      </component>
+      {{ routeTitle }}
+      <span :class="b('overlay')"></span>
+      <span :class="b('icon')"></span>
+    </component>
 
-      <transition name="collapse">
+    <transition name="collapse">
+      <div
+        v-if="hasChildren && isExpanded"
+        :class="b('children')"
+      >
         <c-vas-navigation-block
-          v-if="hasChildren(routeItem) && isExpanded(routeItem)"
-          :routes="routeItem.children"
-          :class="b('children')"
+          v-for="childRoute in routeDefinition.children"
+          :key="childRoute.name"
+          :route-definition="childRoute"
+          :class="b('child')"
         />
-      </transition>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -56,9 +56,9 @@
       /**
        * An array of styleguide routes.
        */
-      routes: {
-        type: Array as PropType<readonly RouteRecordRaw[]>,
-        default: () => [],
+      routeDefinition: {
+        type: Object as PropType<RouteRecordRaw>,
+        required: true,
       },
     },
     setup(): Setup {
@@ -73,37 +73,47 @@
       };
     },
     computed: {
-      /**
-       * Returns an array of routes that should be visible on the navigation.
-       */
-      filteredRoutes(): RouteRecordRaw[] {
-        const filteredRoutes = this.routes.filter((route) => route.meta && !route.meta.hideInStyleguide);
+      routeTitle(): string {
+        return this.routeDefinition?.meta?.title as string;
+      },
 
-        // eslint-disable-next-line unicorn/no-array-sort
-        return filteredRoutes.sort((first, second) => {
-          if (!first.meta || !second.meta) {
-            return 0;
-          }
+      routeUrlName(): string {
+        return this.routeDefinition?.name as string;
+      },
 
-          if (first.meta.title < second.meta.title) {
-            return -1;
-          }
+      isExpanded(): boolean {
+        return this.expandedItems.includes(this.routeUrlName);
+      },
 
-          return second.meta.title < first.meta.title ? 1 : 0;
-        });
+      isActiveRoute(): boolean {
+        return this.route.name === this.routeUrlName;
+      },
+
+      isActiveParent(): boolean {
+        return this.route.matched.some((record) => record.name === this.routeUrlName);
+      },
+
+      hasChildren(): boolean {
+        return !!this.routeDefinition.children?.length;
+      },
+
+      getLinkHref(): string {
+        try {
+          const route = this.routeDefinition;
+
+          return this.router.resolve({ name: route.name, params: route.meta?.params, query: route.meta?.query }).href;
+        } catch {
+          return '';
+        }
       },
     },
     watch: {
-      routes: {
+      routeDefinition: {
         immediate: true,
-        handler(newRoutes: RouteRecordRaw[]) {
+        handler() {
           // Auto-expand all categories if there are few routes (likely filtered)
-          if (newRoutes.length > 0 && newRoutes.length < 20) {
-            newRoutes.forEach((route) => {
-              if (route.children?.length && !this.isExpanded(route)) {
-                this.expandedItems.push(route.name as string);
-              }
-            });
+          if (this.hasChildren && !this.isExpanded) {
+            this.expandedItems.push(this.routeUrlName);
           }
         },
       },
@@ -112,25 +122,25 @@
       /**
        * Defines what is to do if an item is clicked.
        */
-      onItemClick(route: RouteRecordRaw): void {
-        if (this.hasChildren(route)) {
-          this.onToggle(route);
+      onItemClick(): void {
+        if (this.hasChildren) {
+          this.onToggle();
 
           return;
         }
 
-        this.onNavigate(route);
+        this.onNavigate();
       },
 
       /**
        * Toggles the expanded state of a parent route.
        */
-      onToggle(route: RouteRecordRaw): void {
-        if (!this.hasChildren(route)) {
+      onToggle(): void {
+        if (!this.hasChildren) {
           return;
         }
 
-        const name = route?.name as string;
+        const name = this.routeDefinition?.name as string;
         const index = this.expandedItems.indexOf(name);
 
         if (index === -1) {
@@ -141,53 +151,16 @@
       },
 
       /**
-       * Checks if a route is expanded.
-       */
-      isExpanded(route: RouteRecordRaw): boolean {
-        const name = route?.name as string;
-
-        return this.expandedItems.includes(name);
-      },
-
-      /**
        * Navigates to a route.
        */
-      onNavigate(route: RouteRecordRaw): void {
-        if (this.hasChildren(route)) {
+      onNavigate(): void {
+        if (this.hasChildren) {
           return;
         }
 
+        const route = this.routeDefinition;
+
         this.router.push({ name: route.name, params: route.meta?.params, query: route.meta?.query });
-      },
-
-      /**
-       * Checks if the route is exactly active.
-       */
-      isActiveRoute(route: RouteRecordRaw): boolean {
-        const name = route?.name as string;
-
-        return this.route.name === name;
-      },
-
-      /**
-       * Checks if the route is active (active path).
-       */
-      isActiveParent(route: RouteRecordRaw): boolean {
-        const name = route?.name as string;
-
-        return this.route.matched.some((record) => record.name === name);
-      },
-
-      hasChildren(route: RouteRecordRaw): boolean {
-        return !!route.children?.length;
-      },
-
-      getLinkHref(route: RouteRecordRaw): string {
-        try {
-          return this.router.resolve({ name: route.name, params: route.meta?.params, query: route.meta?.query }).href;
-        } catch {
-          return '';
-        }
       },
     },
     // created() {}
@@ -200,26 +173,26 @@
   .c-vas-navigation-block {
     $this: &;
 
-    &__group {
-      &:not(:first-child) {
-        margin-top: variables.$vas-spacing--8;
-      }
+    position: relative;
 
-      &--expanded {
-        #{$this}__icon {
-          transform: rotate(0deg);
-        }
+    &:not(:first-child) {
+      margin-top: variables.$vas-spacing--8;
+    }
+
+    &--expanded {
+      #{$this}__icon {
+        transform: rotate(0deg);
       }
     }
 
     &__item {
+      position: relative;
       display: flex;
       align-items: center;
       outline: none;
       max-width: 100%;
       width: 100%;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 variables.$vas-spacing--8;
-      position: relative;
       text-decoration: none;
       color: variables.$vas-font-color--text !important; // stylelint-disable-line declaration-no-important
       cursor: pointer;
@@ -235,15 +208,17 @@
       }
 
       &--is-parent {
+        position: sticky;
+        top: 0;
         margin-top: 0;
         border-bottom: 1px dashed variables.$vas-color-grayscale--700;
+        display: grid;
+        background-color: variables.$vas-color-grayscale--1000;
+        z-index: 1;
 
+        #{$this}__logo,
         #{$this}__icon {
           display: block;
-        }
-
-        &::before {
-          display: none;
         }
       }
 
@@ -258,16 +233,10 @@
           opacity: 0.6;
         }
       }
+    }
 
-      &::before {
-        content: '';
-        height: 1px;
-        width: 4px;
-        position: absolute;
-        left: 8px;
-        top: calc(50% - 0.5px);
-        background-color: rgba(variables.$vas-color-grayscale--0, 1);
-      }
+    &__logo {
+      display: none;
     }
 
     &__overlay {
@@ -292,14 +261,14 @@
       background-size: contain;
       transition: transform 0.2s ease;
       position: absolute;
-      right: variables.$vas-spacing--4;
+      right: -1px;
       top: variables.$vas-spacing--10;
       transform: rotate(-90deg);
     }
 
     &__children {
       #{$this}__item {
-        padding-left: variables.$vas-spacing--18;
+        padding-left: 20px;
       }
     }
 

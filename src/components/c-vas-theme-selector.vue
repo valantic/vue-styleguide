@@ -27,9 +27,7 @@
 
     // props: {},
 
-    emits: {
-      change: (value: string) => typeof value === 'string',
-    },
+    // emits: {},
 
     setup(): Setup {
       return {
@@ -43,11 +41,14 @@
     computed: {
       internalValue: {
         get() {
-          return this.vasSettingsStore.state.theme;
+          return this.vasSettingsStore.state.settings.activeTheme;
         },
         set(value: string) {
-          this.vasSettingsStore.setTheme(value);
-          this.$emit('change', value);
+          this.vasSettingsStore.state.settings.availableThemes.forEach((item) => {
+            item.selected = item.value === value;
+          });
+
+          this.vasSettingsStore.state.settings.activeTheme = value;
         },
       },
 

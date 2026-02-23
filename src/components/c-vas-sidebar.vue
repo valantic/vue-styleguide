@@ -20,14 +20,8 @@
     />
 
     <div :class="b('container')">
-      <div :class="b('header')">
-        <img
-          :class="b('header-logo')"
-          src="../assets/vuejs.svg"
-          alt="vuejs"
-        />
-        <span :class="b('header-slogan')">Styleguide</span>
-      </div>
+      <c-vas-styleguide-brand :class="b('header')" />
+
       <div :class="b('content-wrapper')">
         <ul :class="b('tabs')">
           <li
@@ -74,14 +68,13 @@
 </template>
 
 <script lang="ts">
-  import { PropType, Ref, defineComponent, ref } from 'vue';
+  import { Ref, defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { useVasSettingsStore } from '../stores/settings';
-  import { StyleguideSettings } from '../types/settings';
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
+  import cVasStyleguideBrand from './c-vas-styleguide-brand.vue';
 
   type KeyEvent = Event & {
     ctrlKey: boolean;
@@ -91,7 +84,6 @@
   type Setup = {
     router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
-    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
     version: string;
     githubUrl: string;
   };
@@ -106,29 +98,18 @@
     name: 'c-vas-sidebar',
 
     components: {
+      cVasStyleguideBrand,
       cVasNavigation,
       cVasConfig,
     },
-    props: {
-      /**
-       * Settings for the styleguide.
-       */
-      settings: {
-        type: Object as PropType<StyleguideSettings>,
-        required: true,
-      },
-    },
+    // props: {},
 
-    emits: {
-      updateTheme: (theme: string) => typeof theme === 'string',
-      updateLanguage: (language: string) => typeof language === 'string',
-    },
+    // emits: {},
 
     setup(): Setup {
       return {
         router: useRouter(),
         container: ref(),
-        vasSettingsStore: useVasSettingsStore(),
         version: packageJson.version,
         githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
       };
@@ -166,19 +147,6 @@
     // beforeMount() {},
     mounted() {
       document.addEventListener('keydown', this.handleHotKeys);
-
-      this.vasSettingsStore.initialize(this.settings);
-      this.vasSettingsStore.watchChanges((key, value) => {
-        const eventMap = {
-          theme: 'updateTheme',
-          language: 'updateLanguage',
-        } as const;
-
-        if (key in eventMap) {
-          // @ts-ignore - Vue event typing via emit.
-          this.$emit(eventMap[key], value);
-        }
-      });
     },
     // beforeUpdate() {},
     // updated() {},
@@ -236,7 +204,7 @@
 
     &--open {
       #{$this}__container {
-        display: grid;
+        display: flex;
         width: $c-vas-sidebar--sidebar-width;
         overflow: auto;
         border-left: 10px solid variables.$vas-color-grayscale--400;
@@ -293,29 +261,17 @@
       width: 0;
       height: 100%;
       background-color: variables.$vas-color-grayscale--1000;
-      grid-template-rows: 55px 1fr 40px;
-    }
-
-    &__content-wrapper {
-      display: flex;
       flex-direction: column;
-      font-family: variables.$vas-font-family--primary;
-      padding: variables.$vas-spacing--12;
     }
 
     &__header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: variables.$vas-spacing--6;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
-      color: variables.$vas-color-green-vue;
-      font-size: variables.$vas-font-size--24;
-      font-weight: 900;
+      height: 40px;
     }
 
-    &__header-logo {
-      width: 28px;
+    &__content-wrapper {
+      font-family: variables.$vas-font-family--primary;
+      padding: variables.$vas-spacing--12;
     }
 
     &__viewport {
@@ -381,7 +337,7 @@
     }
 
     &__footer {
-      justify-self: end;
+      margin-top: auto;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
       width: 100%;
       padding: variables.$vas-spacing--8;
@@ -389,6 +345,7 @@
       display: flex;
       align-items: center;
       justify-content: end;
+      height: 40px;
     }
 
     &__footer-link {

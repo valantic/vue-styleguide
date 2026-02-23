@@ -9,7 +9,6 @@ export type CustomPlugin = {
 };
 
 export default [
-  { plugin: directives },
   { plugin: viewport },
   {
     plugin: VueBemCn,
@@ -18,4 +17,5 @@ export default [
       hyphenate: true,
     },
   },
+  { plugin: directives },
 ] satisfies CustomPlugin[];

@@ -57,7 +57,7 @@
         >
           <e-vas-icon
             :class="b('mini-icon')"
-            icon="tag"
+            icon="i-tag"
             size="12"
           />
           {{ version }}

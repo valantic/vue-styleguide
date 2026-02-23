@@ -108,6 +108,28 @@
         type: Boolean,
         default: false,
       },
+
+      /**
+       * Allows modifying the size of the modal.
+       *
+       * Valid values: `[600, 700, 800]`
+       */
+      size: {
+        type: String,
+        default: '600',
+        validator: (value: string) => ['600', '700', '800'].includes(value),
+      },
+
+      /**
+       * Allows modifying the inner spacing of the modal.
+       *
+       * Valid values: `[0, 300, 500]`
+       */
+      spacing: {
+        type: String,
+        default: '500',
+        validator: (value: string) => ['0', '300', '500'].includes(value),
+      },
     },
     emits: {
       'update:isOpen': (state: unknown): boolean => typeof state === 'boolean',
@@ -127,7 +149,10 @@
        * Returns modifier classes.
        */
       modifiers(): Modifiers {
-        return {};
+        return {
+          size: this.size,
+          spacing: this.spacing,
+        };
       },
     },
     watch: {

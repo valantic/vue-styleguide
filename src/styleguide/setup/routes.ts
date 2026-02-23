@@ -58,6 +58,14 @@ export default [
           title: 'Navigation',
         },
       },
+      {
+        path: 'test-vas-modal',
+        name: 'test-vas-modal',
+        component: () => import('../demo-pages/components/r-vas-modal.vue'),
+        meta: {
+          title: 'Modal',
+        },
+      },
     ],
   },
   {

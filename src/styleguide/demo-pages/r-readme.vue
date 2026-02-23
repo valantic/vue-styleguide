@@ -1,8 +1,6 @@
 <template>
-  <l-vas-layout>
-    <div :class="b()">
-      <c-vas-readme />
-    </div>
+  <l-vas-layout :class="b()">
+    <c-vas-readme />
   </l-vas-layout>
 </template>
 

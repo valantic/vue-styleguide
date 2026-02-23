@@ -1,83 +1,83 @@
 <template>
-  <div
-    :class="b()"
-    :style="{ '--s-icon-finder--color': color }"
-  >
-    <div :class="b('filter')">
-      <label :class="b('label')">
-        Search:
-        <input
-          v-model="filter"
-          :class="b('filter-input')"
-          placeholder="Search …"
-        />
-      </label>
-      <label :class="b('label')">
-        Color:
-        <input
-          v-model="color"
-          :class="b('filter-input')"
-          type="color"
-        />
-      </label>
-      <label :class="b('label', { variant: true })">
-        Variant:
-        <select
-          v-model="variant"
-          :class="b('filter-input')"
-        >
-          <option value="inline">inline (colorable)</option>
-          <option value="image">image</option>
-          <option value="css">css</option>
-          <option value="mask">css mask (colorable)</option>
-        </select>
-      </label>
-    </div>
-    <div :class="b('grid')">
-      <div
-        v-for="(icon, index) in filteredIcons"
-        :key="index"
-        :class="b('grid-item', { negative: icon.negative })"
-        role="button"
-        @click="copyToClipboard(icon)"
-      >
-        <div :class="b('icon-wrapper')">
-          <div
-            v-if="['mask', 'css'].includes(variant)"
-            :class="b('icon', { variant })"
-            :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
-          ></div>
-          <e-vas-icon
-            v-else
-            :key="icon.name"
-            :icon="icon.name"
-            :inline="variant === 'inline'"
-            size="80"
+  <l-vas-layout :class="b()">
+    <div :style="{ '--s-icon-finder--color': color }">
+      <div :class="b('filter')">
+        <label :class="b('label')">
+          Search:
+          <e-vas-input
+            v-model="filter"
+            name="icon-search"
+            :class="b('filter-input')"
+            placeholder="Search …"
           />
-        </div>
-        <div :class="b('icon-label')">
-          {{ icon.name }}
+        </label>
+        <label :class="b('label')">
+          Color: {{ color }}
+          <e-vas-input
+            v-model="color"
+            name="icon-color"
+            :class="b('filter-input')"
+            type="color"
+          />
+        </label>
+        <label :class="b('label', { variant: true })">
+          Variant:
+          <e-vas-select
+            v-model="variant"
+            :options="variantOptions"
+            :class="b('filter-input')"
+          />
+        </label>
+      </div>
+      <div :class="b('grid')">
+        <div
+          v-for="(icon, index) in filteredIcons"
+          :key="index"
+          :class="b('grid-item', { negative: icon.negative })"
+          role="button"
+          @click="copyToClipboard(icon)"
+        >
+          <div :class="b('icon-wrapper')">
+            <div
+              v-if="['mask', 'css'].includes(variant)"
+              :class="b('icon', { variant })"
+              :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
+            ></div>
+            <e-vas-icon
+              v-else
+              :key="icon.name"
+              :icon="icon.name"
+              :inline="variant === 'inline'"
+              size="80"
+            />
+          </div>
+          <div :class="b('icon-label')">
+            {{ icon.name }}
+          </div>
         </div>
       </div>
+      <div
+        v-if="notification"
+        :class="b('notification')"
+      >
+        {{ notification }}
+      </div>
+      <input
+        ref="input"
+        :class="b('clipboard')"
+        type="text"
+      />
     </div>
-    <div
-      v-if="notification"
-      :class="b('notification')"
-    >
-      {{ notification }}
-    </div>
-    <input
-      ref="input"
-      :class="b('clipboard')"
-      type="text"
-    />
-  </div>
+  </l-vas-layout>
 </template>
 
 <script lang="ts">
   import { Ref, defineComponent, ref } from 'vue';
   import spritePath from '@/assets/icons.svg';
   import eVasIcon from '@/elements/e-vas-icon.vue';
+  import eVasInput from '@/elements/e-vas-input.vue';
+  import eVasSelect from '@/elements/e-vas-select.vue';
+  import lVasLayout from '@/layouts/l-vas-layout.vue';
   import { Icon } from '@/types/icon';
 
   type Setup = {
@@ -90,35 +90,13 @@
   };
 
   type Data = {
-    /**
-     * An array of available icons.
-     */
     icons: string[];
-
-    /**
-     * The currently applied query filter.
-     */
     filter: string;
-
-    /**
-     * Clipboard notification.
-     */
     notification: string;
-
-    /**
-     * The currently selected color.
-     */
     color: string;
-
-    /**
-     * The currently selected variant.
-     */
     variant: 'inline' | 'image' | 'css' | 'mask';
-
-    /**
-     * The sprite path to use.
-     */
     spritePath: string;
+    variantOptions: SelectOption[];
   };
 
   const icons = import.meta.glob('@/assets/icons/*.svg');
@@ -127,6 +105,9 @@
     name: 'r-icon',
 
     components: {
+      eVasSelect,
+      eVasInput,
+      lVasLayout,
       eVasIcon,
     },
     // props: {},
@@ -149,6 +130,12 @@
         color: '#000000',
         variant: 'inline',
         spritePath,
+        variantOptions: [
+          { value: 'inline', label: 'inline (colorable)' },
+          { value: 'image', label: 'image' },
+          { value: 'css', label: 'css' },
+          { value: 'mask', label: 'css mask (colorable)' },
+        ],
       };
     },
 

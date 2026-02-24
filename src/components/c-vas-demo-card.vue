@@ -104,9 +104,12 @@
 
     &__sidebar {
       grid-area: sidebar;
+      display: flex;
+      flex-direction: column;
       background-color: rgba(variables.$vas-theme-background-surface, 0.2);
       border-bottom: 1px solid variables.$vas-theme-border-color;
       padding: $content-padding;
+      gap: variables.$vas-spacing--10;
 
       @include mixins.media(sm) {
         border-left: 1px solid variables.$vas-theme-border-color;
@@ -117,7 +120,7 @@
     &__sidebar-header {
       font-size: variables.$vas-theme-text-size-small;
       color: variables.$vas-theme-text-color-muted;
-      margin-bottom: variables.$vas-spacing--16;
+      margin-bottom: variables.$vas-spacing--10;
     }
   }
 </style>

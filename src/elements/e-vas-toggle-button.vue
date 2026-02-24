@@ -16,7 +16,7 @@
   // type Data = {};
 
   /**
-   * A toggle button-
+   * A toggle button.
    */
   export default defineComponent({
     name: 'e-vas-toggle-button',

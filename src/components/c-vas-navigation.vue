@@ -105,8 +105,9 @@
       },
 
       getSortedRoutesByTitle(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+        // create a shallow copy to avoid mutating the original array and sort it
         // eslint-disable-next-line unicorn/no-array-sort
-        return routes.sort((first, second) => {
+        const sorted = [...routes].sort((first, second) => {
           if (!first.meta || !second.meta) {
             return 0;
           }
@@ -116,6 +117,18 @@
           }
 
           return second.meta.title < first.meta.title ? 1 : 0;
+        });
+
+        // recursively sort children (if any) to ensure consistent ordering at all levels
+        return sorted.map((route) => {
+          if (route.children && route.children.length > 0) {
+            return {
+              ...route,
+              children: this.getSortedRoutesByTitle(route.children as RouteRecordRaw[]),
+            } as RouteRecordRaw;
+          }
+
+          return route;
         });
       },
     },

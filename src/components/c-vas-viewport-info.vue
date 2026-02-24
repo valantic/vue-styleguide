@@ -17,8 +17,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasIcon from '@/elements/e-vas-icon.vue';
-  import { Icon } from '@/types/icon';
+  import eVasIcon from '../elements/e-vas-icon.vue';
+  import { Icon } from '../types/icon';
 
   // type Setup = {};
   // type Data = {};

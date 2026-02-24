@@ -52,7 +52,6 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasButton from '@/elements/e-vas-button.vue';
   import eVasCheckbox from '@/elements/e-vas-checkbox.vue';
   import eVasInput from '@/elements/e-vas-input.vue';
   import eVasMultiselect from '@/elements/e-vas-multiselect.vue';
@@ -75,7 +74,6 @@
       eVasSelect,
       eVasCheckbox,
       eVasInput,
-      eVasButton,
       lVasLayout,
     },
 

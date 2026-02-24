@@ -71,7 +71,7 @@
       'demo';
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    margin: ($content-padding * 2) 0;
+    margin: #{$content-padding * 2} 0;
     background-color: variables.$vas-theme-background-content;
     border-radius: variables.$vas-theme-border-radius;
 
@@ -95,7 +95,7 @@
 
     &__demo {
       grid-area: demo;
-      padding: ($content-padding * 3) $content-padding;
+      padding: #{$content-padding * 3} $content-padding;
       display: flex;
       justify-content: center;
       align-items: center;

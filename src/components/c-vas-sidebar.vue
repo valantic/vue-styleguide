@@ -273,20 +273,24 @@
         // Hotkeys for main flyout.
         if (event.metaKey && event.shiftKey && event.key === 'o') {
           event.preventDefault();
-          this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
+          const openFlyout = !this.isMainFlyoutOpen || !this.showMenu;
+
+          this.onToggleMainFlyout(true, false, openFlyout);
 
           return;
         }
 
         if (event.metaKey && event.shiftKey && event.key === ':') {
           event.preventDefault();
-          this.onToggleMainFlyout(false, true, !this.isMainFlyoutOpen);
+          const openFlyout = !this.isMainFlyoutOpen || !this.showConfig;
+
+          this.onToggleMainFlyout(false, true, openFlyout);
 
           return;
         }
 
         // Hotkeys for page config flyout.
-        if (event.metaKey && event.shiftKey && event.key === ';') {
+        if (event.metaKey && event.shiftKey && event.key === ';' && !!this.$slots?.pageConfigFlyoutContent) {
           event.preventDefault();
           this.onTogglePageConfigFlyout();
 

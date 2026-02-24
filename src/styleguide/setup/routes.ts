@@ -66,6 +66,14 @@ export default [
           title: 'Modal',
         },
       },
+      {
+        path: 'test-vas-demo-card',
+        name: 'test-vas-demo-card',
+        component: () => import('../demo-pages/components/r-vas-demo-card.vue'),
+        meta: {
+          title: 'Demo Card',
+        },
+      },
     ],
   },
   {
@@ -100,6 +108,14 @@ export default [
         component: () => import('../demo-pages/elements/r-vas-toggle-button.vue'),
         meta: {
           title: 'Toggle Button',
+        },
+      },
+      {
+        path: 'test-vas-button',
+        name: 'test-vas-button',
+        component: () => import('../demo-pages/elements/r-button.vue'),
+        meta: {
+          title: 'Buttons',
         },
       },
     ],

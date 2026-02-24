@@ -1,50 +1,6 @@
 <template>
   <l-vas-layout :class="b()">
     <div :class="b('section')">
-      <h2>Button</h2>
-      <div :class="b('variants')">
-        <e-vas-button>Button</e-vas-button>
-        <e-vas-button active>Button (active)</e-vas-button>
-        <e-vas-button focus>Button (focus)</e-vas-button>
-        <e-vas-button hover>Button (hover)</e-vas-button>
-        <e-vas-button disabled>Button (disabled)</e-vas-button>
-        <e-vas-button progress>Button (progress)</e-vas-button>
-      </div>
-      <div :class="b('variants')">
-        <e-vas-button primary>Button Primary</e-vas-button>
-        <e-vas-button
-          primary
-          active
-        >
-          Button Primary (active)
-        </e-vas-button>
-        <e-vas-button
-          primary
-          focus
-        >
-          Button Primary (focus)</e-vas-button
-        >
-        <e-vas-button
-          primary
-          hover
-        >
-          Button Primary (hover)
-        </e-vas-button>
-        <e-vas-button
-          primary
-          disabled
-        >
-          Button Primary (disabled)
-        </e-vas-button>
-        <e-vas-button
-          primary
-          progress
-        >
-          Button (progress)
-        </e-vas-button>
-      </div>
-    </div>
-    <div :class="b('section')">
       <h2>Input</h2>
       <e-vas-input name="text-input" />
     </div>

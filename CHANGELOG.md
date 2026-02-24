@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT]: Added test page for all elements.
 - [ENHANCEMENT]: Use new components, improve hotkeys and transitions.
 - [FEATURE]: Added a new component for `c-vas-demo-card`.
 - [FEATURE]: Added a new component for `c-vas-demo-table`.

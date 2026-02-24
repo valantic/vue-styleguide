@@ -94,6 +94,14 @@ export default [
           alternativeTitles: ['Sprite', 'Icon finder'],
         },
       },
+      {
+        path: 'test-vas-toggle-button',
+        name: 'test-vas-toggle-button',
+        component: () => import('../demo-pages/elements/r-vas-toggle-button.vue'),
+        meta: {
+          title: 'Toggle Button',
+        },
+      },
     ],
   },
   {

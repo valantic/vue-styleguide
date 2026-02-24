@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [ENHANCEMENT]: Use new components, improve hotkeys and transitions.
+- [FEATURE]: Added a new element for toggle button.
+- [FEATURE]: Added new generic component for flyout.
 - [BREAKING]:
   - Changed structure of the `StyleguideSettings` type.
   - Introduced the `settingsStore` and refactored the settings handling.

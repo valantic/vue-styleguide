@@ -5,6 +5,7 @@
     :width="viewBox.width"
     :height="viewBox.height"
     :aria-hidden="!alt"
+    :style="styles"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
     focusable="false"
@@ -25,7 +26,7 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
+  import { CSSProperties, PropType, defineComponent } from 'vue';
   import spritePath from '../assets/icons.svg';
   import { Icon } from '../types/icon';
 
@@ -89,6 +90,14 @@
         type: String,
         default: null,
       },
+
+      /**
+       * Allows to set a rotation.
+       */
+      rotate: {
+        type: Number,
+        default: 0,
+      },
     },
 
     // setup(): Setup {
@@ -124,6 +133,14 @@
         return {
           width,
           height: height || width,
+        };
+      },
+
+      styles(): CSSProperties {
+        const { rotate } = this;
+
+        return {
+          transform: `rotate(${rotate}deg)`,
         };
       },
     },

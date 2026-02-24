@@ -43,7 +43,7 @@
             <span>,</span>
           </div>
         </div>
-        <div :class="b('right')">Open the page configuration sidebar.</div>
+        <div :class="b('right')">Open the page configuration sidebar. (if slot is prefilled)</div>
       </div>
       <div :class="b('row')">
         <div :class="b('left')">

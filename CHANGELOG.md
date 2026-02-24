@@ -3,8 +3,10 @@
 ## unreleased
 
 - [ENHANCEMENT]: Use new components, improve hotkeys and transitions.
-- [FEATURE]: Added a new element for toggle button.
-- [FEATURE]: Added new generic component for flyout.
+- [FEATURE]: Added a new component for `c-vas-demo-card`.
+- [FEATURE]: Added a new component for `c-vas-demo-table`.
+- [FEATURE]: Added a new element for `c-vas-flyout-toggle-button`.
+- [FEATURE]: Added new generic component for `c-vas-flyout`.
 - [BREAKING]:
   - Changed structure of the `StyleguideSettings` type.
   - Introduced the `settingsStore` and refactored the settings handling.

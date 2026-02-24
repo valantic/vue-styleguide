@@ -1,14 +1,17 @@
 <template>
   <div :class="b()">
     <div :class="b('container')">
-      <c-vas-styleguide-brand />
+      <c-vas-icon-headline
+        icon="i-vuejs"
+        text="Styleguide"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasStyleguideBrand from '@/components/c-vas-styleguide-brand.vue';
+  import cVasIconHeadline from '@/components/c-vas-icon-headline.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -19,7 +22,7 @@
   export default defineComponent({
     name: 's-header',
     components: {
-      cVasStyleguideBrand,
+      cVasIconHeadline,
     },
 
     // props: {},

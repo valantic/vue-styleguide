@@ -36,6 +36,18 @@
       <div :class="b('row')">
         <div :class="b('left')">
           <div :class="b('hotkey')">
+            <span>Shift</span>
+            <span>+</span>
+            <span>Ctrl</span>
+            <span>+</span>
+            <span>,</span>
+          </div>
+        </div>
+        <div :class="b('right')">Open the page configuration sidebar.</div>
+      </div>
+      <div :class="b('row')">
+        <div :class="b('left')">
+          <div :class="b('hotkey')">
             <span>Esc</span>
           </div>
         </div>
@@ -113,8 +125,8 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../setup/scss/mixins';
+  @use '../setup/scss/variables';
 
   .c-vas-hotkey-modal {
     &__mapping {

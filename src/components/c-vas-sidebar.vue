@@ -3,50 +3,88 @@
     ref="container"
     :class="b('', modifiers)"
   >
-    <div :class="b('viewport', { open: isOpen })">
-      {{ $viewport.currentViewport }}
-    </div>
+    <c-vas-flyout
+      v-if="$slots.pageConfigFlyoutContent"
+      :is-open="isPageConfigFlyoutOpen"
+    >
+      <template #controls>
+        <div :class="b('actions')">
+          <c-vas-flyout-toggle-button
+            :active="isPageConfigFlyoutOpen"
+            icon="i-page-setting"
+            @click="onTogglePageConfigFlyout()"
+          />
+        </div>
+      </template>
+      <div :class="b('page-config-flyout-content')">
+        <c-vas-icon-headline
+          :class="b('header')"
+          icon="i-page-setting"
+          text="Page Configuration"
+        />
+        <div :class="b('content-wrapper')">
+          <slot name="pageConfigFlyoutContent"></slot>
+        </div>
+      </div>
+    </c-vas-flyout>
 
-    <button
-      :class="b('float-button', { menu: true, active: showMenu && isOpen })"
-      type="button"
-      @click="onToggleSidebar(true)"
-    />
+    <c-vas-flyout
+      :is-open="isMainFlyoutOpen"
+      direction="right"
+    >
+      <template #controls>
+        <c-vas-viewport-info :is-open="isMainFlyoutOpen" />
 
-    <button
-      :class="b('float-button', { config: true, active: showConfig && isOpen })"
-      type="button"
-      @click="onToggleSidebar(false, true)"
-    />
+        <div :class="b('actions')">
+          <c-vas-flyout-toggle-button
+            :active="showConfig && isMainFlyoutOpen"
+            icon="i-cog-wheel"
+            @click="onToggleMainFlyout(false, true)"
+          />
+          <c-vas-flyout-toggle-button
+            :active="showMenu && isMainFlyoutOpen"
+            icon="i-text"
+            @click="onToggleMainFlyout(true)"
+          />
+        </div>
+      </template>
 
-    <div :class="b('container')">
-      <c-vas-styleguide-brand :class="b('header')" />
+      <c-vas-icon-headline
+        :class="b('header')"
+        icon="i-vuejs"
+        text="Styleguide"
+      />
+
+      <div :class="b('tabs')">
+        <e-vas-toggle-button
+          :active="showMenu"
+          @click="onToggleMainFlyout(true)"
+        >
+          <e-vas-icon
+            icon="i-text"
+            size="20"
+          />
+          Menu
+        </e-vas-toggle-button>
+
+        <e-vas-toggle-button
+          :active="showConfig"
+          @click="onToggleMainFlyout(false, true)"
+        >
+          <e-vas-icon
+            icon="i-cog-wheel"
+            size="20"
+          />
+          Settings
+        </e-vas-toggle-button>
+      </div>
 
       <div :class="b('content-wrapper')">
-        <ul :class="b('tabs')">
-          <li
-            :class="b('tab-item', { active: showMenu })"
-            @click="onToggleSidebar(true)"
-          >
-            <span :class="b('tab-item-icon', { menu: true })"></span>
-          </li>
-          <li
-            :class="b('tab-item', { active: showConfig })"
-            @click="onToggleSidebar(false, true)"
-          >
-            <span :class="b('tab-item-icon', { config: true })"></span>
-          </li>
-        </ul>
-
-        <section v-if="showMenu">
-          <div :class="b('section-header')">Menu</div>
-          <c-vas-navigation :routes="router.options.routes" />
-        </section>
-
-        <section v-else>
-          <div :class="b('section-header')">Settings</div>
-          <c-vas-config />
-        </section>
+        <c-vas-navigation
+          v-if="showMenu"
+          :routes="router.options.routes"
+        />
+        <c-vas-config v-else />
       </div>
       <div :class="b('footer')">
         <button
@@ -73,8 +111,9 @@
           {{ version }}
         </a>
       </div>
-    </div>
-    <c-vas-hotkey-modal v-model:is-open="isHotkeysModalOpen" />
+    </c-vas-flyout>
+
+    <c-vas-hotkey-modal :is-open="isHotkeysModalOpen" />
   </div>
 </template>
 
@@ -83,11 +122,15 @@
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
+  import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import cVasConfig from './c-vas-config.vue';
+  import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
+  import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
+  import cVasIconHeadline from './c-vas-icon-headline.vue';
   import cVasNavigation from './c-vas-navigation.vue';
-  import cVasStyleguideBrand from './c-vas-styleguide-brand.vue';
+  import cVasViewportInfo from './c-vas-viewport-info.vue';
 
   type KeyEvent = Event & {
     metaKey: boolean;
@@ -104,7 +147,8 @@
   };
 
   type Data = {
-    isOpen: boolean;
+    isMainFlyoutOpen: boolean;
+    isPageConfigFlyoutOpen: boolean;
     showMenu: boolean;
     showConfig: boolean;
     isHotkeysModalOpen: boolean;
@@ -114,9 +158,13 @@
     name: 'c-vas-sidebar',
 
     components: {
+      eVasToggleButton,
+      cVasFlyoutToggleButton,
+      cVasViewportInfo,
+      cVasFlyout,
       cVasHotkeyModal,
       eVasIcon,
-      cVasStyleguideBrand,
+      cVasIconHeadline,
       cVasNavigation,
       cVasConfig,
     },
@@ -135,7 +183,8 @@
 
     data(): Data {
       return {
-        isOpen: false,
+        isMainFlyoutOpen: false,
+        isPageConfigFlyoutOpen: false,
         showMenu: false,
         showConfig: false,
         isHotkeysModalOpen: false,
@@ -144,13 +193,21 @@
     computed: {
       modifiers(): Modifiers {
         return {
-          open: this.isOpen,
+          isFlyoutOpen: this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen,
         };
       },
     },
     watch: {
-      isOpen() {
-        if (this.isOpen) {
+      isMainFlyoutOpen() {
+        if (this.isMainFlyoutOpen) {
+          document.addEventListener('click', this.handleOutsideClick);
+        } else {
+          document.removeEventListener('click', this.handleOutsideClick);
+        }
+      },
+
+      isPageConfigFlyoutOpen() {
+        if (this.isMainFlyoutOpen) {
           document.addEventListener('click', this.handleOutsideClick);
         } else {
           document.removeEventListener('click', this.handleOutsideClick);
@@ -158,7 +215,7 @@
       },
 
       $route() {
-        this.onToggleSidebar(false, false, false);
+        this.onCloseFlyout();
       },
     },
     // beforeCreate() {},
@@ -178,38 +235,62 @@
     // unmounted() {},
 
     methods: {
-      onToggleSidebar(showMenu: boolean = false, showConfig: boolean = false, isOpen: boolean = true): void {
-        this.isOpen = isOpen;
+      onCloseFlyout(): void {
+        this.isMainFlyoutOpen = false;
+        this.isPageConfigFlyoutOpen = false;
+        this.isHotkeysModalOpen = false;
+      },
+
+      onToggleMainFlyout(
+        showMenu: boolean = false,
+        showConfig: boolean = false,
+        isMainFlyoutOpen: boolean = true,
+      ): void {
+        this.isMainFlyoutOpen = isMainFlyoutOpen;
         this.showMenu = showMenu;
         this.showConfig = showConfig;
       },
 
-      /**
-       * Hides the overlay if the user clicks somewhere else than inside the container.
-       */
+      onTogglePageConfigFlyout(): void {
+        this.isPageConfigFlyoutOpen = !this.isPageConfigFlyoutOpen;
+      },
+
       handleOutsideClick(event: Event): void {
         if (!this.container?.contains(event.target as Node)) {
-          this.onToggleSidebar(false, false, false);
+          this.onCloseFlyout();
         }
       },
 
       handleHotKeys(event: KeyEvent): void {
-        const isEscKey = event.key === 'Escape';
-
-        if (event.metaKey && event.shiftKey && event.key === 'o') {
+        // ESC for all flyout.
+        if (event.key === 'Escape') {
           event.preventDefault();
-          this.onToggleSidebar(true, false, !this.isOpen);
+          this.onCloseFlyout();
+
+          return;
         }
 
-        // HotKey: ESC
-        if (isEscKey && this.isOpen) {
+        // Hotkeys for main flyout.
+        if (event.metaKey && event.shiftKey && event.key === 'o') {
           event.preventDefault();
-          this.onToggleSidebar(true, false, false);
+          this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
+
+          return;
         }
 
         if (event.metaKey && event.shiftKey && event.key === ':') {
           event.preventDefault();
-          this.onToggleSidebar(false, true, true);
+          this.onToggleMainFlyout(false, true, !this.isMainFlyoutOpen);
+
+          return;
+        }
+
+        // Hotkeys for page config flyout.
+        if (event.metaKey && event.shiftKey && event.key === ';') {
+          event.preventDefault();
+          this.onTogglePageConfigFlyout();
+
+          return;
         }
       },
     },
@@ -224,75 +305,18 @@
   .c-vas-sidebar {
     $this: &;
     $c-vas-sidebar--button-size: 40px;
-    $c-vas-sidebar--sidebar-width: 320px;
 
     position: fixed;
-    top: 0;
-    right: 0;
+    inset: 0;
     z-index: 999;
-    width: 0;
+    width: 100%;
     height: 100vh;
+    pointer-events: none;
+    background-color: rgba(variables.$vas-color-grayscale--0, 0);
+    transition: background-color variables.$vas-transition--default;
 
-    &--open {
-      #{$this}__container {
-        display: flex;
-        width: $c-vas-sidebar--sidebar-width;
-        overflow: auto;
-        border-left: 10px solid variables.$vas-color-grayscale--400;
-      }
-
-      #{$this}__viewport,
-      #{$this}__float-button {
-        right: $c-vas-sidebar--sidebar-width - 10px;
-        opacity: 1;
-      }
-    }
-
-    &__float-button {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: 2;
-      width: $c-vas-sidebar--button-size;
-      height: $c-vas-sidebar--button-size;
-      opacity: 0.2;
-      border: 1px solid variables.$vas-color-grayscale--400;
-      background-color: variables.$vas-color-grayscale--1000;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: $c-vas-sidebar--button-size - 15px;
-      cursor: pointer;
-
-      &--menu {
-        bottom: 0;
-        background-image: url('../assets/icons/i-text.svg');
-      }
-
-      &--config {
-        bottom: $c-vas-sidebar--button-size - 1px;
-        background-image: url('../assets/icons/i-cog-wheel.svg');
-      }
-
-      &--active {
-        opacity: 1;
-        background-color: variables.$vas-color-grayscale--400;
-      }
-
-      &:hover {
-        background-color: variables.$vas-color-grayscale--500;
-      }
-    }
-
-    &__container {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      z-index: 1;
-      display: none;
-      width: 0;
-      height: 100%;
-      background-color: variables.$vas-color-grayscale--1000;
-      flex-direction: column;
+    &--is-flyout-open {
+      background-color: rgba(variables.$vas-color-grayscale--0, 0.25);
     }
 
     &__header {
@@ -301,69 +325,17 @@
     }
 
     &__content-wrapper {
-      font-family: variables.$vas-font-family--primary;
       padding: variables.$vas-spacing--12;
-    }
-
-    &__viewport {
-      position: absolute;
-      right: 0;
-      z-index: 2;
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      padding: 2px 10px;
-      opacity: 0.2;
-      background: variables.$vas-color-grayscale--400;
-      color: variables.$vas-color-grayscale--0;
-    }
-
-    &__section-header {
-      margin-bottom: 10px;
-      font-size: 18px;
-      font-weight: bold;
     }
 
     &__tabs {
       display: flex;
       margin-bottom: 10px;
-      border-bottom: 1px solid variables.$vas-color-grayscale--400;
-    }
+      padding: variables.$vas-spacing--10 variables.$vas-spacing--6 0 variables.$vas-spacing--10;
+      border-bottom: 1px solid variables.$vas-color-grayscale--500;
 
-    &__tab-item {
-      display: flex;
-      gap: 5px;
-      align-items: center;
-      padding: 3px 6px;
-      border: 1px solid variables.$vas-color-grayscale--400;
-      border-bottom: 0;
-      cursor: pointer;
-
-      &--active {
-        opacity: 1;
-        background-color: variables.$vas-color-grayscale--400;
-      }
-
-      &:hover {
-        opacity: 0.9;
-        background-color: variables.$vas-color-grayscale--500;
-      }
-    }
-
-    &__tab-item-icon {
-      display: block;
-      width: 17px;
-      height: 17px;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 17px;
-
-      &--menu {
-        background-image: url('../assets/icons/i-text.svg');
-      }
-
-      &--config {
-        background-image: url('../assets/icons/i-cog-wheel.svg');
+      .e-vas-toggle-button {
+        border-radius: 0;
       }
     }
 

@@ -7,7 +7,7 @@
 
     <div :class="b('menu')">
       <c-vas-navigation-block
-        v-for="routeItem in filteredRoutes"
+        v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
         :route-definition="routeItem"
       />
@@ -61,6 +61,30 @@
         routes = this.filterRoutesByTitle(routes, this.navigationFilter);
 
         return routes;
+      },
+
+      /**
+       * Groups routes that have no children under a "Global Routes" parent.
+       */
+      groupedRoutes(): RouteRecordRaw[] {
+        const routes = this.filteredRoutes;
+        const structuredRoutes = routes.filter((route) => route.children && route.children.length > 0);
+        const globalRoutes = routes.filter((route) => !route.children || route.children.length === 0);
+
+        if (globalRoutes.length === 0) {
+          return structuredRoutes;
+        }
+
+        const globalRoutesGroup: RouteRecordRaw = {
+          path: '/global-routes',
+          name: 'global-routes',
+          meta: {
+            title: 'Global Routes',
+          },
+          children: globalRoutes,
+        };
+
+        return [...structuredRoutes, globalRoutesGroup];
       },
     },
     methods: {

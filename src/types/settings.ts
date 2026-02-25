@@ -1,13 +1,20 @@
 export type GenericSelectOption = {
   label: string;
   value: string;
-  selected?: boolean;
 };
 
-export type StyleguideSettings = {
-  availableThemes: GenericSelectOption[];
-  availableLanguages: GenericSelectOption[];
+export type StyleguideConfigOptions = {
+  themes: GenericSelectOption[];
+  languages: GenericSelectOption[];
+};
+
+export type StyleguideConfigSettings = {
   isLoggedIn: boolean;
   activeTheme: string;
   activeLanguage: string;
+};
+
+export type StyleguideConfiguration = {
+  options: StyleguideConfigOptions;
+  settings: StyleguideConfigSettings;
 };

@@ -127,8 +127,10 @@
 </template>
 
 <script lang="ts">
-  import { Ref, defineComponent, ref } from 'vue';
+  import { PropType, Ref, defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { VasSettingsStore, useVasSettingsStore } from '@/stores/settings';
+  import { StyleguideSettings } from '@/types/settings';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
@@ -149,6 +151,7 @@
   };
 
   type Setup = {
+    vasSettingsStore: VasSettingsStore;
     router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
     version: string;
@@ -177,12 +180,21 @@
       cVasNavigation,
       cVasConfig,
     },
-    // props: {},
+    props: {
+      /**
+       * Settings.
+       */
+      settings: {
+        type: Object as PropType<Partial<StyleguideSettings>>,
+        required: true,
+      },
+    },
 
     // emits: {},
 
     setup(): Setup {
       return {
+        vasSettingsStore: useVasSettingsStore(),
         router: useRouter(),
         container: ref(),
         version: packageJson.version,
@@ -227,6 +239,8 @@
     // created() {},
     // beforeMount() {},
     mounted() {
+      this.vasSettingsStore.initialize(this.settings);
+
       document.addEventListener('keydown', this.handleHotKeys);
     },
     // beforeUpdate() {},

@@ -6,7 +6,9 @@
     >
       <slot name="controls"></slot>
     </div>
-    <slot></slot>
+    <div :class="b('content')">
+      <slot name="content"></slot>
+    </div>
   </div>
 </template>
 
@@ -146,6 +148,13 @@
         left: 100%;
         justify-content: end;
       }
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100%;
     }
   }
 </style>

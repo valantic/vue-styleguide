@@ -13,17 +13,19 @@
           />
         </div>
       </template>
-      <div :class="b('page-config-flyout-content')">
-        <c-vas-icon-headline
-          :class="b('header')"
-          icon="i-page-setting"
-          text="Page Configuration"
-        />
-        <div
-          id="teleportDestinationPageConfigFlyout"
-          :class="b('content-wrapper', { pageConfig: true })"
-        ></div>
-      </div>
+      <template #content>
+        <div :class="b('page-config-flyout-content')">
+          <c-vas-icon-headline
+            :class="b('header')"
+            icon="i-page-setting"
+            text="Page Configuration"
+          />
+          <div
+            id="teleportDestinationPageConfigFlyout"
+            :class="b('content-wrapper', { pageConfig: true })"
+          ></div>
+        </div>
+      </template>
     </c-vas-flyout>
 
     <c-vas-flyout
@@ -47,75 +49,77 @@
         </div>
       </template>
 
-      <c-vas-icon-headline
-        :class="b('header')"
-        icon="i-vuejs"
-        text="Styleguide"
-      />
-
-      <div :class="b('tabs')">
-        <e-vas-toggle-button
-          :active="showMenu"
-          @click="onToggleMainFlyout(true)"
-        >
-          <e-vas-icon
-            icon="i-text"
-            size="20"
-          />
-          Menu
-        </e-vas-toggle-button>
-
-        <e-vas-toggle-button
-          :active="showConfig"
-          @click="onToggleMainFlyout(false, true)"
-        >
-          <e-vas-icon
-            icon="i-cog-wheel"
-            size="20"
-          />
-          Settings
-        </e-vas-toggle-button>
-      </div>
-
-      <div :class="b('content-wrapper')">
-        <c-vas-navigation
-          v-if="showMenu"
-          :routes="router.options.routes"
+      <template #content>
+        <c-vas-icon-headline
+          :class="b('header')"
+          icon="i-vuejs"
+          text="Styleguide"
         />
-        <c-vas-config v-else>
-          <template
-            v-if="$slots.customSettings"
-            #customSettings
+
+        <div :class="b('tabs')">
+          <e-vas-toggle-button
+            :active="showMenu"
+            @click="onToggleMainFlyout(true)"
           >
-            <slot name="customSettings"></slot>
-          </template>
-        </c-vas-config>
-      </div>
-      <div :class="b('footer')">
-        <button
-          :class="b('hotkeys')"
-          type="button"
-          @click="isHotkeysModalOpen = true"
-        >
-          <e-vas-icon
-            icon="i-key-cmd--filled"
-            size="12"
+            <e-vas-icon
+              icon="i-text"
+              size="20"
+            />
+            Menu
+          </e-vas-toggle-button>
+
+          <e-vas-toggle-button
+            :active="showConfig"
+            @click="onToggleMainFlyout(false, true)"
+          >
+            <e-vas-icon
+              icon="i-cog-wheel"
+              size="20"
+            />
+            Settings
+          </e-vas-toggle-button>
+        </div>
+
+        <div :class="b('content-wrapper')">
+          <c-vas-navigation
+            v-if="showMenu"
+            :routes="router.options.routes"
           />
-          Hotkeys
-        </button>
-        <a
-          :href="githubUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-          :class="b('github-link')"
-        >
-          <e-vas-icon
-            icon="i-tag"
-            size="12"
-          />
-          {{ version }}
-        </a>
-      </div>
+          <c-vas-config v-else>
+            <template
+              v-if="$slots.customSettings"
+              #customSettings
+            >
+              <slot name="customSettings"></slot>
+            </template>
+          </c-vas-config>
+        </div>
+        <div :class="b('footer')">
+          <button
+            :class="b('hotkeys')"
+            type="button"
+            @click="isHotkeysModalOpen = true"
+          >
+            <e-vas-icon
+              icon="i-key-cmd--filled"
+              size="12"
+            />
+            Hotkeys
+          </button>
+          <a
+            :href="githubUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            :class="b('github-link')"
+          >
+            <e-vas-icon
+              icon="i-tag"
+              size="12"
+            />
+            {{ version }}
+          </a>
+        </div>
+      </template>
     </c-vas-flyout>
 
     <c-vas-hotkey-modal :is-open="isHotkeysModalOpen" />
@@ -325,6 +329,7 @@
     }
 
     &__header {
+      flex: 0 0 auto;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
       height: 40px;
     }
@@ -351,6 +356,7 @@
     }
 
     &__footer {
+      flex: 0 0 auto;
       margin-top: auto;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
       width: 100%;

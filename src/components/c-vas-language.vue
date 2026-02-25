@@ -45,11 +45,7 @@
           return this.vasSettingsStore.state.settings.activeLanguage;
         },
         set(value: string) {
-          this.vasSettingsStore.state.settings.availableLanguages.forEach((item) => {
-            item.selected = item.value === value;
-          });
-
-          this.vasSettingsStore.state.settings.activeLanguage = value;
+          this.vasSettingsStore.updateActiveLanguage(value);
         },
       },
 

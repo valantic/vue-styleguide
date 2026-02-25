@@ -5,7 +5,7 @@
 - **Framework:** Vue 3.5 (Options API with `defineComponent`)
 - **Language:** TypeScript (strict mode, target ES2021)
 - **Build Tool:** Vite 7
-- **State Management:** Pinia 3 (Options API style stores)
+- **State Management:** This project must not have any dependency to eg. Pinia or vuex
 - **Routing:** Vue Router 4
 - **Styling:** SCSS (scoped), BEM methodology via `vue-bem-cn`
 - **i18n:** vue-i18n 11
@@ -106,7 +106,7 @@ Components use the **Options API** with `defineComponent`. Follow this order:
 - **Props:** Always include JSDoc descriptions and use `PropType` for complex types
 - **Scoped styles:** Use `<style scoped lang="scss">` (exception: when child component deep styling is needed, omit `scoped`)
 
-## Stores (Pinia)
+## Stores
 
 - Use **Options API** style (`defineStore` with `state`, `getters`, `actions`)
 - Define a `StoreState` type for the state

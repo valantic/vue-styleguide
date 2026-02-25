@@ -44,11 +44,7 @@
           return this.vasSettingsStore.state.settings.activeTheme;
         },
         set(value: string) {
-          this.vasSettingsStore.state.settings.availableThemes.forEach((item) => {
-            item.selected = item.value === value;
-          });
-
-          this.vasSettingsStore.state.settings.activeTheme = value;
+          this.vasSettingsStore.updateActiveTheme(value);
         },
       },
 

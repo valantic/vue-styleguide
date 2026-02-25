@@ -127,14 +127,14 @@
 </template>
 
 <script lang="ts">
-  import { PropType, Ref, defineComponent, ref } from 'vue';
+  import { defineComponent, PropType, Ref, ref } from 'vue';
   import { useRouter } from 'vue-router';
-  import { VasSettingsStore, useVasSettingsStore } from '@/stores/settings';
-  import { StyleguideSettings } from '@/types/settings';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { useVasSettingsStore, VasSettingsStore } from '../stores/settings';
+  import { StyleguideSettings } from '../types/settings';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';

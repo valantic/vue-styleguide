@@ -4,7 +4,10 @@
     <c-vas-language />
     <c-vas-theme-selector />
     <c-vas-html-validation />
-    <e-vas-toggle v-model="vasSettingsStore.state.settings.isLoggedIn">
+    <e-vas-toggle
+      :model-value="vasSettingsStore.state.settings.isLoggedIn"
+      @update:model-value="vasSettingsStore.updateIsLoggedIn($event as boolean)"
+    >
       <span>Logged in</span>
     </e-vas-toggle>
 

@@ -29,13 +29,31 @@ export const useVasSettingsStore = () => {
     state: state as Readonly<VasSettingsStoreState>,
 
     initialize(settings: Partial<StyleguideSettings>) {
-      state.settings = {
+      Object.assign(state.settings, {
         ...storeDefaults,
         ...settings,
-      };
+      });
 
       state.settings.activeTheme = getSelectedValueByGenericOptions(state.settings.availableThemes);
       state.settings.activeLanguage = getSelectedValueByGenericOptions(state.settings.availableLanguages);
+    },
+
+    updateIsLoggedIn(isLoggedIn: boolean) {
+      state.settings.isLoggedIn = isLoggedIn;
+    },
+
+    updateActiveTheme(theme: string) {
+      state.settings.availableThemes.forEach((item) => {
+        item.selected = item.value === theme;
+      });
+      state.settings.activeTheme = theme;
+    },
+
+    updateActiveLanguage(language: string) {
+      state.settings.availableLanguages.forEach((item) => {
+        item.selected = item.value === language;
+      });
+      state.settings.activeLanguage = language;
     },
   };
 };

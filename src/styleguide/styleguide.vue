@@ -18,14 +18,14 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { useVasSettingsStore } from '@/stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '@/stores/settings';
   import cVasSidebar from '@/components/c-vas-sidebar.vue';
   import sFooter from '@/styleguide/components/s-footer.vue';
   import sHeader from '@/styleguide/components/s-header.vue';
   import { StyleguideSettings } from '@/types/settings';
 
   type Setup = {
-    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+    vasSettingsStore: VasSettingsStore;
   };
   type Data = {
     settings: Partial<StyleguideSettings>;
@@ -72,7 +72,7 @@
               value: 'de',
             },
           ],
-          isLoggedIn: true,
+          isLoggedIn: false,
         },
       };
     },

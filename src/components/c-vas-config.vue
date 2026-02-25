@@ -1,9 +1,24 @@
 <template>
   <div :class="b()">
     <div :class="b('headline')">Global Settings</div>
-    <c-vas-language />
-    <c-vas-theme-selector />
+    <label :class="b('language')">
+      <span class="invisible">Language</span>
+      <e-vas-select
+        v-model="language"
+        :options="vasSettingsStore.state.options.languages"
+      />
+    </label>
+
+    <label :class="b('theme')">
+      <span class="invisible">Theme</span>
+      <e-vas-select
+        v-model="theme"
+        :options="vasSettingsStore.state.options.themes"
+      />
+    </label>
+
     <c-vas-html-validation />
+
     <e-vas-toggle
       :model-value="vasSettingsStore.state.settings.isLoggedIn"
       @update:model-value="vasSettingsStore.updateIsLoggedIn($event as boolean)"
@@ -24,14 +39,14 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { StyleguideConfigSettings } from '@/types/settings';
+  import eVasSelect from '../elements/e-vas-select.vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { useVasSettingsStore } from '../stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
-  import cVasLanguage from './c-vas-language.vue';
-  import cVasThemeSelector from './c-vas-theme-selector.vue';
 
   type Setup = {
-    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+    vasSettingsStore: VasSettingsStore;
   };
   // type Data = {};
 
@@ -39,10 +54,9 @@
     name: 'c-vas-config',
 
     components: {
+      eVasSelect,
       cVasHtmlValidation,
       eVasToggle,
-      cVasLanguage,
-      cVasThemeSelector,
     },
     // props: {},
     // emits: {},
@@ -56,8 +70,44 @@
     //   return {
     //   };
     // },
-    // computed: {},
+    computed: {
+      settings(): StyleguideConfigSettings {
+        return this.vasSettingsStore.state.settings;
+      },
+
+      theme: {
+        get(): string {
+          return this.settings.activeTheme;
+        },
+        set(value: string) {
+          this.vasSettingsStore.updateActiveTheme(value);
+        },
+      },
+
+      language: {
+        get() {
+          return this.settings.activeLanguage;
+        },
+        set(value: string) {
+          this.vasSettingsStore.updateActiveLanguage(value);
+        },
+      },
+    },
+    // watch: {},
+
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // mounted() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     // methods: {},
+    // render() {},
   });
 </script>
 

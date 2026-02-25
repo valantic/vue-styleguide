@@ -10,7 +10,7 @@
 - [FEATURE]: Added a new element for `c-vas-flyout-toggle-button`.
 - [FEATURE]: Added new generic component for `c-vas-flyout`.
 - [BREAKING]:
-  - Changed structure of the `StyleguideSettings` type.
+  - replaced `StyleguideSettings` type with `StyleguideConfiguration`.
   - Introduced the `settingsStore` and refactored the settings handling.
 - [ENHANCEMENT]: Added hotkey modal.
 - [ENHANCEMENT]: Improved navigation block styling.

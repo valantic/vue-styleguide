@@ -127,14 +127,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, PropType, Ref, ref } from 'vue';
+  import { PropType, Ref, defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { useVasSettingsStore, VasSettingsStore } from '../stores/settings';
-  import { StyleguideSettings } from '../types/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { StyleguideConfiguration } from '../types/settings';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
@@ -182,10 +182,10 @@
     },
     props: {
       /**
-       * Settings.
+       * The styleguide configuration.
        */
-      settings: {
-        type: Object as PropType<Partial<StyleguideSettings>>,
+      config: {
+        type: Object as PropType<Partial<StyleguideConfiguration>>,
         required: true,
       },
     },
@@ -235,12 +235,12 @@
         this.onCloseFlyout();
       },
     },
-    // beforeCreate() {},
+    beforeCreate() {
+      this.vasSettingsStore.initialize(this.config);
+    },
     // created() {},
     // beforeMount() {},
     mounted() {
-      this.vasSettingsStore.initialize(this.settings);
-
       document.addEventListener('keydown', this.handleHotKeys);
     },
     // beforeUpdate() {},

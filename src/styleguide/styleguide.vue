@@ -20,8 +20,6 @@
   import { defineComponent } from 'vue';
   import { useVasSettingsStore } from '@/stores/settings';
   import cVasSidebar from '@/components/c-vas-sidebar.vue';
-  import eVasButton from '@/elements/e-vas-button.vue';
-  import eVasToggle from '@/elements/e-vas-toggle.vue';
   import sFooter from '@/styleguide/components/s-footer.vue';
   import sHeader from '@/styleguide/components/s-header.vue';
   import { StyleguideSettings } from '@/types/settings';
@@ -37,8 +35,6 @@
     name: 'styleguide',
 
     components: {
-      eVasButton,
-      eVasToggle,
       sHeader,
       sFooter,
       cVasSidebar,

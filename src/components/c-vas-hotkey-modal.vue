@@ -59,7 +59,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasModal from '@/components/c-vas-modal.vue';
+  import cVasModal from '../components/c-vas-modal.vue';
 
   // type Setup = {};
   // type Data = {};

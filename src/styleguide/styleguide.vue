@@ -5,7 +5,14 @@
       <router-view />
     </main>
     <s-footer :class="b('footer')" />
-    <c-vas-sidebar :settings="settings" />
+    <c-vas-sidebar :settings="settings">
+      <template
+        #customSettings
+        v-if="false"
+      >
+        Custom Settings can be placed here.
+      </template>
+    </c-vas-sidebar>
   </div>
 </template>
 
@@ -13,6 +20,8 @@
   import { defineComponent } from 'vue';
   import { useVasSettingsStore } from '@/stores/settings';
   import cVasSidebar from '@/components/c-vas-sidebar.vue';
+  import eVasButton from '@/elements/e-vas-button.vue';
+  import eVasToggle from '@/elements/e-vas-toggle.vue';
   import sFooter from '@/styleguide/components/s-footer.vue';
   import sHeader from '@/styleguide/components/s-header.vue';
   import { StyleguideSettings } from '@/types/settings';
@@ -28,6 +37,8 @@
     name: 'styleguide',
 
     components: {
+      eVasButton,
+      eVasToggle,
       sHeader,
       sFooter,
       cVasSidebar,

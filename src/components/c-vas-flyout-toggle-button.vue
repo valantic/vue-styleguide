@@ -51,7 +51,7 @@
        */
       iconSize: {
         type: String,
-        default: '22',
+        default: '18',
       },
     },
     // emits: [],

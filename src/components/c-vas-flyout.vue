@@ -128,6 +128,7 @@
       align-items: flex-end;
       opacity: 0.2;
       transition: opacity variables.$vas-transition--default;
+      width: 55px;
 
       &:hover:not(&--is-open) {
         opacity: 0.8;

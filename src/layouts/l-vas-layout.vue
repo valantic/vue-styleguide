@@ -1,4 +1,11 @@
 <template>
+  <teleport
+    v-if="$slots.pageConfig"
+    defer
+    to="#teleportDestinationPageConfigFlyout"
+  >
+    <slot name="pageConfig"></slot>
+  </teleport>
   <section :class="b('', modifiers)">
     <h1
       v-if="showHeadline"
@@ -111,6 +118,29 @@
 
     &__headline {
       margin-bottom: 2rem;
+    }
+
+    &__highlight {
+      position: relative;
+      z-index: 2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -2px;
+        height: calc(100% + 8px);
+        width: calc(100% + 4px);
+        background-color: variables.$vas-theme-background-surface;
+        z-index: -1;
+        opacity: 1;
+        border-radius: variables.$vas-theme-border-radius;
+      }
+    }
+
+    &__list {
+      list-style-type: circle;
+      padding-left: 30px;
     }
   }
 </style>

@@ -3,10 +3,7 @@
     ref="container"
     :class="b('', modifiers)"
   >
-    <c-vas-flyout
-      v-if="$slots.pageConfigFlyoutContent"
-      :is-open="isPageConfigFlyoutOpen"
-    >
+    <c-vas-flyout :is-open="isPageConfigFlyoutOpen">
       <template #controls>
         <div :class="b('actions')">
           <c-vas-flyout-toggle-button
@@ -22,9 +19,10 @@
           icon="i-page-setting"
           text="Page Configuration"
         />
-        <div :class="b('content-wrapper')">
-          <slot name="pageConfigFlyoutContent"></slot>
-        </div>
+        <div
+          id="teleportDestinationPageConfigFlyout"
+          :class="b('content-wrapper', { pageConfig: true })"
+        ></div>
       </div>
     </c-vas-flyout>
 
@@ -84,7 +82,14 @@
           v-if="showMenu"
           :routes="router.options.routes"
         />
-        <c-vas-config v-else />
+        <c-vas-config v-else>
+          <template
+            v-if="$slots.customSettings"
+            #customSettings
+          >
+            <slot name="customSettings"></slot>
+          </template>
+        </c-vas-config>
       </div>
       <div :class="b('footer')">
         <button
@@ -191,23 +196,19 @@
       };
     },
     computed: {
+      isFlyoutOpen(): boolean {
+        return this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen;
+      },
+
       modifiers(): Modifiers {
         return {
-          isFlyoutOpen: this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen,
+          isFlyoutOpen: this.isFlyoutOpen,
         };
       },
     },
     watch: {
-      isMainFlyoutOpen() {
-        if (this.isMainFlyoutOpen) {
-          document.addEventListener('click', this.handleOutsideClick);
-        } else {
-          document.removeEventListener('click', this.handleOutsideClick);
-        }
-      },
-
-      isPageConfigFlyoutOpen() {
-        if (this.isMainFlyoutOpen) {
+      isFlyoutOpen() {
+        if (this.isFlyoutOpen) {
           document.addEventListener('click', this.handleOutsideClick);
         } else {
           document.removeEventListener('click', this.handleOutsideClick);
@@ -290,7 +291,7 @@
         }
 
         // Hotkeys for page config flyout.
-        if (event.metaKey && event.shiftKey && event.key === ';' && !!this.$slots?.pageConfigFlyoutContent) {
+        if (event.metaKey && event.shiftKey && event.key === ';') {
           event.preventDefault();
           this.onTogglePageConfigFlyout();
 
@@ -330,6 +331,12 @@
 
     &__content-wrapper {
       padding: variables.$vas-spacing--12;
+
+      &--page-config {
+        display: flex;
+        flex-direction: column;
+        gap: variables.$vas-spacing--10;
+      }
     }
 
     &__tabs {

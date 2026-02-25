@@ -1,18 +1,22 @@
 <template>
-  <ul :class="b()">
-    <li :class="b('item')">
-      <c-vas-language />
-    </li>
-    <li :class="b('item')">
-      <c-vas-theme-selector />
-    </li>
-    <li :class="b('item')">
-      <c-vas-html-validation />
-    </li>
-    <li :class="b('item')">
-      <e-vas-toggle v-model="vasSettingsStore.state.settings.isLoggedIn">Logged in</e-vas-toggle>
-    </li>
-  </ul>
+  <div :class="b()">
+    <div :class="b('headline')">Global Settings</div>
+    <c-vas-language />
+    <c-vas-theme-selector />
+    <c-vas-html-validation />
+    <e-vas-toggle v-model="vasSettingsStore.state.settings.isLoggedIn">
+      <span>Logged in</span>
+    </e-vas-toggle>
+
+    <div
+      v-if="$slots.customSettings"
+      id="teleportDestinationStyleguideConfigFlyout"
+      :class="b('custom-settings')"
+    >
+      <div :class="b('headline')">Custom Project Settings</div>
+      <slot name="customSettings"></slot>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -58,12 +62,22 @@
   @use '../setup/scss/variables';
 
   .c-vas-config {
-    &__item {
-      margin-bottom: variables.$vas-spacing--16;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$vas-spacing--10;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
+    &__headline {
+      font-weight: bold;
+      color: variables.$vas-theme-text-color-muted;
+      margin: variables.$vas-spacing--10 0;
+    }
+
+    &__custom-settings {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$vas-spacing--10;
+      margin-top: variables.$vas-spacing--20;
+      border-top: 1px solid variables.$vas-theme-border-color;
     }
   }
 </style>

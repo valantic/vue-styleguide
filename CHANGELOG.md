@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [FEATURE]: Added a way to configure pages and set additional config to the main settings.
 - [ENHANCEMENT]: Added test page for all elements.
 - [ENHANCEMENT]: Use new components, improve hotkeys and transitions.
 - [FEATURE]: Added a new component for `c-vas-demo-card`.

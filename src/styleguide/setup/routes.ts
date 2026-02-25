@@ -40,6 +40,15 @@ export default [
           alternativeTitles: ['font'],
         },
       },
+      {
+        path: 'test-page-settings',
+        name: 'test-page-settings',
+        component: () => import('../demo-pages/general/r-page-settings.vue'),
+        meta: {
+          title: 'Page Settings',
+          alternativeTitles: ['Configuration', 'Mock'],
+        },
+      },
     ],
   },
   {

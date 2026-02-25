@@ -5,7 +5,7 @@
       <router-view />
     </main>
     <s-footer :class="b('footer')" />
-    <c-vas-sidebar :settings="settings">
+    <c-vas-sidebar>
       <template
         #customSettings
         v-if="false"

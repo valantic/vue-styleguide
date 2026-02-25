@@ -5,7 +5,7 @@
       <router-view />
     </main>
     <s-footer :class="b('footer')" />
-    <c-vas-sidebar>
+    <c-vas-sidebar :settings="settings">
       <template
         #customSettings
         v-if="false"
@@ -72,7 +72,7 @@
               value: 'de',
             },
           ],
-          isLoggedIn: false,
+          isLoggedIn: true,
         },
       };
     },
@@ -93,7 +93,7 @@
     // created() {},
     // beforeMount() {},
     mounted() {
-      this.vasSettingsStore.initialize(this.settings);
+      // this.vasSettingsStore.initialize(this.settings);
     },
     // beforeUpdate() {},
     // updated() {},

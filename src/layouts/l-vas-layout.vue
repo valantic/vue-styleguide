@@ -1,12 +1,12 @@
 <template>
-  <teleport
-    v-if="$slots.pageConfig"
-    defer
-    to="#teleportDestinationPageConfigFlyout"
-  >
-    <slot name="pageConfig"></slot>
-  </teleport>
   <section :class="b('', modifiers)">
+    <teleport
+      v-if="$slots.pageConfig"
+      defer
+      to="#teleportDestinationPageConfigFlyout"
+    >
+      <slot name="pageConfig"></slot>
+    </teleport>
     <h1
       v-if="showHeadline"
       :class="b('headline')"

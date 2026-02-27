@@ -126,7 +126,7 @@
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
-      pointer-events: auto;
+      pointer-events: none;
       align-items: flex-end;
       opacity: 0.2;
       transition: opacity variables.$vas-transition--default;

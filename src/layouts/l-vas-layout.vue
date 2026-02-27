@@ -36,7 +36,7 @@
       padding: {
         type: String,
         default: 'default',
-        validator: (value: string) => ['none', 'default'].includes(value),
+        validator: (value: string) => ['default', '0'].includes(value),
       },
 
       /**
@@ -45,7 +45,7 @@
       variant: {
         type: String,
         default: 'default',
-        validator: (value: string) => ['plain', 'default'].includes(value),
+        validator: (value: string) => ['default', 'plain'].includes(value),
       },
 
       /**
@@ -112,7 +112,7 @@
       padding: variables.$vas-spacing--30;
     }
 
-    &--padding-none {
+    &--padding-0 {
       padding: 0;
     }
 

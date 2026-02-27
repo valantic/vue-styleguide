@@ -97,6 +97,7 @@
     transition:
       color variables.$vas-transition--default,
       background-color variables.$vas-transition--default;
+    width: 65px;
 
     &--is-open {
       background-color: variables.$vas-color-grayscale--800;

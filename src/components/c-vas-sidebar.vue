@@ -407,5 +407,9 @@
         background-color: rgba(variables.$vas-color-grayscale--1000, 0.4);
       }
     }
+
+    &__actions {
+      pointer-events: auto;
+    }
   }
 </style>

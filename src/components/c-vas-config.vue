@@ -39,10 +39,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { StyleguideConfigSettings } from '@/types/settings';
   import eVasSelect from '../elements/e-vas-select.vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
   import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { StyleguideConfigSettings } from '../types/settings';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
 
   type Setup = {

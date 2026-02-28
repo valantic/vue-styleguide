@@ -1,8 +1,5 @@
 export type SelectOptionType = {
+  [key: string]: string;
   value: string;
   label: string;
-};
-
-export type MultiSelectOptionType = SelectOptionType & {
-  [key: string]: string;
 };

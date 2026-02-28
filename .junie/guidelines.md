@@ -43,66 +43,67 @@ assets/vue/src/
 - **Styleguide routes:** `r-` prefix, kebab-case
 
 ### Component Structure
-Components use the **Options API** with `defineComponent`. Follow this order:
+Components use the **Options API** with `defineComponent`. Follow the exact structure defined in `blueprints/c-component.vue`. Unused component properties and lifecycle hooks must remain at the same place and be commented out.
 
 ```vue
 <template>
-    <div :class="b()"></div>
+  <div :class="b()"></div>
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue';
+  import { defineComponent } from 'vue';
 
-    // type Setup = {};
-    // type Data = {};
+  // type Setup = {}
+  // type Data = {}
 
-    /**
-     * A Description what the component does.
-     */
-    export default defineComponent({
-        name: 'c-component-name',
+  /**
+   * TODO: add component description.
+   */
+  export default defineComponent({
+    name: 'c-component', // TODO: update name according to filename
 
-        // components: {},
+    // components: {},
 
-        // props: {},
-        // emits: {},
+    // props: {},
+    // emits: {},
 
-        // setup(): Setup {},
-        // data(): Data {
-        //   return {};
-        // },
+    // setup(): Setup {},
+    // data(): Data {
+    //   return {};
+    // },
 
-        // computed: {},
-        // watch: {},
+    // computed: {},
+    // watch: {},
 
-        // beforeCreate() {},
-        // created() {},
-        // beforeMount() {},
-        // mounted() {},
-        // beforeUpdate() {},
-        // updated() {},
-        // activated() {},
-        // deactivated() {},
-        // beforeUnmount() {},
-        // unmounted() {},
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
 
-        // methods: {},
-        // render() {},
-    });
+    // methods: {},
+    // render() {},
+  });
 </script>
 
 <style lang="scss">
-    // @use '@/setup/scss/variables';
-
-    .c-component-name {}
+  .c-component {
+    // TODO: update selector according to filename
+    // ...
+  }
 </style>
-
 ```
 
 ### Key Patterns
 - **BEM classes:** Use the `b()` helper from `vue-bem-cn` in templates (e.g., `:class="b('element', { modifier })"`)
 - **Type annotations:** Define `Setup` and `Data` types above `defineComponent` for typed `setup()` and `data()` return values
-- **Commented placeholders:** Unused lifecycle hooks and sections are left as comments (e.g., `// mounted() {}`) to show available options
+- **Commented placeholders:** Unused lifecycle hooks and sections MUST remain as comments (e.g., `// mounted() {}`) to show available options and maintain the required structure
+- **Structure enforcement:** When updating a vue file, always check if the required structure exists; if not, update it, add all placeholder comments at the right place, and move existing properties to match the blueprint.
 - **Props:** Always include JSDoc descriptions and use `PropType` for complex types
 - **Scoped styles:** Use `<style scoped lang="scss">` (exception: when child component deep styling is needed, omit `scoped`)
 

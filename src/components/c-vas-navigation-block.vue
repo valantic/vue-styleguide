@@ -41,12 +41,13 @@
     router: ReturnType<typeof useRouter>;
     route: ReturnType<typeof useRoute>;
   };
-
-  // type Setup = {};
   type Data = {
     expandedItems: string[];
   };
 
+  /**
+   * Renders a navigation block with expandable children.
+   */
   export default defineComponent({
     name: 'c-vas-navigation-block',
 
@@ -61,6 +62,8 @@
         required: true,
       },
     },
+    // emits: {},
+
     setup(): Setup {
       return {
         router: useRouter(),
@@ -118,6 +121,18 @@
         },
       },
     },
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
       /**
        * Defines what is to do if an item is clicked.
@@ -163,7 +178,7 @@
         this.router.push({ name: route.name, params: route.meta?.params, query: route.meta?.query });
       },
     },
-    // created() {}
+    // render() {},
   });
 </script>
 

@@ -101,6 +101,9 @@
 
   const icons = import.meta.glob('@/assets/icons/*.svg');
 
+  /**
+   * Demo page for the icon element.
+   */
   export default defineComponent({
     name: 'r-icon',
 
@@ -110,7 +113,9 @@
       lVasLayout,
       eVasIcon,
     },
+
     // props: {},
+    // emits: {},
 
     setup(): Setup {
       const input = ref();
@@ -139,7 +144,6 @@
       };
     },
 
-    // components: {},
     computed: {
       /**
        * Returns an array of query filtered icons.
@@ -209,6 +213,8 @@
     // deactivated() {},
     // beforeUnmount() {},
     // unmounted() {},
+
+    // render() {},
   });
 </script>
 

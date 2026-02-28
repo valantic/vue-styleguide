@@ -8,6 +8,11 @@ This is a pluggable DX utility. It is NOT a standalone app. It is a toolbelt tha
 - **Communication:** It uses a "Props In, Events Out" pattern. The Host Project passes available options (themes, etc.) as props, and the sidebar emits events when the user interacts with them.
 - **Discovery:** It relies on `vue-router` to discover pages in the host project dynamically.
 
+## 📁 Project Scope
+- Only look at and modify files within this project root.
+- The Vue source entry point is `src/`.
+- Never look at or modify files outside this project directory.
+
 ## ⚠️ Development Rule
 When adding features, ask: "Is this feature generic enough to work in ANY host project?"
 Example: Don't hardcode a 'Dark Mode' toggle. Instead, improve the 'Theme Selector' component so it can handle any theme ID passed to it.

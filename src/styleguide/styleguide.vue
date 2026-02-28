@@ -31,6 +31,9 @@
     styleguideConfig: Partial<StyleguideConfiguration>;
   };
 
+  /**
+   * Root styleguide component that provides layout and configuration.
+   */
   export default defineComponent({
     name: 'styleguide',
 
@@ -41,6 +44,7 @@
     },
 
     // props: {},
+    // emits: {},
 
     setup(): Setup {
       return {

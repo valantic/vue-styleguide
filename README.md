@@ -50,15 +50,18 @@ Include the sidebar in your project.
 </template>
 
 <script lang="ts">
-  import cVasSidebar from '@valantic/vue-styleguide/src/components/c-vas-sidebar.vue';
-  import { useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide/src/stores/settings';
-  import { StyleguideConfiguration } from '@valantic/vue-styleguide/src/types/settings';
+  import {
+    cVasSidebar,
+    useVasSettingsStore,
+    VasSettingsStore,
+    StyleguideConfiguration,
+  } from '@valantic/vue-styleguide';
   import { defineComponent } from 'vue';
 
   type Setup = {
     vasSettingsStore: VasSettingsStore;
   };
-  
+
   type Data = {
     styleguideConfig: Partial<StyleguideConfiguration>;
   };
@@ -69,6 +72,7 @@ Include the sidebar in your project.
     components: {
       cVasSidebar,
     },
+```,search:
 
     computed: {
         styleguideConfig: {

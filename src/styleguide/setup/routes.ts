@@ -19,6 +19,7 @@ export default [
     path: styleguideRoot,
     name: 'sg-styleguide',
     component: sectionWrapper,
+    redirect: '/sg/test-readme',
     meta: {
       title: 'Styleguide',
     },

@@ -83,7 +83,7 @@
 
     // computed: {},
     watch: {
-      'vasSettingsStore.state.settings': {
+      'vasSettingsStore.config.settings': {
         handler(newSettings) {
           // eslint-disable-next-line no-console
           console.log('settings have changed', newSettings);

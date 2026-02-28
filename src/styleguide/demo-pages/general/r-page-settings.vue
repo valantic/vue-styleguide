@@ -3,7 +3,7 @@
     <template #pageConfig>
       <e-vas-button
         primary
-        @click="count = count + 1"
+        @click="count++"
       >
         Button
       </e-vas-button>

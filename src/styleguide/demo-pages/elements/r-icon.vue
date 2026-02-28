@@ -76,8 +76,9 @@
   import spritePath from '@/assets/icons.svg';
   import eVasIcon from '@/elements/e-vas-icon.vue';
   import eVasInput from '@/elements/e-vas-input.vue';
-  import eVasSelect, { Options } from '@/elements/e-vas-select.vue';
+  import eVasSelect from '@/elements/e-vas-select.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import { SelectOptionType } from '@/types/form';
   import { Icon } from '@/types/icon';
 
   type Setup = {
@@ -96,7 +97,7 @@
     color: string;
     variant: 'inline' | 'image' | 'css' | 'mask';
     spritePath: string;
-    variantOptions: Options[];
+    variantOptions: SelectOptionType[];
   };
 
   const icons = import.meta.glob('@/assets/icons/*.svg');

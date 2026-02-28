@@ -1,11 +1,8 @@
-export type GenericSelectOption = {
-  label: string;
-  value: string;
-};
+import { SelectOptionType } from './form';
 
 export type StyleguideConfigOptions = {
-  themes: GenericSelectOption[];
-  languages: GenericSelectOption[];
+  themes: SelectOptionType[];
+  languages: SelectOptionType[];
 };
 
 export type StyleguideConfigSettings = {

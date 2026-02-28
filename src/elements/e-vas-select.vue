@@ -40,16 +40,12 @@
   import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { SelectOptionType } from '../types/form';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};
-
   type Data = {
     internalValue: string;
-  };
-
-  export type Options = {
-    [key: string]: string;
   };
 
   /**
@@ -80,7 +76,7 @@
        * e.g. `[{ <valueField>: 'id1', <labelField>: 'Label 1' },{ <valueField>: 'id2', <labelField>: 'Label 2' },...]`
        */
       options: {
-        type: Array as PropType<Options[]>,
+        type: Array as PropType<SelectOptionType[]>,
         required: true,
       },
 

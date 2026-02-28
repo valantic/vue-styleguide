@@ -3,7 +3,7 @@ import { StyleguideConfiguration } from '../types/settings';
 import { setInitialData } from './helper';
 
 // Internal state, hidden from the outside
-const state = reactive<StyleguideConfiguration>({
+const config = reactive<StyleguideConfiguration>({
   options: {
     themes: [],
     languages: [],
@@ -21,22 +21,10 @@ const state = reactive<StyleguideConfiguration>({
 export const useVasSettingsStore = () => {
   return {
     // Read-only state to prevent accidental direct mutation
-    state: state as Readonly<StyleguideConfiguration>,
+    config: config as Readonly<StyleguideConfiguration>,
 
     initialize(settings: Partial<StyleguideConfiguration>) {
-      setInitialData(state, settings);
-    },
-
-    updateIsLoggedIn(isLoggedIn: boolean) {
-      state.settings.isLoggedIn = isLoggedIn;
-    },
-
-    updateActiveTheme(theme: string) {
-      state.settings.activeTheme = theme;
-    },
-
-    updateActiveLanguage(language: string) {
-      state.settings.activeLanguage = language;
+      setInitialData(config, settings);
     },
   };
 };

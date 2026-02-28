@@ -26,6 +26,9 @@
     navigationFilter: string;
   };
 
+  /**
+   * Renders the styleguide navigation with filtering and sorting.
+   */
   export default defineComponent({
     name: 'c-vas-navigation',
 
@@ -33,6 +36,7 @@
       cVasNavigationBlock,
       cVasNavigationFilter,
     },
+
     props: {
       /**
        * An array of styleguide routes.
@@ -42,17 +46,15 @@
         default: () => [],
       },
     },
-
     // emits: {},
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+
+    // setup(): Setup {},
     data(): Data {
       return {
         navigationFilter: '',
       };
     },
+
     computed: {
       filteredRoutes(): RouteRecordRaw[] {
         let routes = this.getVisibleRoutes(this.routes);
@@ -87,6 +89,19 @@
         return [...structuredRoutes, globalRoutesGroup];
       },
     },
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
         const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
@@ -156,6 +171,7 @@
         });
       },
     },
+    // render() {},
   });
 </script>
 

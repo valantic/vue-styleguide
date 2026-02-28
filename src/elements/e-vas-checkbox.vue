@@ -39,6 +39,8 @@
 
     inheritAttrs: false,
 
+    // components: {},
+
     props: {
       ...withProps(),
 

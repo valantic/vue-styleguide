@@ -56,11 +56,9 @@
         default: true,
       },
     },
+    // emits: {},
 
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    // setup(): Setup {},
     // data(): Data {
     //   return {};
     // },

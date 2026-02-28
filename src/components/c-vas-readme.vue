@@ -12,23 +12,22 @@
   // type Setup = {};
   // type Data = {};
 
+  /**
+   * Renders the project README as a Vue component.
+   */
   export default defineComponent({
     name: 'c-vas-readme',
-    status: 1,
 
     components: {
       readme: VueComponent,
     },
 
     // props: {},
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    // emits: {},
+
+    // setup(): Setup {},
     // data(): Data {
-    //   return {
-    //     content: html,
-    //   };
+    //   return {};
     // },
 
     // computed: {},

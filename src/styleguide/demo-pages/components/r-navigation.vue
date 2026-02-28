@@ -17,18 +17,26 @@
   import cVasNavigation from '@/components/c-vas-navigation.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
 
-  // type Data = {};
+  // type Setup = {}
+  // type Data = {}
 
+  /**
+   * Demo page for the navigation component.
+   */
   export default defineComponent({
     name: 'r-navigation',
+
     components: {
       cVasNavigation,
       lVasLayout,
     },
 
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {},
     // data(): Data {
-    //   return {
-    //   };
+    //   return {};
     // },
 
     computed: {
@@ -60,6 +68,18 @@
         return routes;
       },
     },
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
 
     methods: {
       getParentNode(name: string): RouteRecordRaw {
@@ -73,6 +93,7 @@
         };
       },
     },
+    // render() {},
   });
 </script>
 

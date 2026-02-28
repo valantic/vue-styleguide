@@ -21,13 +21,11 @@
     components: {
       eVasToggle,
     },
-    // mixins: [],
 
     // props: {},
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+    // emits: {},
+
+    // setup(): Setup {},
     data(): Data {
       return {
         enabled: true,
@@ -52,8 +50,8 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeDestroy() {},
-    // destroyed() {},
+    // beforeUnmount() {},
+    // unmounted() {},
 
     // methods: {},
     // render() {},

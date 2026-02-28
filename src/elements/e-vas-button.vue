@@ -242,6 +242,7 @@
         return element ? { width: `${element.offsetWidth}px`, height: `${element.offsetHeight}px` } : null;
       },
     },
+    // render() {},
   });
 </script>
 

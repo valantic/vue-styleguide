@@ -125,6 +125,9 @@
     buttonTestColor: string;
   };
 
+  /**
+   * Demo page for the button element.
+   */
   export default defineComponent({
     name: 'r-elements',
     components: {

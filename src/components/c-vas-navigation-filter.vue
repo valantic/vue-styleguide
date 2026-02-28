@@ -25,8 +25,8 @@
   import { defineComponent } from 'vue';
   import eVasInput from '../elements/e-vas-input.vue';
 
-  // typ;
-  // type Data = {};
+  // type Setup = {}
+  // type Data = {}
 
   export default defineComponent({
     name: 'c-vas-navigation-filter',

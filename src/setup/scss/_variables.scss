@@ -95,9 +95,26 @@ $vas-spacing--30: 30px;
 
 // --- transition
 $vas-transition-duration--default: 300ms;
+$vas-transition--default: 0.3s ease;
 
 // --- Form
 $vas-form-field-padding: 8px;
 $vas-form-border-radius: 3px;
 $vas-form-border-color: $vas-color-grayscale--500;
 $vas-form-border-color--hover: $vas-color-grayscale--400;
+
+$vas-flyout--width: 320px;
+
+// Theme
+$vas-theme-text-size: $vas-font-size--16;
+$vas-theme-text-size-small: $vas-font-size--14;
+$vas-theme-text-color: $vas-color-grayscale--0;
+$vas-theme-text-color-muted: #00000060;
+
+$vas-theme-border-radius: 4px;
+$vas-theme-border-color: $vas-color-grayscale--600;
+
+$vas-theme-background-content: $vas-color-grayscale--1000;
+$vas-theme-background-surface: $vas-color-grayscale--800;
+$vas-theme-background-surface-hover: $vas-color-grayscale--700;
+

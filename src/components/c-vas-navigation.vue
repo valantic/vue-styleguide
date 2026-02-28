@@ -7,7 +7,7 @@
 
     <div :class="b('menu')">
       <c-vas-navigation-block
-        v-for="routeItem in filteredRoutes"
+        v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
         :route-definition="routeItem"
       />
@@ -62,6 +62,30 @@
 
         return routes;
       },
+
+      /**
+       * Groups routes that have no children under a "Global Routes" parent.
+       */
+      groupedRoutes(): RouteRecordRaw[] {
+        const routes = this.filteredRoutes;
+        const structuredRoutes = routes.filter((route) => route.children && route.children.length > 0);
+        const globalRoutes = routes.filter((route) => !route.children || route.children.length === 0);
+
+        if (globalRoutes.length === 0) {
+          return structuredRoutes;
+        }
+
+        const globalRoutesGroup: RouteRecordRaw = {
+          path: '/global-routes',
+          name: 'global-routes',
+          meta: {
+            title: 'Global Routes',
+          },
+          children: globalRoutes,
+        };
+
+        return [...structuredRoutes, globalRoutesGroup];
+      },
     },
     methods: {
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
@@ -105,8 +129,9 @@
       },
 
       getSortedRoutesByTitle(routes: RouteRecordRaw[]): RouteRecordRaw[] {
+        // create a shallow copy to avoid mutating the original array and sort it
         // eslint-disable-next-line unicorn/no-array-sort
-        return routes.sort((first, second) => {
+        const sorted = [...routes].sort((first, second) => {
           if (!first.meta || !second.meta) {
             return 0;
           }
@@ -116,6 +141,18 @@
           }
 
           return second.meta.title < first.meta.title ? 1 : 0;
+        });
+
+        // recursively sort children (if any) to ensure consistent ordering at all levels
+        return sorted.map((route) => {
+          if (route.children && route.children.length > 0) {
+            return {
+              ...route,
+              children: this.getSortedRoutesByTitle(route.children as RouteRecordRaw[]),
+            } as RouteRecordRaw;
+          }
+
+          return route;
         });
       },
     },

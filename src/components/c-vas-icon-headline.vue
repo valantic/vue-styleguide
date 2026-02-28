@@ -2,16 +2,17 @@
   <div :class="b()">
     <e-vas-icon
       :class="b('logo')"
-      icon="i-vuejs"
-      size="22"
+      :icon="icon"
+      :size="iconSize"
     />
-    <span :class="b('slogan')">Styleguide</span>
+    <span :class="b('text')">{{ text }}</span>
   </div>
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
+  import { Icon } from '../types/icon';
 
   // type Setup = {};
   // type Data = {};
@@ -20,12 +21,36 @@
    * Styleguide brand component.
    */
   export default defineComponent({
-    name: 'c-vas-styleguide-brand',
+    name: 'c-vas-icon-headline',
     components: {
       eVasIcon,
     },
 
-    // props: {},
+    props: {
+      /**
+       * The text
+       */
+      text: {
+        type: String,
+        default: '',
+      },
+
+      /**
+       * Icon name.
+       */
+      icon: {
+        type: String as PropType<Icon>,
+        default: '',
+      },
+
+      /**
+       * Icon size.
+       */
+      iconSize: {
+        type: String,
+        default: '22',
+      },
+    },
     // emits: [],
 
     // setup(): Setup {
@@ -58,12 +83,12 @@
   @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
 
-  .c-vas-styleguide-brand {
+  .c-vas-icon-headline {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: variables.$vas-spacing--6;
-    color: variables.$vas-color-green-vue;
+    color: variables.$vas-font-color--text;
     font-size: variables.$vas-font-size--18;
     font-weight: 900;
   }

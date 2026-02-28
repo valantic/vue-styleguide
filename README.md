@@ -46,21 +46,21 @@ Include the sidebar in your project.
 ```vue3
 <template>
   <router-view />
-  <c-vas-sidebar :settings="styleguideSettings" />
+  <c-vas-sidebar :config="styleguideConfig" />
 </template>
 
 <script lang="ts">
   import cVasSidebar from '@valantic/vue-styleguide/src/components/c-vas-sidebar.vue';
-  import { useVasSettingsStore } from '@valantic/vue-styleguide/src/stores/settings';
-  import { StyleguideSettings } from '@valantic/vue-styleguide/src/types/settings';
+  import { useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide/src/stores/settings';
+  import { StyleguideConfiguration } from '@valantic/vue-styleguide/src/types/settings';
   import { defineComponent } from 'vue';
 
   type Setup = {
-    vasSettingsStore: ReturnType<typeof useVasSettingsStore>;
+    vasSettingsStore: VasSettingsStore;
   };
   
   type Data = {
-    settings: Partial<StyleguideSettings>;
+    styleguideConfig: Partial<StyleguideConfiguration>;
   };
 
   export default defineComponent({
@@ -71,33 +71,39 @@ Include the sidebar in your project.
     },
 
     computed: {
-      styleguideSettings(): StyleguideSettings {
-        return {
-          availableThemes: [
-            {
-              name: 'theme-default',
-              id: 'theme-default',
-              selected: true,
-            },
-          ],
-          availableLanguages: [
-            {
-              label: 'English',
-              value: 'en',
-              selected: true,
-            },
-            {
-              label: 'Deutsch',
-              value: 'de',
-            },
-          ],
-          isLoggedIn: true,
-        };
-      },
+        styleguideConfig: {
+          options: {
+            themes: [
+              {
+                label: 'theme-01',
+                value: 'theme-01',
+              },
+              {
+                label: 'theme-02',
+                value: 'theme-02',
+              },
+            ],
+            languages: [
+              {
+                label: 'English',
+                value: 'en',
+              },
+              {
+                label: 'Deutsch',
+                value: 'de',
+              },
+            ],
+          },
+          settings: {
+            isLoggedIn: false,
+            activeLanguage: 'en',
+            activeTheme: 'theme-02',
+          },
+        },
     },
     
     watch: {
-      'vasSettingsStore.state.settings': {
+      'vasSettingsStore.config.settings': {
         handler(newSettings) {
           // eslint-disable-next-line no-console
           console.log('settings have changed', newSettings);
@@ -105,9 +111,6 @@ Include the sidebar in your project.
         deep: true,
         immediate: false,
       },
-    },
-    mounted() {
-      this.vasSettingsStore.initialize(this.settings);
     },
   });
 </script>

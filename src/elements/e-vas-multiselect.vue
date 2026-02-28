@@ -64,7 +64,7 @@
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import useUuid, { Uuid } from '../compositions/uuid';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { MultiSelectOptionType } from '../types/form';
+  import { SelectOptionType } from '../types/form';
   import eVasCheckbox from './e-vas-checkbox.vue';
   import eVasProgress from './e-vas-progress.vue';
 
@@ -108,7 +108,7 @@
        * e.g. `[{ <valueField>: 'id1', <labelField>: 'Label 1' },{ <valueField>: 'id2', <labelField>: 'Label 2' },...]`
        */
       options: {
-        type: Array as PropType<MultiSelectOptionType[]>,
+        type: Array as PropType<SelectOptionType[]>,
         required: true,
       },
 
@@ -249,7 +249,7 @@
       /**
        * Gets the filtered options if the user used the search.
        */
-      filteredOptions(): MultiSelectOptionType[] {
+      filteredOptions(): SelectOptionType[] {
         if (this.hasSearch && this.searchTerm) {
           return this.options.filter((option) => option[this.labelField]?.includes(this.searchTerm));
         }

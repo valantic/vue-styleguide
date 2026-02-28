@@ -2,6 +2,11 @@
 @use './variables';
 @use './mixins';
 
+@mixin headline() {
+  line-height: 1.15;
+  margin-bottom: variables.$vas-spacing--16;
+}
+
 #valantic-vue-styleguide {
   height: 100%;
   background-color: variables.$vas-color-grayscale--1000;
@@ -13,34 +18,40 @@
   -moz-osx-font-smoothing: grayscale;
 
   h1 {
+    @include headline();
+
     font-size: variables.$vas-font-size--30;
-    line-height: 1.15;
   }
 
   h2 {
+    @include headline();
+
     font-size: variables.$vas-font-size--28;
-    line-height: 1.15;
   }
 
   h3 {
+    @include headline();
+
     font-size: variables.$vas-font-size--26;
-    line-height: 1.15;
   }
 
   h4 {
+    @include headline();
+
     font-size: variables.$vas-font-size--24;
-    line-height: 1.15;
   }
 
   h5 {
+    @include headline();
+
     font-size: variables.$vas-font-size--20;
-    line-height: 1.15;
   }
 
   h6 {
+    @include headline();
+
     font-size: variables.$vas-font-size--18;
-    line-height: 1.15;
-  }
+    }
 
   a {
     color: variables.$vas-font-color--text;
@@ -48,6 +59,10 @@
     &:hover {
       color: variables.$vas-font-color--text;
     }
+  }
+
+  p {
+    margin-bottom: variables.$vas-spacing--24;
   }
 
   // Show browser based input style, if no classes available.

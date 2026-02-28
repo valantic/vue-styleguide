@@ -1,22 +1,17 @@
 import { reactive } from 'vue';
-import { GenericSelectOption, StyleguideSettings } from '../types/settings';
-
-export type VasSettingsStoreState = {
-  settings: StyleguideSettings;
-};
-
-const storeDefaults: StyleguideSettings = {
-  availableThemes: [],
-  availableLanguages: [],
-  isLoggedIn: false,
-  activeTheme: '',
-  activeLanguage: '',
-};
+import { StyleguideConfiguration } from '../types/settings';
+import { setInitialData } from './helper';
 
 // Internal state, hidden from the outside
-const state = reactive<VasSettingsStoreState>({
+const config = reactive<StyleguideConfiguration>({
+  options: {
+    themes: [],
+    languages: [],
+  },
   settings: {
-    ...storeDefaults,
+    isLoggedIn: false,
+    activeTheme: '',
+    activeLanguage: '',
   },
 });
 
@@ -26,22 +21,12 @@ const state = reactive<VasSettingsStoreState>({
 export const useVasSettingsStore = () => {
   return {
     // Read-only state to prevent accidental direct mutation
-    state: state as Readonly<VasSettingsStoreState>,
+    config: config as Readonly<StyleguideConfiguration>,
 
-    initialize(settings: Partial<StyleguideSettings>) {
-      state.settings = {
-        ...storeDefaults,
-        ...settings,
-      };
-
-      state.settings.activeTheme = getSelectedValueByGenericOptions(state.settings.availableThemes);
-      state.settings.activeLanguage = getSelectedValueByGenericOptions(state.settings.availableLanguages);
+    initialize(settings: Partial<StyleguideConfiguration>) {
+      setInitialData(config, settings);
     },
   };
 };
 
 export type VasSettingsStore = ReturnType<typeof useVasSettingsStore>;
-
-function getSelectedValueByGenericOptions(options: GenericSelectOption[]): string {
-  return options.find((item) => item.selected)?.value ?? options[0]?.value ?? '';
-}

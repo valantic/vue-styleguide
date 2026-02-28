@@ -63,7 +63,7 @@
        */
       value: {
         type: [String, Number, Boolean] as PropType<any>, // eslint-disable-line @typescript-eslint/no-explicit-any -- was not able to find a better solution, since the value is very dynamic
-        required: true,
+        default: true,
       },
 
       /**

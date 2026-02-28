@@ -1,5 +1,12 @@
 <template>
   <section :class="b('', modifiers)">
+    <teleport
+      v-if="$slots.pageConfig"
+      defer
+      to="#teleportDestinationPageConfigFlyout"
+    >
+      <slot name="pageConfig"></slot>
+    </teleport>
     <h1
       v-if="showHeadline"
       :class="b('headline')"
@@ -29,7 +36,7 @@
       padding: {
         type: String,
         default: 'default',
-        validator: (value: string) => ['none', 'default'].includes(value),
+        validator: (value: string) => ['default', '0'].includes(value),
       },
 
       /**
@@ -38,7 +45,7 @@
       variant: {
         type: String,
         default: 'default',
-        validator: (value: string) => ['plain', 'default'].includes(value),
+        validator: (value: string) => ['default', 'plain'].includes(value),
       },
 
       /**
@@ -105,12 +112,35 @@
       padding: variables.$vas-spacing--30;
     }
 
-    &--padding-none {
+    &--padding-0 {
       padding: 0;
     }
 
     &__headline {
       margin-bottom: 2rem;
+    }
+
+    &__highlight {
+      position: relative;
+      z-index: 2;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -2px;
+        height: calc(100% + 8px);
+        width: calc(100% + 4px);
+        background-color: variables.$vas-theme-background-surface;
+        z-index: -1;
+        opacity: 1;
+        border-radius: variables.$vas-theme-border-radius;
+      }
+    }
+
+    &__list {
+      list-style-type: circle;
+      padding-left: 30px;
     }
   }
 </style>

@@ -7,7 +7,11 @@ export type Icon = 'i-chevron--down' |
   'i-key-ctrl' |
   'i-key-esc' |
   'i-key-shift' |
+  'i-page-setting' |
   'i-tag' |
   'i-text' |
   'i-valantic' |
+  'i-viewport--desktop' |
+  'i-viewport--mobile' |
+  'i-viewport--tablet' |
   'i-vuejs';

@@ -2,8 +2,15 @@
 
 ## unreleased
 
+- [FEATURE]: Added a way to configure pages and set additional config to the main settings.
+- [ENHANCEMENT]: Added test page for all elements.
+- [ENHANCEMENT]: Use new components, improve hotkeys and transitions.
+- [FEATURE]: Added a new component for `c-vas-demo-card`.
+- [FEATURE]: Added a new component for `c-vas-demo-table`.
+- [FEATURE]: Added a new element for `c-vas-flyout-toggle-button`.
+- [FEATURE]: Added new generic component for `c-vas-flyout`.
 - [BREAKING]:
-  - Changed structure of the `StyleguideSettings` type.
+  - replaced `StyleguideSettings` type with `StyleguideConfiguration`.
   - Introduced the `settingsStore` and refactored the settings handling.
 - [ENHANCEMENT]: Added hotkey modal.
 - [ENHANCEMENT]: Improved navigation block styling.

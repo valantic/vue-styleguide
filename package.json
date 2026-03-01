@@ -11,10 +11,12 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts"
     },
-    "./src/components": "./src/components/index.ts",
-    "./src/components/*": "./src/components/*/index.ts",
-    "./src/elements": "./src/elements/index.ts",
-    "./src/elements/*": "./src/elements/*/index.ts",
+    "./components": "./src/components/index.ts",
+    "./components/*": "./src/components/*/index.ts",
+    "./elements": "./src/elements/index.ts",
+    "./elements/*": "./src/elements/*/index.ts",
+    "./types": "./src/types/index.ts",
+    "./types/*": "./src/types/*/index.ts",
     "./src/*.vue": "./src/*.vue",
     "./src/*": {
       "types": "./src/*.ts",

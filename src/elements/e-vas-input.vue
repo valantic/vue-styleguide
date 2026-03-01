@@ -179,6 +179,10 @@
       setTimeout(this.setSlotSpacings, 200);
 
       document.addEventListener('resizeend', this.setSlotSpacings);
+
+      if (this.autofocus) {
+        this.focusInput();
+      }
     },
     // beforeUpdate() {},
     updated() {
@@ -256,6 +260,16 @@
             });
           }
         }
+      },
+
+      /**
+       * Focus the input field.
+       */
+      focusInput(): void {
+        // Delay focusing to ensure that it works when the input field is placed within a transition (e.g. sidebar).
+        setTimeout(() => {
+          this.input?.focus();
+        }, 350);
       },
     },
     // render() {},

@@ -1,5 +1,10 @@
 <template>
-  <div :class="b()">
+  <div
+    :class="b()"
+    @keydown.down.prevent="onKeyDownDown"
+    @keydown.up.prevent="onKeyDownUp"
+    @keydown.enter.prevent="onKeyDownEnter"
+  >
     <c-vas-navigation-filter
       v-model="navigationFilter"
       :class="b('filter')"
@@ -10,6 +15,7 @@
         v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
         :route-definition="routeItem"
+        :selected-route-name="selectedRouteName"
       />
     </div>
   </div>
@@ -24,6 +30,7 @@
   // type Setup = {};
   type Data = {
     navigationFilter: string;
+    activeIndex: number;
   };
 
   /**
@@ -52,6 +59,7 @@
     data(): Data {
       return {
         navigationFilter: '',
+        activeIndex: -1,
       };
     },
 
@@ -88,8 +96,47 @@
 
         return [...structuredRoutes, globalRoutesGroup];
       },
+
+      selectedRouteName(): string {
+        return this.flattenedRoutes[this.activeIndex]?.name as string;
+      },
+
+      flattenedRoutes(): RouteRecordRaw[] {
+        const flatten = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
+          const result: RouteRecordRaw[] = [];
+
+          for (const route of routes) {
+            result.push(route);
+
+            if (route.children && route.children.length > 0) {
+              result.push(...flatten(route.children as RouteRecordRaw[]));
+            }
+          }
+
+          return result;
+        };
+
+        return flatten(this.groupedRoutes);
+      },
     },
-    // watch: {},
+    watch: {
+      navigationFilter() {
+        if (this.navigationFilter) {
+          this.activeIndex = this.flattenedRoutes.findIndex((route) => !route.children || route.children.length === 0);
+        } else {
+          this.activeIndex = -1;
+        }
+      },
+      activeIndex() {
+        if (this.activeIndex >= 0) {
+          this.$nextTick(() => {
+            const el = document.querySelector('.c-vas-navigation-block__item--selected');
+
+            el?.scrollIntoView({ block: 'nearest' });
+          });
+        }
+      },
+    },
 
     // beforeCreate() {},
     // created() {},
@@ -103,6 +150,52 @@
     // unmounted() {},
 
     methods: {
+      onKeyDownDown(): void {
+        let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
+
+        while (nextIndex < this.flattenedRoutes.length) {
+          const route = this.flattenedRoutes[nextIndex];
+
+          if (!route?.children || route.children.length === 0) {
+            this.activeIndex = nextIndex;
+
+            return;
+          }
+          nextIndex++;
+        }
+      },
+
+      onKeyDownUp(): void {
+        let prevIndex = this.activeIndex - 1;
+
+        while (prevIndex >= 0) {
+          const route = this.flattenedRoutes[prevIndex];
+
+          if (!route?.children || route.children.length === 0) {
+            this.activeIndex = prevIndex;
+
+            return;
+          }
+          prevIndex--;
+        }
+      },
+
+      onKeyDownEnter(): void {
+        if (this.activeIndex >= 0 && this.activeIndex < this.flattenedRoutes.length) {
+          const route = this.flattenedRoutes[this.activeIndex];
+
+          if (!route?.name || (route?.children && route.children.length > 0)) {
+            return;
+          }
+
+          this.$router.push({
+            name: route.name as string,
+            params: route.meta?.params as Record<string, string>,
+            query: route.meta?.query as Record<string, string | (string | null)[] | null>,
+          });
+        }
+      },
+
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
         const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
 

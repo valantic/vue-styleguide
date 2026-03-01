@@ -164,6 +164,7 @@
     showMenu: boolean;
     showConfig: boolean;
     isHotkeysModalOpen: boolean;
+    lastShiftPress: number;
   };
 
   export default defineComponent({
@@ -209,6 +210,7 @@
         showMenu: false,
         showConfig: false,
         isHotkeysModalOpen: false,
+        lastShiftPress: 0,
       };
     },
     computed: {
@@ -281,6 +283,28 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
+        const doublePressDelay = 500;
+
+        // Detect double Shift.
+        if (event.key === 'Shift') {
+          const currentTime = Date.now();
+          const timeSinceLastPress = currentTime - this.lastShiftPress;
+
+          if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
+            this.onToggleMainFlyout(true, false, true);
+            this.lastShiftPress = 0; // Reset.
+
+            return;
+          }
+
+          this.lastShiftPress = currentTime;
+
+          return;
+        }
+
+        // Reset Shift timer on any other key press.
+        this.lastShiftPress = 0;
+
         // ESC for all flyout.
         if (event.key === 'Escape') {
           event.preventDefault();
@@ -366,6 +390,7 @@
 
       .e-vas-toggle-button {
         border-radius: 0;
+        font-size: variables.$vas-font-size--12;
       }
     }
 

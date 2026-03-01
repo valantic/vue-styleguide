@@ -11,6 +11,38 @@
         <div :class="b('left')">
           <div :class="b('hotkey')">
             <span>Shift</span>
+          </div>
+          <div :class="b('hotkey')">
+            <span>Shift</span>
+          </div>
+        </div>
+        <div :class="b('right')">
+          Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.
+        </div>
+      </div>
+      <div :class="b('row')">
+        <div :class="b('left')">
+          <div :class="b('hotkey')">
+            <span>&uarr;</span>
+          </div>
+          <div :class="b('hotkey')">
+            <span>&darr;</span>
+          </div>
+        </div>
+        <div :class="b('right')">Navigate through menu items.</div>
+      </div>
+      <div :class="b('row')">
+        <div :class="b('left')">
+          <div :class="b('hotkey')">
+            <span>Enter</span>
+          </div>
+        </div>
+        <div :class="b('right')">Open the selected menu item.</div>
+      </div>
+      <div :class="b('row')">
+        <div :class="b('left')">
+          <div :class="b('hotkey')">
+            <span>Shift</span>
             <span>+</span>
             <span>Ctrl</span>
             <span>+</span>

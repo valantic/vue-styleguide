@@ -12,12 +12,12 @@
       "import": "./src/index.ts"
     },
     "./types": {
-      "types": "./src/types/index.ts",
-      "import": "./src/types/index.ts"
+      "types": "./src/types/index.d.ts",
+      "import": "./src/types/index.d.ts"
     },
     "./types/*": {
-      "types": "./src/types/*.ts",
-      "import": "./src/types/*.ts"
+      "types": "./src/types/*.d.ts",
+      "import": "./src/types/*.d.ts"
     },
     "./elements": "./src/elements/index.ts",
     "./elements/*": "./src/elements/*/index.ts",

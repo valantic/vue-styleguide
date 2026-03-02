@@ -13,7 +13,10 @@
           />
         </div>
       </template>
-      <template #content>
+      <template
+        v-if="isPageConfigFlyoutOpen"
+        #content
+      >
         <div :class="b('page-config-flyout-content')">
           <c-vas-icon-headline
             :class="b('header')"
@@ -49,7 +52,10 @@
         </div>
       </template>
 
-      <template #content>
+      <template
+        v-if="isMainFlyoutOpen"
+        #content
+      >
         <c-vas-icon-headline
           :class="b('header')"
           icon="i-vuejs"

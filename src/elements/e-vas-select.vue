@@ -40,7 +40,7 @@
   import { PropType, defineComponent, toRefs } from 'vue';
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { SelectOptionType } from '../types/form';
+  import { SelectOptionType } from '../types';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};

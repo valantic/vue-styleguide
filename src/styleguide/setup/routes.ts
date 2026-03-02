@@ -1,5 +1,5 @@
 import { styleguideRouterConfig } from '@/setup/globals';
-import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
+import { RouteMeta as StyleguideRouteMeta } from '../../types';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {

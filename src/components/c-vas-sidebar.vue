@@ -140,7 +140,7 @@
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
-  import { StyleguideConfiguration } from '../types/settings';
+  import { StyleguideConfiguration } from '../types';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';

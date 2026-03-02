@@ -78,7 +78,7 @@
   import eVasInput from '@/elements/e-vas-input.vue';
   import eVasSelect from '@/elements/e-vas-select.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
-  import { SelectOptionType } from '@/types/form';
+  import { SelectOptionType } from '@/types';
   import { Icon } from '@/types/icon';
 
   type Setup = {

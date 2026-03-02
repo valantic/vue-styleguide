@@ -64,7 +64,7 @@
   import useFormStates, { FormStates, withProps } from '../compositions/form-states';
   import useUuid, { Uuid } from '../compositions/uuid';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { SelectOptionType } from '../types/form';
+  import { SelectOptionType } from '../types';
   import eVasCheckbox from './e-vas-checkbox.vue';
   import eVasProgress from './e-vas-progress.vue';
 

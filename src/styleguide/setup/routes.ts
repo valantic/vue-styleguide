@@ -1,3 +1,4 @@
+import { styleguideRouterConfig } from '@/setup/globals';
 import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
 
 declare module 'vue-router' {
@@ -6,19 +7,14 @@ declare module 'vue-router' {
   }
 }
 
-export const styleguideRoot = '/sg';
-export const sectionWrapper = {
-  template: '<router-view />',
-};
-
 /**
  * This file is only meant for style-example routes
  */
 export default [
   {
-    path: styleguideRoot,
+    path: styleguideRouterConfig.rootPath,
     name: 'sg-styleguide',
-    component: sectionWrapper,
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
     redirect: '/sg/test-readme',
     meta: {
       title: 'Styleguide',
@@ -55,7 +51,7 @@ export default [
   {
     path: '/sg-components',
     name: 'sg-components',
-    component: sectionWrapper,
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Components',
     },
@@ -89,7 +85,7 @@ export default [
   {
     path: '/sg-elements',
     name: 'sg-elements',
-    component: sectionWrapper,
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Elements',
     },
@@ -179,6 +175,6 @@ export default [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: styleguideRoot,
+    redirect: styleguideRouterConfig.rootPath,
   },
 ];

@@ -1,3 +1,3 @@
-export * from './form';
-export * from './settings';
-export * from './route';
+export * from './form.d.ts';
+export * from './settings.d.ts';
+export * from './route.d.ts';

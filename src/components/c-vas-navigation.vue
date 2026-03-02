@@ -98,7 +98,7 @@
       },
 
       selectedRouteName(): string {
-        return this.flattenedRoutes[this.activeIndex]?.name as string;
+        return (this.flattenedRoutes[this.activeIndex]?.name as string) ?? '';
       },
 
       flattenedRoutes(): RouteRecordRaw[] {
@@ -108,7 +108,7 @@
           for (const route of routes) {
             result.push(route);
 
-            if (route.children && route.children.length > 0) {
+            if (route?.children?.length) {
               result.push(...flatten(route.children as RouteRecordRaw[]));
             }
           }
@@ -130,9 +130,9 @@
       activeIndex() {
         if (this.activeIndex >= 0) {
           this.$nextTick(() => {
-            const el = document.querySelector('.c-vas-navigation-block__item--selected');
+            const element = document.querySelector('.c-vas-navigation-block__item--selected');
 
-            el?.scrollIntoView({ block: 'nearest' });
+            element?.scrollIntoView({ block: 'nearest' });
           });
         }
       },
@@ -151,6 +151,8 @@
 
     methods: {
       onKeyDownDown(): void {
+        // Avoid under any circumstances that the active index of the list is -1, which could happen if you e.g.,
+        // search an element and the list is updated somehow - if this happens - the first entry is selected again.
         let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
 
         while (nextIndex < this.flattenedRoutes.length) {

@@ -17,3 +17,10 @@ export type Route = {
   component?: ComponentPublicInstance | Record<string, unknown>;
   children?: Route[];
 };
+
+export type StyleguideRouterConfig = {
+  rootPath: string;
+  routeChildrenComponentWrapper: {
+    template: string;
+  };
+};

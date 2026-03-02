@@ -297,7 +297,7 @@
           const timeSinceLastPress = currentTime - this.lastShiftPress;
 
           if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
-            this.onToggleMainFlyout(true, false, true);
+            this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
             this.lastShiftPress = 0; // Reset.
 
             return;

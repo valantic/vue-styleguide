@@ -267,9 +267,9 @@
        */
       focusInput(): void {
         // Delay focusing to ensure that it works when the input field is placed within a transition (e.g. sidebar).
-        setTimeout(() => {
+        this.$nextTick(() => {
           this.input?.focus();
-        }, 350);
+        });
       },
     },
     // render() {},

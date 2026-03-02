@@ -50,12 +50,8 @@ Include the sidebar in your project.
 </template>
 
 <script lang="ts">
-  import {
-    cVasSidebar,
-    useVasSettingsStore,
-    VasSettingsStore,
-    StyleguideConfiguration,
-  } from '@valantic/vue-styleguide';
+  import { cVasSidebar, useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide';
+  import { StyleguideConfiguration } from '@valantic/vue-styleguide/types';
   import { defineComponent } from 'vue';
 
   type Setup = {
@@ -72,7 +68,6 @@ Include the sidebar in your project.
     components: {
       cVasSidebar,
     },
-```,search:
 
     computed: {
         styleguideConfig: {

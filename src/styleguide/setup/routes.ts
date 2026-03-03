@@ -1,3 +1,4 @@
+import { styleguideTestPages } from '@/styleguide/setup/public-demo-routes';
 import { styleguideRouterConfig } from '../../setup/globals';
 import { RouteMeta as StyleguideRouteMeta } from '../../types';
 
@@ -6,18 +7,6 @@ declare module 'vue-router' {
     [key: string]: unknown;
   }
 }
-
-export const styleguideTestPages = {
-  readme: {
-    path: 'sg-test-page-readme',
-    name: 'sg-test-page-readme',
-    component: () => import('../demo-pages/r-readme.vue'),
-    meta: {
-      title: 'Readme',
-      file: '/README.md',
-    },
-  },
-};
 
 /**
  * This file is only meant for style-example routes

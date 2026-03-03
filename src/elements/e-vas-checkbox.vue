@@ -30,6 +30,9 @@
   // type Setup = {};
   // type Data = {};
 
+  export const CHECKBOX_VARIANTS: string[] = ['default', 'toggle'];
+  export type CheckboxVariantType = (typeof CHECKBOX_VARIANTS)[number];
+
   /**
    * Checkbox component for form elements.
    * Can be used as single element with a Boolean value or multiple checkboxes with an Array.
@@ -72,9 +75,9 @@
        * Allows to set the desired layout variant.
        */
       variant: {
-        type: String,
+        type: String as PropType<CheckboxVariantType>,
         default: 'default',
-        validator: (value: string) => ['default', 'toggle'].includes(value),
+        validator: (value: string) => CHECKBOX_VARIANTS.includes(value),
       },
     },
 

@@ -80,6 +80,14 @@ export default [
           title: 'Demo Card',
         },
       },
+      {
+        path: 'test-vas-flyout',
+        name: 'test-vas-flyout',
+        component: () => import('../demo-pages/components/r-vas-flyout.vue'),
+        meta: {
+          title: 'Flyout',
+        },
+      },
     ],
   },
   {

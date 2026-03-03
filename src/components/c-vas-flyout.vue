@@ -13,12 +13,14 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
 
+  export const FLYOUT_DIRECTIONS = ['left', 'right'];
+  export type FlyoutDirectionType = (typeof FLYOUT_DIRECTIONS)[number];
   /**
    * A flyout.
    */
@@ -40,9 +42,9 @@
        * Define how it should be opened.
        */
       direction: {
-        type: String,
+        type: String as PropType<FlyoutDirectionType>,
         default: 'left',
-        validator: (value: string) => ['left', 'right'].includes(value),
+        validator: (value: string) => FLYOUT_DIRECTIONS.includes(value),
       },
     },
     // emits: [],

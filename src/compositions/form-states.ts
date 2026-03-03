@@ -30,7 +30,6 @@ export const withProps = () => ({
   state: {
     type: String as PropType<FieldState>,
     default: 'default',
-    validator: (value: string): boolean => ['error', 'success', 'warning', 'info', 'default'].includes(value),
   },
 });
 

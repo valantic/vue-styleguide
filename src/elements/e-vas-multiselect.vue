@@ -147,7 +147,7 @@
       },
 
       /**
-       * Allows to change the default field, from which the value is taken for each option.
+       * Allows changing the default field, from which the value is taken for each option.
        */
       valueField: {
         type: String,
@@ -155,7 +155,7 @@
       },
 
       /**
-       * Allows to change the default field, from which the label text is taken for each option.
+       * Allows changing the default field, from which the label text is taken for each option.
        */
       labelField: {
         type: String,

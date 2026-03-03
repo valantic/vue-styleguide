@@ -18,11 +18,17 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
+
+  export const LAYOUT_PADDINGS: string[] = ['default', '0'];
+  export type LayoutPaddingType = (typeof LAYOUT_PADDINGS)[number];
+
+  export const LAYOUT_VARIANTS: string[] = ['default', 'plain'];
+  export type LayoutVariantType = (typeof LAYOUT_VARIANTS)[number];
 
   export default defineComponent({
     name: 'l-vas-layout',
@@ -34,18 +40,18 @@
        * Define content padding class.
        */
       padding: {
-        type: String,
+        type: String as PropType<LayoutPaddingType>,
         default: 'default',
-        validator: (value: string) => ['default', '0'].includes(value),
+        validator: (value: string) => LAYOUT_PADDINGS.includes(value),
       },
 
       /**
        * Define content padding class.
        */
       variant: {
-        type: String,
+        type: String as PropType<LayoutVariantType>,
         default: 'default',
-        validator: (value: string) => ['default', 'plain'].includes(value),
+        validator: (value: string) => LAYOUT_VARIANTS.includes(value),
       },
 
       /**

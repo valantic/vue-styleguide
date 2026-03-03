@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
 
@@ -43,8 +43,14 @@
     hasTouch: boolean;
   };
 
+  export const BUTTON_VARIANTS: string[] = ['default', 'text'];
+  export type ButtonVariantType = (typeof BUTTON_VARIANTS)[number];
+
+  export const BUTTON_COLORS: string[] = ['default', 'primary'];
+  export type ButtonColorType = (typeof BUTTON_COLORS)[number];
+
   /**
-   * Renders a `<button>` or `<a>` element (based on existing `href` attribute) with button style.
+   * Renders a `<button>` or `<a>` element (based on the existing ` href ` attribute) with button style.
    * The component uses a `<slot>` to render the content.
    *
    * [You can also define inherited attributes for `<button>`](https://developer.mozilla.org/de/docs/Web/HTML/Element/button#Attribute)
@@ -113,18 +119,18 @@
        * Define a variant.
        */
       variant: {
-        type: String,
+        type: String as PropType<ButtonVariantType>,
         default: 'default',
-        validator: (value: string) => ['default', 'text'].includes(value),
+        validator: (value: string) => BUTTON_VARIANTS.includes(value),
       },
 
       /**
        * Define a variant.
        */
       color: {
-        type: String,
+        type: String as PropType<ButtonColorType>,
         default: 'default',
-        validator: (value: string) => ['default', 'primary'].includes(value),
+        validator: (value: string) => BUTTON_COLORS.includes(value),
       },
     },
 
@@ -175,7 +181,7 @@
       },
 
       /**
-       * Returns inline styles to keep dimensions during progress state.
+       * Returns inline styles to keep dimensions during the progress state.
        */
       style(): ElementDimensions | null {
         return this.progress ? this.getElementDimensions() : null;

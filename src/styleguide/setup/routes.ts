@@ -26,6 +26,7 @@ export default [
         component: () => import('../demo-pages/r-readme.vue'),
         meta: {
           title: 'Readme',
+          file: '../../README.md',
         },
       },
       {

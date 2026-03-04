@@ -8,6 +8,7 @@
       placeholder="Search …"
       autofocus
       select-on-focus
+      data-testid="nav-search"
       @click.stop
     />
     <button

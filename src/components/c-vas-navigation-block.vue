@@ -11,6 +11,7 @@
           selected: isSelected,
         })
       "
+      :data-testid="isSelected ? 'nav-item-selected' : 'nav-item'"
       @click.prevent="onItemClick"
     >
       {{ routeTitle }}

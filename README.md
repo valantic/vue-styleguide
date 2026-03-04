@@ -50,15 +50,14 @@ Include the sidebar in your project.
 </template>
 
 <script lang="ts">
-  import cVasSidebar from '@valantic/vue-styleguide/src/components/c-vas-sidebar.vue';
-  import { useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide/src/stores/settings';
-  import { StyleguideConfiguration } from '@valantic/vue-styleguide/src/types/settings';
+  import { cVasSidebar, useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide';
+  import { StyleguideConfiguration } from '@valantic/vue-styleguide/types';
   import { defineComponent } from 'vue';
 
   type Setup = {
     vasSettingsStore: VasSettingsStore;
   };
-  
+
   type Data = {
     styleguideConfig: Partial<StyleguideConfiguration>;
   };
@@ -114,6 +113,31 @@ Include the sidebar in your project.
     },
   });
 </script>
+```
+
+## Predefined demo pages
+
+### Readme
+
+Import a default demo page to display the projects README.md file.
+
+In your `styleguide/setup/routes.ts` you can add:
+
+```ts
+import { styleguideRouterConfig, styleguideTestPages } from '@valantic/vue-styleguide';
+
+export default [
+  {
+    path: styleguideRouterConfig.rootPath,
+    name: 'sg-root',
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
+    redirect: `${styleguideRouterConfig.rootPath}/${styleguideTestPages.readme.path}`,
+    meta: {
+      title: 'Styleguide',
+    },
+    children: [styleguideTestPages.readme],
+  },
+]
 ```
 
 ## License

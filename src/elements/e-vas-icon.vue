@@ -99,10 +99,9 @@
         default: 0,
       },
     },
+    // emits: {},
 
-    // setup(): Setup {
-    //   return {};
-    // },
+    // setup(): Setup {},
     data(): Data {
       return {
         /**
@@ -154,8 +153,8 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeDestroy() {},
-    // destroyed() {},
+    // beforeUnmount() {},
+    // unmounted() {},
 
     // methods: {},
     // render() {},

@@ -22,7 +22,7 @@
   import cVasSidebar from '@/components/c-vas-sidebar.vue';
   import sFooter from '@/styleguide/components/s-footer.vue';
   import sHeader from '@/styleguide/components/s-header.vue';
-  import { StyleguideConfiguration } from '@/types/settings';
+  import { StyleguideConfiguration } from '@/types';
 
   type Setup = {
     vasSettingsStore: VasSettingsStore;
@@ -31,6 +31,9 @@
     styleguideConfig: Partial<StyleguideConfiguration>;
   };
 
+  /**
+   * Root styleguide component that provides layout and configuration.
+   */
   export default defineComponent({
     name: 'styleguide',
 
@@ -41,6 +44,7 @@
     },
 
     // props: {},
+    // emits: {},
 
     setup(): Setup {
       return {

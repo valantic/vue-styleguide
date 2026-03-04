@@ -76,8 +76,9 @@
   import spritePath from '@/assets/icons.svg';
   import eVasIcon from '@/elements/e-vas-icon.vue';
   import eVasInput from '@/elements/e-vas-input.vue';
-  import eVasSelect, { Options } from '@/elements/e-vas-select.vue';
+  import eVasSelect from '@/elements/e-vas-select.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import { SelectOptionType } from '@/types';
   import { Icon } from '@/types/icon';
 
   type Setup = {
@@ -96,11 +97,14 @@
     color: string;
     variant: 'inline' | 'image' | 'css' | 'mask';
     spritePath: string;
-    variantOptions: Options[];
+    variantOptions: SelectOptionType[];
   };
 
   const icons = import.meta.glob('@/assets/icons/*.svg');
 
+  /**
+   * Demo page for the icon element.
+   */
   export default defineComponent({
     name: 'r-icon',
 
@@ -110,7 +114,9 @@
       lVasLayout,
       eVasIcon,
     },
+
     // props: {},
+    // emits: {},
 
     setup(): Setup {
       const input = ref();
@@ -139,7 +145,6 @@
       };
     },
 
-    // components: {},
     computed: {
       /**
        * Returns an array of query filtered icons.
@@ -209,6 +214,8 @@
     // deactivated() {},
     // beforeUnmount() {},
     // unmounted() {},
+
+    // render() {},
   });
 </script>
 

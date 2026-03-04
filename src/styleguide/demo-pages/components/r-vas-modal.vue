@@ -105,6 +105,7 @@
   import eVasButton from '@/elements/e-vas-button.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
 
+  // type Setup = {}
   type Data = {
     isDefaultModalOpen: boolean;
     isOutsideClickModalOpen: boolean;
@@ -125,6 +126,10 @@
       lVasLayout,
     },
 
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {},
     data(): Data {
       return {
         isDefaultModalOpen: false,
@@ -134,6 +139,23 @@
         isNoHeaderModalOpen: false,
       };
     },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>
 

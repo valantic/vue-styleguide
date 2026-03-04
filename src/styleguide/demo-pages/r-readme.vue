@@ -1,13 +1,13 @@
 <template>
   <l-vas-layout :class="b()">
-    <c-vas-readme />
+    <c-vas-render-markdown-file :file="fileName" />
   </l-vas-layout>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasReadme from '@/components/c-vas-readme.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasRenderMarkdownFile from '../../components/c-vas-render-markdown-file.vue';
+  import lVasLayout from '../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -16,17 +16,36 @@
     name: 'r-readme',
     components: {
       lVasLayout,
-      cVasReadme,
+      cVasRenderMarkdownFile,
     },
 
-    // setup(): Setup {
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {},
+    // data(): Data {
     //   return {};
     // },
-    // data(): Data {
-    //   return {
-    //   };
-    // },
 
-    // computed: {},
+    computed: {
+      fileName(): string {
+        return (this.$route?.meta?.file as string) ?? '';
+      },
+    },
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>

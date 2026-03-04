@@ -56,12 +56,18 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
+
+  export const MODAL_SIZES: string[] = ['default'];
+  export type ModalSizeType = (typeof MODAL_SIZES)[number];
+
+  export const MODAL_SPACINGS: string[] = ['default', 'none'];
+  export type ModalSpacingType = (typeof MODAL_SPACINGS)[number];
 
   /**
    * Renders a modal dialog.
@@ -120,18 +126,18 @@
        * Allows modifying the size of the modal.
        */
       size: {
-        type: String,
+        type: String as PropType<ModalSizeType>,
         default: 'default',
-        validator: (value: string) => ['default'].includes(value),
+        validator: (value: string) => MODAL_SIZES.includes(value),
       },
 
       /**
        * Allows modifying the inner spacing of the modal.
        */
       spacing: {
-        type: String,
+        type: String as PropType<ModalSpacingType>,
         default: 'default',
-        validator: (value: string) => ['default', 'none'].includes(value),
+        validator: (value: string) => MODAL_SPACINGS.includes(value),
       },
     },
     emits: {

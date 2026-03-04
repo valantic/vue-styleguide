@@ -1,3 +1,5 @@
+import { StyleguideRouterConfig } from '../types';
+
 /**
  * @type {object} Lookup table of available breakpoints.
  *
@@ -14,3 +16,10 @@ export const BREAKPOINTS = {
 };
 
 export type ViewportBreakPoint = keyof typeof BREAKPOINTS;
+
+export const styleguideRouterConfig: StyleguideRouterConfig = {
+  rootPath: '/sg',
+  routeChildrenComponentWrapper: {
+    template: '<router-view />',
+  },
+};

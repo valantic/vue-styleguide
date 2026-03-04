@@ -8,6 +8,7 @@
           isParent: hasChildren,
           activeParent: isActiveParent,
           active: isActiveRoute,
+          selected: isSelected,
         })
       "
       @click.prevent="onItemClick"
@@ -26,6 +27,7 @@
           v-for="childRoute in routeDefinition.children"
           :key="childRoute.name"
           :route-definition="childRoute"
+          :selected-route-name="selectedRouteName"
           :class="b('child')"
         />
       </div>
@@ -41,12 +43,13 @@
     router: ReturnType<typeof useRouter>;
     route: ReturnType<typeof useRoute>;
   };
-
-  // type Setup = {};
   type Data = {
     expandedItems: string[];
   };
 
+  /**
+   * Renders a navigation block with expandable children.
+   */
   export default defineComponent({
     name: 'c-vas-navigation-block',
 
@@ -60,7 +63,17 @@
         type: Object as PropType<RouteRecordRaw>,
         required: true,
       },
+
+      /**
+       * The name of the selected route.
+       */
+      selectedRouteName: {
+        type: String,
+        default: '',
+      },
     },
+    // emits: {},
+
     setup(): Setup {
       return {
         router: useRouter(),
@@ -106,6 +119,10 @@
           return '';
         }
       },
+
+      isSelected(): boolean {
+        return this.selectedRouteName === this.routeUrlName;
+      },
     },
     watch: {
       routeDefinition: {
@@ -118,6 +135,18 @@
         },
       },
     },
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
       /**
        * Defines what is to do if an item is clicked.
@@ -163,7 +192,7 @@
         this.router.push({ name: route.name, params: route.meta?.params, query: route.meta?.query });
       },
     },
-    // created() {}
+    // render() {},
   });
 </script>
 
@@ -205,6 +234,14 @@
       &--active,
       &--active-parent {
         font-weight: bold;
+      }
+
+      &--selected {
+        outline: 2px dashed variables.$vas-color-grayscale--300;
+
+        #{$this}__overlay {
+          opacity: 0.4;
+        }
       }
 
       &--is-parent {

@@ -44,6 +44,9 @@
   };
   // type Data = {};
 
+  /**
+   * Component for managing global settings.
+   */
   export default defineComponent({
     name: 'c-vas-config',
 
@@ -52,6 +55,7 @@
       cVasHtmlValidation,
       eVasToggle,
     },
+
     // props: {},
     // emits: {},
 
@@ -61,12 +65,13 @@
       };
     },
     // data(): Data {
-    //   return {
-    //   };
+    //   return {};
     // },
+
     // computed: {},
     // watch: {},
 
+    // beforeCreate() {},
     // created() {},
     // beforeMount() {},
     // mounted() {},
@@ -74,7 +79,6 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // mounted() {},
     // beforeUnmount() {},
     // unmounted() {},
 

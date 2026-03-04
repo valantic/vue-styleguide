@@ -49,7 +49,10 @@
         </div>
       </template>
 
-      <template #content>
+      <template
+        v-if="isMainFlyoutOpen"
+        #content
+      >
         <c-vas-icon-headline
           :class="b('header')"
           icon="i-vuejs"
@@ -134,7 +137,7 @@
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
-  import { StyleguideConfiguration } from '../types/settings';
+  import { StyleguideConfiguration } from '../types';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
@@ -164,6 +167,7 @@
     showMenu: boolean;
     showConfig: boolean;
     isHotkeysModalOpen: boolean;
+    lastShiftPress: number;
   };
 
   export default defineComponent({
@@ -209,6 +213,7 @@
         showMenu: false,
         showConfig: false,
         isHotkeysModalOpen: false,
+        lastShiftPress: 0,
       };
     },
     computed: {
@@ -281,6 +286,28 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
+        const doublePressDelay = 500;
+
+        // Detect double Shift.
+        if (event.key === 'Shift') {
+          const currentTime = Date.now();
+          const timeSinceLastPress = currentTime - this.lastShiftPress;
+
+          if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
+            this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
+            this.lastShiftPress = 0; // Reset.
+
+            return;
+          }
+
+          this.lastShiftPress = currentTime;
+
+          return;
+        }
+
+        // Reset Shift timer on any other key press.
+        this.lastShiftPress = 0;
+
         // ESC for all flyout.
         if (event.key === 'Escape') {
           event.preventDefault();
@@ -366,6 +393,7 @@
 
       .e-vas-toggle-button {
         border-radius: 0;
+        font-size: variables.$vas-font-size--12;
       }
     }
 

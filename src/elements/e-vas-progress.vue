@@ -48,6 +48,8 @@
         default: false,
       },
     },
+    // emits: {},
+
     // setup(): Setup {
     //   return {};
     // },

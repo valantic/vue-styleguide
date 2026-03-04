@@ -1,5 +1,10 @@
 <template>
-  <div :class="b()">
+  <div
+    :class="b()"
+    @keydown.down.prevent="onKeyDownDown"
+    @keydown.up.prevent="onKeyDownUp"
+    @keydown.enter.prevent="onKeyDownEnter"
+  >
     <c-vas-navigation-filter
       v-model="navigationFilter"
       :class="b('filter')"
@@ -10,6 +15,7 @@
         v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
         :route-definition="routeItem"
+        :selected-route-name="selectedRouteName"
       />
     </div>
   </div>
@@ -24,8 +30,12 @@
   // type Setup = {};
   type Data = {
     navigationFilter: string;
+    activeIndex: number;
   };
 
+  /**
+   * Renders the styleguide navigation with filtering and sorting.
+   */
   export default defineComponent({
     name: 'c-vas-navigation',
 
@@ -33,6 +43,7 @@
       cVasNavigationBlock,
       cVasNavigationFilter,
     },
+
     props: {
       /**
        * An array of styleguide routes.
@@ -42,17 +53,16 @@
         default: () => [],
       },
     },
-
     // emits: {},
-    // setup(): Setup {
-    //   return {
-    //   };
-    // },
+
+    // setup(): Setup {},
     data(): Data {
       return {
         navigationFilter: '',
+        activeIndex: -1,
       };
     },
+
     computed: {
       filteredRoutes(): RouteRecordRaw[] {
         let routes = this.getVisibleRoutes(this.routes);
@@ -86,8 +96,108 @@
 
         return [...structuredRoutes, globalRoutesGroup];
       },
+
+      selectedRouteName(): string {
+        return (this.flattenedRoutes[this.activeIndex]?.name as string) ?? '';
+      },
+
+      flattenedRoutes(): RouteRecordRaw[] {
+        const flatten = (routes: RouteRecordRaw[]): RouteRecordRaw[] => {
+          const result: RouteRecordRaw[] = [];
+
+          for (const route of routes) {
+            result.push(route);
+
+            if (route?.children?.length) {
+              result.push(...flatten(route.children as RouteRecordRaw[]));
+            }
+          }
+
+          return result;
+        };
+
+        return flatten(this.groupedRoutes);
+      },
     },
+    watch: {
+      navigationFilter() {
+        if (this.navigationFilter) {
+          this.activeIndex = this.flattenedRoutes.findIndex((route) => !route.children || route.children.length === 0);
+        } else {
+          this.activeIndex = -1;
+        }
+      },
+      activeIndex() {
+        if (this.activeIndex >= 0) {
+          this.$nextTick(() => {
+            const element = document.querySelector('.c-vas-navigation-block__item--selected');
+
+            element?.scrollIntoView({ block: 'nearest' });
+          });
+        }
+      },
+    },
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
+      onKeyDownDown(): void {
+        // Avoid under any circumstances that the active index of the list is -1, which could happen if you e.g.,
+        // search an element and the list is updated somehow - if this happens - the first entry is selected again.
+        let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
+
+        while (nextIndex < this.flattenedRoutes.length) {
+          const route = this.flattenedRoutes[nextIndex];
+
+          if (!route?.children || route.children.length === 0) {
+            this.activeIndex = nextIndex;
+
+            return;
+          }
+          nextIndex++;
+        }
+      },
+
+      onKeyDownUp(): void {
+        let prevIndex = this.activeIndex - 1;
+
+        while (prevIndex >= 0) {
+          const route = this.flattenedRoutes[prevIndex];
+
+          if (!route?.children || route.children.length === 0) {
+            this.activeIndex = prevIndex;
+
+            return;
+          }
+          prevIndex--;
+        }
+      },
+
+      onKeyDownEnter(): void {
+        if (this.activeIndex >= 0 && this.activeIndex < this.flattenedRoutes.length) {
+          const route = this.flattenedRoutes[this.activeIndex];
+
+          if (!route?.name || (route?.children && route.children.length > 0)) {
+            return;
+          }
+
+          this.$router.push({
+            name: route.name as string,
+            params: route.meta?.params as Record<string, string>,
+            query: route.meta?.query as Record<string, string | (string | null)[] | null>,
+          });
+        }
+      },
+
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
         const lowerCaseSearchTerm = searchTerm.toLowerCase().trim();
 
@@ -156,6 +266,7 @@
         });
       },
     },
+    // render() {},
   });
 </script>
 

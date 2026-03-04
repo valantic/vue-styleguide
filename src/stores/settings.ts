@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { StyleguideConfiguration } from '../types/settings';
+import { StyleguideConfiguration } from '../types';
 import { setInitialData } from './helper';
 
 // Internal state, hidden from the outside

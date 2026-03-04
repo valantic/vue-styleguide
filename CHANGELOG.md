@@ -1,7 +1,12 @@
 # valantic vue styleguide
 
 ## unreleased
-
+- 
+- [FEATURE]: Made it possible to import the readme demo page. This is a first step to make it easier to use the styleguide in other projects.
+- [FEATURE]: It is now possible to press twice shift to toggle the sidebar.
+- [FEATURE]: It is now possible to move between the menu items with key up and down, press enter to jump to the page.
+- [BUGFIX]: Fixed autofocus issue in input fields.
+- [ENHANCEMENT]: Improved import experience for users in other projects. Make it less complicated to import components.
 - [FEATURE]: Added a way to configure pages and set additional config to the main settings.
 - [ENHANCEMENT]: Added test page for all elements.
 - [ENHANCEMENT]: Use new components, improve hotkeys and transitions.

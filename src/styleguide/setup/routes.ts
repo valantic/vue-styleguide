@@ -1,4 +1,6 @@
-import { RouteMeta as StyleguideRouteMeta } from '../../types/route';
+import { styleguideTestPages } from '@/styleguide/setup/public-demo-routes';
+import { styleguideRouterConfig } from '../../setup/globals';
+import { RouteMeta as StyleguideRouteMeta } from '../../types';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {
@@ -6,35 +8,23 @@ declare module 'vue-router' {
   }
 }
 
-export const styleguideRoot = '/sg';
-export const sectionWrapper = {
-  template: '<router-view />',
-};
-
 /**
  * This file is only meant for style-example routes
  */
 export default [
   {
-    path: styleguideRoot,
+    path: styleguideRouterConfig.rootPath,
     name: 'sg-styleguide',
-    component: sectionWrapper,
-    redirect: '/sg/test-readme',
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
+    redirect: '/sg/sg-test-page-readme',
     meta: {
       title: 'Styleguide',
     },
     children: [
+      styleguideTestPages.readme,
       {
-        path: 'test-readme',
-        name: 'test-readme',
-        component: () => import('../demo-pages/r-readme.vue'),
-        meta: {
-          title: 'Readme',
-        },
-      },
-      {
-        path: 'test-typography',
-        name: 'test-typography',
+        path: 'sg-test-page-typography',
+        name: 'sg-test-page-typography',
         component: () => import('../demo-pages/general/r-typography.vue'),
         meta: {
           title: 'Typography',
@@ -42,8 +32,8 @@ export default [
         },
       },
       {
-        path: 'test-page-settings',
-        name: 'test-page-settings',
+        path: 'sg-test-page-settings',
+        name: 'sg-test-page-settings',
         component: () => import('../demo-pages/general/r-page-settings.vue'),
         meta: {
           title: 'Page Settings',
@@ -55,33 +45,41 @@ export default [
   {
     path: '/sg-components',
     name: 'sg-components',
-    component: sectionWrapper,
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Components',
     },
     children: [
       {
-        path: 'test-navigation',
-        name: 'test-navigation',
+        path: 'sg-test-page-navigation',
+        name: 'sg-test-page-navigation',
         component: () => import('../demo-pages/components/r-navigation.vue'),
         meta: {
           title: 'Navigation',
         },
       },
       {
-        path: 'test-vas-modal',
-        name: 'test-vas-modal',
+        path: 'sg-test-page-vas-modal',
+        name: 'sg-test-page-vas-modal',
         component: () => import('../demo-pages/components/r-vas-modal.vue'),
         meta: {
           title: 'Modal',
         },
       },
       {
-        path: 'test-vas-demo-card',
-        name: 'test-vas-demo-card',
+        path: 'sg-test-page-vas-demo-card',
+        name: 'sg-test-page-vas-demo-card',
         component: () => import('../demo-pages/components/r-vas-demo-card.vue'),
         meta: {
           title: 'Demo Card',
+        },
+      },
+      {
+        path: 'sg-test-page-vas-flyout',
+        name: 'sg-test-page-vas-flyout',
+        component: () => import('../demo-pages/components/r-vas-flyout.vue'),
+        meta: {
+          title: 'Flyout',
         },
       },
     ],
@@ -89,14 +87,14 @@ export default [
   {
     path: '/sg-elements',
     name: 'sg-elements',
-    component: sectionWrapper,
+    component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Elements',
     },
     children: [
       {
-        path: 'test-icons',
-        name: 'test-icons',
+        path: 'sg-test-page-icons',
+        name: 'sg-test-page-icons',
         component: () => import('../demo-pages/elements/r-icon.vue'),
         meta: {
           title: 'Icons',
@@ -104,72 +102,72 @@ export default [
         },
       },
       {
-        path: 'test-vas-toggle-button',
-        name: 'test-vas-toggle-button',
+        path: 'sg-test-page-vas-toggle-button',
+        name: 'sg-test-page-vas-toggle-button',
         component: () => import('../demo-pages/elements/r-vas-toggle-button.vue'),
         meta: {
           title: 'Toggle Button',
         },
       },
       {
-        path: 'test-vas-button',
-        name: 'test-vas-button',
+        path: 'sg-test-page-vas-button',
+        name: 'sg-test-page-vas-button',
         component: () => import('../demo-pages/elements/r-button.vue'),
         meta: {
           title: 'Buttons',
         },
       },
       {
-        path: 'test-vas-input',
-        name: 'test-vas-input',
+        path: 'sg-test-page-vas-input',
+        name: 'sg-test-page-vas-input',
         component: () => import('../demo-pages/elements/r-vas-input.vue'),
         meta: {
           title: 'Input',
         },
       },
       {
-        path: 'test-vas-checkbox',
-        name: 'test-vas-checkbox',
+        path: 'sg-test-page-vas-checkbox',
+        name: 'sg-test-page-vas-checkbox',
         component: () => import('../demo-pages/elements/r-vas-checkbox.vue'),
         meta: {
           title: 'Checkbox',
         },
       },
       {
-        path: 'test-vas-radio',
-        name: 'test-vas-radio',
+        path: 'sg-test-page-vas-radio',
+        name: 'sg-test-page-vas-radio',
         component: () => import('../demo-pages/elements/r-vas-radio.vue'),
         meta: {
           title: 'Radio',
         },
       },
       {
-        path: 'test-vas-progress',
-        name: 'test-vas-progress',
+        path: 'sg-test-page-vas-progress',
+        name: 'sg-test-page-vas-progress',
         component: () => import('../demo-pages/elements/r-vas-progress.vue'),
         meta: {
           title: 'Progress',
         },
       },
       {
-        path: 'test-vas-select',
-        name: 'test-vas-select',
+        path: 'sg-test-page-vas-select',
+        name: 'sg-test-page-vas-select',
         component: () => import('../demo-pages/elements/r-vas-select.vue'),
         meta: {
           title: 'Select',
         },
       },
       {
-        path: 'test-vas-toggle',
-        name: 'test-vas-toggle',
+        path: 'sg-test-page-vas-toggle',
+        name: 'sg-test-page-vas-toggle',
         component: () => import('../demo-pages/elements/r-vas-toggle.vue'),
         meta: {
           title: 'Toggle',
         },
       },
       {
-        path: 'test-vas-multiselect',
-        name: 'test-vas-multiselect',
+        path: 'sg-test-page-vas-multiselect',
+        name: 'sg-test-page-vas-multiselect',
         component: () => import('../demo-pages/elements/r-vas-multiselect.vue'),
         meta: {
           title: 'Multiselect',
@@ -179,6 +177,6 @@ export default [
   },
   {
     path: '/:pathMatch(.*)*',
-    redirect: styleguideRoot,
+    redirect: styleguideRouterConfig.rootPath,
   },
 ];

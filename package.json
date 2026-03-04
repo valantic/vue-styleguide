@@ -3,6 +3,38 @@
   "version": "0.0.4",
   "description": "A demo tool to test a vue project locally.",
   "type": "module",
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./types": {
+      "types": "./src/types/index.d.ts",
+      "import": "./src/types/index.d.ts"
+    },
+    "./types/*": {
+      "types": "./src/types/*.d.ts",
+      "import": "./src/types/*.d.ts"
+    },
+    "./elements": "./src/elements/index.ts",
+    "./elements/*": "./src/elements/*/index.ts",
+    "./components": "./src/components/index.ts",
+    "./components/*": "./src/components/*/index.ts",
+    "./layouts": "./src/layouts/index.ts",
+    "./layouts/*": "./src/layouts/*/index.ts",
+    "./src/*.vue": "./src/*.vue",
+    "./src/*": {
+      "types": "./src/*.ts",
+      "import": "./src/*.ts"
+    },
+    "./src/*.ts": {
+      "types": "./src/*.ts",
+      "import": "./src/*.ts"
+    }
+  },
   "lastDependencyUpdate": "01.10.2025",
   "scripts": {
     "release": "npm version patch -m 'Release %s' && git push --follow-tags",
@@ -80,8 +112,8 @@
     "postcss-scss": "~4.0.9",
     "prettier": "~3.6.2",
     "sass": "~1.93.2",
-    "stylelint": "~16.24.0",
-    "stylelint-config-valantic": "~9.1.0",
+    "stylelint": "~17.4.0",
+    "stylelint-config-valantic": "~10.1.0",
     "svg-sprite": "~2.0.4",
     "svgo": "~4.0.0",
     "the-new-css-reset": "~1.11.3",

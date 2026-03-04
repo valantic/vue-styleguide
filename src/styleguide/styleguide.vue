@@ -1,11 +1,20 @@
 <template>
-  <div :class="b()">
+  <div
+    :class="b()"
+    data-testid="app-shell"
+  >
     <s-header :class="b('header')" />
-    <main :class="b('container')">
+    <main
+      :class="b('container')"
+      data-testid="page-content"
+    >
       <router-view />
     </main>
     <s-footer :class="b('footer')" />
-    <c-vas-sidebar :config="styleguideConfig">
+    <c-vas-sidebar
+      :config="styleguideConfig"
+      data-testid="nav-main"
+    >
       <template
         #customSettings
         v-if="false"

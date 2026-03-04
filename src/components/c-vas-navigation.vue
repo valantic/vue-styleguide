@@ -10,7 +10,10 @@
       :class="b('filter')"
     />
 
-    <div :class="b('menu')">
+    <div
+      :class="b('menu')"
+      data-testid="nav-menu"
+    >
       <c-vas-navigation-block
         v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"

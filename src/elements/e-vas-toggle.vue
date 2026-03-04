@@ -1,5 +1,8 @@
 <template>
-  <label :class="b('', { active: internalValue })">
+  <label
+    :class="b('', { active: internalValue })"
+    data-testid="vas-toggle"
+  >
     <span
       v-if="$slots.default"
       :class="b('label')"
@@ -10,6 +13,7 @@
       v-model="internalValue"
       :class="b('input')"
       type="checkbox"
+      data-testid="vas-toggle-field"
     />
     <span :class="b('slider')"></span>
   </label>

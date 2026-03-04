@@ -3,6 +3,7 @@
     :is="domElement"
     :class="b(modifiers)"
     :style="style"
+    data-testid="vas-button"
     v-bind="attributes"
     @touchstart.passive="hasTouch = true"
     @mouseenter="onMouseEnter"

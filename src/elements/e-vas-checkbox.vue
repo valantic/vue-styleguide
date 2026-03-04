@@ -1,6 +1,7 @@
 <template>
   <label
     :class="b(modifiers)"
+    data-testid="vas-checkbox"
     @mouseenter="hover = true"
     @mouseleave="hover = false"
   >
@@ -12,10 +13,14 @@
       :value="value"
       :name="name"
       type="checkbox"
+      data-testid="vas-checkbox-field"
       @blur="onBlur"
       @focus="onFocus"
     />
-    <span :class="b('indicator')"></span>
+    <span
+      :class="b('indicator')"
+      data-testid="vas-checkbox-indicator"
+    ></span>
     <span :class="b('label-text')">
       <slot></slot>
     </span>

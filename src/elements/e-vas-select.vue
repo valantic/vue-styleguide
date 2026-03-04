@@ -1,10 +1,14 @@
 <template>
-  <span :class="b(modifiers)">
+  <span
+    :class="b(modifiers)"
+    data-testid="vas-select"
+  >
     <select
       :value="internalValue"
       :class="b('select')"
       :disabled="progress"
       v-bind="$attrs"
+      data-testid="vas-select-field"
       @change="onChange"
       @mouseenter="hover = true"
       @mouseleave="hover = false"

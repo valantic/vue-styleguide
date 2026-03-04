@@ -10,6 +10,7 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     focusable="false"
     tabindex="-1"
+    data-testid="vas-icon"
   >
     <title v-if="alt">
       {{ alt }}
@@ -22,6 +23,7 @@
     :alt="alt"
     :width="viewBox.width"
     :height="viewBox.height"
+    data-testid="vas-icon"
   />
 </template>
 

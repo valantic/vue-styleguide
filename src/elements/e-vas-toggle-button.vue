@@ -2,6 +2,7 @@
   <button
     :class="b('', { active })"
     type="button"
+    data-testid="vas-toggle-button"
   >
     <span :class="b('content', { active })">
       <slot></slot>

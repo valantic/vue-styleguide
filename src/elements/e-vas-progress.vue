@@ -1,5 +1,8 @@
 <template>
-  <span :class="b(componentModifiers)">
+  <span
+    :class="b(componentModifiers)"
+    data-testid="vas-progress"
+  >
     <span :class="b('inner')">
       <span :class="b('bubble')"></span>
       <span :class="b('bubble')"></span>

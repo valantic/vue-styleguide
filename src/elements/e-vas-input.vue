@@ -1,5 +1,8 @@
 <template>
-  <span :class="b(modifiers)">
+  <span
+    :class="b(modifiers)"
+    data-testid="vas-input"
+  >
     <input
       v-model="internalValue"
       ref="input"
@@ -9,6 +12,7 @@
       :title="title"
       v-bind="$attrs"
       :autofocus="autofocus"
+      data-testid="vas-input-field"
       @blur="onBlur"
       @focus="onFocus"
       @input="onInput"

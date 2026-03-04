@@ -2,6 +2,7 @@
   <span
     ref="container"
     :class="b(modifiers)"
+    data-testid="vas-multiselect"
   >
     <!-- Search field -->
     <input
@@ -21,6 +22,7 @@
       :class="b('field-wrapper', { open: isOpen, disabled: isDisabled })"
       :disabled="isDisabled"
       type="button"
+      data-testid="vas-multiselect-trigger"
       @click="isOpen = !isOpen"
       @mouseenter="hover = true"
       @mouseleave="hover = false"
@@ -38,12 +40,14 @@
       <span
         v-show="isOpen"
         :class="b('options-wrapper')"
+        data-testid="vas-multiselect-options"
       >
         <ul :class="b('options-list')">
           <li
             v-for="option in filteredOptions"
             :key="option[valueField]"
             :class="b('options-item')"
+            data-testid="vas-multiselect-option"
           >
             <e-vas-checkbox
               v-model="internalValue"

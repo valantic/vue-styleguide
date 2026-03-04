@@ -1,6 +1,7 @@
 <template>
   <label
     :class="b(modifiers)"
+    data-testid="vas-radio"
     @mouseenter="hover = true"
     @mouseleave="hover = false"
   >
@@ -11,9 +12,13 @@
       :value="value"
       :name="name"
       type="radio"
+      data-testid="vas-radio-field"
       @change="onChange"
     />
-    <span :class="b('label')">
+    <span
+      :class="b('label')"
+      data-testid="vas-radio-label"
+    >
       <slot></slot>
     </span>
   </label>

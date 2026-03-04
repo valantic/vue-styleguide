@@ -26,6 +26,3 @@ npm-debug.log
 .env
 /stats/
 report.*.json
-
-# TODO will be available soon.
-.junie/

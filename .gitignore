@@ -13,6 +13,8 @@ gen
 /node_modules/
 /dist/
 /tests/unit/coverage/
+/playwright-report/
+/test-results/
 
 # Visual Studio Code
 .vscode

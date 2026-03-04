@@ -13,10 +13,7 @@
           />
         </div>
       </template>
-      <template
-        v-if="isPageConfigFlyoutOpen"
-        #content
-      >
+      <template #content>
         <div :class="b('page-config-flyout-content')">
           <c-vas-icon-headline
             :class="b('header')"

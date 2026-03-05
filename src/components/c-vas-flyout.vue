@@ -17,7 +17,9 @@
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    hide: boolean;
+  };
 
   export const FLYOUT_DIRECTIONS = ['left', 'right'];
   export type FlyoutDirectionType = (typeof FLYOUT_DIRECTIONS)[number];
@@ -52,19 +54,33 @@
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        hide: false,
+      };
+    },
 
     computed: {
       modifiers(): Modifiers {
         return {
           direction: this.direction,
           isOpen: this.isOpen,
+          hide: this.hide,
         };
       },
     },
-    // watch: {},
+    watch: {
+      // This is catching an edge case where the flyout changes the direction and is flaky for a moment.
+      direction() {
+        if (!this.isOpen) {
+          this.hide = true;
+
+          setTimeout(() => {
+            this.hide = false;
+          }, 15);
+        }
+      },
+    },
 
     // beforeCreate() {},
     // created() {},
@@ -105,12 +121,14 @@
       0 20px 25px -5px rgba(variables.$vas-color-black, 0.1),
       0 8px 10px -6px rgba(variables.$vas-color-black, 0.1);
     pointer-events: none;
-    opacity: 0;
+
+    &--hide {
+      display: none;
+    }
 
     &--is-open {
       transform: translateX(0) !important; // stylelint-disable-line declaration-no-important
       pointer-events: auto;
-      opacity: 1;
     }
 
     &--direction-left {

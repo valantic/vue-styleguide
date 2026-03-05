@@ -1,7 +1,8 @@
 # valantic vue styleguide
 
 ## unreleased
-- 
+
+- [BUGFIX]: Fixed flaky flyout when the direction property is changed.
 - [FEATURE]: Made it possible to import the readme demo page. This is a first step to make it easier to use the styleguide in other projects.
 - [FEATURE]: It is now possible to press twice shift to toggle the sidebar.
 - [FEATURE]: It is now possible to move between the menu items with key up and down, press enter to jump to the page.

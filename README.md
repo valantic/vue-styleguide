@@ -33,7 +33,7 @@ in this example the version 0.0.2 used. Find available versions here: [https://g
 
 ```
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v0.0.4",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v1.0.0",
   }
 ```
 

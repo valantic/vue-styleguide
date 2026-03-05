@@ -98,15 +98,19 @@
     border-inline-end-width: 0;
     border-inline-style: solid;
     border-inline-color: variables.$vas-color-grayscale--600;
-    transition: transform variables.$vas-transition--default;
+    transition-property: transform, opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
     box-shadow:
       0 20px 25px -5px rgba(variables.$vas-color-black, 0.1),
       0 8px 10px -6px rgba(variables.$vas-color-black, 0.1);
     pointer-events: none;
+    opacity: 0;
 
     &--is-open {
       transform: translateX(0) !important; // stylelint-disable-line declaration-no-important
       pointer-events: auto;
+      opacity: 1;
     }
 
     &--direction-left {

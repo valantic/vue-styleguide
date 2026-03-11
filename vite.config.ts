@@ -4,7 +4,7 @@ import vue from '@vitejs/plugin-vue';
 import path from 'node:path';
 import { defineConfig } from 'vite';
 import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
-import { UserConfigExport } from 'vitest/config';
+import { ViteUserConfigExport } from 'vitest/config';
 import viteBuilds from './vite.builds.json';
 
 
@@ -32,7 +32,7 @@ export const alias = {
  * - Style-only components are imported by src/setup/components.ts.
  */
 export default defineConfig(({ command, mode }) => {
-  const config: UserConfigExport = {
+  const config: ViteUserConfigExport = {
     plugins: [
       vue(),
       mdPlugin({

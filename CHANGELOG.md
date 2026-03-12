@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Updates viewport plugin and scss media query to have no deps in a project.
+- [ENHANCEMENT] Updated npm packages.
+
 ## v1.0.0 - 2026-03-05
 
 - [BUGFIX]: Fixed flaky flyout when the direction property is changed.

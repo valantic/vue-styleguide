@@ -1,4 +1,4 @@
-import { Plugin, reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { BREAKPOINTS, ViewportBreakPoint } from '../setup/globals';
 
 export type ViewportNames = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
@@ -184,32 +184,4 @@ const viewport = new Viewport();
  */
 export function useViewport(): Viewport {
   return viewport;
-}
-
-/**
- * Adds a viewport instance to Vue itself, which can be used by calling this.$viewport.
- */
-const plugin: Plugin = {
-  install(app) {
-    viewport.sync();
-    app.config.globalProperties.$viewport = reactive(viewport);
-
-    // Optional: Cleanup if the whole app unmounts
-    const originalUnmount = app.unmount;
-
-    addViewportResizeEvent();
-
-    app.unmount = () => {
-      removeViewportResizeEvent();
-      originalUnmount();
-    };
-  },
-};
-
-export default plugin;
-
-declare module 'vue' {
-  interface ComponentCustomProperties {
-    $viewport: Viewport;
-  }
 }

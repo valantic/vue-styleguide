@@ -19,16 +19,17 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
+  import { ClassValue, PropType, defineComponent } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};
 
   type Attributes = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    [key: string]: string | boolean | Record<string, any> | ClassValue[] | null | undefined;
     role: string | null;
     disabled: boolean;
-    [key: string]: string | boolean | null;
   };
 
   type ElementDimensions = {

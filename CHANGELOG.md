@@ -2,10 +2,12 @@
 
 ## unreleased
 
+## v1.1.0
+
 - [ENHANCEMENT] Updates viewport plugin and scss media query to have no deps in a project.
 - [ENHANCEMENT] Updated npm packages.
 
-## v1.0.0 - 2026-03-05
+## v1.0.0
 
 - [BUGFIX]: Fixed flaky flyout when the direction property is changed.
 - [BUGFIX]: Fixed autofocus issue in input fields.
@@ -24,13 +26,13 @@
 - [ENHANCEMENT]: Improved navigation block styling.
 - [ENHANCEMENT]: Massive cleanup.
 
-## v0.0.4 - 2026-02-19
+## v0.0.4
 
 - [ENHANCEMENT]: Limit output files via npm install.
 - [ENHANCEMENT]: Renamed CHANGES.md to CHANGELOG.md
 - [ENHANCEMENT]: Removed all links to storybook.
 
-## v0.0.2 - 2025-08-01
+## v0.0.2
 
 - (Bugfix): Made language selector work again.
   - See: https://github.com/valantic/vue-template/src/styleguide/styleguide.vue for an implementation Example

@@ -6,11 +6,11 @@
       size="18"
     />
     <div :class="b('name')">
-      {{ $viewport.currentViewport }}
+      {{ viewport.currentViewport }}
     </div>
     <div :class="b('dimensions', { isOpen })">
-      <div :class="b('dimension')">{{ $viewport.viewportWidth }}w</div>
-      <div :class="b('dimension')">{{ $viewport.viewportHeight }}h</div>
+      <div :class="b('dimension')">{{ viewport.viewportWidth }}w</div>
+      <div :class="b('dimension')">{{ viewport.viewportHeight }}h</div>
     </div>
   </div>
 </template>
@@ -18,9 +18,12 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
+  import { Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import { Icon } from '../types/icon';
 
-  // type Setup = {};
+  type Setup = {
+    viewport: Viewport;
+  };
   // type Data = {};
 
   /**
@@ -43,18 +46,20 @@
     },
     // emits: [],
 
-    // setup(): Setup {
-    //   return {};
-    // },
+    setup(): Setup {
+      return {
+        viewport: useViewport(),
+      };
+    },
     // data(): Data {
     //   return {};
     // },
 
     computed: {
       viewportIcon(): Icon {
-        if (this.$viewport.isTablet) {
+        if (this.viewport.isTablet) {
           return 'i-viewport--tablet';
-        } else if (this.$viewport.isDesktop) {
+        } else if (this.viewport.isDesktop) {
           return 'i-viewport--desktop';
         }
 
@@ -66,12 +71,16 @@
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    // mounted() {},
+    mounted() {
+      addViewportResizeEvent();
+    },
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      removeViewportResizeEvent();
+    },
     // unmounted() {},
 
     // methods: {},

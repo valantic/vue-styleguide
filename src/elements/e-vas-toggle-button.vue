@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="b('', { active })"
+    :class="b('', { active, isAnimated })"
     type="button"
   >
     <span :class="b('content', { active })">
@@ -28,6 +28,14 @@
        * Define active state.
        */
       active: {
+        type: Boolean,
+        default: false,
+      },
+
+      /**
+       * Define if button should be animated.
+       */
+      isAnimated: {
         type: Boolean,
         default: false,
       },
@@ -82,6 +90,7 @@
     border-radius: $border-radius;
     transition:
       color variables.$vas-transition--default,
+      box-shadow variables.$vas-transition--default,
       background-color variables.$vas-transition--default;
 
     &:hover:not(&--active) {
@@ -90,6 +99,11 @@
 
     &--active {
       color: variables.$vas-color-grayscale--0;
+    }
+
+    &--is-animated {
+      background-color: variables.$vas-color-red-primary;
+      box-shadow: 0 0 40px variables.$vas-color-red-primary;
     }
 
     &__content {
@@ -103,9 +117,8 @@
 
       &--active {
         background-color: variables.$vas-color-white;
-        box-shadow:
-          0 1px 2px 0 rgba(variables.$vas-color-black, 0.02),
-          0 1px 2px 0 rgba(variables.$vas-color-black, 0.04);
+        box-shadow: 0 1px 2px 0 rgba(variables.$vas-color-black, 0.02),
+        0 1px 2px 0 rgba(variables.$vas-color-black, 0.04);
       }
     }
   }

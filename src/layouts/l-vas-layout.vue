@@ -20,8 +20,11 @@
 <script lang="ts">
   import { PropType, defineComponent } from 'vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { VasSessionStore, useVasSessionStore } from '../stores/session';
 
-  // type Setup = {};
+  type Setup = {
+    vasSessionStore: VasSessionStore;
+  };
   // type Data = {};
 
   export const LAYOUT_PADDINGS: string[] = ['default', '0'];
@@ -64,7 +67,11 @@
     },
     // emits: {},
 
-    // setup(): Setup {},
+    setup(): Setup {
+      return {
+        vasSessionStore: useVasSessionStore(),
+      };
+    },
     // data(): Data {
     //   return {};
     // },
@@ -84,14 +91,18 @@
     // watch: {},
 
     // beforeCreate() {},
-    // created() {},
+    created() {
+        this.vasSessionStore.setHasPageConfig(!!this.$slots.pageConfig);
+    },
     // beforeMount() {},
     // mounted() {},
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      this.vasSessionStore.setHasPageConfig(false);
+    },
     // unmounted() {},
 
     // methods: {},

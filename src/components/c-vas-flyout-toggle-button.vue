@@ -2,6 +2,7 @@
   <e-vas-toggle-button
     :class="b('', { active })"
     :active="active"
+    :is-animated="isAnimated"
   >
     <e-vas-icon
       :icon="icon"
@@ -53,6 +54,14 @@
         type: String,
         default: '18',
       },
+
+      /**
+       * Toggles the animated state.
+       */
+      isAnimated: {
+        type: Boolean,
+        default: false
+      }
     },
     // emits: [],
 

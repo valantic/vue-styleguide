@@ -96,13 +96,14 @@
 
     &__slider {
       position: relative;
-      align-self: flex-end;
+      align-self: center;
       width: calc(2 * #{$e-vas-toggle-size});
       height: $e-vas-toggle-size;
       border-radius: $e-vas-toggle-size;
       background-color: var(--e-vas-toggle-background-color);
       cursor: pointer;
       transition: variables.$vas-transition-duration--default;
+      flex-shrink: 0;
 
       &::before {
         $absolute-position: calc(0.1 * #{$e-vas-toggle-size});

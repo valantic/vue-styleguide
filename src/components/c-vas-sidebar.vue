@@ -90,6 +90,12 @@
           />
           <c-vas-config v-else>
             <template
+              v-if="$slots.globalSettings"
+              #globalSettings
+            >
+              <slot name="globalSettings"></slot>
+            </template>
+            <template
               v-if="$slots.customSettings"
               #customSettings
             >
@@ -136,8 +142,6 @@
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
-  import { StyleguideConfiguration } from '../types';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
@@ -154,7 +158,6 @@
   };
 
   type Setup = {
-    vasSettingsStore: VasSettingsStore;
     router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
     version: string;
@@ -184,21 +187,12 @@
       cVasNavigation,
       cVasConfig,
     },
-    props: {
-      /**
-       * The styleguide configuration.
-       */
-      config: {
-        type: Object as PropType<Partial<StyleguideConfiguration>>,
-        required: true,
-      },
-    },
+    // props: {},
 
     // emits: {},
 
     setup(): Setup {
       return {
-        vasSettingsStore: useVasSettingsStore(),
         router: useRouter(),
         container: ref(),
         version: packageJson.version,
@@ -240,9 +234,7 @@
         this.onCloseFlyout();
       },
     },
-    beforeCreate() {
-      this.vasSettingsStore.initialize(this.config);
-    },
+    // beforeCreate() {},
     // created() {},
     // beforeMount() {},
     mounted() {

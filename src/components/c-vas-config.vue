@@ -1,26 +1,9 @@
 <template>
   <div :class="b()">
-    <div :class="b('headline')">Global Settings</div>
-    <label :class="b('language')">
-      <span class="invisible">Language</span>
-      <e-vas-select
-        v-model="vasSettingsStore.config.settings.activeLanguage"
-        :options="vasSettingsStore.config.options.languages"
-      />
-    </label>
-
-    <label :class="b('theme')">
-      <span class="invisible">Theme</span>
-      <e-vas-select
-        v-model="vasSettingsStore.config.settings.activeTheme"
-        :options="vasSettingsStore.config.options.themes"
-      />
-    </label>
-
-    <c-vas-html-validation />
-
-    <e-vas-toggle v-model="vasSettingsStore.config.settings.isLoggedIn">Logged in</e-vas-toggle>
-
+    <slot name="globalSettings">
+      <div :class="b('headline')">Global Settings</div>
+      <c-vas-html-validation />
+    </slot>
     <div
       v-if="$slots.customSettings"
       id="teleportDestinationStyleguideConfigFlyout"
@@ -34,14 +17,9 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasSelect from '../elements/e-vas-select.vue';
-  import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
 
-  type Setup = {
-    vasSettingsStore: VasSettingsStore;
-  };
+  // type Setup = {};
   // type Data = {};
 
   /**
@@ -51,19 +29,15 @@
     name: 'c-vas-config',
 
     components: {
-      eVasSelect,
       cVasHtmlValidation,
-      eVasToggle,
     },
 
     // props: {},
     // emits: {},
 
-    setup(): Setup {
-      return {
-        vasSettingsStore: useVasSettingsStore(),
-      };
-    },
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },

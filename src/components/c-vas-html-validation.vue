@@ -37,7 +37,7 @@
       enabled: {
         immediate: true,
         handler(enabled: boolean) {
-          document.body.classList.toggle('s-html-validation--enabled', enabled);
+          document.body.classList.toggle('c-vas-html-validation--enabled', enabled);
         },
       },
     },

@@ -136,7 +136,7 @@
 </template>
 
 <script lang="ts">
-  import { PropType, Ref, defineComponent, ref } from 'vue';
+  import { Ref, defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';

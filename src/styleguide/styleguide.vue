@@ -5,7 +5,7 @@
       <router-view />
     </main>
     <s-footer :class="b('footer')" />
-    <c-vas-sidebar :config="styleguideConfig">
+    <c-vas-sidebar>
       <template
         #customSettings
         v-if="false"
@@ -18,18 +18,12 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { VasSettingsStore, useVasSettingsStore } from '@/stores/settings';
   import cVasSidebar from '@/components/c-vas-sidebar.vue';
   import sFooter from '@/styleguide/components/s-footer.vue';
   import sHeader from '@/styleguide/components/s-header.vue';
-  import { StyleguideConfiguration } from '@/types';
 
-  type Setup = {
-    vasSettingsStore: VasSettingsStore;
-  };
-  type Data = {
-    styleguideConfig: Partial<StyleguideConfiguration>;
-  };
+  // type Setup = {};
+  // type Data = {};
 
   /**
    * Root styleguide component that provides layout and configuration.
@@ -46,56 +40,15 @@
     // props: {},
     // emits: {},
 
-    setup(): Setup {
-      return {
-        vasSettingsStore: useVasSettingsStore(),
-      };
-    },
-    data(): Data {
-      return {
-        styleguideConfig: {
-          options: {
-            themes: [
-              {
-                label: 'theme-01',
-                value: 'theme-01',
-              },
-              {
-                label: 'theme-02',
-                value: 'theme-02',
-              },
-            ],
-            languages: [
-              {
-                label: 'English',
-                value: 'en',
-              },
-              {
-                label: 'Deutsch',
-                value: 'de',
-              },
-            ],
-          },
-          settings: {
-            isLoggedIn: false,
-            activeLanguage: 'en',
-            activeTheme: 'theme-02',
-          },
-        },
-      };
-    },
+    // setup(): Setup {
+    //   return {};
+    // },
+    // data(): Data {
+    //   return {};
+    // },
 
     // computed: {},
-    watch: {
-      'vasSettingsStore.config.settings': {
-        handler(newSettings) {
-          // eslint-disable-next-line no-console
-          console.log('settings have changed', newSettings);
-        },
-        deep: true,
-        immediate: false,
-      },
-    },
+    // watch: {},
 
     // beforeCreate() {},
     // created() {},

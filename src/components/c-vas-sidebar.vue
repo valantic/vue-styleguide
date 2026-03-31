@@ -378,6 +378,7 @@
     pointer-events: none;
     background-color: rgba(variables.$vas-color-grayscale--0, 0);
     transition: background-color variables.$vas-transition--default;
+    font-size: variables.$vas-font-size--16;
 
     &--is-flyout-open {
       background-color: rgba(variables.$vas-color-grayscale--0, 0.25);

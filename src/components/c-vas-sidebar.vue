@@ -231,7 +231,7 @@
       },
     },
     watch: {
-      'isFlyoutOpen'() {
+      'isFlyoutOpen': function () {
         if (this.isFlyoutOpen) {
           document.addEventListener('click', this.handleOutsideClick);
         } else {
@@ -239,7 +239,7 @@
         }
       },
 
-      '$route'() {
+      '$route': function () {
         this.onCloseFlyout();
       },
 

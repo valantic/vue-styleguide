@@ -2,7 +2,7 @@
   <div
     ref="container"
     class="vas-styleguide-reset"
-    :class="[b('', modifiers)]"
+    :class="b('', modifiers)"
   >
     <c-vas-flyout
       :is-open="isPageConfigFlyoutOpen"

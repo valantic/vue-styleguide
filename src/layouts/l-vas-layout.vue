@@ -1,7 +1,7 @@
 <template>
   <section
     class="vas-styleguide-reset"
-    :class="[b('', modifiers)]"
+    :class="b('', modifiers)"
   >
     <teleport
       v-if="$slots.pageConfig"

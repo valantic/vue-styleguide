@@ -364,8 +364,13 @@
 </script>
 
 <style lang="scss">
+  @use 'sass:meta';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
+
+  :where(.vas-styleguide-reset) {
+    @include meta.load-css('the-new-css-reset/css/reset');
+  }
 
   .c-vas-sidebar {
     $this: &;

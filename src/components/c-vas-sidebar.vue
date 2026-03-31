@@ -3,11 +3,15 @@
     ref="container"
     :class="b('', modifiers)"
   >
-    <c-vas-flyout :is-open="isPageConfigFlyoutOpen">
+    <c-vas-flyout
+      :is-open="isPageConfigFlyoutOpen"
+      :is-opaque="isToggleButtonAnimated"
+    >
       <template #controls>
         <div :class="b('actions')">
           <c-vas-flyout-toggle-button
             :active="isPageConfigFlyoutOpen"
+            :is-animated="isToggleButtonAnimated"
             icon="i-page-setting"
             @click="onTogglePageConfigFlyout()"
           />
@@ -142,6 +146,7 @@
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { VasSessionStore, useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
@@ -158,6 +163,7 @@
   };
 
   type Setup = {
+    vasSessionStore: VasSessionStore;
     router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
     version: string;
@@ -171,6 +177,7 @@
     showConfig: boolean;
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
+    isToggleButtonAnimated: boolean;
   };
 
   export default defineComponent({
@@ -193,6 +200,7 @@
 
     setup(): Setup {
       return {
+        vasSessionStore: useVasSessionStore(),
         router: useRouter(),
         container: ref(),
         version: packageJson.version,
@@ -208,6 +216,7 @@
         showConfig: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
+        isToggleButtonAnimated: false,
       };
     },
     computed: {
@@ -222,7 +231,7 @@
       },
     },
     watch: {
-      isFlyoutOpen() {
+      'isFlyoutOpen': function () {
         if (this.isFlyoutOpen) {
           document.addEventListener('click', this.handleOutsideClick);
         } else {
@@ -230,8 +239,21 @@
         }
       },
 
-      $route() {
+      '$route': function () {
         this.onCloseFlyout();
+      },
+
+      'vasSessionStore.state.hasPageConfig': {
+        handler(value) {
+          if (value) {
+            this.isToggleButtonAnimated = true;
+
+            setTimeout(() => {
+              this.isToggleButtonAnimated = false;
+            }, 600);
+          }
+        },
+        immediate: true,
       },
     },
     // beforeCreate() {},

@@ -41,6 +41,14 @@
       },
 
       /**
+       * Defines if the flyout should be rendered with full opacity.
+       */
+      isOpaque: {
+        type: Boolean,
+        default: false,
+      },
+
+      /**
        * Define how it should be opened.
        */
       direction: {
@@ -66,6 +74,7 @@
           direction: this.direction,
           isOpen: this.isOpen,
           hide: this.hide,
+          isOpaque: this.isOpaque,
         };
       },
     },
@@ -161,6 +170,10 @@
       }
 
       &--is-open {
+        opacity: 1;
+      }
+
+      &--is-opaque {
         opacity: 1;
       }
 

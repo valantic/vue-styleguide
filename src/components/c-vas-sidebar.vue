@@ -1,7 +1,8 @@
 <template>
   <div
     ref="container"
-    :class="b('', modifiers)"
+    class="vas-styleguide-reset"
+    :class="[b('', modifiers)]"
   >
     <c-vas-flyout
       :is-open="isPageConfigFlyoutOpen"

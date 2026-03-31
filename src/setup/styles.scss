@@ -1,4 +1,9 @@
-// Style reset
-@use 'the-new-css-reset/css/reset';
+@use 'sass:meta';
+
 // General project styles
 @use 'scss/basics';
+
+// Style reset
+:where(.vas-styleguide-reset) {
+  @include meta.load-css('the-new-css-reset/css/reset');
+}

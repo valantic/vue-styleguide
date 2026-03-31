@@ -102,8 +102,9 @@
     }
 
     &--is-animated {
-      background-color: variables.$vas-color-red-primary;
-      box-shadow: 0 0 40px variables.$vas-color-red-primary;
+      background-color: variables.$vas-color-valantic-primary;
+      box-shadow: 0 0 40px variables.$vas-color-valantic-primary;
+      color: variables.$vas-color-black;
     }
 
     &__content {
@@ -117,8 +118,9 @@
 
       &--active {
         background-color: variables.$vas-color-white;
-        box-shadow: 0 1px 2px 0 rgba(variables.$vas-color-black, 0.02),
-        0 1px 2px 0 rgba(variables.$vas-color-black, 0.04);
+        box-shadow:
+          0 1px 2px 0 rgba(variables.$vas-color-black, 0.02),
+          0 1px 2px 0 rgba(variables.$vas-color-black, 0.04);
       }
     }
   }

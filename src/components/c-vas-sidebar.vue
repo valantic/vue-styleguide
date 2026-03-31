@@ -3,8 +3,9 @@
     ref="container"
     :class="b('', modifiers)"
   >
-    <c-vas-flyout :is-open="isPageConfigFlyoutOpen"
-                  :is-opaque="isToggleButtonAnimated"
+    <c-vas-flyout
+      :is-open="isPageConfigFlyoutOpen"
+      :is-opaque="isToggleButtonAnimated"
     >
       <template #controls>
         <div :class="b('actions')">
@@ -230,7 +231,7 @@
       },
     },
     watch: {
-      isFlyoutOpen() {
+      'isFlyoutOpen'() {
         if (this.isFlyoutOpen) {
           document.addEventListener('click', this.handleOutsideClick);
         } else {
@@ -238,7 +239,7 @@
         }
       },
 
-      $route() {
+      '$route'() {
         this.onCloseFlyout();
       },
 

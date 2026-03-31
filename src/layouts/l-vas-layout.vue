@@ -92,7 +92,7 @@
 
     // beforeCreate() {},
     created() {
-        this.vasSessionStore.setHasPageConfig(!!this.$slots.pageConfig);
+      this.vasSessionStore.setHasPageConfig(!!this.$slots.pageConfig);
     },
     // beforeMount() {},
     // mounted() {},

@@ -2,6 +2,10 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add reset styles to styleguide components l-vas-layout and c-vas-sidebar.
+- [ENHANCEMENT] Add hint for pages with page settings.
+- [ENHANCEMENT] Remove project specific options from global settings.
+
 ## v1.1.0
 
 - [ENHANCEMENT] Updates viewport plugin and scss media query to have no deps in a project.

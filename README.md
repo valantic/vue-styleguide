@@ -29,11 +29,11 @@ This lib is part of the [vue-template](https://github.com/valantic/vue-template)
 
 To reduce dev overhead it is currently only installable by a github link. Add this to your package.json
 
-in this example the version 0.0.2 used. Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
+Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
 
 ```
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v1.0.0",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v1.2.0",
   }
 ```
 
@@ -41,79 +41,16 @@ in this example the version 0.0.2 used. Find available versions here: [https://g
 
 See [https://github.com/valantic/vue-template/blob/main/src/styleguide/styleguide.vue](https://github.com/valantic/vue-template/blob/main/src/styleguide/styleguide.vue)
 
-Include the sidebar in your project.
+Include the sidebar in your project. This is the minimum example:
 
-```vue3
-<template>
-  <router-view />
-  <c-vas-sidebar :config="styleguideConfig" />
-</template>
+[https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-mvp.vue](https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-mvp.vue)
 
-<script lang="ts">
-  import { cVasSidebar, useVasSettingsStore, VasSettingsStore } from '@valantic/vue-styleguide';
-  import { StyleguideConfiguration } from '@valantic/vue-styleguide/types';
-  import { defineComponent } from 'vue';
+##### More advanced example
 
-  type Setup = {
-    vasSettingsStore: VasSettingsStore;
-  };
+In case you want to place global settings here is a more real life scenario
 
-  type Data = {
-    styleguideConfig: Partial<StyleguideConfiguration>;
-  };
+[https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-advanced.vue](https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-advanced.vue)
 
-  export default defineComponent({
-    name: 'app',
-
-    components: {
-      cVasSidebar,
-    },
-
-    computed: {
-        styleguideConfig: {
-          options: {
-            themes: [
-              {
-                label: 'theme-01',
-                value: 'theme-01',
-              },
-              {
-                label: 'theme-02',
-                value: 'theme-02',
-              },
-            ],
-            languages: [
-              {
-                label: 'English',
-                value: 'en',
-              },
-              {
-                label: 'Deutsch',
-                value: 'de',
-              },
-            ],
-          },
-          settings: {
-            isLoggedIn: false,
-            activeLanguage: 'en',
-            activeTheme: 'theme-02',
-          },
-        },
-    },
-    
-    watch: {
-      'vasSettingsStore.config.settings': {
-        handler(newSettings) {
-          // eslint-disable-next-line no-console
-          console.log('settings have changed', newSettings);
-        },
-        deep: true,
-        immediate: false,
-      },
-    },
-  });
-</script>
-```
 
 ## Predefined demo pages
 

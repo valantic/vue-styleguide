@@ -111,6 +111,7 @@
 </script>
 
 <style lang="scss">
+  @use 'sass:meta';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
 

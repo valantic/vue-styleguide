@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v1.2.0
+
 - [ENHANCEMENT] Add reset styles to styleguide components l-vas-layout and c-vas-sidebar.
 - [ENHANCEMENT] Add hint for pages with page settings.
 - [ENHANCEMENT] Remove project specific options from global settings.

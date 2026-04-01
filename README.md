@@ -43,13 +43,13 @@ See [https://github.com/valantic/vue-template/blob/main/src/styleguide/styleguid
 
 Include the sidebar in your project. This is the minimum example:
 
-[https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-mvp.vue](https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-mvp.vue)
+[https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-mvp.vue](https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-mvp.vue)
 
 ##### More advanced example
 
 In case you want to place global settings here is a more real life scenario
 
-[https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-advanced.vue](https://github.com/valantic/vue-template/blob/docs/setup-examples/styleguide-advanced.vue)
+[https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-advanced.vue](https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-advanced.vue)
 
 
 ## Predefined demo pages

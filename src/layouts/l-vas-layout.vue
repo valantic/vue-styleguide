@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="vas-styleguide-reset"
-    :class="b('', modifiers)"
-  >
+  <section :class="b('', modifiers)">
     <teleport
       v-if="$slots.pageConfig"
       defer
@@ -117,10 +114,6 @@
   @use 'sass:meta';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
-
-  :where(.vas-styleguide-reset) {
-    @include meta.load-css('the-new-css-reset/css/reset');
-  }
 
   .l-vas-layout {
     &--variant-default {

@@ -63,8 +63,8 @@
     "tree": "https://github.com/valantic/vue-styleguide/tree/v"
   },
   "engines": {
-    "node": ">=22 <25",
-    "npm": ">=10 <12"
+    "node": ">=20 <25",
+    "npm": ">=9.5 <12"
   },
   "keywords": [
     "vue",

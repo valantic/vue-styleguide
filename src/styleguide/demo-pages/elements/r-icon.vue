@@ -74,12 +74,12 @@
 <script lang="ts">
   import { Ref, defineComponent, ref } from 'vue';
   import spritePath from '@/assets/icons.svg';
-  import eVasIcon from '@/elements/e-vas-icon.vue';
-  import eVasInput from '@/elements/e-vas-input.vue';
-  import eVasSelect from '@/elements/e-vas-select.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
-  import { SelectOptionType } from '@/types';
   import { Icon } from '@/types/icon';
+  import eVasIcon from '../../../elements/e-vas-icon.vue';
+  import eVasInput from '../../../elements/e-vas-input.vue';
+  import eVasSelect from '../../../elements/e-vas-select.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
+  import { SelectOptionType } from '../../../types';
 
   type Setup = {
     input: Ref<HTMLInputElement | null>;

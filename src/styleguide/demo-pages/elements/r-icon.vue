@@ -220,19 +220,16 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
-
   .r-icon {
     &__filter {
       display: flex;
-      margin-bottom: variables.$vas-spacing--30;
+      margin-bottom: 3rem;
     }
 
     &__label {
       display: flex;
       align-items: center;
-      margin: 0 variables.$vas-spacing--10 variables.$vas-spacing--10 0;
+      margin: 0 10px 10px 0;
 
       &--variant {
         margin: 0 0 0 auto;
@@ -241,7 +238,7 @@
 
     &__filter-input {
       display: block;
-      margin-left: variables.$vas-spacing--6;
+      margin-left: 6px;
     }
 
     &__grid {
@@ -268,7 +265,7 @@
     }
 
     &__grid-item--negative {
-      background-color: variables.$vas-color-grayscale--500;
+      background-color: #b0b0b0;
     }
 
     &__icon-wrapper {
@@ -292,7 +289,7 @@
     }
 
     &__icon-label {
-      font-size: variables.$vas-font-size--10;
+      font-size: 10px;
       text-align: center;
     }
 
@@ -307,13 +304,13 @@
       left: 0;
       z-index: 999;
       width: 100%;
-      padding: variables.$vas-spacing--10;
-      background-color: variables.$vas-color-green-primary;
+      padding: 10px;
+      background-color: #4caf50;
       text-align: center;
     }
 
     &__grid-item:hover &__icon-wrapper {
-      color: variables.$vas-color-blue-primary;
+      color: #2196f3;
     }
   }
 </style>

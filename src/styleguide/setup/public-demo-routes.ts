@@ -8,4 +8,22 @@ export const styleguideTestPages = {
       file: '/README.md',
     },
   },
+  typography: {
+    path: 'sg-test-page-typography',
+    name: 'sg-test-page-typography',
+    component: () => import('../demo-pages/general/r-typography.vue'),
+    meta: {
+      title: 'Typography',
+      alternativeTitles: ['font'],
+    },
+  },
+  icons: {
+    path: 'sg-test-page-icons',
+    name: 'sg-test-page-icons',
+    component: () => import('../demo-pages/elements/r-icon.vue'),
+    meta: {
+      title: 'Icons',
+      alternativeTitles: ['Sprite', 'Icon finder'],
+    },
+  },
 };

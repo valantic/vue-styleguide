@@ -22,15 +22,7 @@ export default [
     },
     children: [
       styleguideTestPages.readme,
-      {
-        path: 'sg-test-page-typography',
-        name: 'sg-test-page-typography',
-        component: () => import('../demo-pages/general/r-typography.vue'),
-        meta: {
-          title: 'Typography',
-          alternativeTitles: ['font'],
-        },
-      },
+      styleguideTestPages.typography,
       {
         path: 'sg-test-page-settings',
         name: 'sg-test-page-settings',
@@ -92,15 +84,7 @@ export default [
       title: 'Elements',
     },
     children: [
-      {
-        path: 'sg-test-page-icons',
-        name: 'sg-test-page-icons',
-        component: () => import('../demo-pages/elements/r-icon.vue'),
-        meta: {
-          title: 'Icons',
-          alternativeTitles: ['Sprite', 'Icon finder'],
-        },
-      },
+      styleguideTestPages.icons,
       {
         path: 'sg-test-page-vas-toggle-button',
         name: 'sg-test-page-vas-toggle-button',

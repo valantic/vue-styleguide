@@ -246,6 +246,22 @@
             return 0;
           }
 
+          // Check for custom sorting using sortOrder.
+          const firstSortOrder = first.meta.sortOrder as number | undefined;
+          const secondSortOrder = second.meta.sortOrder as number | undefined;
+
+          if (firstSortOrder !== undefined && secondSortOrder !== undefined) {
+            return firstSortOrder - secondSortOrder;
+          }
+
+          if (firstSortOrder !== undefined) {
+            return -1;
+          }
+
+          if (secondSortOrder !== undefined) {
+            return 1;
+          }
+
           if (first.meta.title < second.meta.title) {
             return -1;
           }

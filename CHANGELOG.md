@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add the possibility to custom sort styleguide routes in the sidebar.
+
 ## v1.2.0
 
 - [ENHANCEMENT] Add reset styles to styleguide components l-vas-layout and c-vas-sidebar.

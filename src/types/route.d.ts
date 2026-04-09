@@ -3,6 +3,7 @@ import { ComponentPublicInstance } from 'vue';
 export type RouteMeta = {
   title: string;
   alternativeTitles?: string[];
+  sortOrder?: number;
   params?: {
     [key: string]: string;
   };

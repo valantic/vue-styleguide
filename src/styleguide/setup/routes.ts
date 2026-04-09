@@ -19,6 +19,7 @@ export default [
     redirect: '/sg/sg-test-page-readme',
     meta: {
       title: 'Styleguide',
+      sortOrder: 1,
     },
     children: [
       styleguideTestPages.readme,
@@ -48,6 +49,7 @@ export default [
     component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Components',
+      sortOrder: 3,
     },
     children: [
       {
@@ -90,6 +92,7 @@ export default [
     component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Elements',
+      sortOrder: 2,
     },
     children: [
       {

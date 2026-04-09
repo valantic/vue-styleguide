@@ -58,6 +58,7 @@ export default [
         component: () => import('../demo-pages/components/r-navigation.vue'),
         meta: {
           title: 'Navigation',
+          sortOrder: 2,
         },
       },
       {
@@ -66,6 +67,7 @@ export default [
         component: () => import('../demo-pages/components/r-vas-modal.vue'),
         meta: {
           title: 'Modal',
+          sortOrder: 1,
         },
       },
       {

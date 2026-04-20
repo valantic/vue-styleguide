@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add helper and example for persisting page configuration.
 - [ENHANCEMENT] Add the possibility to custom sort styleguide routes in the sidebar.
 
 ## v1.2.0

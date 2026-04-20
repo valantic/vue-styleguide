@@ -2,6 +2,12 @@
   <l-vas-layout>
     <template #pageConfig>
       <e-vas-button
+        style="margin-bottom: 50px"
+        @click="clearPersistentStore"
+      >
+        Reset persisted values
+      </e-vas-button>
+      <e-vas-button
         primary
         @click="count++"
       >
@@ -84,11 +90,24 @@
     },
 
     methods: {
+      /**
+       * Example of a save settings method.
+       */
       saveSettings() {
         setPersistentItem(STORAGE_KEY, {
           count: this.count,
           toggleValue: this.toggleValue,
         });
+      },
+
+      /**
+       * Example of a clear persisted data handler.
+       */
+      clearPersistentStore() {
+        this.count = 0;
+        this.toggleValue = false;
+
+        setPersistentItem(STORAGE_KEY, {});
       },
     },
   });

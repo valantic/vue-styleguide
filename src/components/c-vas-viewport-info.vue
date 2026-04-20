@@ -18,8 +18,9 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
-  import { Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
-  import { Icon } from '../types/icon';
+  import type { Viewport } from '../plugins/viewport';
+  import { addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
+  import type { Icon } from '../types/icon';
 
   type Setup = {
     viewport: Viewport;

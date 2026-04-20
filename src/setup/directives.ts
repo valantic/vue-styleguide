@@ -1,5 +1,5 @@
-import { Plugin } from 'vue';
-import { NamedDirective } from '@/types/named-directive';
+import type { Plugin } from 'vue';
+import type { NamedDirective } from '@/types/named-directive';
 
 const directives = import.meta.glob('../directives/*.ts', { eager: true, import: 'default' }) as Record<
   string,

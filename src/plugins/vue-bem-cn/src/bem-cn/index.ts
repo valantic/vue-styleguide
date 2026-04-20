@@ -1,4 +1,4 @@
-import { Delimiters } from '../globals';
+import type { Delimiters } from '../globals';
 import { hyphenate, isPObject, isString } from '../utils';
 import bemNames from './bem-names';
 

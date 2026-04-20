@@ -36,8 +36,10 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import { RouteRecordRaw, useRoute, useRouter } from 'vue-router';
+  import type { PropType } from 'vue';
+  import { defineComponent } from 'vue';
+  import type { RouteRecordRaw } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;

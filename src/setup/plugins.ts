@@ -1,4 +1,4 @@
-import { Plugin } from 'vue';
+import type { Plugin } from 'vue';
 import VueBemCn from '../plugins/vue-bem-cn';
 import directives from './directives';
 

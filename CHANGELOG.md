@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add the possibility to mark routes as favorite.
 - [ENHANCEMENT] Split type imports and value imports.
 - [ENHANCEMENT] Add the possibility to custom sort styleguide routes in the sidebar.
 

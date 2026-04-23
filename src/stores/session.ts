@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import { RouteRecordRaw } from 'vue-router';
+import { RouteLocationNormalized, RouteRecordRaw } from 'vue-router';
 
 const state = reactive({
   /**
@@ -24,7 +24,7 @@ export const useVasSessionStore = () => {
       state.hasPageConfig = value;
     },
 
-    addLastOpenedRoute(route: RouteRecordRaw) {
+    addLastOpenedRoute(route: RouteRecordRaw | RouteLocationNormalized) {
       if (!route.name || route.meta?.hideInStyleguide) {
         return;
       }
@@ -36,9 +36,11 @@ export const useVasSessionStore = () => {
       }
 
       state.lastOpenedRoutes.unshift({
-        ...route,
-        children: [], // Clear children for the "Last Opened" group
-      });
+        name: route.name,
+        path: route.path,
+        meta: { ...route.meta },
+        children: [],
+      } as RouteRecordRaw);
 
       if (state.lastOpenedRoutes.length > 5) {
         state.lastOpenedRoutes.pop();

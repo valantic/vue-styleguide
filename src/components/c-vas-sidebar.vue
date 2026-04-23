@@ -109,6 +109,7 @@
           </c-vas-config>
         </div>
         <div :class="b('footer')">
+          <!-- TODO: Store this in localstorage. We need to get an identifier from the projects though. -->
           <div
             v-if="vasSessionStore.state.lastOpenedRoutes.length"
             :class="b('footer-row')"
@@ -265,9 +266,12 @@
         }
       },
 
-      '$route': function (route) {
+      '$route': function (to, from) {
         this.onCloseFlyout();
-        this.vasSessionStore.addLastOpenedRoute(route);
+
+        if (from?.name) {
+          this.vasSessionStore.addLastOpenedRoute(from as RouteRecordRaw);
+        }
       },
 
       'vasSessionStore.state.hasPageConfig': {

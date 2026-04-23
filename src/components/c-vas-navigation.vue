@@ -5,10 +5,9 @@
     @keydown.up.prevent="onKeyDownUp"
     @keydown.enter.prevent="onKeyDownEnter"
   >
-    <c-vas-navigation-filter
-      v-model="navigationFilter"
-      :class="b('filter')"
-    />
+    <div :class="b('filter-wrapper')">
+      <c-vas-navigation-filter v-model="navigationFilter" />
+    </div>
 
     <div :class="b('menu')">
       <c-vas-navigation-block
@@ -84,7 +83,7 @@
       groupedRoutes(): RouteRecordRaw[] {
         const grouped: RouteRecordRaw[] = [];
 
-        if (this.favoriteRoutes.length) {
+        if (!this.navigationFilter && this.favoriteRoutes.length) {
           grouped.push({
             path: 'favorites',
             name: 'favorites',
@@ -326,8 +325,16 @@
     flex-direction: column;
     flex: 0 1 auto;
 
-    &__filter {
+    &__filter-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$vas-spacing--8;
       margin-bottom: variables.$vas-spacing--8;
+      position: sticky;
+      top: 0;
+      background-color: variables.$vas-color-white;
+      z-index: 5;
+      padding: variables.$vas-spacing--12 0;
     }
 
     &__menu {

@@ -59,6 +59,7 @@ export default [
         meta: {
           title: 'Navigation',
           sortOrder: 2,
+          favorite: true,
         },
       },
       {

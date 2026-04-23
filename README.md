@@ -54,6 +54,22 @@ In case you want to place global settings here is a more real life scenario
 
 ## Predefined demo pages
 
+### Favorites
+
+You can mark any route as a favorite to group it at the top of the navigation. To do so, add `favorite: true` to the route's `meta` object:
+
+```ts
+{
+  path: 'my-page',
+  name: 'my-page',
+  component: () => import('./MyPage.vue'),
+  meta: {
+    title: 'My Page',
+    favorite: true,
+  },
+}
+```
+
 ### Readme
 
 Import a default demo page to display the projects README.md file.

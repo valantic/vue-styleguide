@@ -65,6 +65,10 @@
     },
 
     computed: {
+      favoriteRoutes(): RouteRecordRaw[] {
+        return this.getFavorites(this.filteredRoutes);
+      },
+
       filteredRoutes(): RouteRecordRaw[] {
         let routes = this.getVisibleRoutes(this.routes);
 
@@ -78,24 +82,32 @@
        * Groups routes that have no children under a "Global Routes" parent.
        */
       groupedRoutes(): RouteRecordRaw[] {
-        const routes = this.filteredRoutes;
-        const structuredRoutes = routes.filter((route) => route.children && route.children.length > 0);
-        const globalRoutes = routes.filter((route) => !route.children || route.children.length === 0);
+        const grouped: RouteRecordRaw[] = [];
 
-        if (globalRoutes.length === 0) {
-          return structuredRoutes;
+        if (this.favoriteRoutes.length) {
+          grouped.push({
+            path: 'favorites',
+            name: 'favorites',
+            meta: { title: 'Favorites' },
+            children: this.favoriteRoutes,
+          });
         }
 
-        const globalRoutesGroup: RouteRecordRaw = {
-          path: '/global-routes',
-          name: 'global-routes',
-          meta: {
-            title: 'Global Routes',
-          },
-          children: globalRoutes,
-        };
+        const structuredRoutes = this.filteredRoutes.filter((route) => route.children?.length);
+        const globalRoutes = this.filteredRoutes.filter((route) => !route.children?.length);
 
-        return [...structuredRoutes, globalRoutesGroup];
+        grouped.push(...structuredRoutes);
+
+        if (globalRoutes.length) {
+          grouped.push({
+            path: '/global-routes',
+            name: 'global-routes',
+            meta: { title: 'Global Routes' },
+            children: globalRoutes,
+          });
+        }
+
+        return grouped;
       },
 
       selectedRouteName(): string {
@@ -159,7 +171,7 @@
         while (nextIndex < this.flattenedRoutes.length) {
           const route = this.flattenedRoutes[nextIndex];
 
-          if (!route?.children || route.children.length === 0) {
+          if (!route?.children?.length) {
             this.activeIndex = nextIndex;
 
             return;
@@ -174,7 +186,7 @@
         while (prevIndex >= 0) {
           const route = this.flattenedRoutes[prevIndex];
 
-          if (!route?.children || route.children.length === 0) {
+          if (!route?.children?.length) {
             this.activeIndex = prevIndex;
 
             return;
@@ -187,7 +199,7 @@
         if (this.activeIndex >= 0 && this.activeIndex < this.flattenedRoutes.length) {
           const route = this.flattenedRoutes[this.activeIndex];
 
-          if (!route?.name || (route?.children && route.children.length > 0)) {
+          if (!route?.name || route?.children?.length) {
             return;
           }
 
@@ -197,6 +209,25 @@
             query: route.meta?.query as Record<string, string | (string | null)[] | null>,
           });
         }
+      },
+
+      getFavorites(routeList: readonly RouteRecordRaw[]): RouteRecordRaw[] {
+        const favorites: RouteRecordRaw[] = [];
+
+        for (const route of routeList) {
+          if (route.meta?.favorite) {
+            favorites.push({
+              ...route,
+              children: [], // Clear children to avoid nesting in the Favorites group
+            });
+          }
+
+          if (route.children?.length) {
+            favorites.push(...this.getFavorites(route.children));
+          }
+        }
+
+        return favorites;
       },
 
       filterRoutesByTitle(routes: readonly RouteRecordRaw[], searchTerm: string): RouteRecordRaw[] {
@@ -302,6 +333,7 @@
     &__menu {
       display: flex;
       flex-direction: column;
+      gap: variables.$vas-spacing--8;
     }
   }
 </style>

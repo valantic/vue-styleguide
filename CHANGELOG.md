@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add option to force the configuration to be on top of the demo card.
 - [ENHANCEMENT] Add the possibility to custom sort styleguide routes in the sidebar.
 
 ## v1.2.0

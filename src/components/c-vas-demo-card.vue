@@ -1,5 +1,5 @@
 <template>
-  <div :class="b()">
+  <div :class="b({ forceConfigurationTop })">
     <div :class="b('header')">
       <slot name="header"></slot>
     </div>
@@ -27,7 +27,15 @@
 
     // components: {},
 
-    // props: {},
+    props: {
+      /**
+       * If true, forces the configuration section to be placed above the demo section.
+       */
+      forceConfigurationTop: {
+        type: Boolean,
+        default: false,
+      },
+    },
     // emits: [],
 
     // setup(): Setup {
@@ -80,6 +88,13 @@
         'header header'
         'demo sidebar';
       grid-template-columns: 65% 35%;
+    }
+
+    &--force-configuration-top {
+      grid-template-areas:
+        'header'
+        'demo'
+        'sidebar';
     }
 
     &__header {

@@ -69,6 +69,8 @@
   @use '../setup/scss/variables';
 
   .c-vas-demo-card {
+    $this: &;
+
     $content-padding: variables.$vas-spacing--16;
 
     border: 1px solid variables.$vas-theme-border-color;
@@ -91,10 +93,15 @@
     }
 
     &--force-configuration-top {
+      grid-template-columns: 1fr;
       grid-template-areas:
         'header'
-        'demo'
-        'sidebar';
+        'sidebar'
+        'demo';
+
+      #{$this}__sidebar {
+        border-bottom: 1px solid variables.$vas-theme-border-color;
+      }
     }
 
     &__header {

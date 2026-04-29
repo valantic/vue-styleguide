@@ -1,8 +1,11 @@
 <template>
   <l-vas-layout>
+    <template #pageConfig>
+      <e-vas-toggle v-model="forceConfigurationTop"> Force configuration on top </e-vas-toggle>
+    </template>
     <div :class="b()">
       <section :class="b('section')">
-        <c-vas-demo-card>
+        <c-vas-demo-card :force-configuration-top="forceConfigurationTop">
           <template #header> Demo Card Header </template>
           <template #demo>
             <e-vas-button primary>Action</e-vas-button>
@@ -18,10 +21,13 @@
   import { defineComponent } from 'vue';
   import cVasDemoCard from '@/components/c-vas-demo-card.vue';
   import eVasButton from '@/elements/e-vas-button.vue';
+  import eVasToggle from '@/elements/e-vas-toggle.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    forceConfigurationTop: boolean;
+  };
 
   /**
    * Styleguide page for c-vas-demo-card.
@@ -30,6 +36,7 @@
     name: 'r-vas-demo-card',
 
     components: {
+      eVasToggle,
       cVasDemoCard,
       eVasButton,
       lVasLayout,
@@ -39,9 +46,11 @@
     // emits: {},
 
     // setup(): Setup {},
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        forceConfigurationTop: false,
+      };
+    },
 
     // computed: {},
     // watch: {},

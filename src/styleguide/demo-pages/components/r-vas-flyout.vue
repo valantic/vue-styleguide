@@ -47,7 +47,7 @@
   import eVasButton from '@/elements/e-vas-button.vue';
   import eVasSelect from '@/elements/e-vas-select.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
-  import { SelectOptionType } from '@/types';
+  import type { SelectOptionType } from '@/types';
 
   // type Setup = {};
   type Data = {

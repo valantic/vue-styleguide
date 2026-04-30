@@ -13,7 +13,7 @@
 <script lang="ts">
   import { faker } from '@faker-js/faker';
   import { defineComponent } from 'vue';
-  import { RouteRecordRaw } from 'vue-router';
+  import type { RouteRecordRaw } from 'vue-router';
   import cVasNavigation from '@/components/c-vas-navigation.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
 

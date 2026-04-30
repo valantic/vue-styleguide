@@ -1,6 +1,6 @@
 import { styleguideTestPages } from '@/styleguide/setup/public-demo-routes';
 import { styleguideRouterConfig } from '../../setup/globals';
-import { RouteMeta as StyleguideRouteMeta } from '../../types';
+import type { RouteMeta as StyleguideRouteMeta } from '../../types';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {
@@ -68,6 +68,7 @@ export default [
         meta: {
           title: 'Navigation',
           sortOrder: 2,
+          favorite: true,
         },
       },
       {

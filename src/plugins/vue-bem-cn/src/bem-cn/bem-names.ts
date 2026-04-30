@@ -1,4 +1,4 @@
-import { Delimiters } from '../globals';
+import type { Delimiters } from '../globals';
 import { isNumber, isString } from '../utils';
 
 type Modifiers = {

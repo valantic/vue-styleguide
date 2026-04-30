@@ -1,5 +1,6 @@
 import { ref } from 'vue';
-import { BREAKPOINTS, ViewportBreakPoint } from '../setup/globals';
+import type { ViewportBreakPoint } from '../setup/globals';
+import { BREAKPOINTS } from '../setup/globals';
 
 export type ViewportNames = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 

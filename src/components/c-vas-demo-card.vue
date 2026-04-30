@@ -1,5 +1,5 @@
 <template>
-  <div :class="b()">
+  <div :class="b({ forceConfigurationTop })">
     <div :class="b('header')">
       <slot name="header"></slot>
     </div>
@@ -27,7 +27,15 @@
 
     // components: {},
 
-    // props: {},
+    props: {
+      /**
+       * If true, forces the configuration section to be placed above the demo section.
+       */
+      forceConfigurationTop: {
+        type: Boolean,
+        default: false,
+      },
+    },
     // emits: [],
 
     // setup(): Setup {
@@ -61,6 +69,8 @@
   @use '../setup/scss/variables';
 
   .c-vas-demo-card {
+    $this: &;
+
     $content-padding: variables.$vas-spacing--16;
 
     border: 1px solid variables.$vas-theme-border-color;
@@ -80,6 +90,19 @@
         'header header'
         'demo sidebar';
       grid-template-columns: 65% 35%;
+    }
+
+    &--force-configuration-top {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'header'
+        'sidebar'
+        'demo';
+
+      #{$this}__sidebar {
+        border-bottom: 1px solid variables.$vas-theme-border-color;
+        border-left: none;
+      }
     }
 
     &__header {

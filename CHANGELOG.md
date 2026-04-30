@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add option to force the configuration to be on top of the demo card.
 - [ENHANCEMENT] Update styling of sidebar to have some fixed components.
 - [FEATURE] Add "Last 5 Opened" pages to the sidebar footer.
 - [FEATURE] Add the possibility to mark routes as favorite.

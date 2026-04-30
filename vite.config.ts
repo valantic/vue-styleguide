@@ -1,7 +1,6 @@
 /* eslint-disable no-case-declarations */
 // Vitest instead of Vite was used because of the extended Interface.
 import vue from '@vitejs/plugin-vue';
-import path from 'node:path';
 import { defineConfig } from 'vite';
 import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 import { ViteUserConfigExport } from 'vitest/config';

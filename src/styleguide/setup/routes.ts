@@ -41,6 +41,15 @@ export default [
           alternativeTitles: ['Configuration', 'Mock'],
         },
       },
+      {
+        path: 'sg-test-page-settings-persistent',
+        name: 'sg-test-page-settings-persistent',
+        component: () => import('../demo-pages/general/r-page-settings-persistent.vue'),
+        meta: {
+          title: 'Page Settings Persistent',
+          alternativeTitles: ['Configuration', 'Mock', 'Persistence'],
+        },
+      },
     ],
   },
   {

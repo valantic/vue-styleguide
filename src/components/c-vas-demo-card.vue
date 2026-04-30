@@ -101,6 +101,7 @@
 
       #{$this}__sidebar {
         border-bottom: 1px solid variables.$vas-theme-border-color;
+        border-left: none;
       }
     }
 

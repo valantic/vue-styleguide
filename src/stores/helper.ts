@@ -47,3 +47,14 @@ export const setPersistentItem = (key: string, value: unknown): void => {
     console.error(`Failed to set persistent item with key "${key}"`, error);
   }
 };
+
+/**
+ * Method to remove all persistent keys with prefix from styleguide.
+ */
+export const clearAllPersistentItems = (): void => {
+  Object.keys(localStorage).forEach((key) => {
+    if (key.startsWith(prefix)) {
+      localStorage.removeItem(key);
+    }
+  });
+};

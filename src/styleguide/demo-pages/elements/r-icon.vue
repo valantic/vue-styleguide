@@ -74,13 +74,13 @@
 <script lang="ts">
   import type { Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
-  import spritePath from '@/assets/icons.svg';
-  import eVasIcon from '@/elements/e-vas-icon.vue';
-  import eVasInput from '@/elements/e-vas-input.vue';
-  import eVasSelect from '@/elements/e-vas-select.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
-  import type { SelectOptionType } from '@/types';
-  import type { Icon } from '@/types/icon';
+  import spritePath from '../../../assets/icons.svg';
+  import eVasIcon from '../../../elements/e-vas-icon.vue';
+  import eVasInput from '../../../elements/e-vas-input.vue';
+  import eVasSelect from '../../../elements/e-vas-select.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
+  import type { SelectOptionType } from '../../../types';
+  import type { Icon } from '../../../types/icon';
 
   type Setup = {
     input: Ref<HTMLInputElement | null>;
@@ -101,7 +101,7 @@
     variantOptions: SelectOptionType[];
   };
 
-  const icons = import.meta.glob('@/assets/icons/*.svg');
+  const icons = import.meta.glob('../../../assets/icons/*.svg');
 
   /**
    * Demo page for the icon element.
@@ -173,7 +173,7 @@
             break;
 
           case 'css':
-            template = `background-image: url('@/assets/icons.svg#${icon.name}');`;
+            template = `background-image: url('../../../assets/icons.svg#${icon.name}');`;
             break;
 
           case 'image':
@@ -221,8 +221,8 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../../../setup/scss/mixins';
+  @use '../../../setup/scss/variables';
 
   .r-icon {
     &__filter {

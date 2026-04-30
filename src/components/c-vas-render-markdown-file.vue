@@ -26,7 +26,7 @@
     props: {
       /**
        * The relative path to the markdown file to render.
-       * e.g. '@/../README.md'
+       * e.g. '../../README.md'
        */
       file: {
         type: String,
@@ -50,7 +50,7 @@
             try {
               // Vite dynamic import with a template literal.
               // Note: Paths must be somewhat static for Vite to resolve them.
-              // It's recommended to provide paths starting with @/ or relative to this component.
+              // It's recommended to provide paths relative to this component.
               const markdownModule = await import(/* @vite-ignore */ props.file);
 
               return markdownModule.VueComponent;

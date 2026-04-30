@@ -101,9 +101,9 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasModal from '@/components/c-vas-modal.vue';
-  import eVasButton from '@/elements/e-vas-button.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasModal from '../../../components/c-vas-modal.vue';
+  import eVasButton from '../../../elements/e-vas-button.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {}
   type Data = {

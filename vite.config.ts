@@ -7,7 +7,6 @@ import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 import { ViteUserConfigExport } from 'vitest/config';
 import viteBuilds from './vite.builds.json';
 
-
 interface Modes {
   [key: string]: {
     input: string[];
@@ -23,8 +22,7 @@ interface ViteBuilds {
 }
 
 export const alias = {
-  '@': path.resolve(import.meta.dirname, 'src/'),
-  'vue': 'vue/dist/vue.esm-bundler.js', // Was required because inline import of vue.esm-bundler.js resulted in TS issues.
+  vue: 'vue/dist/vue.esm-bundler.js', // Was required because inline import of vue.esm-bundler.js resulted in TS issues.
 };
 
 /**

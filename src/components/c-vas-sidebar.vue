@@ -109,29 +109,52 @@
           </c-vas-config>
         </div>
         <div :class="b('footer')">
-          <button
-            :class="b('hotkeys')"
-            type="button"
-            @click="isHotkeysModalOpen = true"
+          <!-- TODO: Store this in localstorage. We need to get an identifier from the projects though. -->
+          <div
+            v-if="vasSessionStore.state.lastOpenedRoutes.length"
+            :class="b('footer-row')"
           >
-            <e-vas-icon
-              icon="i-key-cmd--filled"
-              size="12"
-            />
-            Hotkeys
-          </button>
-          <a
-            :href="githubUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-            :class="b('github-link')"
-          >
-            <e-vas-icon
-              icon="i-tag"
-              size="12"
-            />
-            {{ version }}
-          </a>
+            <div :class="b('last-opened-label')">Last opened:</div>
+            <div :class="b('last-opened-wrapper')">
+              <button
+                v-for="routeItem in vasSessionStore.state.lastOpenedRoutes"
+                :key="routeItem.name"
+                :class="b('last-opened-item')"
+                :title="routeItem.meta?.title"
+                type="button"
+                @click="onNavigateToRoute(routeItem)"
+              >
+                {{ (routeItem.meta?.title as string)?.substring(0, 3) }}
+              </button>
+            </div>
+          </div>
+          <div :class="b('footer-row')">
+            <div :class="b('footer-info-wrapper')">
+              <button
+                :class="b('hotkeys')"
+                type="button"
+                @click="isHotkeysModalOpen = true"
+              >
+                <e-vas-icon
+                  icon="i-key-cmd--filled"
+                  size="12"
+                />
+                Hotkeys
+              </button>
+              <a
+                :href="githubUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                :class="b('github-link')"
+              >
+                <e-vas-icon
+                  icon="i-tag"
+                  size="12"
+                />
+                {{ version }}
+              </a>
+            </div>
+          </div>
         </div>
       </template>
     </c-vas-flyout>
@@ -144,6 +167,7 @@
   import type { Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import type { RouteRecordRaw } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
@@ -242,8 +266,12 @@
         }
       },
 
-      '$route': function () {
+      '$route': function (to, from) {
         this.onCloseFlyout();
+
+        if (from?.name) {
+          this.vasSessionStore.addLastOpenedRoute(from as RouteRecordRaw);
+        }
       },
 
       'vasSessionStore.state.hasPageConfig': {
@@ -360,6 +388,14 @@
           return;
         }
       },
+
+      onNavigateToRoute(route: RouteRecordRaw): void {
+        this.router.push({
+          name: route.name as string,
+          params: route.meta?.params as Record<string, string>,
+          query: route.meta?.query as Record<string, string | (string | null)[] | null>,
+        });
+      },
     },
     // render() {},
   });
@@ -377,6 +413,7 @@
   .c-vas-sidebar {
     $this: &;
     $c-vas-sidebar--button-size: 40px;
+    $c-vas-sidebar--header-height: 40px;
 
     position: fixed;
     inset: 0;
@@ -394,12 +431,17 @@
 
     &__header {
       flex: 0 0 auto;
-      background-color: rgba(variables.$vas-color-green-vue, 0.1);
-      height: 40px;
+      background-color: variables.$vas-color-grayscale--600;
+      height: $c-vas-sidebar--header-height;
+      position: sticky;
+      top: 0;
+      z-index: 5;
     }
 
     &__content-wrapper {
       padding: variables.$vas-spacing--12;
+      overflow-y: auto;
+      padding-top: 0;
 
       &--page-config {
         display: flex;
@@ -413,6 +455,10 @@
       margin-bottom: 10px;
       padding: variables.$vas-spacing--10 variables.$vas-spacing--6 0 variables.$vas-spacing--10;
       border-bottom: 1px solid variables.$vas-color-grayscale--500;
+      position: sticky;
+      top: $c-vas-sidebar--header-height;
+      z-index: 5;
+      background-color: variables.$vas-color-grayscale--1000;
 
       .e-vas-toggle-button {
         border-radius: 0;
@@ -421,16 +467,51 @@
     }
 
     &__footer {
-      flex: 0 0 auto;
       margin-top: auto;
       background-color: rgba(variables.$vas-color-green-vue, 0.1);
       width: 100%;
       padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
       font-size: variables.$vas-font-size--12;
       display: flex;
+      flex-direction: column;
+    }
+
+    &__footer-info-wrapper {
+      flex: 0 0 auto;
+      display: flex;
+      width: 100%;
       align-items: center;
       justify-content: space-between;
+    }
+
+    &__last-opened-wrapper {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: variables.$vas-spacing--4;
+      width: 100%;
+      margin-bottom: variables.$vas-spacing--8;
+    }
+
+    &__last-opened-label {
+      padding-bottom: variables.$vas-spacing--2;
+    }
+
+    &__last-opened-item {
+      background: variables.$vas-color-white;
+      border: 1px variables.$vas-color-grayscale--500 solid;
       height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+
+      &:hover {
+        background-color: variables.$vas-color-grayscale--900;
+      }
     }
 
     &__github-link {

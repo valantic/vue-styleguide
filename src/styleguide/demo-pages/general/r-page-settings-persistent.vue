@@ -53,7 +53,7 @@
   import eVasToggle from '@/elements/e-vas-toggle.vue';
   import lVasLayout from '@/layouts/l-vas-layout.vue';
 
-  const STORAGE_KEY = 'vas-page-settings-persistent';
+  const STORAGE_KEY = 'page-settings-persistent';
 
   /**
    * Styleguide page for persistent page settings.

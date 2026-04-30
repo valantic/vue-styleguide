@@ -14,11 +14,13 @@ export const setInitialData = (state: State, initialData: InitialData) => {
   });
 };
 
+const prefix = 'vas-';
+
 /**
  * Get item from persistent storage and parse it.
  */
 export const getPersistentItem = <T>(key: string, fallback: T): T => {
-  const item = localStorage.getItem(key);
+  const item = localStorage.getItem(`${prefix}${key}`);
 
   if (!item) {
     return fallback;
@@ -39,7 +41,7 @@ export const getPersistentItem = <T>(key: string, fallback: T): T => {
  */
 export const setPersistentItem = (key: string, value: unknown): void => {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`Failed to set persistent item with key "${key}"`, error);

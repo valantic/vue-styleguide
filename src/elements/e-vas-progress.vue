@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};

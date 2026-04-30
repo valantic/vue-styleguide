@@ -1,4 +1,4 @@
-import { DefineComponent, DirectiveBinding } from 'vue';
+import type { DefineComponent, DirectiveBinding } from 'vue';
 
 const outsideClickEventConfig = { passive: true, capture: true };
 

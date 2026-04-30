@@ -21,8 +21,9 @@
 
 <script lang="ts">
   import { defineComponent, toRefs } from 'vue';
-  import useFormStates, { FormStates, withProps } from '../compositions/form-states';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { FormStates } from '../compositions/form-states';
+  import useFormStates, { withProps } from '../compositions/form-states';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};

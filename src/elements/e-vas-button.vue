@@ -19,8 +19,9 @@
 </template>
 
 <script lang="ts">
-  import { ClassValue, PropType, defineComponent } from 'vue';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { ClassValue, PropType } from 'vue';
+  import { defineComponent } from 'vue';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};

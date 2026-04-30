@@ -32,9 +32,11 @@
 </template>
 
 <script lang="ts">
-  import { Ref, defineComponent, ref, toRefs } from 'vue';
-  import useFormStates, { FormStates, withProps } from '../compositions/form-states';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { Ref } from 'vue';
+  import { defineComponent, ref, toRefs } from 'vue';
+  import type { FormStates } from '../compositions/form-states';
+  import useFormStates, { withProps } from '../compositions/form-states';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   type Setup = FormStates & {
     input: Ref<HTMLInputElement | null>;

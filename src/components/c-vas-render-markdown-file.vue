@@ -8,7 +8,8 @@
 </template>
 
 <script lang="ts">
-  import { type Component, type Ref, defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
+  import type { Component, Ref } from 'vue';
+  import { defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
 
   type Setup = {
     markdownComponent: Ref<Component | null>;

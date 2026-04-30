@@ -13,8 +13,9 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { PropType } from 'vue';
+  import { defineComponent } from 'vue';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   type Data = {

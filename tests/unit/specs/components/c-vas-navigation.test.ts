@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils';
 import { describe, expect, test } from 'vitest';
 import { RouteRecordRaw } from 'vue-router';
-import cVasNavigation from '@/components/c-vas-navigation.vue';
-import vueBemCn from '@/plugins/vue-bem-cn';
+import cVasNavigation from '../../../../src/components/c-vas-navigation.vue';
+import vueBemCn from '../../../../src/plugins/vue-bem-cn';
 
 describe('c-vas-navigation', () => {
   const routes: RouteRecordRaw[] = [

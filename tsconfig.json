@@ -16,10 +16,7 @@
     "lib": ["es2021", "dom", "dom.iterable"],
     "typeRoots": ["./src/types", "./node_modules/@types/", "./node_modules/"],
     "types": ["node", "vite/client"],
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "baseUrl": "."
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx", "vite.config.ts"],
   "exclude": ["node_modules"]

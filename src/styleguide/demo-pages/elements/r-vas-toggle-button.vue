@@ -41,8 +41,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasToggleButton from '@/elements/e-vas-toggle-button.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import eVasToggleButton from '../../../elements/e-vas-toggle-button.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   type Data = {
     isActive: boolean;

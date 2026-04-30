@@ -35,11 +35,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '@/components/c-vas-demo-card.vue';
-  import eVasCheckbox from '@/elements/e-vas-checkbox.vue';
-  import eVasInput from '@/elements/e-vas-input.vue';
-  import eVasProgress from '@/elements/e-vas-progress.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
+  import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
+  import eVasInput from '../../../elements/e-vas-input.vue';
+  import eVasProgress from '../../../elements/e-vas-progress.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   type Data = {
     state: {

@@ -1,7 +1,7 @@
 /* eslint-disable id-length */
 import { mount } from '@vue/test-utils';
 import { describe, expect, test } from 'vitest';
-import vueBemCn from '@/plugins/vue-bem-cn';
+import vueBemCn from '../../../../../src/plugins/vue-bem-cn';
 
 describe('Check installation', () => {
   const comp = {

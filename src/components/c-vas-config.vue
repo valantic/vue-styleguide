@@ -1,5 +1,12 @@
 <template>
   <div :class="b()">
+    <e-vas-button
+      type="button"
+      @click="clearAllPersistedValues"
+    >
+      Remove persisted values
+    </e-vas-button>
+
     <slot name="globalSettings">
       <div :class="b('headline')">Global Settings</div>
       <c-vas-html-validation />
@@ -17,10 +24,9 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { clearAllPersistentItems } from '@/stores/helper';
+  import eVasButton from '@/elements/e-vas-button.vue';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
-
-  // type Setup = {};
-  // type Data = {};
 
   /**
    * Component for managing global settings.
@@ -29,35 +35,18 @@
     name: 'c-vas-config',
 
     components: {
+      eVasButton,
       cVasHtmlValidation,
     },
 
-    // props: {},
-    // emits: {},
-
-    // setup(): Setup {
-    //   return {};
-    // },
-    // data(): Data {
-    //   return {};
-    // },
-
-    // computed: {},
-    // watch: {},
-
-    // beforeCreate() {},
-    // created() {},
-    // beforeMount() {},
-    // mounted() {},
-    // beforeUpdate() {},
-    // updated() {},
-    // activated() {},
-    // deactivated() {},
-    // beforeUnmount() {},
-    // unmounted() {},
-
-    // methods: {},
-    // render() {},
+    methods: {
+      /**
+       * Clears all persistent items.
+       */
+      clearAllPersistedValues() {
+        clearAllPersistentItems();
+      },
+    },
   });
 </script>
 

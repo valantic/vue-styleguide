@@ -26,9 +26,10 @@
 </template>
 
 <script lang="ts">
-  import { CSSProperties, PropType, defineComponent } from 'vue';
+  import type { CSSProperties, PropType } from 'vue';
+  import { defineComponent } from 'vue';
   import spritePath from '../assets/icons.svg';
-  import { Icon } from '../types/icon';
+  import type { Icon } from '../types/icon';
 
   // type Setup = {};
 

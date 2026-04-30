@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
+  import type { PropType } from 'vue';
+  import { defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
-  import { Icon } from '../types/icon';
+  import type { Icon } from '../types/icon';
 
   // type Setup = {};
   // type Data = {};
@@ -60,8 +61,8 @@
        */
       isAnimated: {
         type: Boolean,
-        default: false
-      }
+        default: false,
+      },
     },
     // emits: [],
 

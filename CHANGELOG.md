@@ -2,6 +2,14 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Add helper and example for persisting page configuration.
+- [ENHANCEMENT] Add option to force the configuration to be on top of the demo card.
+- [ENHANCEMENT] Update styling of sidebar to have some fixed components.
+- [FEATURE] Add "Last 5 Opened" pages to the sidebar footer.
+- [FEATURE] Add the possibility to mark routes as favorite.
+- [ENHANCEMENT] Split type imports and value imports.
+- [ENHANCEMENT] Add the possibility to custom sort styleguide routes in the sidebar.
+
 ## v1.2.0
 
 - [ENHANCEMENT] Add reset styles to styleguide components l-vas-layout and c-vas-sidebar.

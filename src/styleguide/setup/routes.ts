@@ -1,6 +1,6 @@
 import { styleguideTestPages } from '@/styleguide/setup/public-demo-routes';
 import { styleguideRouterConfig } from '../../setup/globals';
-import { RouteMeta as StyleguideRouteMeta } from '../../types';
+import type { RouteMeta as StyleguideRouteMeta } from '../../types';
 
 declare module 'vue-router' {
   interface RouteMeta extends StyleguideRouteMeta {
@@ -19,6 +19,7 @@ export default [
     redirect: '/sg/sg-test-page-readme',
     meta: {
       title: 'Styleguide',
+      sortOrder: 1,
     },
     children: [
       styleguideTestPages.readme,
@@ -40,6 +41,15 @@ export default [
           alternativeTitles: ['Configuration', 'Mock'],
         },
       },
+      {
+        path: 'sg-test-page-settings-persistent',
+        name: 'sg-test-page-settings-persistent',
+        component: () => import('../demo-pages/general/r-page-settings-persistent.vue'),
+        meta: {
+          title: 'Page Settings Persistent',
+          alternativeTitles: ['Configuration', 'Mock', 'Persistence'],
+        },
+      },
     ],
   },
   {
@@ -48,6 +58,7 @@ export default [
     component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Components',
+      sortOrder: 3,
     },
     children: [
       {
@@ -56,6 +67,8 @@ export default [
         component: () => import('../demo-pages/components/r-navigation.vue'),
         meta: {
           title: 'Navigation',
+          sortOrder: 2,
+          favorite: true,
         },
       },
       {
@@ -64,6 +77,7 @@ export default [
         component: () => import('../demo-pages/components/r-vas-modal.vue'),
         meta: {
           title: 'Modal',
+          sortOrder: 1,
         },
       },
       {
@@ -90,6 +104,7 @@ export default [
     component: styleguideRouterConfig.routeChildrenComponentWrapper,
     meta: {
       title: 'Elements',
+      sortOrder: 2,
     },
     children: [
       {

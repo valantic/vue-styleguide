@@ -48,4 +48,46 @@ describe('c-vas-navigation', () => {
     expect(filteredRoutes[1]?.children?.[0]?.meta?.title).toBe('Sub A');
     expect(filteredRoutes[1]?.children?.[1]?.meta?.title).toBe('Sub B');
   });
+
+  test('should sort routes by sortOrder if provided', () => {
+    const customRoutes: RouteRecordRaw[] = [
+      {
+        path: '/b',
+        name: 'b',
+        meta: { title: 'B', sortOrder: 1 },
+        redirect: '',
+      },
+      {
+        path: '/a',
+        name: 'a',
+        meta: { title: 'A', sortOrder: 2 },
+        redirect: '',
+      },
+      {
+        path: '/c',
+        name: 'c',
+        meta: { title: 'C' }, // No sortOrder, should come after those with sortOrder
+        redirect: '',
+      },
+    ];
+
+    const wrapper = mount(cVasNavigation, {
+      global: {
+        plugins: [vueBemCn],
+        stubs: {
+          'c-vas-navigation-filter': true,
+          'c-vas-navigation-block': true,
+        },
+      },
+      props: {
+        routes: customRoutes,
+      },
+    });
+
+    const filteredRoutes = (wrapper.vm as unknown as { filteredRoutes: RouteRecordRaw[] }).filteredRoutes;
+
+    expect(filteredRoutes[0]?.meta?.title).toBe('B'); // sortOrder 1
+    expect(filteredRoutes[1]?.meta?.title).toBe('A'); // sortOrder 2
+    expect(filteredRoutes[2]?.meta?.title).toBe('C'); // No sortOrder
+  });
 });

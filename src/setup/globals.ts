@@ -1,4 +1,4 @@
-import { StyleguideRouterConfig } from '../types';
+import type { StyleguideRouterConfig } from '../types';
 
 /**
  * @type {object} Lookup table of available breakpoints.

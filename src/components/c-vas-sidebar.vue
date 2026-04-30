@@ -141,13 +141,15 @@
 </template>
 
 <script lang="ts">
-  import { Ref, defineComponent, ref } from 'vue';
+  import type { Ref } from 'vue';
+  import { defineComponent, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
-  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { VasSessionStore, useVasSessionStore } from '../stores/session';
+  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { VasSessionStore } from '../stores/session';
+  import { useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';

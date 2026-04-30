@@ -22,8 +22,9 @@
 </template>
 
 <script lang="ts">
-  import { PropType, defineComponent } from 'vue';
-  import { RouteRecordRaw } from 'vue-router';
+  import type { PropType } from 'vue';
+  import { defineComponent } from 'vue';
+  import type { RouteRecordRaw } from 'vue-router';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
   import cVasNavigationFilter from './c-vas-navigation-filter.vue';
 

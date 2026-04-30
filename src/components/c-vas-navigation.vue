@@ -141,11 +141,7 @@
       },
       activeIndex() {
         if (this.activeIndex >= 0) {
-          this.$nextTick(() => {
-            const element = document.querySelector('.c-vas-navigation-block__item--selected');
-
-            element?.scrollIntoView({ block: 'nearest' });
-          });
+          this.scrollSelectedIntoView();
         }
       },
     },
@@ -153,15 +149,32 @@
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    // mounted() {},
+    mounted() {
+      this.scrollSelectedIntoView();
+    },
+
     // beforeUpdate() {},
-    // updated() {},
+    updated() {
+      this.scrollSelectedIntoView();
+    },
     // activated() {},
     // deactivated() {},
     // beforeUnmount() {},
     // unmounted() {},
 
     methods: {
+      /**
+       * Scrolls the selected navigation item into view.
+       */
+      scrollSelectedIntoView(): void {
+        this.$nextTick(() => {
+          const element =
+            document.querySelector('.c-vas-navigation-block__item--selected') ||
+            document.querySelector('.c-vas-navigation-block__item--active');
+
+          element?.scrollIntoView({ block: 'nearest' });
+        });
+      },
       onKeyDownDown(): void {
         // Avoid under any circumstances that the active index of the list is -1, which could happen if you e.g.,
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.

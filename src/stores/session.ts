@@ -29,7 +29,7 @@ export const useVasSessionStore = () => {
         return;
       }
 
-      const existingIndex = state.lastOpenedRoutes.findIndex((r) => r.name === route.name);
+      const existingIndex = state.lastOpenedRoutes.findIndex((lastOpenedRoute) => lastOpenedRoute.name === route.name);
 
       if (existingIndex !== -1) {
         state.lastOpenedRoutes.splice(existingIndex, 1);

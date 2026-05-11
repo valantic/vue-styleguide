@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Remove npm audit.
+- [ENHANCEMENT] Remove @ alias for path in styleguide.
 - [ENHANCEMENT] Add helper and example for persisting page configuration.
 - [ENHANCEMENT] Add option to force the configuration to be on top of the demo card.
 - [ENHANCEMENT] Update styling of sidebar to have some fixed components.

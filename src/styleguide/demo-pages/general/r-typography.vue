@@ -103,7 +103,7 @@
 <script lang="ts">
   import { faker } from '@faker-js/faker';
   import { defineComponent } from 'vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   export default defineComponent({
     name: 'r-typography',

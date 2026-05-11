@@ -1,6 +1,11 @@
 import { mount } from '@vue/test-utils';
 import { afterAll, beforeAll, describe, expect, test, vi } from 'vitest';
-import { Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '@/plugins/viewport';
+import {
+  Viewport,
+  addViewportResizeEvent,
+  removeViewportResizeEvent,
+  useViewport,
+} from '../../../../src/plugins/viewport';
 
 describe('Viewport Plugin', () => {
   const comp = {

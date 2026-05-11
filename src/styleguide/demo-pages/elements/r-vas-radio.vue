@@ -35,10 +35,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '@/components/c-vas-demo-card.vue';
-  import eVasCheckbox from '@/elements/e-vas-checkbox.vue';
-  import eVasRadio from '@/elements/e-vas-radio.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
+  import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
+  import eVasRadio from '../../../elements/e-vas-radio.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   type Option = { label: string; value: string | number; name: string };
   type Data = {

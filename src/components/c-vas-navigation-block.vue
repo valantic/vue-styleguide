@@ -250,7 +250,8 @@
       overflow-wrap: break-word;
       text-wrap: wrap;
       margin-top: variables.$vas-spacing--4;
-      scroll-margin-bottom: variables.$vas-spacing--8;
+      scroll-margin-bottom: 100px;
+      scroll-margin-top: 100px;
 
       &--selected {
         outline: 2px dashed variables.$vas-color-grayscale--300;

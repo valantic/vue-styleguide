@@ -33,7 +33,7 @@ Find available versions here: [https://github.com/valantic/vue-styleguide/tags](
 
 ```
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v1.2.0",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v1.3.0",
   }
 ```
 

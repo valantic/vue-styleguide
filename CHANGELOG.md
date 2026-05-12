@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v1.3.0
+
 - [ENHANCEMENT] Hovering a "Last opened" button highlights the corresponding navigation item with the selected state.
 - [FEATURE] Improved navigation items.
 - [BUGFIX] Fix memory leak in `e-vas-multiselect`: `onClick` listener was registered with `{ capture: true }` in `mounted` but never removed; `beforeUnmount` was removing a different listener (`handleOutsideClick`). Consolidated to a single `onDocumentClick` handler.

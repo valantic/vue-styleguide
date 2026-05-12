@@ -456,13 +456,11 @@
 
     &__tabs {
       display: flex;
-      margin-bottom: 10px;
-      padding: variables.$vas-spacing--10 variables.$vas-spacing--6 0 variables.$vas-spacing--10;
       border-bottom: 1px solid variables.$vas-color-grayscale--500;
       position: sticky;
       top: $c-vas-sidebar--header-height;
       z-index: 5;
-      background-color: variables.$vas-color-grayscale--1000;
+      background-color: variables.$vas-color-grayscale--800;
 
       .e-vas-toggle-button {
         border-radius: 0;
@@ -478,6 +476,7 @@
       font-size: variables.$vas-font-size--12;
       display: flex;
       flex-direction: column;
+      border: 1px solid variables.$vas-color-grayscale--600;
     }
 
     &__footer-info-wrapper {
@@ -502,7 +501,7 @@
 
     &__last-opened-item {
       background: variables.$vas-color-white;
-      border: 1px variables.$vas-color-grayscale--500 solid;
+      border: 1px solid variables.$vas-color-grayscale--500;
       height: 25px;
       display: flex;
       align-items: center;

@@ -118,7 +118,10 @@
       },
 
       selectedRouteName(): string {
-        return this.hoveredRouteName || (this.flattenedRoutes[this.activeIndex]?.name as string) || '';
+        const activeRoute = this.flattenedRoutes[this.activeIndex];
+        const activeKey = (activeRoute?.meta?.selectionKey as string) || (activeRoute?.name as string) || '';
+
+        return this.hoveredRouteName || activeKey;
       },
 
       flattenedRoutes(): RouteRecordRaw[] {
@@ -162,9 +165,7 @@
     },
 
     // beforeUpdate() {},
-    updated() {
-      this.scrollSelectedIntoView();
-    },
+    // updated() {},
     // activated() {},
     // deactivated() {},
     // beforeUnmount() {},
@@ -184,7 +185,7 @@
         });
       },
       onKeyDownDown(): void {
-        // Avoid under any circumstances that the active index of the list is -1, which could happen if you e.g.,
+        // Avoid it under any circumstances that the active index of the list is -1, which could happen if you e.g.,
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.
         let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
 
@@ -238,7 +239,8 @@
           if (route.meta?.favorite) {
             favorites.push({
               ...route,
-              children: [], // Clear children to avoid nesting in the Favorites group
+              meta: { ...route.meta, selectionKey: `__fav__${route.name as string}` },
+              children: [],
             });
           }
 
@@ -355,7 +357,19 @@
       top: 0;
       background-color: variables.$vas-color-white;
       z-index: 5;
-      padding: variables.$vas-spacing--12 0;
+      padding: variables.$vas-spacing--12 0 variables.$vas-spacing--4 0;
+      box-shadow: 0 12px 7px rgba(variables.$vas-color-white, 0.4);
+
+      :after {
+        content: '';
+        position: absolute;
+        background-color: variables.$vas-color-white;
+        top: -12px;
+        left: -12px;
+        width: calc(100% + 24px);
+        height: calc(100% + 12px);
+        z-index: -1;
+      }
     }
 
     &__menu {

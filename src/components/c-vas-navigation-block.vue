@@ -49,6 +49,7 @@
     router: ReturnType<typeof useRouter>;
     route: ReturnType<typeof useRoute>;
   };
+
   type Data = {
     expandedItems: string[];
   };
@@ -135,7 +136,9 @@
       },
 
       isSelected(): boolean {
-        return this.selectedRouteName === this.routeUrlName;
+        const key = (this.routeDefinition.meta?.selectionKey as string) ?? this.routeUrlName;
+
+        return this.selectedRouteName === key;
       },
     },
     watch: {
@@ -247,6 +250,7 @@
       overflow-wrap: break-word;
       text-wrap: wrap;
       margin-top: variables.$vas-spacing--4;
+      scroll-margin-bottom: variables.$vas-spacing--8;
 
       &--selected {
         outline: 2px dashed variables.$vas-color-grayscale--300;

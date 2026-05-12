@@ -37,6 +37,7 @@
   },
   "lastDependencyUpdate": "12.03.2026",
   "scripts": {
+    "version": "node scripts/update-release-files.js && git add README.md CHANGELOG.md",
     "release": "npm version patch -m 'Release %s' && git push --follow-tags",
     "release:minor": "npm version minor -m 'Release %s' && git push --follow-tags",
     "release:major": "npm version major -m 'Release %s' && git push --follow-tags",

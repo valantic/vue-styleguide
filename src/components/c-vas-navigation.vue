@@ -52,6 +52,14 @@
         type: Array as PropType<readonly RouteRecordRaw[]>,
         default: () => [],
       },
+
+      /**
+       * Route name to highlight as selected, e.g. when hovering a last-opened button.
+       */
+      hoveredRouteName: {
+        type: String,
+        default: '',
+      },
     },
     // emits: {},
 
@@ -110,7 +118,7 @@
       },
 
       selectedRouteName(): string {
-        return (this.flattenedRoutes[this.activeIndex]?.name as string) ?? '';
+        return this.hoveredRouteName || (this.flattenedRoutes[this.activeIndex]?.name as string) || '';
       },
 
       flattenedRoutes(): RouteRecordRaw[] {

@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Hovering a "Last opened" button highlights the corresponding navigation item with the selected state.
 - [FEATURE] Improved navigation items.
 - [ENHANCEMENT] Remove npm audit.
 - [ENHANCEMENT] Remove @ alias for path in styleguide.

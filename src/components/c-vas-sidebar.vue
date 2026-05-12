@@ -92,6 +92,7 @@
           <c-vas-navigation
             v-if="showMenu"
             :routes="router.options.routes"
+            :hovered-route-name="hoveredLastOpenedRouteName"
           />
           <c-vas-config v-else>
             <template
@@ -123,6 +124,8 @@
                 :title="routeItem.meta?.title"
                 type="button"
                 @click="onNavigateToRoute(routeItem)"
+                @mouseenter="hoveredLastOpenedRouteName = routeItem.name as string"
+                @mouseleave="hoveredLastOpenedRouteName = ''"
               >
                 {{ (routeItem.meta?.title as string)?.substring(0, 3) }}
               </button>
@@ -205,6 +208,7 @@
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
+    hoveredLastOpenedRouteName: string;
   };
 
   export default defineComponent({
@@ -244,6 +248,7 @@
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
+        hoveredLastOpenedRouteName: '',
       };
     },
     computed: {

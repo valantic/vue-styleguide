@@ -190,7 +190,9 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      document.removeEventListener('keydown', this.onKeyDown);
+    },
     // unmounted() {},
 
     methods: {
@@ -240,6 +242,7 @@
        */
       onAfterEnter(): void {
         this.$emit('open');
+        document.removeEventListener('keydown', this.onKeyDown);
         document.addEventListener('keydown', this.onKeyDown);
       },
     },

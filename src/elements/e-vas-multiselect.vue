@@ -270,12 +270,6 @@
             this.searchField?.focus();
           });
         }
-
-        if (this.isOpen) {
-          document.addEventListener('click', this.handleOutsideClick);
-        } else {
-          document.removeEventListener('click', this.handleOutsideClick);
-        }
       },
     },
 
@@ -283,20 +277,20 @@
     // created() {},
     // beforeMount() {},
     mounted() {
-      document.addEventListener('click', this.onClick, { capture: true });
+      document.addEventListener('click', this.onDocumentClick, { capture: true });
     },
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
     // deactivated() {},
     beforeUnmount() {
-      document.removeEventListener('click', this.handleOutsideClick);
+      document.removeEventListener('click', this.onDocumentClick, { capture: true });
     },
     // unmounted() {},
 
     methods: {
-      onClick(event: MouseEvent): void {
-        if (this.$el !== event.target && !this.$el.contains(event.target)) {
+      onDocumentClick(event: MouseEvent): void {
+        if (this.isOpen && !this.$el.contains(event.target)) {
           this.close();
         }
       },
@@ -309,15 +303,6 @@
         this.isOpen = false;
         this.searchTerm = '';
         this.$emit('close', this.internalValue);
-      },
-
-      /**
-       * Hides the overlay if the user clicks somewhere else than inside the container.
-       */
-      handleOutsideClick(event: Event): void {
-        if (!this.container?.contains(event.target as Node)) {
-          this.close();
-        }
       },
     },
     // render() {},

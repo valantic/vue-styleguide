@@ -35,7 +35,7 @@ function isClickOnExcludedRefElement(
           return node.contains(eventTarget);
         }
 
-        return node.$el.constructor(eventTarget);
+        return node.$el.contains(eventTarget);
       });
     }
 

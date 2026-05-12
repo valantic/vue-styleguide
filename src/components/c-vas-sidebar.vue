@@ -205,6 +205,7 @@
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
+    animationTimeout: ReturnType<typeof setTimeout> | null;
   };
 
   export default defineComponent({
@@ -244,6 +245,7 @@
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
+        animationTimeout: null,
       };
     },
     computed: {
@@ -270,17 +272,23 @@
         this.onCloseFlyout();
 
         if (from?.name) {
-          this.vasSessionStore.addLastOpenedRoute(from as RouteRecordRaw);
+          this.vasSessionStore.addLastOpenedRoute(from);
         }
       },
 
       'vasSessionStore.state.hasPageConfig': {
         handler(value) {
+          if (this.animationTimeout) {
+            clearTimeout(this.animationTimeout);
+            this.animationTimeout = null;
+          }
+
           if (value) {
             this.isToggleButtonAnimated = true;
 
-            setTimeout(() => {
+            this.animationTimeout = setTimeout(() => {
               this.isToggleButtonAnimated = false;
+              this.animationTimeout = null;
             }, 600);
           }
         },
@@ -300,6 +308,10 @@
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleHotKeys);
+
+      if (this.animationTimeout) {
+        clearTimeout(this.animationTimeout);
+      }
     },
     // unmounted() {},
 

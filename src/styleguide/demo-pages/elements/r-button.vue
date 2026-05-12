@@ -104,11 +104,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '@/components/c-vas-demo-card.vue';
-  import cVasDemoTable from '@/components/c-vas-demo-table.vue';
-  import eVasButton from '@/elements/e-vas-button.vue';
-  import eVasCheckbox from '@/elements/e-vas-checkbox.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
+  import cVasDemoTable from '../../../components/c-vas-demo-table.vue';
+  import eVasButton from '../../../elements/e-vas-button.vue';
+  import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
   type Data = {

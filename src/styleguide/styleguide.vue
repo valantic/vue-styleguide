@@ -18,9 +18,9 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasSidebar from '@/components/c-vas-sidebar.vue';
-  import sFooter from '@/styleguide/components/s-footer.vue';
-  import sHeader from '@/styleguide/components/s-header.vue';
+  import cVasSidebar from '../components/c-vas-sidebar.vue';
+  import sFooter from './components/s-footer.vue';
+  import sHeader from './components/s-header.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -67,9 +67,8 @@
 </script>
 
 <style lang="scss">
-  @use 'sass:map';
-  @use '@/setup/scss/variables';
-  @use '@/setup/scss/mixins';
+  @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   // stylelint-disable selector-max-id
   html,

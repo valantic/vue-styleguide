@@ -7,6 +7,8 @@
 - [BUGFIX] Fix `c-vas-modal` keydown listener accumulating on repeated open/close cycles; listeners are now deduped in `onAfterEnter` and cleaned up in `beforeUnmount`.
 - [BUGFIX] Fix animation timeout in `c-vas-sidebar` not being cancelled before re-firing; stored timeout ID is now cleared in both the watcher and `beforeUnmount`.
 - [BUGFIX] Remove incorrect `as RouteRecordRaw` cast in `c-vas-sidebar` route watcher; `addLastOpenedRoute` already accepts `RouteLocationNormalized`.
+- [ENHANCEMENT] Remove npm audit.
+- [ENHANCEMENT] Remove @ alias for path in styleguide.
 - [ENHANCEMENT] Add helper and example for persisting page configuration.
 - [ENHANCEMENT] Add option to force the configuration to be on top of the demo card.
 - [ENHANCEMENT] Update styling of sidebar to have some fixed components.

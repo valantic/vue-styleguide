@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import bemCn from '@/plugins/vue-bem-cn/src/bem-cn';
-import { DEFAULT_CONFIG, DEFAULT_DELIMITERS } from '@/plugins/vue-bem-cn/src/globals';
+import bemCn from '../../../../../src/plugins/vue-bem-cn/src/bem-cn';
+import { DEFAULT_CONFIG, DEFAULT_DELIMITERS } from '../../../../../src/plugins/vue-bem-cn/src/globals';
 import { block, blocks, delimiters, delimitersTest, elements, hyphenate } from './testingEntitys';
 
 const config = {

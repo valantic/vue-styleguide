@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { hyphenate, isNumber, isPObject, isString } from '@/plugins/vue-bem-cn/src/utils';
+import { hyphenate, isNumber, isPObject, isString } from '../../../../../src/plugins/vue-bem-cn/src/utils';
 
 describe('isString', () => {
   test('Expected false for undefined', () => {

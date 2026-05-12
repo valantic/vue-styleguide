@@ -47,11 +47,11 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { getPersistentItem, setPersistentItem } from '@/stores/helper';
-  import cVasDemoCard from '@/components/c-vas-demo-card.vue';
-  import eVasButton from '@/elements/e-vas-button.vue';
-  import eVasToggle from '@/elements/e-vas-toggle.vue';
-  import lVasLayout from '@/layouts/l-vas-layout.vue';
+  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
+  import eVasButton from '../../../elements/e-vas-button.vue';
+  import eVasToggle from '../../../elements/e-vas-toggle.vue';
+  import lVasLayout from '../../../layouts/l-vas-layout.vue';
+  import { getPersistentItem, setPersistentItem } from '../../../stores/helper';
 
   const STORAGE_KEY = 'page-settings-persistent';
 

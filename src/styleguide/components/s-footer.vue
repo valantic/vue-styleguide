@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasIcon from '@/elements/e-vas-icon.vue';
+  import eVasIcon from '../../elements/e-vas-icon.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -55,8 +55,8 @@
 </script>
 
 <style lang="scss">
-  @use '@/setup/scss/mixins';
-  @use '@/setup/scss/variables';
+  @use '../../setup/scss/mixins';
+  @use '../../setup/scss/variables';
 
   .s-footer {
     border-top: 1px solid variables.$vas-color-grayscale--600;

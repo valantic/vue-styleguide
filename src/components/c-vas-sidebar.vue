@@ -166,8 +166,8 @@
 <script lang="ts">
   import type { Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
-  import { useRouter } from 'vue-router';
   import type { RouteRecordRaw } from 'vue-router';
+  import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
@@ -439,9 +439,8 @@
     }
 
     &__content-wrapper {
-      padding: variables.$vas-spacing--12;
       overflow-y: auto;
-      padding-top: 0;
+      padding: 0 variables.$vas-spacing--12 variables.$vas-spacing--12;
 
       &--page-config {
         display: flex;
@@ -489,7 +488,7 @@
       grid-template-columns: repeat(5, 1fr);
       gap: variables.$vas-spacing--4;
       width: 100%;
-      margin-bottom: variables.$vas-spacing--8;
+      margin-bottom: variables.$vas-spacing--12;
     }
 
     &__last-opened-label {
@@ -499,7 +498,7 @@
     &__last-opened-item {
       background: variables.$vas-color-white;
       border: 1px variables.$vas-color-grayscale--500 solid;
-      height: 40px;
+      height: 25px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -508,6 +507,7 @@
       color: inherit;
       font-family: inherit;
       font-size: inherit;
+      border-radius: 6px;
 
       &:hover {
         background-color: variables.$vas-color-grayscale--900;

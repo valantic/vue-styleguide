@@ -1,5 +1,8 @@
 <template>
-  <div :class="b('', { expanded: isExpanded })">
+  <div
+    :class="b('', { expanded: isExpanded })"
+    :style="{ '--vas-nav-depth': depth }"
+  >
     <component
       :is="hasChildren ? 'button' : 'a'"
       :href="!hasChildren ? getLinkHref : undefined"
@@ -28,6 +31,7 @@
           :key="childRoute.name"
           :route-definition="childRoute"
           :selected-route-name="selectedRouteName"
+          :depth="depth + 1"
           :class="b('child')"
         />
       </div>
@@ -72,6 +76,14 @@
       selectedRouteName: {
         type: String,
         default: '',
+      },
+
+      /**
+       * The nesting depth of this block, used to calculate indentation.
+       */
+      depth: {
+        type: Number,
+        default: 0,
       },
     },
     // emits: {},
@@ -217,26 +229,24 @@
     }
 
     &__item {
+      $padding-left: calc(#{variables.$vas-spacing--12} * var(--vas-nav-depth, 0));
+
       position: relative;
       display: flex;
       align-items: center;
       outline: none;
       max-width: 100%;
       width: 100%;
-      padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 variables.$vas-spacing--8;
+      padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 $padding-left;
+      font-size: 15px;
+      line-height: 20px;
       text-decoration: none;
       color: variables.$vas-font-color--text !important; // stylelint-disable-line declaration-no-important
       cursor: pointer;
-      min-height: 32px;
       border-radius: 2px;
       overflow-wrap: break-word;
       text-wrap: wrap;
       margin-top: variables.$vas-spacing--4;
-
-      &--active,
-      &--active-parent {
-        font-weight: bold;
-      }
 
       &--selected {
         outline: 2px dashed variables.$vas-color-grayscale--300;
@@ -250,10 +260,13 @@
         position: sticky;
         top: 0;
         margin-top: 0;
-        border-bottom: 1px dashed variables.$vas-color-grayscale--700;
         display: grid;
+        border-bottom: 1px dashed variables.$vas-color-grayscale--400;
         background-color: variables.$vas-color-grayscale--1000;
         z-index: 1;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
 
         #{$this}__logo,
         #{$this}__icon {
@@ -262,6 +275,8 @@
       }
 
       &--active {
+        font-weight: bold;
+
         #{$this}__overlay {
           opacity: 1;
         }
@@ -303,12 +318,6 @@
       right: -1px;
       top: variables.$vas-spacing--10;
       transform: rotate(-90deg);
-    }
-
-    &__children {
-      #{$this}__item {
-        padding-left: 20px;
-      }
     }
 
     // Transition

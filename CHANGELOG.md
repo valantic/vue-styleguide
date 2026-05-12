@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Hovering a "Last opened" button highlights the corresponding navigation item with the selected state.
+- [FEATURE] Improved navigation items.
 - [BUGFIX] Fix memory leak in `e-vas-multiselect`: `onClick` listener was registered with `{ capture: true }` in `mounted` but never removed; `beforeUnmount` was removing a different listener (`handleOutsideClick`). Consolidated to a single `onDocumentClick` handler.
 - [BUGFIX] Fix `v-outside-click` directive calling `.constructor()` instead of `.contains()` when a ref resolves to an array of component instances, causing exclude-ref checks to always pass.
 - [BUGFIX] Fix `c-vas-modal` keydown listener accumulating on repeated open/close cycles; listeners are now deduped in `onAfterEnter` and cleaned up in `beforeUnmount`.

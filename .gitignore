@@ -27,3 +27,4 @@ report.*.json
 
 # TODO will be available soon.
 .junie/
+.claude/

@@ -45,7 +45,7 @@
 
         const routes: RouteRecordRaw[] = [];
 
-        sections.forEach((section) => {
+        sections.forEach((section, sectionIndex) => {
           const children: RouteRecordRaw[] = [];
 
           Array.from({ length: 10 }).forEach((_, index) => {
@@ -58,6 +58,17 @@
               },
             });
           });
+
+          children[0]!.children = [
+            {
+              path: `${section}-subchild-${sectionIndex}`,
+              name: `${section}-subchild-${sectionIndex}`,
+              component: { template: '<div>Child Content</div>' },
+              meta: {
+                title: 'Sub Child'
+              },
+            },
+          ];
 
           routes.push({
             ...this.getParentNode(section),

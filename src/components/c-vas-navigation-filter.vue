@@ -5,7 +5,7 @@
       :class="b('input')"
       name="filter"
       type="search"
-      placeholder="Search …"
+      placeholder="Search Menu ..."
       autofocus
       select-on-focus
       @click.stop
@@ -99,6 +99,7 @@
       position: relative;
       width: 100%;
       padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
+      font-size: 16px;
     }
 
     &__button-clear {

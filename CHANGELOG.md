@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [FEATURE] Improved navigation items.
 - [ENHANCEMENT] Remove npm audit.
 - [ENHANCEMENT] Remove @ alias for path in styleguide.
 - [ENHANCEMENT] Add helper and example for persisting page configuration.

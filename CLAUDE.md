@@ -6,26 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 `@valantic/vue-styleguide` is a Vue 3 library that provides a DX utility sidebar (`c-vas-sidebar`) for use during development in consumer Vue 3 projects. It acts as a testing harness with navigation, config toggles, and demo page infrastructure. The sidebar is only ever loaded in `DEV` mode (see `src/main.ts`).
 
-## Commands
-
-```bash
-npm run dev          # Start Vite dev server (serves the internal demo app)
-npm run build        # Build app (mode=app, output to dist/app/)
-npm run lint         # ESLint + Stylelint + TypeScript check (all three)
-npm run lint:eslint  # ESLint only
-npm run lint:stylelint  # Stylelint only
-npm run tsc          # TypeScript check (vue-tsc)
-npm run test         # Lint + unit tests (non-watch)
-npm run test:unit    # Vitest unit tests (watch mode by default)
-npm run build:icons  # Regenerate SVG sprite + update TS icon type union
-npm run prettier     # Format all files
-```
-
-Run a single test file:
-```bash
-npx vitest tests/unit/specs/components/c-vas-navigation.test.ts
-```
-
 ## Architecture
 
 ### Public API (`src/index.ts`)
@@ -44,10 +24,7 @@ Only four things are exported for consumer projects:
   - `setup/public-demo-routes.ts` — `styleguideTestPages`, exported as part of the public API
   - `demo-pages/` — route components (`r-*`) for the dev server
 - `src/stores/` — plain reactive stores (no Pinia/Vuex); uses `vue`'s `reactive()`
-  - `session.ts` — tracks last 5 opened routes and whether current page has a config
-  - `helper.ts` — localStorage helpers with `vas-` key prefix
 - `src/setup/` — app bootstrapping: plugins, directives, global styles, breakpoints
-- `src/plugins/vue-bem-cn/` — custom BEM class name plugin; exposed via `b()` in all components
 - `src/types/` — shared TypeScript types (`RouteMeta`, `Route`, `StyleguideRouterConfig`, etc.)
 - `tests/unit/specs/` — Vitest tests using `@vue/test-utils`
 
@@ -56,6 +33,8 @@ Only four things are exported for consumer projects:
 - Demo/route page components use `r-*` prefix
 - All components use the **Options API** (`defineComponent`) — not the Composition API
 - BEM class names are generated with `this.b(block, modifiers)` via the `vue-bem-cn` plugin
+- Fully respect the boilerplate conventions in [blueprints folder](./blueprints)
+- For components always keep the same structure and sorting of the lifecycle hooks as defined in the [c-component.vue](./blueprints/c-component.vue) also keep the commented out functions.
 
 ### Styling
 - SCSS with BEM; global design tokens in `src/setup/scss/_variables.scss`
@@ -67,3 +46,6 @@ SVG sprite lives in `src/assets/icons/`. After adding/removing SVG files, run `n
 
 ### Build modes
 Build modes are defined in `vite.builds.json`. The only current mode is `app` (entry: `src/main.ts`). The `vite.config.ts` throws if an unknown mode is passed.
+
+### Testing
+- For all tasks, run all tests with `npm run test` and always fix the issues.

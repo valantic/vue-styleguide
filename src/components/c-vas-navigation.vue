@@ -360,7 +360,7 @@
       padding: variables.$vas-spacing--12 0 variables.$vas-spacing--4 0;
       box-shadow: 0 12px 7px rgba(variables.$vas-color-white, 0.4);
 
-      :after {
+      &::after {
         content: '';
         position: absolute;
         background-color: variables.$vas-color-white;

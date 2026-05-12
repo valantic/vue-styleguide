@@ -208,11 +208,8 @@
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
-<<<<<<< HEAD
     hoveredLastOpenedRouteName: string;
-=======
     animationTimeout: ReturnType<typeof setTimeout> | null;
->>>>>>> main
   };
 
   export default defineComponent({
@@ -252,11 +249,8 @@
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
-<<<<<<< HEAD
         hoveredLastOpenedRouteName: '',
-=======
         animationTimeout: null,
->>>>>>> main
       };
     },
     computed: {

@@ -327,7 +327,7 @@
       padding: variables.$vas-form-field-padding;
       border: 1px solid variables.$vas-form-border-color;
       border-radius: variables.$vas-form-border-radius;
-      background-color: variables.$vas-color-grayscale--1000;
+      background-color: var(--vas-theme-background-content);
       cursor: pointer;
 
       &:focus {
@@ -342,7 +342,7 @@
     }
 
     &__field-wrapper--open {
-      border-color: variables.$vas-color-grayscale--400;
+      border-color: var(--vas-theme-border-color);
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
 
@@ -351,12 +351,12 @@
       }
 
       + #{$this}__options-wrapper {
-        border-color: variables.$vas-color-grayscale--400;
+        border-color: var(--vas-theme-border-color);
       }
     }
 
     &__field-wrapper--disabled {
-      color: variables.$vas-color-grayscale--500;
+      color: var(--vas-theme-text-color-muted);
       pointer-events: none;
     }
 
@@ -381,7 +381,7 @@
       overflow: auto;
       border: 1px solid variables.$vas-form-border-color;
       border-top: 0;
-      background-color: variables.$vas-color-grayscale--1000;
+      background-color: var(--vas-theme-background-content);
       transform-origin: top;
     }
 

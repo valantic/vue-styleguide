@@ -83,15 +83,15 @@
     $this: &;
     $e-vas-toggle-size: 18px;
 
-    --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--500};
-    --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--0};
+    --e-vas-toggle-background-color: var(--vas-theme-border-color);
+    --e-vas-toggle-toggle-color: var(--vas-theme-text-color);
 
     display: flex;
     justify-content: space-between;
 
     &--active {
-      --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--0};
-      --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--1000};
+      --e-vas-toggle-background-color: var(--vas-theme-text-color);
+      --e-vas-toggle-toggle-color: var(--vas-theme-background-content);
     }
 
     &__slider {

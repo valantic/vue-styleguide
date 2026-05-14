@@ -292,9 +292,10 @@
       position: relative;
       width: 100%;
       padding: variables.$vas-form-field-padding;
-      border: 1px solid variables.$vas-color-grayscale--500;
+      border: 1px solid var(--vas-theme-border-color);
       border-radius: variables.$vas-form-border-radius;
-      color: variables.$vas-color-grayscale--0;
+      background-color: var(--vas-theme-background-content);
+      color: var(--vas-theme-text-color);
       font-family: variables.$vas-font-family--primary;
       font-size: variables.$vas-font-size--16;
 
@@ -325,21 +326,21 @@
     &__field::-webkit-input-placeholder {
       // WebKit, Blink, Edge
       opacity: 1;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
       font-family: variables.$vas-font-family--primary;
     }
 
     &__field:-moz-placeholder {
       // Mozilla Firefox 4 to 18
       opacity: 1;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
       font-family: variables.$vas-font-family--primary;
     }
 
     &__field::placeholder {
       // Most modern browsers support this now
       opacity: 1;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
       font-family: variables.$vas-font-family--primary;
     }
 
@@ -349,7 +350,7 @@
       left: variables.$vas-spacing--6;
       display: flex;
       transform: translateY(-50%);
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
       font-size: variables.$vas-font-size--14;
     }
 
@@ -364,14 +365,14 @@
 
     &__slot {
       display: flex;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
       font-size: variables.$vas-font-size--14;
     }
 
     // active
     &:not(&--border-0) &__field:active,
     &--active:not(&--border-0) &__field {
-      border: 1px solid variables.$vas-color-grayscale--400;
+      border: 1px solid var(--vas-theme-border-color);
     }
 
     // focus
@@ -382,13 +383,13 @@
 
     &:not(&--border-0) &__field:focus,
     &--focus:not(&--border-0) &__field {
-      border: 1px solid variables.$vas-color-grayscale--400;
+      border: 1px solid var(--vas-theme-border-color);
     }
 
     // hover
     &:not(&--border-0) &__field:hover,
     &--hover:not(&--border-0) &__field {
-      border: 1px solid variables.$vas-color-grayscale--400;
+      border: 1px solid var(--vas-theme-border-color);
     }
 
     // disabled
@@ -398,18 +399,18 @@
     &--disabled:not(&--border-0) &__field,
     &--disabled &__field:hover,
     &--disabled:not(&--border-0) &__field:hover {
-      border-color: variables.$vas-color-grayscale--600;
-      background-color: variables.$vas-color-grayscale--1000;
-      color: variables.$vas-color-grayscale--400;
+      border-color: var(--vas-theme-border-color);
+      background-color: var(--vas-theme-background-content);
+      color: var(--vas-theme-text-color-muted);
 
       &::placeholder {
-        color: variables.$vas-color-grayscale--400;
+        color: var(--vas-theme-text-color-muted);
       }
     }
 
     &--disabled {
       #{$this}__slot {
-        color: variables.$vas-color-grayscale--300;
+        color: var(--vas-theme-text-color-muted);
       }
     }
 

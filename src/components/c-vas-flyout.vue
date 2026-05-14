@@ -119,11 +119,11 @@
     flex-direction: column;
     width: variables.$vas-flyout--width;
     height: 100%;
-    background-color: variables.$vas-color-grayscale--1000;
+    background-color: var(--vas-theme-background-content);
     border-inline-start-width: 0;
     border-inline-end-width: 0;
     border-inline-style: solid;
-    border-inline-color: variables.$vas-color-grayscale--600;
+    border-inline-color: var(--vas-theme-border-color);
     transition-property: transform, opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease;

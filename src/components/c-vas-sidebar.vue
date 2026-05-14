@@ -2,7 +2,7 @@
   <div
     ref="container"
     class="vas-styleguide-reset"
-    :class="b('', modifiers)"
+    :class="[b('', modifiers), themeClass]"
   >
     <c-vas-flyout
       :is-open="isPageConfigFlyoutOpen"
@@ -177,6 +177,8 @@
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
+  import type { VasSettingsStore } from '../stores/settings';
+  import { useVasSettingsStore } from '../stores/settings';
   import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
@@ -194,6 +196,7 @@
 
   type Setup = {
     vasSessionStore: VasSessionStore;
+    vasSettingsStore: VasSettingsStore;
     router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
     version: string;
@@ -233,6 +236,7 @@
     setup(): Setup {
       return {
         vasSessionStore: useVasSessionStore(),
+        vasSettingsStore: useVasSettingsStore(),
         router: useRouter(),
         container: ref(),
         version: packageJson.version,
@@ -256,6 +260,10 @@
     computed: {
       isFlyoutOpen(): boolean {
         return this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen;
+      },
+
+      themeClass(): string {
+        return `vas-theme--${this.vasSettingsStore.state.theme}`;
       },
 
       modifiers(): Modifiers {
@@ -438,17 +446,18 @@
     width: 100%;
     height: 100vh;
     pointer-events: none;
-    background-color: rgba(variables.$vas-color-grayscale--0, 0);
+    background-color: transparent;
+    color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
     font-size: variables.$vas-font-size--16;
 
     &--is-flyout-open {
-      background-color: rgba(variables.$vas-color-grayscale--0, 0.25);
+      background-color: var(--vas-theme-overlay);
     }
 
     &__header {
       flex: 0 0 auto;
-      background-color: variables.$vas-color-grayscale--600;
+      background-color: var(--vas-theme-border-color);
       height: $c-vas-sidebar--header-height;
       position: sticky;
       top: 0;
@@ -468,11 +477,11 @@
 
     &__tabs {
       display: flex;
-      border-bottom: 1px solid variables.$vas-color-grayscale--500;
+      border-bottom: 1px solid var(--vas-theme-border-color);
       position: sticky;
       top: $c-vas-sidebar--header-height;
       z-index: 5;
-      background-color: variables.$vas-color-grayscale--800;
+      background-color: var(--vas-theme-background-surface);
 
       .e-vas-toggle-button {
         border-radius: 0;
@@ -482,13 +491,13 @@
 
     &__footer {
       margin-top: auto;
-      background-color: rgba(variables.$vas-color-green-vue, 0.1);
+      background-color: var(--vas-theme-footer-bg);
       width: 100%;
       padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
       font-size: variables.$vas-font-size--12;
       display: flex;
       flex-direction: column;
-      border: 1px solid variables.$vas-color-grayscale--600;
+      border: 1px solid var(--vas-theme-border-color);
     }
 
     &__footer-info-wrapper {
@@ -512,8 +521,8 @@
     }
 
     &__last-opened-item {
-      background: variables.$vas-color-white;
-      border: 1px solid variables.$vas-color-grayscale--500;
+      background: var(--vas-theme-background-content);
+      border: 1px solid var(--vas-theme-border-color);
       height: 25px;
       display: flex;
       align-items: center;
@@ -526,7 +535,7 @@
       border-radius: 6px;
 
       &:hover {
-        background-color: variables.$vas-color-grayscale--900;
+        background-color: var(--vas-theme-background-surface-hover);
       }
     }
 
@@ -545,14 +554,14 @@
       align-items: center;
       gap: variables.$vas-spacing--6;
       padding: variables.$vas-spacing--4;
-      border: 1px solid variables.$vas-color-grayscale--400;
+      border: 1px solid var(--vas-theme-border-color);
       border-radius: 2px;
-      background-color: rgba(variables.$vas-color-grayscale--1000, 0);
+      background-color: transparent;
       transition: background-color 0.2s ease-in-out;
       cursor: pointer;
 
       &:hover {
-        background-color: rgba(variables.$vas-color-grayscale--1000, 0.4);
+        background-color: var(--vas-theme-background-surface);
       }
     }
 

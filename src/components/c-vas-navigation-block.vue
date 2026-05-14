@@ -18,7 +18,12 @@
     >
       {{ routeTitle }}
       <span :class="b('overlay')"></span>
-      <span :class="b('icon')"></span>
+      <span :class="b('icon')">
+        <e-vas-icon
+          icon="i-chevron--down"
+          size="12"
+        />
+      </span>
     </component>
 
     <transition name="collapse">
@@ -44,6 +49,7 @@
   import { defineComponent } from 'vue';
   import type { RouteRecordRaw } from 'vue-router';
   import { useRoute, useRouter } from 'vue-router';
+  import eVasIcon from '../elements/e-vas-icon.vue';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
@@ -59,8 +65,9 @@
    */
   export default defineComponent({
     name: 'c-vas-navigation-block',
-
-    // components: {},
+    components: {
+      eVasIcon,
+    },
 
     props: {
       /**
@@ -244,7 +251,7 @@
       font-size: 15px;
       line-height: 20px;
       text-decoration: none;
-      color: variables.$vas-font-color--text !important; // stylelint-disable-line declaration-no-important
+      color: var(--vas-theme-text-color) !important; // stylelint-disable-line declaration-no-important
       cursor: pointer;
       border-radius: 2px;
       overflow-wrap: break-word;
@@ -266,8 +273,8 @@
         top: 0;
         margin-top: 0;
         display: grid;
-        border-bottom: 1px dashed variables.$vas-color-grayscale--400;
-        background-color: variables.$vas-color-grayscale--1000;
+        border-bottom: 1px dashed var(--vas-theme-border-color);
+        background-color: var(--vas-theme-background-content);
         z-index: 1;
         font-size: 13px;
         font-weight: bold;
@@ -306,7 +313,7 @@
       position: absolute;
       transition: 0.2s ease-in-out;
       transition-property: opacity, color;
-      background-color: rgba(variables.$vas-color-grayscale--0, 0.08);
+      background-color: var(--vas-theme-highlight);
     }
 
     &__icon {
@@ -314,10 +321,6 @@
       width: 12px;
       height: 12px;
       margin-right: variables.$vas-spacing--8;
-      background-image: url('../assets/icons/i-chevron--down.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
       transition: transform 0.2s ease;
       position: absolute;
       right: -1px;

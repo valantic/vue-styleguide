@@ -111,7 +111,7 @@
       align-items: center;
       height: 100%;
       cursor: pointer;
-      background-color: rgba(variables.$vas-color-grayscale--0, 0.08);
+      background-color: var(--vas-theme-highlight);
       padding: variables.$vas-spacing--2;
     }
 

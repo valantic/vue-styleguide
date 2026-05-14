@@ -224,9 +224,9 @@
     &__select:disabled,
     &--disabled &__select,
     &--disabled &__select:hover {
-      border-color: variables.$vas-color-grayscale--600;
+      border-color: var(--vas-theme-border-color);
       cursor: default;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
     }
 
     &__progress-container {

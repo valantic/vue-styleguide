@@ -155,10 +155,10 @@
       padding-left: variables.$vas-spacing--26;
 
       &:hover {
-        color: variables.$vas-color-grayscale--0;
+        color: var(--vas-theme-text-color);
 
         &::before {
-          border-color: variables.$vas-color-grayscale--0;
+          border-color: var(--vas-theme-text-color);
         }
       }
 
@@ -174,20 +174,20 @@
       }
 
       &::before {
-        border: 1px solid variables.$vas-color-grayscale--400;
+        border: 1px solid var(--vas-theme-border-color);
       }
 
       &::after {
         opacity: 0;
         border: 1px solid transparent;
-        background: variables.$vas-color-grayscale--0;
+        background: var(--vas-theme-text-color);
         transform: scale(0);
         transition: transform 0.1s ease-in-out;
       }
     }
 
     &__field:checked + &__label {
-      color: variables.$vas-color-grayscale--0;
+      color: var(--vas-theme-text-color);
 
       &::after {
         opacity: 1;
@@ -197,10 +197,10 @@
 
     &__field:disabled + &__label {
       cursor: not-allowed;
-      color: variables.$vas-color-grayscale--400;
+      color: var(--vas-theme-text-color-muted);
 
       &::before {
-        border-color: variables.$vas-color-grayscale--500;
+        border-color: var(--vas-theme-border-color);
       }
     }
 
@@ -208,7 +208,7 @@
       cursor: not-allowed;
 
       &::after {
-        background: variables.$vas-color-grayscale--500;
+        background: var(--vas-theme-border-color);
       }
     }
   }

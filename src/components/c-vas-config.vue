@@ -7,6 +7,9 @@
       Remove persisted values
     </e-vas-button>
 
+    <div :class="b('headline')">Appearance</div>
+    <e-vas-theme-selector />
+
     <slot name="globalSettings">
       <div :class="b('headline')">Global Settings</div>
       <c-vas-html-validation />
@@ -25,6 +28,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasButton from '../elements/e-vas-button.vue';
+  import eVasThemeSelector from '../elements/e-vas-theme-selector.vue';
   import { clearAllPersistentItems } from '../stores/helper';
   import cVasHtmlValidation from './c-vas-html-validation.vue';
 
@@ -36,6 +40,7 @@
 
     components: {
       eVasButton,
+      eVasThemeSelector,
       cVasHtmlValidation,
     },
 

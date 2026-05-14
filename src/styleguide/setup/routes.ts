@@ -50,6 +50,15 @@ export default [
           alternativeTitles: ['Configuration', 'Mock', 'Persistence'],
         },
       },
+      {
+        path: 'sg-test-page-theme-preview',
+        name: 'sg-test-page-theme-preview',
+        component: () => import('../demo-pages/general/r-theme-preview.vue'),
+        meta: {
+          title: 'Theme Preview',
+          alternativeTitles: ['Dark mode', 'Light mode', 'Colors'],
+        },
+      },
     ],
   },
   {

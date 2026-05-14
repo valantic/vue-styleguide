@@ -258,9 +258,9 @@
   @use '../setup/scss/variables';
 
   .e-vas-button {
-    --e-vas-button-font-color: #{variables.$vas-theme-text-color};
-    --e-vas-button-border-color: #{variables.$vas-color-grayscale--600};
-    --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+    --e-vas-button-font-color: var(--vas-theme-text-color);
+    --e-vas-button-border-color: var(--vas-theme-button-bg);
+    --e-vas-button-background-color: var(--vas-theme-button-bg);
 
     position: relative;
     display: inline-flex;
@@ -285,14 +285,14 @@
 
     &--hover:not(&--touch),
     &:hover:not(&--touch) {
-      --e-vas-button-border-color: #{variables.$vas-color-grayscale--700};
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
+      --e-vas-button-border-color: var(--vas-theme-button-bg-hover);
+      --e-vas-button-background-color: var(--vas-theme-button-bg-hover);
     }
 
     &--focus,
     &:focus {
-      --e-vas-button-border-color: #{variables.$vas-color-grayscale--700};
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+      --e-vas-button-border-color: var(--vas-theme-button-bg-hover);
+      --e-vas-button-background-color: var(--vas-theme-button-bg);
 
       outline: none;
     }
@@ -306,7 +306,7 @@
 
     &:active:not([disabled]),
     &--active:not([disabled]) {
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+      --e-vas-button-background-color: var(--vas-theme-button-bg);
 
       position: relative;
     }
@@ -361,38 +361,38 @@
 
   .e-vas-button--variant-text {
     &.e-vas-button--color-default {
-      --e-vas-button-font-color: #{variables.$vas-theme-text-color};
+      --e-vas-button-font-color: var(--vas-theme-text-color);
       --e-vas-button-border-color: transparent;
       --e-vas-button-background-color: transparent;
 
       &.e-vas-button:hover:not(.e-vas-button--touch),
       &.e-vas-button--hover:not(.e-vas-button--touch) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
+        --e-vas-button-background-color: var(--vas-theme-background-surface-hover);
       }
 
       &.e-vas-button:active:not([disabled]),
       &.e-vas-button--active:not([disabled]) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
     }
 
     &.e-vas-button--color-primary {
-      --e-vas-button-font-color: #{variables.$vas-theme-text-color};
+      --e-vas-button-font-color: var(--vas-theme-text-color);
       --e-vas-button-border-color: transparent;
       --e-vas-button-background-color: transparent;
 
       &.e-vas-button:hover:not(.e-vas-button--touch),
       &.e-vas-button--hover:not(.e-vas-button--touch) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--500};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
 
       &.e-vas-button:active:not([disabled]),
       &.e-vas-button--active:not([disabled]) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--500};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
     }
   }

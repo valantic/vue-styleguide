@@ -102,7 +102,7 @@
     align-items: center;
     text-align: right;
     padding: variables.$vas-spacing--2 variables.$vas-spacing--10;
-    background: variables.$vas-color-grayscale--500;
+    background: var(--vas-theme-border-color);
     pointer-events: none;
     transition:
       color variables.$vas-transition--default,
@@ -110,12 +110,12 @@
     width: 65px;
 
     &--is-open {
-      background-color: variables.$vas-color-grayscale--800;
+      background-color: var(--vas-theme-background-surface);
     }
 
     &__icon {
       grid-area: viewport-icon;
-      color: variables.$vas-color-grayscale--0;
+      color: var(--vas-theme-text-color);
       margin-right: variables.$vas-spacing--4;
     }
 

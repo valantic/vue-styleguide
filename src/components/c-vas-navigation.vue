@@ -355,15 +355,14 @@
       margin-bottom: variables.$vas-spacing--8;
       position: sticky;
       top: 0;
-      background-color: variables.$vas-color-white;
       z-index: 5;
       padding: variables.$vas-spacing--12 0 variables.$vas-spacing--4 0;
-      box-shadow: 0 12px 7px rgba(variables.$vas-color-white, 0.4);
+      box-shadow: 0 12px 7px rgba((var(--vas-theme-background-content)), 0.4);
 
       &::after {
         content: '';
         position: absolute;
-        background-color: variables.$vas-color-white;
+        background-color: var(--vas-theme-background-content);
         top: -12px;
         left: -12px;
         width: calc(100% + 24px);

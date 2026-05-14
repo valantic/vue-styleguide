@@ -194,8 +194,8 @@
       font-size: 14px;
       font-weight: 600;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--6;
-      background-color: variables.$vas-color-grayscale--800;
-      border: 1px solid variables.$vas-color-grayscale--600;
+      background-color: var(--vas-theme-background-surface);
+      border: 1px solid var(--vas-theme-border-color);
       border-radius: 5px;
     }
   }

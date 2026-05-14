@@ -301,7 +301,7 @@
       width: 100%;
       height: 100vh;
       overflow-y: auto;
-      background-color: variables.$vas-color-grayscale--1000;
+      background-color: var(--vas-theme-background-content);
       justify-self: center;
 
       @include mixins.media(md) {

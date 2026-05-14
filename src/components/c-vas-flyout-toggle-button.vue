@@ -103,7 +103,7 @@
 
     &:hover:not(&--active) {
       &.e-vas-toggle-button:hover {
-        background-color: variables.$vas-color-grayscale--1000;
+        background-color: var(--vas-theme-background-content);
       }
     }
   }

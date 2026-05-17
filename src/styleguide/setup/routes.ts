@@ -105,6 +105,22 @@ export default [
           title: 'Flyout',
         },
       },
+      {
+        path: 'sg-test-page-vas-panel-right',
+        name: 'sg-test-page-vas-panel-right',
+        component: () => import('../demo-pages/components/r-vas-panel-right.vue'),
+        meta: {
+          title: 'Panel Right',
+        },
+      },
+      {
+        path: 'sg-test-page-vas-panel-action',
+        name: 'sg-test-page-vas-panel-action',
+        component: () => import('../demo-pages/components/r-vas-panel-action.vue'),
+        meta: {
+          title: 'Panel Action',
+        },
+      },
     ],
   },
   {

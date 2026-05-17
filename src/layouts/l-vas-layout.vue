@@ -120,8 +120,8 @@
       @include mixins.container;
 
       height: 100%;
-      border-right: 1px solid variables.$vas-color-grayscale--700;
-      border-left: 1px solid variables.$vas-color-grayscale--700;
+      border-right: 1px solid var(--vas-theme-border-color);
+      border-left: 1px solid var(--vas-theme-border-color);
     }
 
     &--padding-default {

@@ -317,7 +317,7 @@
       display: flex;
       justify-content: space-between;
       gap: variables.$vas-spacing--20;
-      border-bottom: 1px solid variables.$vas-color-grayscale--600;
+      border-bottom: 1px solid var(--vas-theme-border-color);
     }
 
     &__title {
@@ -341,7 +341,7 @@
     }
 
     &__footer {
-      border-top: 1px solid variables.$vas-color-grayscale--600;
+      border-top: 1px solid var(--vas-theme-border-color);
     }
   }
 
@@ -349,7 +349,7 @@
   .c-vas-modal--fade-animation-leave-active {
     &,
     &::backdrop {
-      transition: opacity 150ms ease-in-out;
+      transition: opacity variables.$vas-transition-duration--default ease-in-out;
     }
   }
 

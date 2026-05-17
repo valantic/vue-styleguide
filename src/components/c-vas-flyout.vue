@@ -158,7 +158,7 @@
       top: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: end;
       height: 100%;
       pointer-events: none;
       align-items: flex-end;
@@ -184,7 +184,6 @@
 
       &--direction-left {
         left: 100%;
-        justify-content: end;
       }
     }
 

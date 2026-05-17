@@ -157,6 +157,11 @@
     -webkit-appearance: none;
   }
 
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
   input[type='date'],
   input[type='time'],
   input[type='datetime-local'],
@@ -175,5 +180,25 @@
   ::-webkit-file-upload-button {
     font: inherit; // 2
     -webkit-appearance: button; // 1
+  }
+}
+
+.vas-styleguide-reset {
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #valantic-vue-styleguide,
+  .vas-styleguide-reset {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important; // stylelint-disable-line declaration-no-important
+      animation-iteration-count: 1 !important; // stylelint-disable-line declaration-no-important
+      transition-duration: 0.01ms !important; // stylelint-disable-line declaration-no-important
+    }
   }
 }

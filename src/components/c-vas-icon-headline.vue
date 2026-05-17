@@ -91,6 +91,6 @@
     gap: variables.$vas-spacing--6;
     color: variables.$vas-font-color--text;
     font-size: variables.$vas-font-size--18;
-    font-weight: 900;
+    font-weight: variables.$vas-font-weight--bold;
   }
 </style>

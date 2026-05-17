@@ -1,17 +1,12 @@
 <template>
-  <div :class="b('', { isOpen })">
+  <div :class="b()">
     <e-vas-icon
       :class="b('icon')"
       :icon="viewportIcon"
-      size="18"
+      size="14"
     />
-    <div :class="b('name')">
-      {{ viewport.currentViewport }}
-    </div>
-    <div :class="b('dimensions', { isOpen })">
-      <div :class="b('dimension')">{{ viewport.viewportWidth }}w</div>
-      <div :class="b('dimension')">{{ viewport.viewportHeight }}h</div>
-    </div>
+    <span :class="b('name')">{{ viewport.currentViewport }}</span>
+    <span :class="b('dimensions')">{{ viewport.viewportWidth }}w · {{ viewport.viewportHeight }}h</span>
   </div>
 </template>
 
@@ -28,7 +23,7 @@
   // type Data = {};
 
   /**
-   * Viewport info overlay.
+   * Inline viewport info strip showing breakpoint name and dimensions.
    */
   export default defineComponent({
     name: 'c-vas-viewport-info',
@@ -36,15 +31,7 @@
       eVasIcon,
     },
 
-    props: {
-      /**
-       * Define open state.
-       */
-      isOpen: {
-        type: Boolean,
-        default: false,
-      },
-    },
+    // props: {},
     // emits: [],
 
     setup(): Setup {
@@ -90,54 +77,28 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/mixins';
   @use '../setup/scss/variables';
 
   .c-vas-viewport-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'viewport-icon viewport-name'
-      'viewport-dimension viewport-dimension';
+    display: flex;
     align-items: center;
-    text-align: right;
-    padding: variables.$vas-spacing--2 variables.$vas-spacing--10;
-    background: var(--vas-theme-border-color);
+    gap: variables.$vas-spacing--4;
     pointer-events: none;
-    transition:
-      color variables.$vas-transition--default,
-      background-color variables.$vas-transition--default;
-    width: 65px;
-
-    &--is-open {
-      background-color: var(--vas-theme-background-surface);
-    }
+    font-size: variables.$vas-font-size--12;
+    padding: 0 variables.$vas-spacing--6;
 
     &__icon {
-      grid-area: viewport-icon;
+      flex-shrink: 0;
       color: var(--vas-theme-text-color);
-      margin-right: variables.$vas-spacing--4;
     }
 
     &__name {
-      grid-area: viewport-name;
-      font-weight: bold;
+      font-weight: variables.$vas-font-weight--semi-bold;
+      text-transform: uppercase;
     }
 
     &__dimensions {
-      margin-top: variables.$vas-spacing--4;
-      grid-area: viewport-dimension;
-      height: 0;
-      overflow: hidden;
-      transition: height variables.$vas-transition--default;
-
-      &--is-open {
-        height: auto;
-      }
-    }
-
-    &__dimension {
-      font-size: variables.$vas-font-size--14;
+      color: var(--vas-theme-text-color-muted);
     }
   }
 </style>

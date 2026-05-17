@@ -19,17 +19,15 @@
         </div>
       </template>
       <template #content>
-        <div :class="b('page-config-flyout-content')">
-          <c-vas-icon-headline
-            :class="b('header')"
-            icon="i-page-setting"
-            text="Page Configuration"
-          />
-          <div
-            id="teleportDestinationPageConfigFlyout"
-            :class="b('content-wrapper', { pageConfig: true })"
-          ></div>
-        </div>
+        <c-vas-icon-headline
+          :class="b('header')"
+          icon="i-page-setting"
+          text="Page Configuration"
+        />
+        <div
+          id="teleportDestinationPageConfigFlyout"
+          :class="b('content-wrapper')"
+        ></div>
       </template>
     </c-vas-flyout>
 
@@ -38,127 +36,38 @@
       direction="right"
     >
       <template #controls>
-        <c-vas-viewport-info :is-open="isMainFlyoutOpen" />
-
-        <div :class="b('actions')">
+        <div
+          v-show="!isMainFlyoutOpen"
+          :class="b('actions')"
+        >
           <c-vas-flyout-toggle-button
-            :active="showConfig && isMainFlyoutOpen"
+            :active="isMainFlyoutOpen"
             icon="i-cog-wheel"
-            @click="onToggleMainFlyout(false, true)"
+            @click="onToggleMainFlyout()"
           />
           <c-vas-flyout-toggle-button
-            :active="showMenu && isMainFlyoutOpen"
+            :active="isMainFlyoutOpen"
             icon="i-text"
-            @click="onToggleMainFlyout(true)"
+            @click="onToggleMainFlyout()"
           />
         </div>
       </template>
 
-      <template
-        v-if="isMainFlyoutOpen"
-        #content
-      >
-        <c-vas-icon-headline
-          :class="b('header')"
-          icon="i-vuejs"
-          text="Styleguide"
-        />
-
-        <div :class="b('tabs')">
-          <e-vas-toggle-button
-            :active="showMenu"
-            @click="onToggleMainFlyout(true)"
+      <template #content>
+        <c-vas-panel-right @open-hotkeys-modal="isHotkeysModalOpen = true">
+          <template
+            v-if="$slots.globalSettings"
+            #globalSettings
           >
-            <e-vas-icon
-              icon="i-text"
-              size="20"
-            />
-            Menu
-          </e-vas-toggle-button>
-
-          <e-vas-toggle-button
-            :active="showConfig"
-            @click="onToggleMainFlyout(false, true)"
+            <slot name="globalSettings"></slot>
+          </template>
+          <template
+            v-if="$slots.customSettings"
+            #customSettings
           >
-            <e-vas-icon
-              icon="i-cog-wheel"
-              size="20"
-            />
-            Settings
-          </e-vas-toggle-button>
-        </div>
-
-        <div :class="b('content-wrapper')">
-          <c-vas-navigation
-            v-if="showMenu"
-            :routes="router.options.routes"
-            :hovered-route-name="hoveredLastOpenedRouteName"
-          />
-          <c-vas-config v-else>
-            <template
-              v-if="$slots.globalSettings"
-              #globalSettings
-            >
-              <slot name="globalSettings"></slot>
-            </template>
-            <template
-              v-if="$slots.customSettings"
-              #customSettings
-            >
-              <slot name="customSettings"></slot>
-            </template>
-          </c-vas-config>
-        </div>
-        <div :class="b('footer')">
-          <!-- TODO: Store this in localstorage. We need to get an identifier from the projects though. -->
-          <div
-            v-if="vasSessionStore.state.lastOpenedRoutes.length"
-            :class="b('footer-row')"
-          >
-            <div :class="b('last-opened-label')">Last opened:</div>
-            <div :class="b('last-opened-wrapper')">
-              <button
-                v-for="routeItem in vasSessionStore.state.lastOpenedRoutes"
-                :key="routeItem.name"
-                :class="b('last-opened-item')"
-                :title="routeItem.meta?.title"
-                type="button"
-                @click="onNavigateToRoute(routeItem)"
-                @mouseenter="hoveredLastOpenedRouteName = routeItem.name as string"
-                @mouseleave="hoveredLastOpenedRouteName = ''"
-              >
-                {{ (routeItem.meta?.title as string)?.substring(0, 3) }}
-              </button>
-            </div>
-          </div>
-          <div :class="b('footer-row')">
-            <div :class="b('footer-info-wrapper')">
-              <button
-                :class="b('hotkeys')"
-                type="button"
-                @click="isHotkeysModalOpen = true"
-              >
-                <e-vas-icon
-                  icon="i-key-cmd--filled"
-                  size="12"
-                />
-                Hotkeys
-              </button>
-              <a
-                :href="githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                :class="b('github-link')"
-              >
-                <e-vas-icon
-                  icon="i-tag"
-                  size="12"
-                />
-                {{ version }}
-              </a>
-            </div>
-          </div>
-        </div>
+            <slot name="customSettings"></slot>
+          </template>
+        </c-vas-panel-right>
       </template>
     </c-vas-flyout>
 
@@ -169,23 +78,16 @@
 <script lang="ts">
   import type { Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
-  import type { RouteRecordRaw } from 'vue-router';
-  import { useRouter } from 'vue-router';
-  import packageJson from '../../package.json';
-  import eVasIcon from '../elements/e-vas-icon.vue';
-  import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
   import type { VasSettingsStore } from '../stores/settings';
   import { useVasSettingsStore } from '../stores/settings';
-  import cVasConfig from './c-vas-config.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasIconHeadline from './c-vas-icon-headline.vue';
-  import cVasNavigation from './c-vas-navigation.vue';
-  import cVasViewportInfo from './c-vas-viewport-info.vue';
+  import cVasPanelRight from './c-vas-panel-right.vue';
 
   type KeyEvent = Event & {
     metaKey: boolean;
@@ -197,21 +99,15 @@
   type Setup = {
     vasSessionStore: VasSessionStore;
     vasSettingsStore: VasSettingsStore;
-    router: ReturnType<typeof useRouter>;
     container: Ref<HTMLDivElement | null | undefined>;
-    version: string;
-    githubUrl: string;
   };
 
   type Data = {
     isMainFlyoutOpen: boolean;
     isPageConfigFlyoutOpen: boolean;
-    showMenu: boolean;
-    showConfig: boolean;
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
-    hoveredLastOpenedRouteName: string;
     animationTimeout: ReturnType<typeof setTimeout> | null;
   };
 
@@ -219,15 +115,11 @@
     name: 'c-vas-sidebar',
 
     components: {
-      eVasToggleButton,
       cVasFlyoutToggleButton,
-      cVasViewportInfo,
       cVasFlyout,
       cVasHotkeyModal,
-      eVasIcon,
       cVasIconHeadline,
-      cVasNavigation,
-      cVasConfig,
+      cVasPanelRight,
     },
     // props: {},
 
@@ -237,10 +129,7 @@
       return {
         vasSessionStore: useVasSessionStore(),
         vasSettingsStore: useVasSettingsStore(),
-        router: useRouter(),
         container: ref(),
-        version: packageJson.version,
-        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
       };
     },
 
@@ -248,12 +137,9 @@
       return {
         isMainFlyoutOpen: false,
         isPageConfigFlyoutOpen: false,
-        showMenu: false,
-        showConfig: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
-        hoveredLastOpenedRouteName: '',
         animationTimeout: null,
       };
     },
@@ -335,14 +221,8 @@
         this.isHotkeysModalOpen = false;
       },
 
-      onToggleMainFlyout(
-        showMenu: boolean = false,
-        showConfig: boolean = false,
-        isMainFlyoutOpen: boolean = true,
-      ): void {
+      onToggleMainFlyout(isMainFlyoutOpen: boolean = !this.isMainFlyoutOpen): void {
         this.isMainFlyoutOpen = isMainFlyoutOpen;
-        this.showMenu = showMenu;
-        this.showConfig = showConfig;
       },
 
       onTogglePageConfigFlyout(): void {
@@ -364,7 +244,7 @@
           const timeSinceLastPress = currentTime - this.lastShiftPress;
 
           if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
-            this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
+            this.onToggleMainFlyout(!this.isMainFlyoutOpen);
             this.lastShiftPress = 0; // Reset.
 
             return;
@@ -375,7 +255,7 @@
           return;
         }
 
-        // Reset Shift timer on any other key press.
+        // Reset the Shift timer on any other key press.
         this.lastShiftPress = 0;
 
         // ESC for all flyout.
@@ -386,21 +266,17 @@
           return;
         }
 
-        // Hotkeys for main flyout.
+        // Hotkeys for the main flyout.
         if (event.metaKey && event.shiftKey && event.key === 'o') {
           event.preventDefault();
-          const openFlyout = !this.isMainFlyoutOpen || !this.showMenu;
-
-          this.onToggleMainFlyout(true, false, openFlyout);
+          this.onToggleMainFlyout();
 
           return;
         }
 
         if (event.metaKey && event.shiftKey && event.key === ':') {
           event.preventDefault();
-          const openFlyout = !this.isMainFlyoutOpen || !this.showConfig;
-
-          this.onToggleMainFlyout(false, true, openFlyout);
+          this.onToggleMainFlyout();
 
           return;
         }
@@ -412,14 +288,6 @@
 
           return;
         }
-      },
-
-      onNavigateToRoute(route: RouteRecordRaw): void {
-        this.router.push({
-          name: route.name as string,
-          params: route.meta?.params as Record<string, string>,
-          query: route.meta?.query as Record<string, string | (string | null)[] | null>,
-        });
       },
     },
     // render() {},
@@ -437,7 +305,6 @@
 
   .c-vas-sidebar {
     $this: &;
-    $c-vas-sidebar--button-size: 40px;
     $c-vas-sidebar--header-height: 40px;
 
     position: fixed;
@@ -465,104 +332,11 @@
     }
 
     &__content-wrapper {
-      overflow-y: auto;
-      padding: 0 variables.$vas-spacing--12 variables.$vas-spacing--12;
-
-      &--page-config {
-        display: flex;
-        flex-direction: column;
-        gap: variables.$vas-spacing--10;
-      }
-    }
-
-    &__tabs {
-      display: flex;
-      border-bottom: 1px solid var(--vas-theme-border-color);
-      position: sticky;
-      top: $c-vas-sidebar--header-height;
-      z-index: 5;
-      background-color: var(--vas-theme-background-surface);
-
-      .e-vas-toggle-button {
-        border-radius: 0;
-        font-size: variables.$vas-font-size--12;
-      }
-    }
-
-    &__footer {
-      margin-top: auto;
-      background-color: var(--vas-theme-footer-bg);
-      width: 100%;
-      padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
-      font-size: variables.$vas-font-size--12;
       display: flex;
       flex-direction: column;
-      border: 1px solid var(--vas-theme-border-color);
-    }
-
-    &__footer-info-wrapper {
-      flex: 0 0 auto;
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__last-opened-wrapper {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: variables.$vas-spacing--4;
-      width: 100%;
-      margin-bottom: variables.$vas-spacing--12;
-    }
-
-    &__last-opened-label {
-      padding-bottom: variables.$vas-spacing--2;
-    }
-
-    &__last-opened-item {
-      background: var(--vas-theme-background-content);
-      border: 1px solid var(--vas-theme-border-color);
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      border-radius: 6px;
-
-      &:hover {
-        background-color: var(--vas-theme-background-surface-hover);
-      }
-    }
-
-    &__github-link {
-      display: flex;
-      align-items: center;
-      gap: variables.$vas-spacing--6;
-
-      .e-vas-icon {
-        transform: scaleX(-1);
-      }
-    }
-
-    &__hotkeys {
-      display: flex;
-      align-items: center;
-      gap: variables.$vas-spacing--6;
-      padding: variables.$vas-spacing--4;
-      border: 1px solid var(--vas-theme-border-color);
-      border-radius: 2px;
-      background-color: transparent;
-      transition: background-color 0.2s ease-in-out;
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--vas-theme-background-surface);
-      }
+      gap: variables.$vas-spacing--10;
+      overflow-y: auto;
+      padding: 0 variables.$vas-spacing--12 variables.$vas-spacing--12;
     }
 
     &__actions {

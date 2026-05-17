@@ -1,5 +1,9 @@
 <template>
-  <span :class="b(componentModifiers)">
+  <span
+    :class="b(componentModifiers)"
+    role="status"
+    aria-live="polite"
+  >
     <span :class="b('inner')">
       <span :class="b('bubble')"></span>
       <span :class="b('bubble')"></span>
@@ -152,6 +156,12 @@
   .e-vas-progress--negative {
     .e-vas-progress__bubble {
       background-color: variables.$vas-color-grayscale--1000;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .e-vas-progress__bubble {
+      animation: none;
     }
   }
 </style>

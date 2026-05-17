@@ -16,13 +16,17 @@
       type="button"
       @click.stop="onReset"
     >
-      <span :class="b('close-icon')"></span>
+      <e-vas-icon
+        icon="i-close"
+        size="8"
+      />
     </button>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasInput from '../elements/e-vas-input.vue';
 
   // type Setup = {}
@@ -32,6 +36,7 @@
     name: 'c-vas-navigation-filter',
 
     components: {
+      eVasIcon,
       eVasInput,
     },
 
@@ -93,36 +98,31 @@
   @use '../setup/scss/variables';
 
   .c-vas-navigation-filter {
-    position: relative;
-
     &__input {
       position: relative;
       width: 100%;
       padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     &__button-clear {
       position: absolute;
-      top: 0;
-      right: 1px;
+      top: 15px;
+      right: 5px;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
       cursor: pointer;
       background-color: var(--vas-theme-highlight);
       padding: variables.$vas-spacing--2;
-    }
+      z-index: 99;
 
-    &__close-icon {
-      width: 20px;
-      height: 20px;
-      background-color: transparent;
-      background-image: url('../assets/icons/i-close.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: 10px;
+      &:hover {
+        background-color: var(--vas-theme-button-bg-hover);
+      }
     }
   }
 </style>

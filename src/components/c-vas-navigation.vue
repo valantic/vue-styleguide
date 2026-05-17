@@ -5,11 +5,17 @@
     @keydown.up.prevent="onKeyDownUp"
     @keydown.enter.prevent="onKeyDownEnter"
   >
-    <div :class="b('filter-wrapper')">
-      <c-vas-navigation-filter v-model="navigationFilter" />
-    </div>
+    <c-vas-navigation-filter
+      v-model="navigationFilter"
+      :class="b('filter')"
+    />
 
     <div :class="b('menu')">
+      <c-vas-navigation-block
+        v-if="!navigationFilter && lastOpenedRoutes.length"
+        :route-definition="lastOpenedGroup"
+        :selected-route-name="selectedRouteName"
+      />
       <c-vas-navigation-block
         v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
@@ -24,10 +30,15 @@
   import type { PropType } from 'vue';
   import { defineComponent } from 'vue';
   import type { RouteRecordRaw } from 'vue-router';
+  import type { VasSessionStore } from '../stores/session';
+  import { useVasSessionStore } from '../stores/session';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
   import cVasNavigationFilter from './c-vas-navigation-filter.vue';
 
-  // type Setup = {};
+  type Setup = {
+    vasSessionStore: VasSessionStore;
+  };
+
   type Data = {
     navigationFilter: string;
     activeIndex: number;
@@ -63,7 +74,11 @@
     },
     // emits: {},
 
-    // setup(): Setup {},
+    setup(): Setup {
+      return {
+        vasSessionStore: useVasSessionStore(),
+      };
+    },
     data(): Data {
       return {
         navigationFilter: '',
@@ -72,6 +87,19 @@
     },
 
     computed: {
+      lastOpenedRoutes(): RouteRecordRaw[] {
+        return this.vasSessionStore.state.lastOpenedRoutes;
+      },
+
+      lastOpenedGroup(): RouteRecordRaw {
+        return {
+          path: 'last-opened',
+          name: 'last-opened',
+          meta: { title: 'Last Opened' },
+          children: this.lastOpenedRoutes,
+        };
+      },
+
       favoriteRoutes(): RouteRecordRaw[] {
         return this.getFavorites(this.filteredRoutes);
       },
@@ -348,16 +376,13 @@
     flex-direction: column;
     flex: 0 1 auto;
 
-    &__filter-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: variables.$vas-spacing--8;
+    &__filter {
       margin-bottom: variables.$vas-spacing--8;
       position: sticky;
-      top: 0;
+      top: -2px;
       z-index: 5;
-      padding: variables.$vas-spacing--12 0 variables.$vas-spacing--4 0;
-      box-shadow: 0 12px 7px rgba((var(--vas-theme-background-content)), 0.4);
+      padding: variables.$vas-spacing--8 0;
+      border-bottom: 1px solid var(--vas-theme-background-container);
 
       &::after {
         content: '';

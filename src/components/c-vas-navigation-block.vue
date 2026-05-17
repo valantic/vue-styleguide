@@ -248,7 +248,7 @@
       max-width: 100%;
       width: 100%;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 $padding-left;
-      font-size: 15px;
+      font-size: variables.$vas-font-size--14;
       line-height: 20px;
       text-decoration: none;
       color: var(--vas-theme-text-color) !important; // stylelint-disable-line declaration-no-important
@@ -261,7 +261,7 @@
       scroll-margin-top: 100px;
 
       &--selected {
-        outline: 2px dashed variables.$vas-color-grayscale--300;
+        outline: 2px dashed var(--vas-theme-border-color);
 
         #{$this}__overlay {
           opacity: 0.4;
@@ -276,9 +276,10 @@
         border-bottom: 1px dashed var(--vas-theme-border-color);
         background-color: var(--vas-theme-background-content);
         z-index: 1;
-        font-size: 13px;
+        font-size: variables.$vas-font-size--12;
         font-weight: bold;
         text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
+        padding-left: variables.$vas-spacing--4;
 
         #{$this}__logo,
         #{$this}__icon {
@@ -288,6 +289,7 @@
 
       &--active {
         font-weight: bold;
+        color: var(--vas-theme-text-color-highlight) !important; // stylelint-disable-line declaration-no-important
 
         #{$this}__overlay {
           opacity: 1;

@@ -73,7 +73,7 @@
   @use '../setup/scss/variables';
 
   .e-vas-toggle-button {
-    $border-radius: 6px;
+    $border-radius: variables.$vas-theme-border-radius;
 
     display: inline-flex;
     cursor: pointer;
@@ -113,7 +113,7 @@
       align-items: center;
       justify-content: center;
       gap: variables.$vas-spacing--4;
-      border-right: $border-radius;
+      border-radius: $border-radius;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--12;
 
       &--active {

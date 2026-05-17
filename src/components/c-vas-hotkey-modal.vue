@@ -172,7 +172,7 @@
       grid-template-columns: 0.8fr 1fr;
       gap: variables.$vas-spacing--16;
       padding: variables.$vas-spacing--16 variables.$vas-spacing--8;
-      border-bottom: 1px dashed variables.$vas-color-grayscale--600;
+      border-bottom: 1px dashed var(--vas-theme-border-color);
 
       &:last-child {
         border-bottom: 0;
@@ -191,7 +191,7 @@
       align-items: center;
       justify-content: center;
       gap: variables.$vas-spacing--4;
-      font-size: 14px;
+      font-size: variables.$vas-font-size--14;
       font-weight: 600;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--6;
       background-color: var(--vas-theme-background-surface);

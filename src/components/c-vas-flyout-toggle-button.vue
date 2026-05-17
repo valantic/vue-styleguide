@@ -97,14 +97,14 @@
   @use '../setup/scss/variables';
 
   .c-vas-flyout-toggle-button {
-    &.e-vas-toggle-button {
-      border-radius: 0;
-    }
-
-    &:hover:not(&--active) {
-      &.e-vas-toggle-button:hover {
-        background-color: var(--vas-theme-background-content);
-      }
-    }
+    //&.e-vas-toggle-button {
+    //  border-radius: 0;
+    //}
+    //
+    //&:hover:not(&--active) {
+    //  &.e-vas-toggle-button:hover {
+    //    background-color: var(--vas-theme-background-content);
+    //  }
+    //}
   }
 </style>

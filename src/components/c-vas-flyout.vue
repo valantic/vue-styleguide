@@ -24,6 +24,7 @@
 
   export const FLYOUT_DIRECTIONS = ['left', 'right'];
   export type FlyoutDirectionType = (typeof FLYOUT_DIRECTIONS)[number];
+
   /**
    * A flyout.
    */
@@ -37,14 +38,6 @@
        * Toggles the visibility.
        */
       isOpen: {
-        type: Boolean,
-        default: false,
-      },
-
-      /**
-       * Defines if the flyout should be rendered with full opacity.
-       */
-      isOpaque: {
         type: Boolean,
         default: false,
       },
@@ -75,7 +68,6 @@
           direction: this.direction,
           isOpen: this.isOpen,
           hide: this.hide,
-          isOpaque: this.isOpaque,
         };
       },
     },
@@ -130,7 +122,7 @@
     box-shadow:
       0 20px 25px -5px rgba(variables.$vas-color-black, 0.1),
       0 8px 10px -6px rgba(variables.$vas-color-black, 0.1);
-    pointer-events: none;
+    pointer-events: auto;
 
     &--hide {
       display: none;
@@ -138,7 +130,6 @@
 
     &--is-open {
       transform: translateX(0) !important; // stylelint-disable-line declaration-no-important
-      pointer-events: auto;
     }
 
     &--direction-left {
@@ -160,21 +151,16 @@
       flex-direction: column;
       justify-content: end;
       height: 100%;
-      pointer-events: none;
       align-items: flex-end;
       opacity: 0.2;
       transition: opacity variables.$vas-transition--default;
-      width: 55px;
+      width: 32px;
 
       &:hover:not(&--is-open) {
         opacity: 0.8;
       }
 
       &--is-open {
-        opacity: 1;
-      }
-
-      &--is-opaque {
         opacity: 1;
       }
 

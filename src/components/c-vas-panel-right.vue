@@ -20,6 +20,7 @@
         />
       </div>
     </template>
+
     <template #left>
       <c-vas-panel-action
         variant="icon"
@@ -30,7 +31,14 @@
         @click="showMenu = true"
       />
 
-      <c-vas-viewport-info />
+      <c-vas-panel-action
+        :class="b('viewport')"
+        variant="fluid-column"
+        :text="viewport.currentViewport"
+        :tooltip="viewPortTooltip"
+        tooltip-position="right"
+      />
+
       <c-vas-panel-action
         variant="icon"
         icon="i-key-cmd--filled"
@@ -39,6 +47,7 @@
         @click="$emit('openHotkeysModal')"
       />
     </template>
+
     <template #content>
       <c-vas-navigation
         v-if="showMenu"
@@ -59,18 +68,20 @@
         </template>
       </c-vas-config>
     </template>
-    <template #right> </template>
+
+    <template #right></template>
+
     <template #bottom>
       <div :class="b('footer-bar')">
+        <div>yolo</div>
         <c-vas-panel-action
           variant="fluid"
           icon="i-tag"
+          :text="version"
           :href="githubUrl"
           target="_blank"
           rel="noopener noreferrer"
-        >
-          {{ version }}
-        </c-vas-panel-action>
+        />
       </div>
     </template>
   </c-vas-panel-base>
@@ -81,16 +92,17 @@
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
+  import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
   import cVasPanelBase from './c-vas-panel-base.vue';
-  import cVasViewportInfo from './c-vas-viewport-info.vue';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
     version: string;
     githubUrl: string;
+    viewport: Viewport;
   };
 
   type Data = {
@@ -108,7 +120,6 @@
       cVasNavigation,
       cVasPanelAction,
       cVasPanelBase,
-      cVasViewportInfo,
     },
 
     // props: {},
@@ -121,6 +132,7 @@
         router: useRouter(),
         version: packageJson.version,
         githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
+        viewport: useViewport(),
       };
     },
     data(): Data {
@@ -129,18 +141,26 @@
       };
     },
 
-    // computed: {},
+    computed: {
+      viewPortTooltip(): string {
+        return `Viewport: ${this.viewport.viewportWidth}w / ${this.viewport.viewportHeight}h`;
+      },
+    },
     // watch: {},
 
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
-    // mounted() {},
+    mounted() {
+      addViewportResizeEvent();
+    },
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      removeViewportResizeEvent();
+    },
     // unmounted() {},
 
     // methods: {},
@@ -166,6 +186,17 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+    }
+
+    &__viewport {
+      .c-vas-panel-action {
+        padding: 2px 0;
+        text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 1;
+        aspect-ratio: 1;
+      }
     }
   }
 </style>

@@ -5,8 +5,9 @@
       v-if="text"
       :class="b('bubble', { [position]: true })"
       role="tooltip"
-      >{{ text }}</span
     >
+      {{ text }}
+    </span>
   </span>
 </template>
 

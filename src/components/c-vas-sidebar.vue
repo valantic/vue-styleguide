@@ -3,19 +3,14 @@
     ref="container"
     :class="[b('', modifiers), theme]"
   >
-    <c-vas-flyout
-      :is-open="isPageConfigFlyoutOpen"
-      :is-opaque="isToggleButtonAnimated"
-    >
+    <c-vas-flyout :is-open="isPageConfigFlyoutOpen">
       <template #controls>
-        <div :class="b('actions')">
-          <c-vas-flyout-toggle-button
-            :active="isPageConfigFlyoutOpen"
-            :is-animated="isToggleButtonAnimated"
-            icon="i-page-setting"
-            @click="onTogglePageConfigFlyout()"
-          />
-        </div>
+        <c-vas-flyout-handle
+          :is-open="isPageConfigFlyoutOpen"
+          :is-animated="isToggleButtonAnimated"
+          icon="i-page-setting"
+          @toggle="onTogglePageConfigFlyout"
+        />
       </template>
       <template #content>
         <div id="teleportDestinationPageConfigFlyout"></div>
@@ -27,17 +22,11 @@
       direction="right"
     >
       <template #controls>
-        <div
-          v-show="!isMainFlyoutOpen"
-          :class="b('actions')"
-        >
-          <c-vas-flyout-handle
-            :class="b('handle')"
-            variant="icon"
-            :is-open="isMainFlyoutOpen"
-            @toggle="onToggleMainFlyout"
-          />
-        </div>
+        <c-vas-flyout-handle
+          icon="i-page-setting"
+          :is-open="isMainFlyoutOpen"
+          @toggle="onToggleMainFlyout"
+        />
       </template>
 
       <template #content>
@@ -71,7 +60,6 @@
   import type { VasSettingsStore } from '../stores/settings';
   import { useVasSettingsStore } from '../stores/settings';
   import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
-  import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasPanelRight from './c-vas-panel-right.vue';
@@ -103,7 +91,6 @@
 
     components: {
       cVasFlyoutHandle,
-      cVasFlyoutToggleButton,
       cVasFlyout,
       cVasHotkeyModal,
       cVasPanelRight,
@@ -122,7 +109,7 @@
 
     data(): Data {
       return {
-        isMainFlyoutOpen: true,
+        isMainFlyoutOpen: false,
         isPageConfigFlyoutOpen: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
@@ -299,18 +286,14 @@
     z-index: 999;
     width: 100%;
     height: 100vh;
-    pointer-events: none;
     background-color: transparent;
     color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
     font-size: variables.$vas-font-size--16;
+    pointer-events: none;
 
     &--is-flyout-open {
       background-color: var(--vas-theme-overlay);
-    }
-
-    &__actions {
-      pointer-events: auto;
     }
   }
 </style>

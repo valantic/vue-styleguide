@@ -18,14 +18,6 @@
     </section>
 
     <section :class="b('section')">
-      <span :class="b('label')">Toggle Button</span>
-      <div :class="b('row')">
-        <e-vas-toggle-button>Inactive</e-vas-toggle-button>
-        <e-vas-toggle-button active>Active</e-vas-toggle-button>
-      </div>
-    </section>
-
-    <section :class="b('section')">
       <span :class="b('label')">Toggle</span>
       <div :class="b('column')">
         <e-vas-toggle v-model="toggleOn">Toggle on</e-vas-toggle>
@@ -39,11 +31,13 @@
         <e-vas-checkbox
           v-model="checkboxChecked"
           name="preview-checked"
-        >Checked</e-vas-checkbox>
+          >Checked</e-vas-checkbox
+        >
         <e-vas-checkbox
           v-model="checkboxUnchecked"
           name="preview-unchecked"
-        >Unchecked</e-vas-checkbox>
+          >Unchecked</e-vas-checkbox
+        >
       </div>
     </section>
 
@@ -54,12 +48,14 @@
           v-model="radioValue"
           name="preview-radio"
           value="a"
-        >Option A</e-vas-radio>
+          >Option A</e-vas-radio
+        >
         <e-vas-radio
           v-model="radioValue"
           name="preview-radio"
           value="b"
-        >Option B</e-vas-radio>
+          >Option B</e-vas-radio
+        >
       </div>
     </section>
 
@@ -90,7 +86,6 @@
   import eVasRadio from '../../../elements/e-vas-radio.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
-  import eVasToggleButton from '../../../elements/e-vas-toggle-button.vue';
 
   type Data = {
     toggleOn: boolean;
@@ -112,7 +107,6 @@
       eVasRadio,
       eVasSelect,
       eVasToggle,
-      eVasToggleButton,
     },
 
     // props: {},

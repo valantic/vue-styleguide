@@ -1,17 +1,21 @@
 <template>
   <div :class="b()">
     <div :class="b('container')">
-      <c-vas-icon-headline
-        icon="i-vuejs"
-        text="Styleguide"
-      />
+      <div :class="b('headline')">
+        <e-vas-icon
+          :class="b('logo')"
+          icon="i-vuejs"
+          size="22"
+        />
+        vue-styleguide
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasIconHeadline from '../../components/c-vas-icon-headline.vue';
+  import eVasIcon from '../../elements/e-vas-icon.vue';
 
   // type Setup = {};
   // type Data = {};
@@ -22,7 +26,7 @@
   export default defineComponent({
     name: 's-header',
     components: {
-      cVasIconHeadline,
+      eVasIcon,
     },
 
     // props: {},
@@ -67,6 +71,16 @@
 
       padding: variables.$vas-spacing--10;
       display: flex;
+    }
+
+    &__headline {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: variables.$vas-spacing--6;
+      color: variables.$vas-font-color--text;
+      font-size: variables.$vas-font-size--18;
+      font-weight: variables.$vas-font-weight--bold;
     }
   }
 </style>

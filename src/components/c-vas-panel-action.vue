@@ -200,8 +200,8 @@
     flex-shrink: 0;
 
     &--is-link {
-      text-decoration: none;
-      color: inherit;
+      text-decoration: none; // stylelint-disable-line declaration-no-important
+      color: var(--vas-theme-text-color) !important; // stylelint-disable-line declaration-no-important
     }
 
     &:hover:not(#{$this}--disabled) {

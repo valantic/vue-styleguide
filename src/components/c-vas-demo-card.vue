@@ -1,5 +1,8 @@
 <template>
-  <div :class="b({ forceConfigurationTop })">
+  <div
+    :class="b({ forceConfigurationTop })"
+    class="vas-styleguide-theme-light"
+  >
     <div :class="b('header')">
       <slot name="header"></slot>
     </div>

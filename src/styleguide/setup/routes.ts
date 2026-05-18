@@ -121,14 +121,6 @@ export default [
           title: 'Panel Action',
         },
       },
-      {
-        path: 'sg-test-page-vas-flyout-handle',
-        name: 'sg-test-page-vas-flyout-handle',
-        component: () => import('../demo-pages/components/r-vas-flyout-handle.vue'),
-        meta: {
-          title: 'Flyout Handle',
-        },
-      },
     ],
   },
   {
@@ -147,14 +139,6 @@ export default [
         meta: {
           title: 'Icons',
           alternativeTitles: ['Sprite', 'Icon finder'],
-        },
-      },
-      {
-        path: 'sg-test-page-vas-toggle-button',
-        name: 'sg-test-page-vas-toggle-button',
-        component: () => import('../demo-pages/elements/r-vas-toggle-button.vue'),
-        meta: {
-          title: 'Toggle Button',
         },
       },
       {

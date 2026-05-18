@@ -5,10 +5,28 @@
     @keydown.up.prevent="onKeyDownUp"
     @keydown.enter.prevent="onKeyDownEnter"
   >
-    <c-vas-navigation-filter
-      v-model="navigationFilter"
-      :class="b('filter')"
-    />
+    <div :class="b('search-container')">
+      <e-vas-input
+        v-model.trim="navigationFilter"
+        :class="b('search-input')"
+        name="filter"
+        placeholder="Search Menu ..."
+        autofocus
+        select-on-focus
+        @click.stop
+      />
+      <button
+        v-if="navigationFilter"
+        :class="b('search-clear-button')"
+        type="button"
+        @click.stop="navigationFilter = ''"
+      >
+        <e-vas-icon
+          icon="i-close"
+          size="8"
+        />
+      </button>
+    </div>
 
     <div :class="b('menu')">
       <c-vas-navigation-block
@@ -30,10 +48,11 @@
   import type { PropType } from 'vue';
   import { defineComponent } from 'vue';
   import type { RouteRecordRaw } from 'vue-router';
+  import eVasIcon from '../elements/e-vas-icon.vue';
+  import eVasInput from '../elements/e-vas-input.vue';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
-  import cVasNavigationFilter from './c-vas-navigation-filter.vue';
 
   type Setup = {
     vasSessionStore: VasSessionStore;
@@ -51,8 +70,9 @@
     name: 'c-vas-navigation',
 
     components: {
+      eVasIcon,
+      eVasInput,
       cVasNavigationBlock,
-      cVasNavigationFilter,
     },
 
     props: {
@@ -376,7 +396,7 @@
     flex-direction: column;
     flex: 0 1 auto;
 
-    &__filter {
+    &__search-container {
       margin-bottom: variables.$vas-spacing--8;
       position: sticky;
       top: 0;
@@ -393,6 +413,33 @@
         width: calc(100% + 24px);
         height: calc(100% + 12px);
         z-index: -1;
+      }
+    }
+
+    &__search-input {
+      position: relative;
+      width: 100%;
+      padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
+      font-size: 14px;
+    }
+
+    &__search-clear-button {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--vas-theme-highlight);
+      padding: variables.$vas-spacing--2;
+      z-index: 99;
+
+      &:hover {
+        background-color: var(--vas-theme-button-bg-hover);
       }
     }
 

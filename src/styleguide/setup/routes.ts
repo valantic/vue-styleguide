@@ -121,6 +121,14 @@ export default [
           title: 'Panel Action',
         },
       },
+      {
+        path: 'sg-test-page-vas-flyout-handle',
+        name: 'sg-test-page-vas-flyout-handle',
+        component: () => import('../demo-pages/components/r-vas-flyout-handle.vue'),
+        meta: {
+          title: 'Flyout Handle',
+        },
+      },
     ],
   },
   {

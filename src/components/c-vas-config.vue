@@ -65,7 +65,7 @@
 
     &__headline {
       font-weight: bold;
-      color: variables.$vas-theme-text-color-muted;
+      color: var(--vas-theme-text-color-muted);
       margin: variables.$vas-spacing--10 0;
     }
 

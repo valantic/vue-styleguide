@@ -169,7 +169,7 @@
 
     &__row {
       display: grid;
-      grid-template-columns: 0.8fr 1fr;
+      grid-template-columns: 30% 70%;
       gap: variables.$vas-spacing--16;
       padding: variables.$vas-spacing--16 variables.$vas-spacing--8;
       border-bottom: 1px dashed var(--vas-theme-border-color);

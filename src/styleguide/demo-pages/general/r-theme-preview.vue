@@ -8,7 +8,7 @@
     <div :class="b('panels')">
       <div
         :class="b('panel')"
-        class="vas-styleguide-reset"
+        class="vas-styleguide-theme-light"
       >
         <div :class="b('panel-header')">
           <span :class="b('badge', { light: true })">Light</span>
@@ -18,7 +18,7 @@
 
       <div
         :class="b('panel')"
-        class="vas-styleguide-reset vas-theme--dark"
+        class="vas-styleguide-theme-dark"
       >
         <div :class="b('panel-header')">
           <span :class="b('badge', { dark: true })">Dark</span>

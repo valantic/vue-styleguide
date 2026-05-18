@@ -183,7 +183,7 @@
   }
 }
 
-.vas-styleguide-reset {
+.vas-styleguide-theme-light {
   :focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 2px;
@@ -192,7 +192,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   #valantic-vue-styleguide,
-  .vas-styleguide-reset {
+  .vas-styleguide-theme-light {
     *,
     *::before,
     *::after {

@@ -1,21 +1,18 @@
 <template>
-  <div :class="b()">
-    <e-vas-icon
-      :class="b('icon')"
-      :icon="viewportIcon"
-      size="14"
-    />
-    <span :class="b('name')">{{ viewport.currentViewport }}</span>
-    <span :class="b('dimensions')">{{ viewport.viewportWidth }}w · {{ viewport.viewportHeight }}h</span>
-  </div>
+  <c-vas-panel-action
+    variant="fluid-column"
+    :text="viewport.currentViewport"
+    :tooltip="tooltip"
+    tooltip-position="right"
+    :class="b()"
+  />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasIcon from '../elements/e-vas-icon.vue';
   import type { Viewport } from '../plugins/viewport';
   import { addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
-  import type { Icon } from '../types/icon';
+  import cVasPanelAction from './c-vas-panel-action.vue';
 
   type Setup = {
     viewport: Viewport;
@@ -28,7 +25,7 @@
   export default defineComponent({
     name: 'c-vas-viewport-info',
     components: {
-      eVasIcon,
+      cVasPanelAction,
     },
 
     // props: {},
@@ -44,14 +41,8 @@
     // },
 
     computed: {
-      viewportIcon(): Icon {
-        if (this.viewport.isTablet) {
-          return 'i-viewport--tablet';
-        } else if (this.viewport.isDesktop) {
-          return 'i-viewport--desktop';
-        }
-
-        return 'i-viewport--mobile';
+      tooltip(): string {
+        return `Viewport: ${this.viewport.viewportWidth}w / ${this.viewport.viewportHeight}h`;
       },
     },
     // watch: {},
@@ -77,28 +68,14 @@
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/variables';
-
   .c-vas-viewport-info {
-    display: flex;
-    align-items: center;
-    gap: variables.$vas-spacing--4;
-    pointer-events: none;
-    font-size: variables.$vas-font-size--12;
-    padding: 0 variables.$vas-spacing--6;
-
-    &__icon {
-      flex-shrink: 0;
-      color: var(--vas-theme-text-color);
-    }
-
-    &__name {
-      font-weight: variables.$vas-font-weight--semi-bold;
-      text-transform: uppercase;
-    }
-
-    &__dimensions {
-      color: var(--vas-theme-text-color-muted);
+    .c-vas-panel-action {
+      padding: 2px 0;
+      text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1;
+      aspect-ratio: 1;
     }
   }
 </style>

@@ -379,9 +379,9 @@
     &__filter {
       margin-bottom: variables.$vas-spacing--8;
       position: sticky;
-      top: -2px;
+      top: 0;
       z-index: 5;
-      padding: variables.$vas-spacing--8 0;
+      padding-bottom: variables.$vas-spacing--8;
       border-bottom: 1px solid var(--vas-theme-background-container);
 
       &::after {

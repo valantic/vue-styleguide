@@ -2,7 +2,7 @@
   <l-vas-layout>
     <div
       :class="b('preview')"
-      class="vas-styleguide-reset vas-theme--dark"
+      class="vas-styleguide-theme-dark"
     >
       <c-vas-panel-right />
     </div>

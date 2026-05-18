@@ -63,7 +63,6 @@ $vas-font-color--text: $vas-color-grayscale--0;
 $vas-font-color--muted: #3c3c3cb3;
 
 // Font weight
-$vas-font-weight--regular: 400;
 $vas-font-weight--semi-bold: 600;
 $vas-font-weight--bold: 700;
 
@@ -106,18 +105,13 @@ $vas-form-border-radius: 3px;
 $vas-form-border-color: var(--vas-theme-border-color);
 $vas-form-border-color--hover: var(--vas-theme-border-color);
 
-$vas-flyout--width: 342px;
+$vas-flyout--width: 440px;
 
 // Theme
 $vas-theme-text-size: $vas-font-size--16;
 $vas-theme-text-size-small: $vas-font-size--14;
-$vas-theme-text-color: var(--vas-theme-text-color);
-$vas-theme-text-color-muted: var(--vas-theme-text-color-muted);
 
 $vas-theme-border-radius: 4px;
 $vas-theme-border-color: var(--vas-theme-border-color);
 
-$vas-theme-background-content: var(--vas-theme-background-content);
-$vas-theme-background-surface: var(--vas-theme-background-surface);
-$vas-theme-background-surface-hover: var(--vas-theme-background-surface-hover);
 

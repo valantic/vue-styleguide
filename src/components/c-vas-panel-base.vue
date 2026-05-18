@@ -1,18 +1,18 @@
 <template>
   <div :class="b()">
-    <div :class="b('top')">
+    <div :class="b('slot', { top: true })">
       <slot name="top"></slot>
     </div>
-    <div :class="b('left')">
+    <div :class="b('slot', { left: true })">
       <slot name="left"></slot>
     </div>
     <div :class="b('content')">
       <slot name="content"></slot>
     </div>
-    <div :class="b('right')">
+    <div :class="b('slot', { right: true })">
       <slot name="right"></slot>
     </div>
-    <div :class="b('bottom')">
+    <div :class="b('slot', { bottom: true })">
       <slot name="bottom"></slot>
     </div>
   </div>
@@ -63,7 +63,8 @@
 
 <style lang="scss">
   .c-vas-panel-base {
-    $spacing-between-elements: 4px;
+    $spacing-between-elements: 6px;
+    $bar-size: 34px;
 
     background-color: var(--vas-theme-background-container);
     display: grid;
@@ -71,50 +72,53 @@
       'top top top'
       'left content right'
       'bottom bottom bottom';
-    grid-template-columns: 32px 1fr 8px;
-    grid-template-rows: 32px 1fr 32px;
+    grid-template-columns: $bar-size 1fr $bar-size;
+    grid-template-rows: $bar-size 1fr $bar-size;
     width: 100%;
     height: 100%;
     color: var(--vas-theme-text-color);
 
-    &__top {
-      grid-area: top;
+    &__slot {
       display: flex;
-      padding: 2px 8px;
       gap: $spacing-between-elements;
-    }
 
-    &__left {
-      grid-area: left;
-      display: flex;
-      flex-direction: column;
-      padding: 8px 2px;
-      gap: $spacing-between-elements;
+      &--top {
+        grid-area: top;
+      }
+
+      &--bottom {
+        grid-area: bottom;
+      }
+
+      &--top,
+      &--bottom {
+        width: 100%;
+        padding: 4px;
+      }
+
+      &--left {
+        grid-area: left;
+      }
+
+      &--right {
+        grid-area: right;
+      }
+
+      &--left,
+      &--right {
+        flex-direction: column;
+        padding: 6px 4px;
+        height: 100%;
+      }
     }
 
     &__content {
       grid-area: content;
       background-color: var(--vas-theme-background-content);
       border-radius: 6px;
-      padding: 6px 10px;
+      padding: 10px;
       min-height: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    &__right {
-      grid-area: right;
-      display: flex;
-      flex-direction: column;
-      padding: 8px 2px;
-      gap: $spacing-between-elements;
-    }
-
-    &__bottom {
-      grid-area: bottom;
-      display: flex;
-      padding: 2px 8px;
-      gap: $spacing-between-elements;
+      overflow: hidden auto;
     }
   }
 </style>

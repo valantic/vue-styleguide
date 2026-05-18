@@ -14,9 +14,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import type { VasSettingsStore } from '../stores/settings';
+  import type { Theme, VasSettingsStore } from '../stores/settings';
   import { THEMES, useVasSettingsStore } from '../stores/settings';
-  import type { Theme } from '../stores/settings';
 
   type Setup = {
     settingsStore: VasSettingsStore;
@@ -79,8 +78,8 @@
       padding: variables.$vas-spacing--6 variables.$vas-spacing--8;
       border: 1px solid variables.$vas-theme-border-color;
       border-radius: variables.$vas-theme-border-radius;
-      background-color: variables.$vas-theme-background-surface;
-      color: variables.$vas-theme-text-color-muted;
+      background-color: var(--vas-theme-background-surface);
+      color: var(--vas-theme-text-color-muted);
       cursor: pointer;
       font-family: inherit;
       font-size: variables.$vas-font-size--12;
@@ -90,13 +89,13 @@
         border-color variables.$vas-transition--default;
 
       &:hover:not(&--active) {
-        background-color: variables.$vas-theme-background-surface-hover;
+        background-color: var(--vas-theme-background-surface-hover);
       }
 
       &--active {
-        background-color: variables.$vas-theme-background-content;
-        color: variables.$vas-theme-text-color;
-        border-color: variables.$vas-theme-text-color-muted;
+        background-color: var(--vas-theme-background-content);
+        color: var(--vas-theme-text-color);
+        border-color: var(--vas-theme-text-color-muted);
         font-weight: variables.$vas-font-weight--semi-bold;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 12%);
       }

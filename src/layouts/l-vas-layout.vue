@@ -147,7 +147,7 @@
         left: -2px;
         height: calc(100% + 8px);
         width: calc(100% + 4px);
-        background-color: variables.$vas-theme-background-surface;
+        background-color: var(--vas-theme-background-surface);
         z-index: -1;
         opacity: 1;
         border-radius: variables.$vas-theme-border-radius;

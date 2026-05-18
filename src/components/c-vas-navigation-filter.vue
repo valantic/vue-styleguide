@@ -107,8 +107,8 @@
 
     &__button-clear {
       position: absolute;
-      top: 15px;
-      right: 5px;
+      top: 6px;
+      right: 6px;
       display: flex;
       justify-content: center;
       align-items: center;

@@ -260,8 +260,10 @@
     max-width: 100vw;
     padding: 0;
     overflow-x: hidden;
-    border: none;
     background: none;
+    color: var(--vas-theme-text-color);
+    border: 1px solid var(--vas-theme-border-color);
+    border-radius: 6px;
 
     @include mixins.media($down: sm) {
       height: 100vh;

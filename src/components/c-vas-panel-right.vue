@@ -1,27 +1,41 @@
 <template>
   <c-vas-panel-base :class="b()">
     <template #top>
-      <c-vas-panel-action
-        variant="fluid"
-        icon="i-text"
-        :active="showMenu"
-        @click="showMenu = true"
-      >
-        Navigation
-      </c-vas-panel-action>
-      <c-vas-panel-action
-        variant="fluid"
-        icon="i-cog-wheel"
-        :active="!showMenu"
-        @click="showMenu = false"
-      >
-        Settings
-      </c-vas-panel-action>
+      <div :class="b('top-bar')">
+        <div :class="b('logo')">
+          <e-vas-icon
+            icon="i-vuejs"
+            size="16"
+          />
+          styleguide
+        </div>
+
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-cog-wheel"
+          tooltip="Settings"
+          tooltip-position="bottom"
+          :active="!showMenu"
+          @click="showMenu = false"
+        />
+      </div>
     </template>
     <template #left>
       <c-vas-panel-action
         variant="icon"
+        icon="i-text"
+        tooltip="Navigation"
+        tooltip-position="right"
+        :active="showMenu"
+        @click="showMenu = true"
+      />
+
+      <c-vas-viewport-info />
+      <c-vas-panel-action
+        variant="icon"
         icon="i-key-cmd--filled"
+        tooltip="Hotkeys"
+        tooltip-position="right"
         @click="$emit('openHotkeysModal')"
       />
     </template>
@@ -45,28 +59,18 @@
         </template>
       </c-vas-config>
     </template>
-    <template #right></template>
+    <template #right> </template>
     <template #bottom>
-      <div :class="b('status-bar')">
-        <c-vas-viewport-info />
-        <div :class="b('status-bar-end')">
-          <c-vas-panel-action
-            variant="fluid"
-            icon="i-key-cmd--filled"
-            @click="$emit('openHotkeysModal')"
-          >
-            Hotkeys
-          </c-vas-panel-action>
-          <c-vas-panel-action
-            variant="fluid"
-            icon="i-tag"
-            :href="githubUrl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {{ version }}
-          </c-vas-panel-action>
-        </div>
+      <div :class="b('footer-bar')">
+        <c-vas-panel-action
+          variant="fluid"
+          icon="i-tag"
+          :href="githubUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ version }}
+        </c-vas-panel-action>
       </div>
     </template>
   </c-vas-panel-base>
@@ -76,6 +80,7 @@
   import { defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
+  import eVasIcon from '../elements/e-vas-icon.vue';
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
@@ -98,6 +103,7 @@
   export default defineComponent({
     name: 'c-vas-panel-right',
     components: {
+      eVasIcon,
       cVasConfig,
       cVasNavigation,
       cVasPanelAction,
@@ -146,19 +152,20 @@
   @use '../setup/scss/variables';
 
   .c-vas-panel-right {
-    &__status-bar {
+    &__logo {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      min-height: 28px;
-      background-color: var(--vas-theme-footer-bg);
-      border-top: 1px solid var(--vas-theme-border-color);
-      font-size: variables.$vas-font-size--12;
+      font-size: 12px;
+      gap: 4px;
+      padding-left: 5px;
+      font-weight: bold;
     }
 
-    &__status-bar-end {
+    &__top-bar,
+    &__footer-bar {
       display: flex;
-      align-items: center;
+      justify-content: space-between;
+      width: 100%;
     }
   }
 </style>

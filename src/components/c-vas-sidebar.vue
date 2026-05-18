@@ -1,8 +1,7 @@
 <template>
   <div
     ref="container"
-    class="vas-styleguide-reset"
-    :class="[b('', modifiers), themeClass]"
+    :class="[b('', modifiers), theme]"
   >
     <c-vas-flyout
       :is-open="isPageConfigFlyoutOpen"
@@ -19,15 +18,7 @@
         </div>
       </template>
       <template #content>
-        <c-vas-icon-headline
-          :class="b('header')"
-          icon="i-page-setting"
-          text="Page Configuration"
-        />
-        <div
-          id="teleportDestinationPageConfigFlyout"
-          :class="b('content-wrapper')"
-        ></div>
+        <div id="teleportDestinationPageConfigFlyout"></div>
       </template>
     </c-vas-flyout>
 
@@ -40,15 +31,11 @@
           v-show="!isMainFlyoutOpen"
           :class="b('actions')"
         >
-          <c-vas-flyout-toggle-button
-            :active="isMainFlyoutOpen"
-            icon="i-cog-wheel"
-            @click="onToggleMainFlyout()"
-          />
-          <c-vas-flyout-toggle-button
-            :active="isMainFlyoutOpen"
-            icon="i-text"
-            @click="onToggleMainFlyout()"
+          <c-vas-flyout-handle
+            :class="b('handle')"
+            variant="icon"
+            :is-open="isMainFlyoutOpen"
+            @toggle="onToggleMainFlyout"
           />
         </div>
       </template>
@@ -83,10 +70,10 @@
   import { useVasSessionStore } from '../stores/session';
   import type { VasSettingsStore } from '../stores/settings';
   import { useVasSettingsStore } from '../stores/settings';
+  import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
-  import cVasIconHeadline from './c-vas-icon-headline.vue';
   import cVasPanelRight from './c-vas-panel-right.vue';
 
   type KeyEvent = Event & {
@@ -115,10 +102,10 @@
     name: 'c-vas-sidebar',
 
     components: {
+      cVasFlyoutHandle,
       cVasFlyoutToggleButton,
       cVasFlyout,
       cVasHotkeyModal,
-      cVasIconHeadline,
       cVasPanelRight,
     },
     // props: {},
@@ -135,7 +122,7 @@
 
     data(): Data {
       return {
-        isMainFlyoutOpen: false,
+        isMainFlyoutOpen: true,
         isPageConfigFlyoutOpen: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
@@ -148,14 +135,14 @@
         return this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen;
       },
 
-      themeClass(): string {
-        return `vas-theme--${this.vasSettingsStore.state.theme}`;
-      },
-
       modifiers(): Modifiers {
         return {
           isFlyoutOpen: this.isFlyoutOpen,
         };
+      },
+
+      theme(): string {
+        return `vas-styleguide-theme-${this.vasSettingsStore.state.theme}`;
       },
     },
     watch: {
@@ -221,8 +208,8 @@
         this.isHotkeysModalOpen = false;
       },
 
-      onToggleMainFlyout(isMainFlyoutOpen: boolean = !this.isMainFlyoutOpen): void {
-        this.isMainFlyoutOpen = isMainFlyoutOpen;
+      onToggleMainFlyout(isMainFlyoutOpen?: boolean): void {
+        this.isMainFlyoutOpen = isMainFlyoutOpen ?? !this.isMainFlyoutOpen;
       },
 
       onTogglePageConfigFlyout(): void {
@@ -299,7 +286,7 @@
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
 
-  :where(.vas-styleguide-reset) {
+  :where(.c-vas-sidebar) {
     @include meta.load-css('the-new-css-reset/css/reset');
   }
 
@@ -320,23 +307,6 @@
 
     &--is-flyout-open {
       background-color: var(--vas-theme-overlay);
-    }
-
-    &__header {
-      flex: 0 0 auto;
-      background-color: var(--vas-theme-border-color);
-      height: $c-vas-sidebar--header-height;
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-
-    &__content-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: variables.$vas-spacing--10;
-      overflow-y: auto;
-      padding: 0 variables.$vas-spacing--12 variables.$vas-spacing--12;
     }
 
     &__actions {

@@ -82,7 +82,7 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     margin: #{$content-padding * 2} 0;
-    background-color: variables.$vas-theme-background-content;
+    background-color: var(--vas-theme-background-content);
     border-radius: variables.$vas-theme-border-radius;
 
     @include mixins.media(sm) {
@@ -109,7 +109,7 @@
       grid-area: header;
       display: flex;
       flex-wrap: wrap;
-      background-color: variables.$vas-theme-background-surface;
+      background-color: var(--vas-theme-background-surface);
       border-bottom: 1px solid variables.$vas-theme-border-color;
       color: variables.$vas-font-color--text;
       padding: $content-padding;
@@ -129,7 +129,7 @@
       grid-area: sidebar;
       display: flex;
       flex-direction: column;
-      background-color: rgba(variables.$vas-theme-background-surface, 0.2);
+      background-color: var(--vas-theme-background-surface);
       border-bottom: 1px solid variables.$vas-theme-border-color;
       padding: $content-padding;
       gap: variables.$vas-spacing--10;
@@ -142,7 +142,7 @@
 
     &__sidebar-header {
       font-size: variables.$vas-theme-text-size-small;
-      color: variables.$vas-theme-text-color-muted;
+      color: var(--vas-theme-text-color-muted);
       margin-bottom: variables.$vas-spacing--10;
     }
   }

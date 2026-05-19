@@ -79,7 +79,7 @@
       align-items: center;
       gap: variables.$vas-spacing--6;
       color: variables.$vas-font-color--text;
-      font-size: variables.$vas-font-size--18;
+      font-size: variables.$vas-font-size--heading;
       font-weight: variables.$vas-font-weight--bold;
     }
   }

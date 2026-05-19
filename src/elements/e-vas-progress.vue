@@ -114,7 +114,7 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    font-size: 1rem;
+    font-size: variables.$vas-font-size--base;
 
     &--spacing-0 {
       padding: 0;

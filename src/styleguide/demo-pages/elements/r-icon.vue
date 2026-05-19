@@ -293,7 +293,7 @@
     }
 
     &__icon-label {
-      font-size: variables.$vas-font-size--10;
+      font-size: variables.$vas-font-size--tiny;
       text-align: center;
     }
 

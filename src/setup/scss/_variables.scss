@@ -66,7 +66,14 @@ $vas-font-color--muted: #3c3c3cb3;
 $vas-font-weight--semi-bold: 600;
 $vas-font-weight--bold: 700;
 
-// Font size
+// Font size — Track A (Sidebar UI, compact developer tool)
+$vas-font-size--tiny: 10px;    // Badge labels, icon annotations
+$vas-font-size--small: 11px;   // Nav sub-items, code snippets, metadata
+$vas-font-size--base: 12px;    // Body text, form fields, nav items, tooltips
+$vas-font-size--label: 13px;   // Button text, form labels, section labels
+$vas-font-size--heading: 15px; // Panel/modal titles, h1–h6 inside the sidebar
+
+// Font size — Track B (Demo/layout components, web-friendly — keep as numeric for client use)
 $vas-font-size--10: 10px;
 $vas-font-size--12: 12px;
 $vas-font-size--14: 14px;
@@ -108,8 +115,8 @@ $vas-form-border-color--hover: var(--vas-theme-border-color);
 $vas-flyout--width: 440px;
 
 // Theme
-$vas-theme-text-size: $vas-font-size--16;
-$vas-theme-text-size-small: $vas-font-size--14;
+$vas-theme-text-size: $vas-font-size--label;
+$vas-theme-text-size-small: $vas-font-size--base;
 
 $vas-theme-border-radius: 4px;
 $vas-theme-border-color: var(--vas-theme-border-color);

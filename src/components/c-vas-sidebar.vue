@@ -289,7 +289,7 @@
     background-color: transparent;
     color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
     pointer-events: none;
 
     &--is-flyout-open {

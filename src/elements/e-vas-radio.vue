@@ -140,7 +140,7 @@
     position: relative;
     display: block;
     cursor: pointer;
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
 
     &__field {
       position: absolute;

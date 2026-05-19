@@ -105,6 +105,8 @@
 
 <style lang="scss">
   // stylelint-disable selector-class-pattern,selector-max-id
+  @use '../setup/scss/variables';
+
   .c-vas-render-markdown-file {
     $color-black: #000000;
     $color-white: #ffffff;
@@ -155,7 +157,7 @@
       }
 
       &.footnote {
-        font-size: 14px;
+        font-size: variables.$vas-font-size--base;
         height: 0;
         line-height: 1;
         vertical-align: super;
@@ -246,7 +248,7 @@
     }
 
     pre {
-      font-size: 14px;
+      font-size: variables.$vas-font-size--base;
       background-color: $color-gray-background;
       border: 1px solid $color-gray-light;
       line-height: 19px;
@@ -315,7 +317,7 @@
       padding: 0;
 
       dt {
-        font-size: 14px;
+        font-size: variables.$vas-font-size--base;
         font-weight: bold;
         font-style: italic;
         padding: 0;
@@ -351,7 +353,7 @@
 
     code,
     tt {
-      font-size: 12px;
+      font-size: variables.$vas-font-size--small;
       margin: 0 2px;
       padding: 0 5px;
       white-space: nowrap;
@@ -364,7 +366,7 @@
 
     .highlight {
       pre {
-        font-size: 12px;
+        font-size: variables.$vas-font-size--small;
         background-color: $color-gray-background;
         border: 1px solid $color-gray-light;
         line-height: 19px;
@@ -546,7 +548,7 @@
     }
 
     sup {
-      font-size: 14px;
+      font-size: variables.$vas-font-size--base;
       height: 0;
       line-height: 1;
       vertical-align: super;
@@ -554,7 +556,7 @@
     }
 
     sub {
-      font-size: 14px;
+      font-size: variables.$vas-font-size--base;
       height: 0;
       line-height: 1;
       position: relative;

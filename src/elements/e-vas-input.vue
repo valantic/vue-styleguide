@@ -297,7 +297,7 @@
       background-color: var(--vas-theme-background-content);
       color: var(--vas-theme-text-color);
       font-family: variables.$vas-font-family--primary;
-      font-size: variables.$vas-font-size--16;
+      font-size: variables.$vas-font-size--label;
 
       // disable iPhone styling
       -webkit-appearance: none;
@@ -351,7 +351,7 @@
       display: flex;
       transform: translateY(-50%);
       color: var(--vas-theme-text-color-muted);
-      font-size: variables.$vas-font-size--14;
+      font-size: variables.$vas-font-size--base;
     }
 
     &__slot-wrapper {
@@ -366,7 +366,7 @@
     &__slot {
       display: flex;
       color: var(--vas-theme-text-color-muted);
-      font-size: variables.$vas-font-size--14;
+      font-size: variables.$vas-font-size--base;
     }
 
     // active

@@ -82,7 +82,7 @@
       color: var(--vas-theme-text-color-muted);
       cursor: pointer;
       font-family: inherit;
-      font-size: variables.$vas-font-size--12;
+      font-size: variables.$vas-font-size--small;
       transition:
         background-color variables.$vas-transition--default,
         color variables.$vas-transition--default,

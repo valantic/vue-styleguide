@@ -106,7 +106,7 @@
       align-items: center;
       padding: variables.$vas-spacing--2 variables.$vas-spacing--10;
       border-radius: variables.$vas-theme-border-radius;
-      font-size: variables.$vas-font-size--12;
+      font-size: variables.$vas-font-size--small;
       font-weight: variables.$vas-font-weight--semi-bold;
       text-transform: uppercase;
       letter-spacing: 0.05em;

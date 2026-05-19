@@ -273,7 +273,7 @@
     background-color: var(--e-vas-button-background-color);
     cursor: pointer;
     color: var(--e-vas-button-font-color);
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
     transition-property: background-color, transform, opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease;

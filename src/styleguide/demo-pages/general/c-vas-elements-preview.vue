@@ -167,7 +167,7 @@
     }
 
     &__label {
-      font-size: variables.$vas-font-size--10;
+      font-size: variables.$vas-font-size--tiny;
       font-weight: variables.$vas-font-weight--bold;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -177,12 +177,12 @@
     }
 
     &__text-strong {
-      font-size: variables.$vas-font-size--16;
+      font-size: variables.$vas-font-size--label;
       font-weight: variables.$vas-font-weight--bold;
     }
 
     &__text {
-      font-size: variables.$vas-font-size--14;
+      font-size: variables.$vas-font-size--base;
       margin: 0;
 
       &--muted {

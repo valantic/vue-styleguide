@@ -88,7 +88,7 @@
       border: 2px solid var(--vas-theme-border-color);
       border-radius: variables.$vas-theme-border-radius;
       color: var(--vas-theme-text-color);
-      font-size: variables.$vas-font-size--14;
+      font-size: variables.$vas-font-size--base;
       padding: variables.$vas-spacing--8;
       transition: opacity variables.$vas-transition--default;
 

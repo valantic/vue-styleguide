@@ -1,9 +1,15 @@
 <template>
-  <span :class="b()">
+  <span
+    :class="b()"
+    @mouseenter="onMouseEnter"
+    @mouseleave="onMouseLeave"
+  >
     <slot />
     <span
       v-if="text"
+      ref="bubble"
       :class="b('bubble', { [position]: true })"
+      :style="bubbleStyle"
       role="tooltip"
     >
       {{ text }}
@@ -16,7 +22,10 @@
   import { defineComponent } from 'vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    xShift: number;
+    yShift: number;
+  };
 
   /**
    * Wraps any trigger element and shows a tooltip bubble on hover.
@@ -49,16 +58,32 @@
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        xShift: 0,
+        yShift: 0,
+      };
+    },
 
-    // computed: {},
+    computed: {
+      bubbleStyle(): Record<string, string> {
+        if (this.xShift) {
+          return { transform: `translateX(calc(-50% + ${this.xShift}px))` };
+        }
+
+        if (this.yShift) {
+          return { transform: `translateY(calc(-50% + ${this.yShift}px))` };
+        }
+
+        return {};
+      },
+    },
     // watch: {},
 
     // beforeCreate() {},
     // created() {},
     // beforeMount() {},
+    // mounted() {},
     // beforeUpdate() {},
     // updated() {},
     // activated() {},
@@ -66,7 +91,44 @@
     // beforeUnmount() {},
     // unmounted() {},
 
-    // methods: {},
+    methods: {
+      onMouseEnter() {
+        const bubble = this.$refs.bubble as HTMLElement | undefined;
+
+        if (!bubble) {
+          return;
+        }
+
+        const rect = bubble.getBoundingClientRect();
+        const margin = 4;
+
+        if (this.position === 'top' || this.position === 'bottom') {
+          let shift = 0;
+
+          if (rect.right > window.innerWidth - margin) {
+            shift = window.innerWidth - margin - rect.right;
+          } else if (rect.left < margin) {
+            shift = margin - rect.left;
+          }
+
+          this.xShift = shift;
+        } else {
+          let shift = 0;
+
+          if (rect.bottom > window.innerHeight - margin) {
+            shift = window.innerHeight - margin - rect.bottom;
+          } else if (rect.top < margin) {
+            shift = margin - rect.top;
+          }
+
+          this.yShift = shift;
+        }
+      },
+      onMouseLeave() {
+        this.xShift = 0;
+        this.yShift = 0;
+      },
+    },
     // render() {},
   });
 </script>

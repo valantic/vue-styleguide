@@ -11,6 +11,34 @@ export const routes = [
     },
     children: [
       {
+        path: 'sg-test-page-concept',
+        name: 'sg-test-page-concept',
+        component: () => import('../demo-pages/general/r-concept.vue'),
+        meta: {
+          title: 'Concept',
+          sortOrder: 0,
+          alternativeTitles: ['Overview', 'Design principles', 'Architecture'],
+        },
+      },
+      {
+        path: 'sg-test-page-color-palette',
+        name: 'sg-test-page-color-palette',
+        component: () => import('../demo-pages/general/r-color-palette.vue'),
+        meta: {
+          title: 'Color Palette',
+          alternativeTitles: ['Colors', 'Tokens', 'Swatches'],
+        },
+      },
+      {
+        path: 'sg-test-page-spacing-scale',
+        name: 'sg-test-page-spacing-scale',
+        component: () => import('../demo-pages/general/r-spacing-scale.vue'),
+        meta: {
+          title: 'Spacing Scale',
+          alternativeTitles: ['Spacing', 'Margins', 'Padding'],
+        },
+      },
+      {
         path: 'sg-test-page-typography',
         name: 'sg-test-page-typography',
         component: () => import('../demo-pages/general/r-typography.vue'),

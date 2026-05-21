@@ -17,6 +17,7 @@ export default [
       title: 'Styleguide',
       sortOrder: 1,
     },
+    children: [],
   },
   ...componentsRoutes,
   ...elementRoutes,

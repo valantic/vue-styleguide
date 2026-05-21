@@ -20,6 +20,7 @@
   // type Setup = {};
   type Data = {
     hide: boolean;
+    directionTimer: ReturnType<typeof setTimeout> | null;
   };
 
   export const FLYOUT_DIRECTIONS = ['left', 'right'];
@@ -59,6 +60,7 @@
     data(): Data {
       return {
         hide: false,
+        directionTimer: null,
       };
     },
 
@@ -72,14 +74,20 @@
       },
     },
     watch: {
-      // This is catching an edge case where the flyout changes the direction and is flaky for a moment.
+      // When direction changes while closed the CSS transition briefly shows the flyout in the wrong position.
+      // Hiding for one frame prevents the flash.
       direction() {
         if (!this.isOpen) {
           this.hide = true;
 
-          setTimeout(() => {
+          if (this.directionTimer) {
+            clearTimeout(this.directionTimer);
+          }
+
+          this.directionTimer = setTimeout(() => {
             this.hide = false;
-          }, 15);
+            this.directionTimer = null;
+          }, 16); // one frame at 60 fps
         }
       },
     },
@@ -92,7 +100,11 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      if (this.directionTimer) {
+        clearTimeout(this.directionTimer);
+      }
+    },
     // unmounted() {},
 
     // methods: {},

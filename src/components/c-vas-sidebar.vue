@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts">
-  import type { Ref } from 'vue';
+  import type { ComponentPublicInstance, Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import type { VasSessionStore } from '../stores/session';
@@ -63,6 +63,9 @@
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasPanelRight from './c-vas-panel-right.vue';
+
+  const DOUBLE_SHIFT_DELAY_MS = 500;
+  const PAGE_CONFIG_ANIMATION_DURATION_MS = 600;
 
   type KeyEvent = Event & {
     metaKey: boolean;
@@ -162,7 +165,7 @@
             this.animationTimeout = setTimeout(() => {
               this.isToggleButtonAnimated = false;
               this.animationTimeout = null;
-            }, 600);
+            }, PAGE_CONFIG_ANIMATION_DURATION_MS);
           }
         },
         immediate: true,
@@ -188,6 +191,13 @@
     },
     // unmounted() {},
 
+    errorCaptured(error: unknown, _instance: ComponentPublicInstance | null, info: string): boolean {
+      // eslint-disable-next-line no-console
+      console.error('[c-vas-sidebar] Caught child error — the sidebar stays functional:', error, info);
+
+      return false; // Stop propagation; prevents crashing the host app.
+    },
+
     methods: {
       onCloseFlyout(): void {
         this.isMainFlyoutOpen = false;
@@ -210,14 +220,12 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
-        const doublePressDelay = 500;
-
         // Detect double Shift.
         if (event.key === 'Shift') {
           const currentTime = Date.now();
           const timeSinceLastPress = currentTime - this.lastShiftPress;
 
-          if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
+          if (timeSinceLastPress > 0 && timeSinceLastPress < DOUBLE_SHIFT_DELAY_MS) {
             this.onToggleMainFlyout(!this.isMainFlyoutOpen);
             this.lastShiftPress = 0; // Reset.
 

@@ -22,8 +22,8 @@ export default [
       },
     },
     rules: {
-      // TODO: Fix and enable again
-      'import/extensions': 'off',
+      // eslint-disable-next-line id-length
+      'import/extensions': ['error', 'never', { vue: 'always', js: 'ignorePackages', json: 'always' }],
       'unicorn/no-array-reverse': 'off',
       'no-undefined': 'off',
       'vue/no-unsupported-features': [

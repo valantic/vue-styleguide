@@ -52,6 +52,7 @@
   import eVasInput from '../elements/e-vas-input.vue';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
+  import { validateRoutes } from '../utils/route-validator';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
 
   type Setup = {
@@ -209,6 +210,7 @@
     // created() {},
     // beforeMount() {},
     mounted() {
+      validateRoutes(this.routes);
       this.scrollSelectedIntoView();
     },
 

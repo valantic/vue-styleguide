@@ -8,7 +8,6 @@
       :name="name"
       :title="title"
       v-bind="$attrs"
-      :autofocus="autofocus"
       @blur="onBlur"
       @focus="onFocus"
       @input="onInput"

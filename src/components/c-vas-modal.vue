@@ -200,8 +200,13 @@
        * Opens the modal.
        */
       open(): void {
+        // Attach before nextTick so the listener is always registered even when
+        // the Transition is disabled (e.g. in test environments).
+        document.removeEventListener('keydown', this.onKeyDown); // prevent duplicate
+        document.addEventListener('keydown', this.onKeyDown);
+
         this.$nextTick(() => {
-          this.$el.showModal(); // Native function of `HTMLDialogElement`
+          (this.$el as HTMLDialogElement | null)?.showModal?.();
           this.$emit('update:isOpen', true);
         });
       },
@@ -242,8 +247,7 @@
        */
       onAfterEnter(): void {
         this.$emit('open');
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keydown', this.onKeyDown);
+        // Listener is already managed by open() / close() / beforeUnmount().
       },
     },
     // render() {},

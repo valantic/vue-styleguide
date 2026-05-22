@@ -11,28 +11,20 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts"
     },
+    "./elements": {
+      "types": "./src/elements/index.ts",
+      "import": "./src/elements/index.ts"
+    },
+    "./layouts": {
+      "types": "./src/layouts/index.ts",
+      "import": "./src/layouts/index.ts"
+    },
+    "./features": {
+      "types": "./src/features/index.ts",
+      "import": "./src/features/index.ts"
+    },
     "./types": {
-      "types": "./src/types/index.d.ts",
-      "import": "./src/types/index.d.ts"
-    },
-    "./types/*": {
-      "types": "./src/types/*.d.ts",
-      "import": "./src/types/*.d.ts"
-    },
-    "./elements": "./src/elements/index.ts",
-    "./elements/*": "./src/elements/*/index.ts",
-    "./components": "./src/components/index.ts",
-    "./components/*": "./src/components/*/index.ts",
-    "./layouts": "./src/layouts/index.ts",
-    "./layouts/*": "./src/layouts/*/index.ts",
-    "./src/*.vue": "./src/*.vue",
-    "./src/*": {
-      "types": "./src/*.ts",
-      "import": "./src/*.ts"
-    },
-    "./src/*.ts": {
-      "types": "./src/*.ts",
-      "import": "./src/*.ts"
+      "types": "./src/types/index.d.ts"
     }
   },
   "lastDependencyUpdate": "12.03.2026",

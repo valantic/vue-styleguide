@@ -1,1 +1,1 @@
-export { default as cVasSidebar } from './components/c-vas-sidebar.vue';
+export { default as cVasSidebar } from './c-vas-sidebar.vue';

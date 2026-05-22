@@ -34,9 +34,9 @@
 
         <c-vas-panel-action
           variant="icon"
-          icon="i-cog-wheel"
+          icon="i-control-alt"
           tooltip="Global Configuration"
-          tooltip-position="bottom"
+          tooltip-position="right"
           :active="activePanel === 'globalConfig'"
           @click="activePanel = 'globalConfig'"
         />

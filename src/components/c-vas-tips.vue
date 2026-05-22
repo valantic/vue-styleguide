@@ -7,7 +7,8 @@
       <span
         :key="currentIndex"
         :class="b('text')"
-      >{{ currentTip }}</span>
+        >{{ currentTip }}</span
+      >
     </transition>
   </div>
 </template>
@@ -88,6 +89,7 @@
     align-items: center;
     flex: 1;
     min-width: 0;
+    padding-left: variables.$vas-spacing--8;
 
     &__text {
       display: block;

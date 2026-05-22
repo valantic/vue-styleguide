@@ -1,11 +1,19 @@
 import { reactive } from 'vue';
+import type { Icon } from '../types/icon';
 import { getPersistentItem, setPersistentItem } from './helper';
 
-export const THEMES = ['light', 'dark'] as const;
+export const THEMES = ['system', 'light', 'dark'] as const;
 export type Theme = (typeof THEMES)[number];
+export type ResolvedTheme = 'light' | 'dark';
+
+export const THEME_CONFIG: Record<Theme, { label: string; icon: Icon }> = {
+  system: { label: 'System', icon: 'i-computer' },
+  light: { label: 'Light', icon: 'i-sun' },
+  dark: { label: 'Dark', icon: 'i-moon' },
+};
 
 const state = reactive({
-  theme: getPersistentItem<Theme>('theme', 'light'),
+  theme: getPersistentItem<Theme>('theme', 'system'),
 });
 
 export const useVasSettingsStore = () => {

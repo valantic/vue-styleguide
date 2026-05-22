@@ -2,6 +2,7 @@
 export type Icon = 'i-chevron--down' |
   'i-close' |
   'i-cog-wheel' |
+  'i-computer' |
   'i-control-alt' |
   'i-control' |
   'i-folder' |
@@ -10,7 +11,9 @@ export type Icon = 'i-chevron--down' |
   'i-key-ctrl' |
   'i-key-esc' |
   'i-key-shift' |
+  'i-moon' |
   'i-page-setting' |
+  'i-sun' |
   'i-tag' |
   'i-text' |
   'i-valantic' |

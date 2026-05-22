@@ -65,6 +65,7 @@
     vasSessionStore: VasSessionStore;
     vasSettingsStore: VasSettingsStore;
     container: Ref<HTMLDivElement | null | undefined>;
+    colorSchemeQuery: Ref<MediaQueryList | null>;
   };
 
   type Data = {
@@ -73,6 +74,7 @@
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
     animationTimeout: ReturnType<typeof setTimeout> | null;
+    systemPrefersDark: boolean;
   };
 
   export default defineComponent({
@@ -93,6 +95,7 @@
         vasSessionStore: useVasSessionStore(),
         vasSettingsStore: useVasSettingsStore(),
         container: ref(),
+        colorSchemeQuery: ref(null),
       };
     },
 
@@ -103,6 +106,7 @@
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
         animationTimeout: null,
+        systemPrefersDark: false,
       };
     },
     computed: {
@@ -117,7 +121,10 @@
       },
 
       theme(): string {
-        return `vas-styleguide-theme-${this.vasSettingsStore.state.theme}`;
+        const theme = this.vasSettingsStore.state.theme;
+        const resolved = theme === 'system' ? (this.systemPrefersDark ? 'dark' : 'light') : theme;
+
+        return `vas-styleguide-theme-${resolved}`;
       },
     },
     watch: {
@@ -161,6 +168,10 @@
     // beforeMount() {},
     mounted() {
       document.addEventListener('keydown', this.handleHotKeys);
+
+      this.colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.systemPrefersDark = this.colorSchemeQuery.matches;
+      this.colorSchemeQuery.addEventListener('change', this.handleColorSchemeChange);
     },
     // beforeUpdate() {},
     // updated() {},
@@ -169,6 +180,7 @@
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleHotKeys);
+      this.colorSchemeQuery?.removeEventListener('change', this.handleColorSchemeChange);
 
       if (this.animationTimeout) {
         clearTimeout(this.animationTimeout);
@@ -184,6 +196,10 @@
     },
 
     methods: {
+      handleColorSchemeChange(event: MediaQueryListEvent): void {
+        this.systemPrefersDark = event.matches;
+      },
+
       onCloseFlyout(): void {
         this.isMainFlyoutOpen = false;
         this.isHotkeysModalOpen = false;

@@ -7,6 +7,10 @@
       type="button"
       @click="settingsStore.setTheme(option.value)"
     >
+      <e-vas-icon
+        :icon="option.icon"
+        size="14"
+      />
       {{ option.label }}
     </button>
   </div>
@@ -15,7 +19,9 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import type { Theme, VasSettingsStore } from '../stores/settings';
-  import { THEMES, useVasSettingsStore } from '../stores/settings';
+  import { THEMES, THEME_CONFIG, useVasSettingsStore } from '../stores/settings';
+  import type { Icon } from '../types/icon';
+  import eVasIcon from './e-vas-icon.vue';
 
   type Setup = {
     settingsStore: VasSettingsStore;
@@ -26,7 +32,7 @@
   export default defineComponent({
     name: 'e-vas-theme-selector',
 
-    // components: {},
+    components: { eVasIcon },
     // props: {},
     // emits: {},
 
@@ -41,10 +47,10 @@
     // },
 
     computed: {
-      themeOptions(): { value: Theme; label: string }[] {
+      themeOptions(): { value: Theme; label: string; icon: Icon }[] {
         return [...THEMES].map((value) => ({
           value,
-          label: value.charAt(0).toUpperCase() + value.slice(1),
+          ...THEME_CONFIG[value],
         }));
       },
     },
@@ -74,6 +80,10 @@
     gap: variables.$vas-spacing--4;
 
     &__option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: variables.$vas-spacing--10;
       flex: 1;
       padding: variables.$vas-spacing--6 variables.$vas-spacing--8;
       border: 1px solid variables.$vas-theme-border-color;

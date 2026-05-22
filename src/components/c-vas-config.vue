@@ -1,11 +1,20 @@
 <template>
   <div :class="b()">
-    <e-vas-button
-      type="button"
-      @click="clearAllPersistentItems"
-    >
-      Remove persisted values
-    </e-vas-button>
+    <div :class="b('clear')">
+      <e-vas-button
+        type="button"
+        :disabled="!hasPersistedItems"
+        @click="onClearAllPersistentItems"
+      >
+        Remove persisted values
+      </e-vas-button>
+      <span
+        v-if="hasPersistedItems"
+        :class="b('storage-info')"
+      >
+        {{ persistedCount }} {{ persistedCount === 1 ? 'item' : 'items' }} · {{ persistedSizeLabel }}
+      </span>
+    </div>
 
     <slot name="globalSettings">
       <div :class="b('headline')">Global Settings</div>
@@ -26,7 +35,7 @@
   import { defineComponent } from 'vue';
   import eVasButton from '../elements/e-vas-button.vue';
   import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
-  import { clearAllPersistentItems } from '../stores/helper';
+  import { clearAllPersistentItems, getPersistentItemCount, getPersistentItemsSize } from '../stores/helper';
 
   /**
    * Component for managing global settings.
@@ -39,11 +48,46 @@
       cVasHtmlValidation,
     },
 
+    data() {
+      return {
+        persistedCount: 0,
+        persistedSize: 0,
+      };
+    },
+
+    computed: {
+      hasPersistedItems(): boolean {
+        return this.persistedCount > 0;
+      },
+
+      persistedSizeLabel(): string {
+        if (this.persistedSize < 1024) {
+          return `${this.persistedSize} B`;
+        }
+
+        return `${(this.persistedSize / 1024).toFixed(1)} KB`;
+      },
+    },
+
+    mounted() {
+      this.refreshStorageInfo();
+      window.addEventListener('storage', this.refreshStorageInfo);
+    },
+
+    unmounted() {
+      window.removeEventListener('storage', this.refreshStorageInfo);
+    },
+
     methods: {
-      /**
-       * Clears all persistent items.
-       */
-      clearAllPersistentItems,
+      refreshStorageInfo() {
+        this.persistedCount = getPersistentItemCount();
+        this.persistedSize = getPersistentItemsSize();
+      },
+
+      onClearAllPersistentItems() {
+        clearAllPersistentItems();
+        this.refreshStorageInfo();
+      },
     },
   });
 </script>
@@ -60,6 +104,17 @@
       font-weight: bold;
       color: var(--vas-theme-text-color-muted);
       margin: variables.$vas-spacing--10 0;
+    }
+
+    &__clear {
+      display: flex;
+      align-items: center;
+      gap: variables.$vas-spacing--10;
+    }
+
+    &__storage-info {
+      font-size: 0.75rem;
+      color: var(--vas-theme-text-color-muted);
     }
 
     &__custom-settings {

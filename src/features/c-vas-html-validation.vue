@@ -5,12 +5,15 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
+  import { getPersistentItem, setPersistentItem } from '../stores/helper';
 
   // type Setup = {};
 
   type Data = {
     enabled: boolean;
   };
+
+  const STORAGE_KEY = 'html-validation';
 
   /**
    * Adds a toggle to en-/disable CSS driven HTML validation.
@@ -28,17 +31,14 @@
     // setup(): Setup {},
     data(): Data {
       return {
-        enabled: true,
+        enabled: getPersistentItem<boolean>(STORAGE_KEY, true),
       };
     },
 
     // computed: {},
     watch: {
-      enabled: {
-        immediate: true,
-        handler(enabled: boolean) {
-          document.body.classList.toggle('c-vas-html-validation--enabled', enabled);
-        },
+      enabled(enabled: boolean) {
+        setPersistentItem(STORAGE_KEY, enabled);
       },
     },
 

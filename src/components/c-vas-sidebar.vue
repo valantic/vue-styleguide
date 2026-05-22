@@ -42,6 +42,7 @@
   import type { ComponentPublicInstance, Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { getPersistentItem } from '../stores/helper';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
   import type { VasSettingsStore } from '../stores/settings';
@@ -172,6 +173,11 @@
       this.colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
       this.systemPrefersDark = this.colorSchemeQuery.matches;
       this.colorSchemeQuery.addEventListener('change', this.handleColorSchemeChange);
+
+      document.body.classList.toggle(
+        'c-vas-html-validation--enabled',
+        getPersistentItem<boolean>('html-validation', true),
+      );
     },
     // beforeUpdate() {},
     // updated() {},
@@ -258,7 +264,6 @@
 
           return;
         }
-
       },
     },
     // render() {},

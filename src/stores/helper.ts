@@ -63,3 +63,27 @@ export const clearAllPersistentItems = (): void => {
     console.error('Failed to clear persistent items', error);
   }
 };
+
+/**
+ * Returns the count of persisted items with the vas- prefix.
+ */
+export const getPersistentItemCount = (): number => {
+  try {
+    return Object.keys(localStorage).filter((key) => key.startsWith(prefix)).length;
+  } catch {
+    return 0;
+  }
+};
+
+/**
+ * Returns the total size in bytes of all persisted items with the vas- prefix.
+ */
+export const getPersistentItemsSize = (): number => {
+  try {
+    return Object.keys(localStorage)
+      .filter((key) => key.startsWith(prefix))
+      .reduce((total, key) => total + key.length + (localStorage.getItem(key)?.length ?? 0), 0);
+  } catch {
+    return 0;
+  }
+};

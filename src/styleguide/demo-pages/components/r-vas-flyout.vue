@@ -42,10 +42,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import cVasFlyout from '../../../components/c-vas-flyout.vue';
   import eVasButton from '../../../elements/e-vas-button.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
   import type { SelectOptionType } from '../../../types';
 

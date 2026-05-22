@@ -19,9 +19,9 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasButton from '../../../elements/e-vas-button.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};

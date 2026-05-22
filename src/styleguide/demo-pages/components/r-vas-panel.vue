@@ -4,28 +4,28 @@
       :class="b('preview')"
       class="vas-styleguide-theme-dark"
     >
-      <c-vas-panel-right />
+      <c-vas-panel />
     </div>
   </l-vas-layout>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasPanelRight from '../../../components/c-vas-panel-right.vue';
+  import cVasPanel from '../../../components/c-vas-panel.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
   // type Data = {};
 
   /**
-   * Styleguide page for c-vas-panel-right.
+   * Styleguide page for c-vas-panel.
    */
   export default defineComponent({
-    name: 'r-vas-panel-right',
+    name: 'r-vas-panel',
 
     components: {
       lVasLayout,
-      cVasPanelRight,
+      cVasPanel,
     },
 
     // props: {},
@@ -56,7 +56,7 @@
 </script>
 
 <style lang="scss">
-  .r-vas-panel-right {
+  .r-vas-panel {
     &__preview {
       width: 400px;
       height: 600px;

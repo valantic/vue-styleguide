@@ -61,10 +61,10 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
   import eVasInput from '../../../elements/e-vas-input.vue';
   import eVasMultiselect from '../../../elements/e-vas-multiselect.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   type Option = { label: string; value: string };

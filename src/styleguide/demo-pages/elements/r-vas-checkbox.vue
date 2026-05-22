@@ -36,8 +36,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   type Option = { label: string; value: string; name: string };

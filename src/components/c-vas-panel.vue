@@ -1,6 +1,6 @@
 <template>
-  <c-vas-panel-base :class="b()">
-    <template #top>
+  <div :class="b()">
+    <div :class="b('slot', { top: true })">
       <div :class="b('top-bar')">
         <div :class="b('logo')">
           <e-vas-icon
@@ -19,9 +19,9 @@
           @click="activePanel = 'settings'"
         />
       </div>
-    </template>
+    </div>
 
-    <template #left>
+    <div :class="b('slot', { left: true })">
       <div :class="b('elements-container', { column: true })">
         <c-vas-panel-action
           variant="icon"
@@ -71,9 +71,9 @@
           @click="$emit('openHotkeysModal')"
         />
       </div>
-    </template>
+    </div>
 
-    <template #content>
+    <div :class="b('content')">
       <c-vas-navigation
         v-if="activePanel === 'navigation'"
         :routes="router.options.routes"
@@ -100,11 +100,11 @@
         v-show="activePanel === 'pageConfig'"
         id="teleportDestinationPageConfigFlyout"
       ></div>
-    </template>
+    </div>
 
-    <template #right></template>
+    <div :class="b('slot', { right: true })"></div>
 
-    <template #bottom>
+    <div :class="b('slot', { bottom: true })">
       <div :class="b('footer-bar')">
         <c-vas-tips />
         <c-vas-panel-action
@@ -116,8 +116,8 @@
           rel="noopener noreferrer"
         />
       </div>
-    </template>
-  </c-vas-panel-base>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -130,7 +130,6 @@
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
-  import cVasPanelBase from './c-vas-panel-base.vue';
   import cVasSettings from './c-vas-settings.vue';
   import cVasTips from './c-vas-tips.vue';
 
@@ -149,17 +148,16 @@
   };
 
   /**
-   * Right-side panel containing navigation, settings, and footer for the main flyout.
+   * Main styleguide panel with navigation, settings, and footer.
    */
   export default defineComponent({
-    name: 'c-vas-panel-right',
+    name: 'c-vas-panel',
     components: {
       eVasIcon,
       cVasConfig,
       cVasSettings,
       cVasNavigation,
       cVasPanelAction,
-      cVasPanelBase,
       cVasTips,
     },
 
@@ -213,7 +211,65 @@
 <style lang="scss">
   @use '../setup/scss/variables';
 
-  .c-vas-panel-right {
+  .c-vas-panel {
+    $bar-size: variables.$vas-theme-panel-bar-size;
+
+    background-color: var(--vas-theme-background-container);
+    display: grid;
+    grid-template-areas:
+      'top top top'
+      'left content right'
+      'bottom bottom bottom';
+    grid-template-columns: $bar-size 1fr $bar-size;
+    grid-template-rows: $bar-size 1fr $bar-size;
+    width: 100%;
+    height: 100%;
+    color: var(--vas-theme-text-color);
+
+    &__slot {
+      display: flex;
+      gap: variables.$vas-theme-panel-spacing-between-elements;
+
+      &--top {
+        grid-area: top;
+      }
+
+      &--bottom {
+        grid-area: bottom;
+      }
+
+      &--top,
+      &--bottom {
+        width: 100%;
+        padding: 4px;
+      }
+
+      &--left {
+        grid-area: left;
+        justify-content: space-between;
+      }
+
+      &--right {
+        grid-area: right;
+      }
+
+      &--left,
+      &--right {
+        flex-direction: column;
+        padding: 6px 4px;
+        height: 100%;
+      }
+    }
+
+    &__content {
+      grid-area: content;
+      background-color: var(--vas-theme-background-content);
+      border-radius: 6px;
+      padding: 10px;
+      min-height: 0;
+      overflow: hidden auto;
+    }
+
     &__logo {
       display: flex;
       align-items: center;
@@ -239,10 +295,6 @@
         line-height: 1;
         aspect-ratio: 1;
       }
-    }
-
-    .c-vas-panel-base__slot--left {
-      justify-content: space-between;
     }
 
     &__elements-container {

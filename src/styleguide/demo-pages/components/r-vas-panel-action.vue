@@ -371,8 +371,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoTable from '../../../components/c-vas-demo-table.vue';
   import cVasPanelAction from '../../../components/c-vas-panel-action.vue';
+  import cVasDemoTable from '../../../features/c-vas-demo-table.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};

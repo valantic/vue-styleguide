@@ -17,7 +17,7 @@
       </template>
 
       <template #content>
-        <c-vas-panel-right @open-hotkeys-modal="isHotkeysModalOpen = true">
+        <c-vas-panel @open-hotkeys-modal="isHotkeysModalOpen = true">
           <template
             v-if="$slots.globalSettings"
             #globalSettings
@@ -30,7 +30,7 @@
           >
             <slot name="customSettings"></slot>
           </template>
-        </c-vas-panel-right>
+        </c-vas-panel>
       </template>
     </c-vas-flyout>
 
@@ -49,7 +49,7 @@
   import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
-  import cVasPanelRight from './c-vas-panel-right.vue';
+  import cVasPanel from './c-vas-panel.vue';
 
   const DOUBLE_SHIFT_DELAY_MS = 500;
   const PAGE_CONFIG_ANIMATION_DURATION_MS = 600;
@@ -84,7 +84,7 @@
       cVasFlyoutHandle,
       cVasFlyout,
       cVasHotkeyModal,
-      cVasPanelRight,
+      cVasPanel,
     },
     // props: {},
 

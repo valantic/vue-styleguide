@@ -38,11 +38,11 @@ export const routes = [
         },
       },
       {
-        path: 'sg-test-page-vas-panel-right',
-        name: 'sg-test-page-vas-panel-right',
-        component: () => import('../demo-pages/components/r-vas-panel-right.vue'),
+        path: 'sg-test-page-vas-panel',
+        name: 'sg-test-page-vas-panel',
+        component: () => import('../demo-pages/components/r-vas-panel.vue'),
         meta: {
-          title: 'Panel Right',
+          title: 'Panel',
         },
       },
       {

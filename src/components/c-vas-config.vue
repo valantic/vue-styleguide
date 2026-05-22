@@ -25,8 +25,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasButton from '../elements/e-vas-button.vue';
+  import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
   import { clearAllPersistentItems } from '../stores/helper';
-  import cVasHtmlValidation from './c-vas-html-validation.vue';
 
   /**
    * Component for managing global settings.

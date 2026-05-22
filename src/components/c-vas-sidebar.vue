@@ -272,6 +272,7 @@
 
 <style lang="scss">
   @use 'sass:meta';
+  @use '../setup/scss/themes';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
 

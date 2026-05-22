@@ -272,9 +272,9 @@
 
 <style lang="scss">
   @use 'sass:meta';
-  @use '../setup/scss/themes';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
+  @use '../setup/scss/themes';
 
   :where(.c-vas-sidebar) {
     @include meta.load-css('the-new-css-reset/css/reset');

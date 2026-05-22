@@ -15,45 +15,73 @@
           icon="i-cog-wheel"
           tooltip="Settings"
           tooltip-position="bottom"
-          :active="!showMenu"
-          @click="showMenu = false"
+          :active="activePanel === 'settings'"
+          @click="activePanel = 'settings'"
         />
       </div>
     </template>
 
     <template #left>
-      <c-vas-panel-action
-        variant="icon"
-        icon="i-text"
-        tooltip="Navigation"
-        tooltip-position="right"
-        :active="showMenu"
-        @click="showMenu = true"
-      />
+      <div :class="b('elements-container', { column: true })">
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-folder"
+          tooltip="Navigation"
+          tooltip-position="right"
+          :active="activePanel === 'navigation'"
+          @click="activePanel = 'navigation'"
+        />
 
-      <c-vas-panel-action
-        :class="b('viewport')"
-        variant="fluid-column"
-        :text="viewport.currentViewport"
-        :tooltip="viewPortTooltip"
-        tooltip-position="right"
-      />
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-cog-wheel"
+          tooltip="Global Configuration"
+          tooltip-position="bottom"
+          :active="activePanel === 'globalConfig'"
+          @click="activePanel = 'globalConfig'"
+        />
 
-      <c-vas-panel-action
-        variant="icon"
-        icon="i-key-cmd--filled"
-        tooltip="Hotkeys"
-        tooltip-position="right"
-        @click="$emit('openHotkeysModal')"
-      />
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-control"
+          tooltip="Page Configuration"
+          tooltip-position="right"
+          :active="activePanel === 'pageConfig'"
+          :disabled="!vasSessionStore.state.hasPageConfig"
+          :badge="vasSessionStore.state.hasPageConfig"
+          :highlighted="vasSessionStore.state.hasPageConfig"
+          @click="activePanel = 'pageConfig'"
+        />
+
+        <c-vas-panel-action
+          :class="b('viewport')"
+          variant="fluid-column"
+          :text="viewport.currentViewport"
+          :tooltip="viewPortTooltip"
+          tooltip-position="right"
+        />
+      </div>
+
+      <div :class="b('elements-container', { column: true })">
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-key-cmd--filled"
+          tooltip="Hotkeys"
+          tooltip-position="right"
+          @click="$emit('openHotkeysModal')"
+        />
+      </div>
     </template>
 
     <template #content>
       <c-vas-navigation
-        v-if="showMenu"
+        v-if="activePanel === 'navigation'"
         :routes="router.options.routes"
       />
-      <c-vas-config v-else>
+
+      <c-vas-settings v-else-if="activePanel === 'settings'" />
+
+      <c-vas-config v-else-if="activePanel === 'globalConfig'">
         <template
           v-if="$slots.globalSettings"
           #globalSettings
@@ -67,13 +95,18 @@
           <slot name="customSettings"></slot>
         </template>
       </c-vas-config>
+
+      <div
+        v-show="activePanel === 'pageConfig'"
+        id="teleportDestinationPageConfigFlyout"
+      ></div>
     </template>
 
     <template #right></template>
 
     <template #bottom>
       <div :class="b('footer-bar')">
-        <div>yolo</div>
+        <c-vas-tips />
         <c-vas-panel-action
           variant="fluid"
           icon="i-tag"
@@ -93,20 +126,26 @@
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
+  import { type VasSessionStore, useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
   import cVasPanelBase from './c-vas-panel-base.vue';
+  import cVasSettings from './c-vas-settings.vue';
+  import cVasTips from './c-vas-tips.vue';
+
+  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
     version: string;
     githubUrl: string;
     viewport: Viewport;
+    vasSessionStore: VasSessionStore;
   };
 
   type Data = {
-    showMenu: boolean;
+    activePanel: ActivePanel;
   };
 
   /**
@@ -117,9 +156,11 @@
     components: {
       eVasIcon,
       cVasConfig,
+      cVasSettings,
       cVasNavigation,
       cVasPanelAction,
       cVasPanelBase,
+      cVasTips,
     },
 
     // props: {},
@@ -133,11 +174,12 @@
         version: packageJson.version,
         githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
         viewport: useViewport(),
+        vasSessionStore: useVasSessionStore(),
       };
     },
     data(): Data {
       return {
-        showMenu: true,
+        activePanel: 'navigation',
       };
     },
 
@@ -196,6 +238,19 @@
         font-weight: bold;
         line-height: 1;
         aspect-ratio: 1;
+      }
+    }
+
+    .c-vas-panel-base__slot--left {
+      justify-content: space-between;
+    }
+
+    &__elements-container {
+      display: flex;
+      gap: variables.$vas-theme-panel-spacing-between-elements;
+
+      &--column {
+        flex-direction: column;
       }
     }
   }

@@ -5,7 +5,7 @@
   >
     <component
       :is="href ? 'a' : 'button'"
-      :class="b({ [variant]: true, active, disabled, isLink: !!href })"
+      :class="b({ [variant]: true, active, disabled, isLink: !!href, highlighted })"
       v-bind="elementAttrs"
     >
       <e-vas-icon
@@ -19,6 +19,10 @@
       <template v-else>
         <slot />
       </template>
+      <span
+        v-if="badge"
+        :class="b('badge')"
+      />
     </component>
   </c-vas-tooltip>
 </template>
@@ -81,6 +85,22 @@
        * Disables the button.
        */
       disabled: {
+        type: Boolean,
+        default: false,
+      },
+
+      /**
+       * Pulses a colored border ring to draw attention to the button.
+       */
+      highlighted: {
+        type: Boolean,
+        default: false,
+      },
+
+      /**
+       * Shows a small dot badge in the upper-right corner.
+       */
+      badge: {
         type: Boolean,
         default: false,
       },
@@ -181,9 +201,21 @@
 <style lang="scss">
   @use '../setup/scss/variables';
 
+  @keyframes c-vas-panel-action-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 0 rgba(variables.$vas-color-valantic-primary, 0);
+    }
+
+    50% {
+      box-shadow: 0 0 0 1.5px variables.$vas-color-valantic-primary;
+    }
+  }
+
   .c-vas-panel-action {
     $this: &;
 
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -233,6 +265,21 @@
     &--disabled {
       opacity: 0.4;
       cursor: default;
+      pointer-events: none;
+    }
+
+    &--highlighted {
+      animation: c-vas-panel-action-pulse 1.8s ease-in-out infinite;
+    }
+
+    &__badge {
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #aaffaa;
       pointer-events: none;
     }
   }

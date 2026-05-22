@@ -3,20 +3,6 @@
     ref="container"
     :class="[b('', modifiers), theme]"
   >
-    <c-vas-flyout :is-open="isPageConfigFlyoutOpen">
-      <template #controls>
-        <c-vas-flyout-handle
-          :is-open="isPageConfigFlyoutOpen"
-          :is-animated="isToggleButtonAnimated"
-          icon="i-page-setting"
-          @toggle="onTogglePageConfigFlyout"
-        />
-      </template>
-      <template #content>
-        <div id="teleportDestinationPageConfigFlyout"></div>
-      </template>
-    </c-vas-flyout>
-
     <c-vas-flyout
       :is-open="isMainFlyoutOpen"
       direction="right"
@@ -25,6 +11,7 @@
         <c-vas-flyout-handle
           icon="i-page-setting"
           :is-open="isMainFlyoutOpen"
+          :is-animated="isToggleButtonAnimated"
           @toggle="onToggleMainFlyout"
         />
       </template>
@@ -82,7 +69,6 @@
 
   type Data = {
     isMainFlyoutOpen: boolean;
-    isPageConfigFlyoutOpen: boolean;
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
@@ -113,7 +99,6 @@
     data(): Data {
       return {
         isMainFlyoutOpen: false,
-        isPageConfigFlyoutOpen: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
@@ -122,7 +107,7 @@
     },
     computed: {
       isFlyoutOpen(): boolean {
-        return this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen;
+        return this.isMainFlyoutOpen;
       },
 
       modifiers(): Modifiers {
@@ -201,16 +186,11 @@
     methods: {
       onCloseFlyout(): void {
         this.isMainFlyoutOpen = false;
-        this.isPageConfigFlyoutOpen = false;
         this.isHotkeysModalOpen = false;
       },
 
       onToggleMainFlyout(isMainFlyoutOpen?: boolean): void {
         this.isMainFlyoutOpen = isMainFlyoutOpen ?? !this.isMainFlyoutOpen;
-      },
-
-      onTogglePageConfigFlyout(): void {
-        this.isPageConfigFlyoutOpen = !this.isPageConfigFlyoutOpen;
       },
 
       handleOutsideClick(event: Event): void {
@@ -263,13 +243,6 @@
           return;
         }
 
-        // Hotkeys for page config flyout.
-        if (event.metaKey && event.shiftKey && event.key === ';') {
-          event.preventDefault();
-          this.onTogglePageConfigFlyout();
-
-          return;
-        }
       },
     },
     // render() {},

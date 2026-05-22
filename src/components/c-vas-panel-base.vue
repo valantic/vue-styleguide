@@ -62,9 +62,10 @@
 </script>
 
 <style lang="scss">
+  @use '../setup/scss/variables';
+
   .c-vas-panel-base {
-    $spacing-between-elements: 6px;
-    $bar-size: 34px;
+    $bar-size: variables.$vas-theme-panel-bar-size;
 
     background-color: var(--vas-theme-background-container);
     display: grid;
@@ -80,7 +81,7 @@
 
     &__slot {
       display: flex;
-      gap: $spacing-between-elements;
+      gap: variables.$vas-theme-panel-spacing-between-elements;
 
       &--top {
         grid-area: top;

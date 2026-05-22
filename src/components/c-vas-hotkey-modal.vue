@@ -68,18 +68,6 @@
       <div :class="b('row')">
         <div :class="b('left')">
           <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>,</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the page configuration sidebar. (if slot is prefilled)</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
             <span>Esc</span>
           </div>
         </div>

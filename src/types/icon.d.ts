@@ -2,6 +2,9 @@
 export type Icon = 'i-chevron--down' |
   'i-close' |
   'i-cog-wheel' |
+  'i-control-alt' |
+  'i-control' |
+  'i-folder' |
   'i-key-cmd--filled' |
   'i-key-cmd' |
   'i-key-ctrl' |

@@ -107,14 +107,7 @@
     <div :class="b('slot', { bottom: true })">
       <div :class="b('footer-bar')">
         <c-vas-tips />
-        <c-vas-panel-action
-          variant="fluid"
-          icon="i-tag"
-          :text="version"
-          :href="githubUrl"
-          target="_blank"
-          rel="noopener noreferrer"
-        />
+        <c-vas-github-version />
       </div>
     </div>
   </div>
@@ -123,11 +116,11 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
-  import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import { type VasSessionStore, useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
+  import cVasGithubVersion from './c-vas-github-version.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
   import cVasSettings from './c-vas-settings.vue';
@@ -137,8 +130,6 @@
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
-    version: string;
-    githubUrl: string;
     viewport: Viewport;
     vasSessionStore: VasSessionStore;
   };
@@ -155,6 +146,7 @@
     components: {
       eVasIcon,
       cVasConfig,
+      cVasGithubVersion,
       cVasSettings,
       cVasNavigation,
       cVasPanelAction,
@@ -169,8 +161,6 @@
     setup(): Setup {
       return {
         router: useRouter(),
-        version: packageJson.version,
-        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
         viewport: useViewport(),
         vasSessionStore: useVasSessionStore(),
       };

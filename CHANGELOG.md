@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [FEATURE] Add `c-vas-github-version` component — replaces the plain version link in the panel footer with a component that asynchronously checks the GitHub Tags API and surfaces a badge and tooltip when a newer release is available. The network request is fully fire-and-forget and never blocks rendering.
 - [ENHANCEMENT] Merge `c-vas-panel-base` and `c-vas-panel-right` into a single `c-vas-panel` component, removing the intermediate layout-only shell.
 - [BUGFIX] Fix `localStorage.getItem` and `clearAllPersistentItems` throwing uncaught exceptions in private-browsing mode or when storage quota is exceeded; both are now fully wrapped in try/catch.
 - [BUGFIX] Fix `c-vas-modal` keydown listener never attaching when the Vue `<Transition>` is skipped (e.g. in test environments); listener is now registered in `open()` instead of the `onAfterEnter` callback. Added null guard on `$el.showModal()`.

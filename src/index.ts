@@ -6,3 +6,5 @@ export * from './elements/index';
 export * from './components/index';
 export * from './layouts/index';
 export * from './features/index';
+
+export * from './stores/settings';

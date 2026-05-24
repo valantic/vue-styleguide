@@ -93,8 +93,6 @@
       cVasModal,
     },
 
-    // components: {},
-
     props: {
       /**
        * Toggles the visibility of the modal.
@@ -107,7 +105,6 @@
     emits: {
       'update:isOpen': (state: unknown): boolean => typeof state === 'boolean',
     },
-    // emits: [],
 
     // setup(): Setup {
     //   return {};

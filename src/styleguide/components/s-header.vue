@@ -30,7 +30,7 @@
     },
 
     // props: {},
-    // emits: [],
+    // emits: {},
 
     // setup(): Setup {
     //   return {};

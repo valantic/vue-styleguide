@@ -67,6 +67,7 @@
   import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
+  // type Setup = {};
   type Option = { label: string; value: string };
   type Data = {
     values: string[];
@@ -98,6 +99,12 @@
       lVasLayout,
     },
 
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         values: [],
@@ -118,6 +125,23 @@
         placeholder: 'Choose options',
       };
     },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>
 

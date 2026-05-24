@@ -3,8 +3,7 @@
     <section :class="b('section')">
       <h2 :class="b('section-title')">Spacing Scale</h2>
       <p :class="b('hint')">
-        All spacing values are defined as SCSS variables. Use only these tokens — no arbitrary pixel
-        values.
+        All spacing values are defined as SCSS variables. Use only these tokens — no arbitrary pixel values.
       </p>
       <div :class="b('scale')">
         <div
@@ -26,9 +25,7 @@
 
     <section :class="b('section')">
       <h2 :class="b('section-title')">Spacing in Context</h2>
-      <p :class="b('hint')">
-        Visual examples of spacing applied as padding and gap.
-      </p>
+      <p :class="b('hint')">Visual examples of spacing applied as padding and gap.</p>
       <div :class="b('examples')">
         <div
           v-for="step in contextSteps"
@@ -68,7 +65,13 @@
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type SpacingStep = { token: string; value: string };
+  type DerivedValue = { token: string; name: string; value: string };
+  type Data = {
+    spacingSteps: SpacingStep[];
+    contextSteps: SpacingStep[];
+    derivedValues: DerivedValue[];
+  };
 
   export default defineComponent({
     name: 'r-spacing-scale',
@@ -80,8 +83,10 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
-    data() {
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         spacingSteps: [
           { token: '$vas-spacing--2', value: '2px' },

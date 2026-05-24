@@ -18,11 +18,13 @@ describe('helper — persistent storage', () => {
     });
 
     test('returns fallback when stored JSON is malformed', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
       localStorage.setItem('vas-theme', 'not-json{{{');
       expect(getPersistentItem('theme', 'light')).toBe('light');
     });
 
     test('returns fallback when localStorage.getItem throws (e.g. private browsing)', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
         throw new DOMException('SecurityError');
       });
@@ -37,6 +39,7 @@ describe('helper — persistent storage', () => {
     });
 
     test('does not throw when localStorage.setItem throws (quota exceeded)', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
         throw new DOMException('QuotaExceededError');
       });

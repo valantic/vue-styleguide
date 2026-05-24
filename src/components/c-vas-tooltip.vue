@@ -53,7 +53,7 @@
         default: 'top',
       },
     },
-    // emits: [],
+    // emits: {},
 
     // setup(): Setup {
     //   return {};

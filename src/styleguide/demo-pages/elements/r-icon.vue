@@ -159,30 +159,31 @@
           }));
       },
     },
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
       /**
        * Event handler for copy to clipboard button.
        */
       copyToClipboard(icon: FilteredIcon) {
         const hiddenInput = this.input as HTMLInputElement;
-        let template;
-
-        switch (this.variant) {
-          case 'mask':
-            template = `@include mixins.icon(${icon.name});`;
-            break;
-
-          case 'css':
-            template = `background-image: url('../../../assets/icons.svg#${icon.name}');`;
-            break;
-
-          case 'image':
-            template = `<e-vas-icon icon="${icon.name}" :inline="false" />`;
-            break;
-
-          default:
-            template = `<e-vas-icon icon="${icon.name}"/>`;
-        }
+        const templates: Record<string, string> = {
+          mask: `@include mixins.icon(${icon.name});`,
+          css: `background-image: url('../../../assets/icons.svg#${icon.name}');`,
+          image: `<e-vas-icon icon="${icon.name}" :inline="false" />`,
+        };
+        const template = templates[this.variant] ?? `<e-vas-icon icon="${icon.name}"/>`;
 
         hiddenInput.value = template;
         hiddenInput.select();
@@ -203,19 +204,6 @@
         this.notification = message;
       },
     },
-    // watch: {},
-
-    // beforeCreate() {},
-    // created() {},
-    // beforeMount() {},
-    // mounted() {},
-    // beforeUpdate() {},
-    // updated() {},
-    // activated() {},
-    // deactivated() {},
-    // beforeUnmount() {},
-    // unmounted() {},
-
     // render() {},
   });
 </script>

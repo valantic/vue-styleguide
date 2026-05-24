@@ -39,6 +39,12 @@
   import { clearAllPersistentItems, getPersistentItemCount, getPersistentItemsSize } from '../stores/helper';
   import cVasTypography from './c-vas-typography.vue';
 
+  // type Setup = {};
+  type Data = {
+    persistedCount: number;
+    persistedSize: number;
+  };
+
   /**
    * Component for managing global settings.
    */
@@ -50,7 +56,13 @@
       eVasButton,
     },
 
-    data() {
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },,
+    data(): Data {
       return {
         persistedCount: 0,
         persistedSize: 0,
@@ -70,12 +82,20 @@
         return `${(this.persistedSize / 1024).toFixed(1)} KB`;
       },
     },
+    // watch: {},
 
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
     mounted() {
       this.refreshStorageInfo();
       window.addEventListener('storage', this.refreshStorageInfo);
     },
-
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
     unmounted() {
       window.removeEventListener('storage', this.refreshStorageInfo);
     },
@@ -91,6 +111,7 @@
         this.refreshStorageInfo();
       },
     },
+    // render() {},
   });
 </script>
 

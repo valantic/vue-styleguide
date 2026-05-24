@@ -10,6 +10,9 @@
   import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
   import cVasTypography from './c-vas-typography.vue';
 
+  // type Setup = {};
+  // type Data = {};
+
   /**
    * Component for managing global settings.
    */
@@ -21,7 +24,32 @@
       cVasTypography,
     },
 
-    methods: {},
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
+    // data(): Data {
+    //   return {};
+    // },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>
 

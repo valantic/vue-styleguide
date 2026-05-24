@@ -36,7 +36,7 @@
         default: true,
       },
     },
-    // emits: [],
+    // emits: {},
 
     // setup(): Setup {
     //   return {};

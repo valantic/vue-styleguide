@@ -14,6 +14,7 @@
   type Setup = {
     markdownComponent: Ref<Component | null>;
   };
+  // type Data = {};
 
   /**
    * Renders a markdown file as a Vue component.

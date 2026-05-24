@@ -46,7 +46,10 @@
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    count: number;
+    toggleValue: boolean;
+  };
 
   /**
    * Styleguide page for c-vas-demo-card.
@@ -64,8 +67,10 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
-    data() {
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         count: 0,
         toggleValue: false,

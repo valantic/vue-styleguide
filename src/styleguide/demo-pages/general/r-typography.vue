@@ -65,6 +65,12 @@
   import { defineComponent } from 'vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
+  // type Setup = {};
+  type Data = {
+    dummyText: string;
+    fontScale: { token: string; size: string; sample: string; usage: string }[];
+  };
+
   export default defineComponent({
     name: 'r-typography',
     components: {
@@ -72,15 +78,45 @@
     },
 
     // props: {},
-    data() {
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         dummyText: faker.lorem.words(45),
         fontScale: [
-          { token: '$vas-font-size--tiny', size: '10px', sample: 'Badge label, icon annotation', usage: 'Badge labels, icon annotations, micro-captions' },
-          { token: '$vas-font-size--small', size: '11px', sample: 'Nav sub-item, code snippet, metadata', usage: 'Nav sub-items, code snippets, tag text, muted metadata' },
-          { token: '$vas-font-size--base', size: '12px', sample: 'Body text, form fields, nav items, tooltips', usage: 'Default body, form inputs, nav items, tooltips, markdown body' },
-          { token: '$vas-font-size--label', size: '13px', sample: 'Button text, form label, section label', usage: 'Button text, form labels, section labels, sidebar root base' },
-          { token: '$vas-font-size--heading', size: '15px', sample: 'Panel title, modal header', usage: 'All h1–h6 inside sidebar, panel/modal titles, page headers' },
+          {
+            token: '$vas-font-size--tiny',
+            size: '10px',
+            sample: 'Badge label, icon annotation',
+            usage: 'Badge labels, icon annotations, micro-captions',
+          },
+          {
+            token: '$vas-font-size--small',
+            size: '11px',
+            sample: 'Nav sub-item, code snippet, metadata',
+            usage: 'Nav sub-items, code snippets, tag text, muted metadata',
+          },
+          {
+            token: '$vas-font-size--base',
+            size: '12px',
+            sample: 'Body text, form fields, nav items, tooltips',
+            usage: 'Default body, form inputs, nav items, tooltips, markdown body',
+          },
+          {
+            token: '$vas-font-size--label',
+            size: '13px',
+            sample: 'Button text, form label, section label',
+            usage: 'Button text, form labels, section labels, sidebar root base',
+          },
+          {
+            token: '$vas-font-size--heading',
+            size: '15px',
+            sample: 'Panel title, modal header',
+            usage: 'All h1–h6 inside sidebar, panel/modal titles, page headers',
+          },
         ],
       };
     },

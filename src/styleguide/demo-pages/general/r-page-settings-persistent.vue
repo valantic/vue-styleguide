@@ -55,6 +55,12 @@
 
   const STORAGE_KEY = 'page-settings-persistent';
 
+  // type Setup = {};
+  type Data = {
+    count: number;
+    toggleValue: boolean;
+  };
+
   /**
    * Styleguide page for persistent page settings.
    */
@@ -68,8 +74,14 @@
       lVasLayout,
     },
 
-    data() {
-      const defaults = {
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
+      const defaults: Data = {
         count: 0,
         toggleValue: false,
       };
@@ -80,6 +92,7 @@
       };
     },
 
+    // computed: {},
     watch: {
       count() {
         this.saveSettings();
@@ -88,6 +101,17 @@
         this.saveSettings();
       },
     },
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
 
     methods: {
       /**
@@ -110,5 +134,6 @@
         setPersistentItem(STORAGE_KEY, {});
       },
     },
+    // render() {},
   });
 </script>

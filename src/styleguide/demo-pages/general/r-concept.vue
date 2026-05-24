@@ -2,8 +2,8 @@
   <l-vas-layout :class="b()">
     <div :class="b('intro')">
       <p :class="b('intro-text')">
-        A compact developer sidebar for Vue 3 projects. Loaded only in dev mode — providing
-        navigation, config toggles, and component demo infrastructure alongside your application.
+        A compact developer sidebar for Vue 3 projects. Loaded only in dev mode — providing navigation, config toggles,
+        and component demo infrastructure alongside your application.
       </p>
     </div>
 
@@ -56,10 +56,10 @@
       <h2 :class="b('section-title')">Theming</h2>
       <div :class="b('theme-info')">
         <p :class="b('theme-text')">
-          Two themes are provided: <code>light</code> and <code>dark</code>. All color values
-          are expressed as CSS custom properties scoped to
-          <code>.vas-styleguide-theme-light</code> / <code>.vas-styleguide-theme-dark</code>.
-          Static SCSS variables are reserved for spacing, typography, and breakpoints.
+          Two themes are provided: <code>light</code> and <code>dark</code>. All color values are expressed as CSS
+          custom properties scoped to <code>.vas-styleguide-theme-light</code> /
+          <code>.vas-styleguide-theme-dark</code>. Static SCSS variables are reserved for spacing, typography, and
+          breakpoints.
         </p>
         <div :class="b('theme-props')">
           <div
@@ -80,7 +80,15 @@
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Principle = { name: string; description: string };
+  type Layer = { prefix: string; name: string; description: string };
+  type Convention = { prefix: string; description: string };
+  type Data = {
+    principles: Principle[];
+    layers: Layer[];
+    conventions: Convention[];
+    themeProps: string[];
+  };
 
   export default defineComponent({
     name: 'r-concept',
@@ -92,8 +100,10 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
-    data() {
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         principles: [
           {
@@ -119,7 +129,7 @@
           {
             name: 'System-aware',
             description:
-              'UI text uses Arial (system-stack). Token names and code values render in the browser\'s default monospace family — no web fonts are loaded.',
+              "UI text uses Arial (system-stack). Token names and code values render in the browser's default monospace family — no web fonts are loaded.",
           },
         ],
         layers: [
@@ -132,14 +142,12 @@
           {
             prefix: 'c-vas-*',
             name: 'Components',
-            description:
-              'Composite blocks that combine elements: sidebar, flyout, modal, navigation, demo card.',
+            description: 'Composite blocks that combine elements: sidebar, flyout, modal, navigation, demo card.',
           },
           {
             prefix: 'l-vas-*',
             name: 'Layouts',
-            description:
-              'Structural wrappers that define regions and page scaffolding for demo views.',
+            description: 'Structural wrappers that define regions and page scaffolding for demo views.',
           },
           {
             prefix: 'r-*',

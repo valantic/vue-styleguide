@@ -25,6 +25,7 @@
     '⌘ + ⇧ + . — open settings',
   ];
 
+  // type Setup = {};
   type Data = {
     currentIndex: number;
     timer: ReturnType<typeof setInterval> | null;
@@ -41,7 +42,9 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         currentIndex: Math.floor(Math.random() * TIPS.length),

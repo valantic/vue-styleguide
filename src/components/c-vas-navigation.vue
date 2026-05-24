@@ -237,32 +237,28 @@
       onKeyDownDown(): void {
         // Avoid it under any circumstances that the active index of the list is -1, which could happen if you e.g.,
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.
-        let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
+        const startIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
 
-        while (nextIndex < this.flattenedRoutes.length) {
-          const route = this.flattenedRoutes[nextIndex];
+        for (let i = startIndex; i < this.flattenedRoutes.length; i++) {
+          const route = this.flattenedRoutes[i];
 
           if (!route?.children?.length) {
-            this.activeIndex = nextIndex;
+            this.activeIndex = i;
 
             return;
           }
-          nextIndex++;
         }
       },
 
       onKeyDownUp(): void {
-        let prevIndex = this.activeIndex - 1;
-
-        while (prevIndex >= 0) {
-          const route = this.flattenedRoutes[prevIndex];
+        for (let i = this.activeIndex - 1; i >= 0; i--) {
+          const route = this.flattenedRoutes[i];
 
           if (!route?.children?.length) {
-            this.activeIndex = prevIndex;
+            this.activeIndex = i;
 
             return;
           }
-          prevIndex--;
         }
       },
 

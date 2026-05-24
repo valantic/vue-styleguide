@@ -11,8 +11,8 @@
   import { defineComponent } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
-  // type Setup = {}
-  // type Data = {}
+  // type Setup = {};
+  // type Data = {};
 
   export const TYPOGRAPHY_VARIANTS: string[] = ['heading', 'label', 'body', 'small', 'tiny'];
   export type TypographyVariantType = (typeof TYPOGRAPHY_VARIANTS)[number];
@@ -40,7 +40,9 @@
     },
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },

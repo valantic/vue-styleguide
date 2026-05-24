@@ -39,7 +39,7 @@
         default: false,
       },
     },
-    // emits: [],
+    // emits: {},
 
     // setup(): Setup {
     //   return {};

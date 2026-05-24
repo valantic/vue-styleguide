@@ -41,8 +41,7 @@
     },
 
     // setup(): Setup {
-    //   return {
-    //   };
+    //   return {};
     // },
     // data(): Data {
     //   return {};

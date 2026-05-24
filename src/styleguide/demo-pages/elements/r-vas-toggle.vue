@@ -43,7 +43,12 @@
       lVasLayout,
     },
 
-    // setup(): Setup {},
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         value: true,
@@ -53,6 +58,18 @@
     // computed: {},
     // watch: {},
 
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     // methods: {},
+    // render() {},
   });
 </script>

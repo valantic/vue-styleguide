@@ -15,7 +15,11 @@
   >
     <e-vas-progress v-if="progress" />
     <template v-else>
-      <e-vas-icon v-if="icon" :icon="icon" size="16" />
+      <e-vas-icon
+        v-if="icon"
+        :icon="icon"
+        size="16"
+      />
       <slot></slot>
     </template>
   </component>

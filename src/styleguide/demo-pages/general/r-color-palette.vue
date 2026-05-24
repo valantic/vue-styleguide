@@ -22,7 +22,8 @@
             <span
               v-if="color.note"
               :class="b('swatch-note')"
-            >{{ color.note }}</span>
+              >{{ color.note }}</span
+            >
           </div>
         </div>
       </div>
@@ -31,8 +32,10 @@
     <section :class="b('group')">
       <h2 :class="b('group-title')">Theme Tokens</h2>
       <p :class="b('theme-hint')">
-        Theme tokens are CSS custom properties. Their values depend on the active theme class
-        (<code>.vas-styleguide-theme-light</code> / <code>.vas-styleguide-theme-dark</code>).
+        Theme tokens are CSS custom properties. Their values depend on the active theme class (<code
+          >.vas-styleguide-theme-light</code
+        >
+        / <code>.vas-styleguide-theme-dark</code>).
       </p>
       <div :class="b('theme-tokens')">
         <div
@@ -74,7 +77,13 @@
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Color = { token: string; value: string; note?: string };
+  type ColorGroup = { title: string; colors: Color[] };
+  type ThemeToken = { prop: string; light: string; dark: string };
+  type Data = {
+    colorGroups: ColorGroup[];
+    themeTokens: ThemeToken[];
+  };
 
   export default defineComponent({
     name: 'r-color-palette',
@@ -86,8 +95,10 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
-    data() {
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         colorGroups: [
           {

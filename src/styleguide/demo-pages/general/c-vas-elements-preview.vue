@@ -87,6 +87,7 @@
   import eVasSelect from '../../../elements/e-vas-select.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
 
+  // type Setup = {};
   type Data = {
     toggleOn: boolean;
     checkboxChecked: boolean;
@@ -112,7 +113,9 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         toggleOn: true,

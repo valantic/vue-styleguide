@@ -19,12 +19,6 @@
       <template #content>
         <c-vas-panel @open-hotkeys-modal="isHotkeysModalOpen = true">
           <template
-            v-if="$slots.globalSettings"
-            #globalSettings
-          >
-            <slot name="globalSettings"></slot>
-          </template>
-          <template
             v-if="$slots.customSettings"
             #customSettings
           >
@@ -252,13 +246,6 @@
 
         // Hotkeys for the main flyout.
         if (event.metaKey && event.shiftKey && event.key === 'o') {
-          event.preventDefault();
-          this.onToggleMainFlyout();
-
-          return;
-        }
-
-        if (event.metaKey && event.shiftKey && event.key === ':') {
           event.preventDefault();
           this.onToggleMainFlyout();
 

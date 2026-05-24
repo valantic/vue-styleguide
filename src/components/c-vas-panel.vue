@@ -96,7 +96,10 @@
         v-show="activePanel === 'pageConfig'"
         :class="b('page-config-wrapper')"
       >
-        <c-vas-typography variant="heading">Page configuration</c-vas-typography>
+        <c-vas-typography
+          variant="heading"
+          text="Page configuration"
+        />
         <div
           id="teleportDestinationPageConfigFlyout"
           :class="b('page-config')"

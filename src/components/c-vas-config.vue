@@ -1,6 +1,9 @@
 <template>
   <div :class="b()">
-    <c-vas-typography variant="heading">Global configuration</c-vas-typography>
+    <c-vas-typography
+      variant="heading"
+      text="Global configuration"
+    />
 
     <div :class="b('clear')">
       <div>

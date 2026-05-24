@@ -234,6 +234,7 @@
           element?.scrollIntoView({ block: 'nearest' });
         });
       },
+
       onKeyDownDown(): void {
         // Avoid it under any circumstances that the active index of the list is -1, which could happen if you e.g.,
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.

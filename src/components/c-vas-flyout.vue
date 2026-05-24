@@ -74,7 +74,7 @@
       },
     },
     watch: {
-      // When direction changes while closed the CSS transition briefly shows the flyout in the wrong position.
+      // When the direction changes while closed, the CSS transition briefly shows the flyout in the wrong position.
       // Hiding for one frame prevents the flash.
       direction() {
         if (!this.isOpen) {

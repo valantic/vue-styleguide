@@ -172,9 +172,6 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Defines what is to do if an item is clicked.
-       */
       onItemClick(): void {
         if (this.hasChildren) {
           this.onToggle();
@@ -185,9 +182,6 @@
         this.onNavigate();
       },
 
-      /**
-       * Toggles the expanded state of a parent route.
-       */
       onToggle(): void {
         if (!this.hasChildren) {
           return;

@@ -7,71 +7,28 @@
     <p>You can use these hotkeys to navigate the styleguide.</p>
 
     <div :class="b('mapping')">
-      <div :class="b('row')">
+      <div
+        v-for="(mapping, index) in mappings"
+        :key="index"
+        :class="b('row')"
+      >
         <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-          </div>
-          <div :class="b('hotkey')">
-            <span>Shift</span>
+          <div
+            v-for="(hotkey, hotkeyIndex) in mapping.hotkeys"
+            :key="hotkeyIndex"
+            :class="b('hotkey')"
+          >
+            <span
+              v-for="(key, keyIndex) in hotkey"
+              :key="keyIndex"
+            >
+              {{ key }}
+            </span>
           </div>
         </div>
         <div :class="b('right')">
-          Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.
+          {{ mapping.description }}
         </div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>&uarr;</span>
-          </div>
-          <div :class="b('hotkey')">
-            <span>&darr;</span>
-          </div>
-        </div>
-        <div :class="b('right')">Navigate through menu items.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Enter</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the selected menu item.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>O</span>
-          </div>
-        </div>
-        <div :class="b('right')">
-          Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.
-        </div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>.</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the styleguide sidebar with the config tab preselected.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Esc</span>
-          </div>
-        </div>
-        <div :class="b('right')">Closes the sidebar, closes modal.</div>
       </div>
     </div>
   </c-vas-modal>
@@ -82,10 +39,18 @@
   import cVasModal from '../components/c-vas-modal.vue';
 
   // type Setup = {};
-  // type Data = {};
+
+  type Mapping = {
+    hotkeys: string[][];
+    description: string;
+  };
+
+  type Data = {
+    mappings: Mapping[];
+  };
 
   /**
-   *
+   * Displays a list of hotkeys that can be used to navigate the styleguide.
    */
   export default defineComponent({
     name: 'c-vas-hotkey-modal',
@@ -109,9 +74,32 @@
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        mappings: [
+          {
+            hotkeys: [['Shift'], ['Shift']],
+            description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
+          },
+          {
+            hotkeys: [['↑'], ['↓']],
+            description: 'Navigate through menu items.',
+          },
+          {
+            hotkeys: [['Enter']],
+            description: 'Open the selected menu item.',
+          },
+          {
+            hotkeys: [['Shift', '+', 'Ctrl', '+', 'O']],
+            description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
+          },
+          {
+            hotkeys: [['Esc']],
+            description: 'Closes the sidebar, closes modal.',
+          },
+        ],
+      };
+    },
 
     computed: {
       isOpenInternal: {

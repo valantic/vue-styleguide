@@ -155,9 +155,6 @@
     // },
 
     computed: {
-      /**
-       * Returns modifier classes.
-       */
       modifiers(): Modifiers {
         return {
           size: this.size,
@@ -166,9 +163,6 @@
       },
     },
     watch: {
-      /**
-       * Triggers opening/closing modal.
-       */
       isOpen(state: boolean): void {
         if (state) {
           this.open();
@@ -196,12 +190,9 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Opens the modal.
-       */
       open(): void {
-        // Attach before nextTick so the listener is always registered even when
-        // the Transition is disabled (e.g. in test environments).
+        // Attach before the nextTick so the listener is always registered even when
+        // the Transition is disabled (e.g., in test environments).
         document.removeEventListener('keydown', this.onKeyDown); // prevent duplicate
         document.addEventListener('keydown', this.onKeyDown);
 
@@ -211,9 +202,6 @@
         });
       },
 
-      /**
-       * Closes the modal.
-       */
       close(): void {
         if (this.isOpen) {
           this.$emit('update:isOpen', false);
@@ -224,27 +212,18 @@
         this.$emit('close');
       },
 
-      /**
-       * Handler for keypress events.
-       */
       onKeyDown(event: KeyboardEvent): void {
         if (this.isOpen && event.code === 'Escape') {
           this.close();
         }
       },
 
-      /**
-       * Handler for outside click event.
-       */
       onOutsideClick(): void {
         if (this.closeOnOutsideClick && this.isOpen) {
           this.close();
         }
       },
 
-      /**
-       * Handler for when the modal open-animation is completed.
-       */
       onAfterEnter(): void {
         this.$emit('open');
         // Listener is already managed by open() / close() / beforeUnmount().

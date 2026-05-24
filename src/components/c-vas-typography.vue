@@ -2,8 +2,14 @@
   <component
     :is="tag"
     :class="b(modifiers)"
-    ><slot
-  /></component>
+  >
+    <template v-if="text">
+      {{ text }}
+    </template>
+    <template v-else>
+      <slot />
+    </template>
+  </component>
 </template>
 
 <script lang="ts">
@@ -26,16 +32,29 @@
     // components: {},
 
     props: {
-      /** Visual text style variant. */
+      /**
+       * Visual text style variant.
+       */
       variant: {
         type: String as PropType<TypographyVariantType>,
         default: 'body',
         validator: (value: string) => TYPOGRAPHY_VARIANTS.includes(value),
       },
-      /** HTML tag to render. Use 'span' for inline contexts. */
+
+      /**
+       * HTML tag to render. Use 'span' for inline contexts.
+       */
       tag: {
         type: String as PropType<'div' | 'span'>,
         default: 'div',
+      },
+
+      /**
+       * Text content to display. If provided, slot content will be ignored.
+       */
+      text: {
+        type: String,
+        default: '',
       },
     },
     // emits: {},

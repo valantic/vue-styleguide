@@ -1,6 +1,9 @@
 <template>
   <div :class="b()">
-    <c-vas-typography variant="heading">Features</c-vas-typography>
+    <c-vas-typography
+      variant="heading"
+      text="Features"
+    />
     <c-vas-html-validation />
   </div>
 </template>

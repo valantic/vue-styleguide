@@ -19,6 +19,10 @@ Roadmap:
 - More config possibilities for a certain feature or page.
 - Slots in `l-vas-layout` for common used things like documentation link or description.
 
+## Demo
+
+See this project in action [Demo-Page](https://valantic.github.io/vue-styleguide)
+
 ## Introduction
 
 ### How to use:

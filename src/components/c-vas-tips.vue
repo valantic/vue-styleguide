@@ -22,7 +22,6 @@
     'Enter — open selected page',
     'Esc — close panel or modal',
     '⌘ + ⇧ + O — toggle sidebar',
-    '⌘ + ⇧ + . — open settings',
   ];
 
   // type Setup = {};
@@ -65,7 +64,7 @@
     mounted() {
       this.timer = setInterval(() => {
         this.currentIndex = (this.currentIndex + 1) % TIPS.length;
-      }, 5000);
+      }, 8000);
     },
     // beforeUpdate() {},
     // updated() {},

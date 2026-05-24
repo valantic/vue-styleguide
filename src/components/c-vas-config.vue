@@ -1,31 +1,33 @@
 <template>
   <div :class="b()">
+    <c-vas-typography variant="heading">Global configuration</c-vas-typography>
+
     <div :class="b('clear')">
+      <div>
+        <div>
+          <strong>Persistent Data</strong>
+        </div>
+        <span :class="b('storage-info')">
+          <template v-if="hasPersistedItems">
+            {{ persistedCount }} {{ persistedCount === 1 ? 'item' : 'items' }} · {{ persistedSizeLabel }}
+          </template>
+          <template v-else>No persistent data.</template>
+        </span>
+      </div>
+
       <e-vas-button
         type="button"
+        icon="i-bin"
+        icon-only
         :disabled="!hasPersistedItems"
         @click="onClearAllPersistentItems"
-      >
-        Remove persisted values
-      </e-vas-button>
-      <span
-        v-if="hasPersistedItems"
-        :class="b('storage-info')"
-      >
-        {{ persistedCount }} {{ persistedCount === 1 ? 'item' : 'items' }} · {{ persistedSizeLabel }}
-      </span>
+      />
     </div>
 
-    <slot name="globalSettings">
-      <div :class="b('headline')">Global Settings</div>
-      <c-vas-html-validation />
-    </slot>
     <div
       v-if="$slots.customSettings"
-      id="teleportDestinationStyleguideConfigFlyout"
       :class="b('custom-settings')"
     >
-      <div :class="b('headline')">Custom Project Settings</div>
       <slot name="customSettings"></slot>
     </div>
   </div>
@@ -34,8 +36,8 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasButton from '../elements/e-vas-button.vue';
-  import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
   import { clearAllPersistentItems, getPersistentItemCount, getPersistentItemsSize } from '../stores/helper';
+  import cVasTypography from './c-vas-typography.vue';
 
   /**
    * Component for managing global settings.
@@ -44,8 +46,8 @@
     name: 'c-vas-config',
 
     components: {
+      cVasTypography,
       eVasButton,
-      cVasHtmlValidation,
     },
 
     data() {
@@ -100,16 +102,13 @@
     flex-direction: column;
     gap: variables.$vas-spacing--10;
 
-    &__headline {
-      font-weight: bold;
-      color: var(--vas-theme-text-color-muted);
-      margin: variables.$vas-spacing--10 0;
-    }
-
     &__clear {
-      display: flex;
-      align-items: center;
+      display: grid;
+      grid-template-columns: 1fr 50px;
       gap: variables.$vas-spacing--10;
+      border: 1px dashed var(--vas-theme-border-color);
+      padding: variables.$vas-spacing--10;
+      margin-bottom: variables.$vas-spacing--20;
     }
 
     &__storage-info {

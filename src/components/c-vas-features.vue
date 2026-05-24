@@ -1,23 +1,23 @@
 <template>
   <div :class="b()">
-    <c-vas-typography variant="heading">Appearance</c-vas-typography>
-    <e-vas-theme-selector />
+    <c-vas-typography variant="heading">Features</c-vas-typography>
+    <c-vas-html-validation />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import eVasThemeSelector from '../elements/e-vas-theme-selector.vue';
+  import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
   import cVasTypography from './c-vas-typography.vue';
 
   /**
    * Component for managing global settings.
    */
   export default defineComponent({
-    name: 'c-vas-settings',
+    name: 'c-vas-features',
 
     components: {
-      eVasThemeSelector,
+      cVasHtmlValidation,
       cVasTypography,
     },
 
@@ -28,7 +28,7 @@
 <style lang="scss">
   @use '../setup/scss/variables';
 
-  .c-vas-settings {
+  .c-vas-features {
     display: flex;
     flex-direction: column;
     gap: variables.$vas-spacing--10;

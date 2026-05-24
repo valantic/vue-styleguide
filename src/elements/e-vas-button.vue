@@ -14,7 +14,10 @@
     @click="onClick"
   >
     <e-vas-progress v-if="progress" />
-    <slot v-else></slot>
+    <template v-else>
+      <e-vas-icon v-if="icon" :icon="icon" size="16" />
+      <slot></slot>
+    </template>
   </component>
 </template>
 
@@ -22,6 +25,8 @@
   import type { ClassValue, PropType } from 'vue';
   import { defineComponent } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { Icon } from '../types/icon';
+  import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};
@@ -63,6 +68,7 @@
     name: 'e-vas-button',
 
     components: {
+      eVasIcon,
       eVasProgress,
     },
 
@@ -134,6 +140,22 @@
         default: 'default',
         validator: (value: string) => BUTTON_COLORS.includes(value),
       },
+
+      /**
+       * Name of the svg icon to display inside the button.
+       */
+      icon: {
+        type: String as PropType<Icon | null>,
+        default: null,
+      },
+
+      /**
+       * When true, removes horizontal padding to create a square icon-only button.
+       */
+      iconOnly: {
+        type: Boolean,
+        default: false,
+      },
     },
 
     emits: {
@@ -168,6 +190,8 @@
           touch: this.hasTouch,
           variant: this.variant,
           color: this.color,
+          hasIcon: !!this.icon,
+          iconOnly: this.iconOnly,
         };
       },
 
@@ -265,6 +289,7 @@
     position: relative;
     display: inline-flex;
     vertical-align: middle;
+    align-items: center;
     justify-content: center;
     padding: variables.$vas-form-field-padding (variables.$vas-form-field-padding * 3);
     outline: none;
@@ -334,6 +359,14 @@
     .e-progress {
       margin-top: -2px; // Creates unified height for text/progress button
       margin-bottom: -1px;
+    }
+
+    &--has-icon {
+      gap: variables.$vas-spacing--6;
+    }
+
+    &--icon-only {
+      padding: variables.$vas-form-field-padding;
     }
   }
 

@@ -81,13 +81,9 @@
 
       <c-vas-settings v-else-if="activePanel === 'settings'" />
 
+      <c-vas-features v-else-if="activePanel === 'features'" />
+
       <c-vas-config v-else-if="activePanel === 'globalConfig'">
-        <template
-          v-if="$slots.globalSettings"
-          #globalSettings
-        >
-          <slot name="globalSettings"></slot>
-        </template>
         <template
           v-if="$slots.customSettings"
           #customSettings
@@ -98,11 +94,39 @@
 
       <div
         v-show="activePanel === 'pageConfig'"
-        id="teleportDestinationPageConfigFlyout"
-      ></div>
+        :class="b('page-config-wrapper')"
+      >
+        <c-vas-typography variant="heading">Page configuration</c-vas-typography>
+        <div
+          id="teleportDestinationPageConfigFlyout"
+          :class="b('page-config')"
+        ></div>
+      </div>
     </div>
 
-    <div :class="b('slot', { right: true })"></div>
+    <div :class="b('slot', { right: true })">
+      <div :class="b('elements-container', { column: true })">
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-star"
+          tooltip="Features"
+          tooltip-position="left"
+          :active="activePanel === 'features'"
+          @click="activePanel = 'features'"
+        />
+      </div>
+
+      <div :class="b('elements-container', { column: true })">
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-star"
+          tooltip="Features"
+          tooltip-position="left"
+          :active="activePanel === 'features'"
+          @click="activePanel = 'features'"
+        />
+      </div>
+    </div>
 
     <div :class="b('slot', { bottom: true })">
       <div :class="b('footer-bar')">
@@ -120,13 +144,15 @@
   import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import { type VasSessionStore, useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
+  import cVasFeatures from './c-vas-features.vue';
   import cVasGithubVersion from './c-vas-github-version.vue';
   import cVasNavigation from './c-vas-navigation.vue';
   import cVasPanelAction from './c-vas-panel-action.vue';
   import cVasSettings from './c-vas-settings.vue';
   import cVasTips from './c-vas-tips.vue';
+  import cVasTypography from './c-vas-typography.vue';
 
-  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig';
+  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig' | 'features';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
@@ -144,6 +170,8 @@
   export default defineComponent({
     name: 'c-vas-panel',
     components: {
+      cVasFeatures,
+      cVasTypography,
       eVasIcon,
       cVasConfig,
       cVasGithubVersion,
@@ -285,6 +313,12 @@
         line-height: 1;
         aspect-ratio: 1;
       }
+    }
+
+    &__page-config {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$vas-spacing--16;
     }
 
     &__elements-container {

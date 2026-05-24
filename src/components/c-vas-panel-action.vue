@@ -2,6 +2,7 @@
   <c-vas-tooltip
     :text="tooltip || undefined"
     :position="tooltipPosition"
+    @click="handleClick"
   >
     <component
       :is="href ? 'a' : 'button'"
@@ -153,7 +154,9 @@
         default: null,
       },
     },
-    // emits: [],
+    emits: {
+      click: (e: MouseEvent) => !!e,
+    },
 
     // setup(): Setup {
     //   return {};
@@ -193,7 +196,13 @@
     // beforeUnmount() {},
     // unmounted() {},
 
-    // methods: {},
+    methods: {
+      handleClick(e: MouseEvent): void {
+        if (!this.disabled) {
+          this.$emit('click', e);
+        }
+      },
+    },
     // render() {},
   });
 </script>

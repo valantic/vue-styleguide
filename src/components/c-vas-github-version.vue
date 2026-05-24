@@ -42,7 +42,7 @@
     setup(): Setup {
       return {
         version: packageJson.version,
-        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
+        githubUrl: `${packageJson.projectGitUrls.version}${packageJson.version}`,
       };
     },
     data(): Data {
@@ -54,9 +54,7 @@
 
     computed: {
       updateTooltip(): string | undefined {
-        return this.updateAvailable && this.latestVersion
-          ? `Update available: v${this.latestVersion}`
-          : undefined;
+        return this.updateAvailable && this.latestVersion ? `Update available: v${this.latestVersion}` : undefined;
       },
     },
     // watch: {},
@@ -77,7 +75,7 @@
     methods: {
       async checkForUpdate(): Promise<void> {
         try {
-          const response = await fetch('https://api.github.com/repos/valantic/vue-styleguide/tags');
+          const response = await fetch(packageJson.projectGitUrls.apiGitTags);
 
           if (!response.ok) {
             return;

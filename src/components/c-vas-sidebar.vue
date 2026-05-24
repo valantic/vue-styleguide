@@ -42,7 +42,7 @@
   import type { ComponentPublicInstance, Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import { getPersistentItem } from '../stores/helper';
+  import { useVasLocalStore } from '../stores/local-store';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
   import type { VasSettingsStore } from '../stores/settings';
@@ -176,7 +176,7 @@
 
       document.body.classList.toggle(
         'c-vas-html-validation--enabled',
-        getPersistentItem<boolean>('html-validation', true),
+        useVasLocalStore().get<boolean>('html-validation', true),
       );
     },
     // beforeUpdate() {},

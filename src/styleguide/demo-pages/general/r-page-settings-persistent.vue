@@ -51,7 +51,7 @@
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
   import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
-  import { getPersistentItem, setPersistentItem } from '../../../stores/helper';
+  import { useVasLocalStore } from '../../../stores/local-store';
 
   const STORAGE_KEY = 'page-settings-persistent';
 
@@ -88,7 +88,7 @@
 
       return {
         ...defaults,
-        ...getPersistentItem(STORAGE_KEY, {}),
+        ...useVasLocalStore().get(STORAGE_KEY, {}),
       };
     },
 
@@ -118,7 +118,7 @@
        * Example of a save settings method.
        */
       saveSettings() {
-        setPersistentItem(STORAGE_KEY, {
+        useVasLocalStore().set(STORAGE_KEY, {
           count: this.count,
           toggleValue: this.toggleValue,
         });
@@ -131,7 +131,7 @@
         this.count = 0;
         this.toggleValue = false;
 
-        setPersistentItem(STORAGE_KEY, {});
+        useVasLocalStore().set(STORAGE_KEY, {});
       },
     },
     // render() {},

@@ -36,7 +36,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasButton from '../elements/e-vas-button.vue';
-  import { clearAllPersistentItems, getPersistentItemCount, getPersistentItemsSize } from '../stores/helper';
+  import { useVasLocalStore } from '../stores/local-store';
   import cVasTypography from './c-vas-typography.vue';
 
   // type Setup = {};
@@ -102,12 +102,14 @@
 
     methods: {
       refreshStorageInfo() {
-        this.persistedCount = getPersistentItemCount();
-        this.persistedSize = getPersistentItemsSize();
+        const store = useVasLocalStore();
+
+        this.persistedCount = store.analytics.itemCount;
+        this.persistedSize = store.analytics.storageSize;
       },
 
       onClearAllPersistentItems() {
-        clearAllPersistentItems();
+        useVasLocalStore().empty();
         this.refreshStorageInfo();
       },
     },

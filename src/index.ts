@@ -8,3 +8,4 @@ export * from './layouts/index';
 export * from './features/index';
 
 export * from './stores/settings';
+export * from './stores/local-store';

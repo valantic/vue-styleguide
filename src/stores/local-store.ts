@@ -1,9 +1,6 @@
 const prefix = 'vas-';
 
-/**
- * Get item from persistent storage and parse it.
- */
-export const getPersistentItem = <T>(key: string, fallback: T): T => {
+const getPersistentItem = <T>(key: string, fallback: T): T => {
   try {
     const item = localStorage.getItem(`${prefix}${key}`);
 
@@ -20,10 +17,7 @@ export const getPersistentItem = <T>(key: string, fallback: T): T => {
   }
 };
 
-/**
- * Set item in persistent storage and stringify it.
- */
-export const setPersistentItem = (key: string, value: unknown): void => {
+const setPersistentItem = (key: string, value: unknown): void => {
   try {
     localStorage.setItem(`${prefix}${key}`, JSON.stringify(value));
   } catch (error) {
@@ -32,10 +26,16 @@ export const setPersistentItem = (key: string, value: unknown): void => {
   }
 };
 
-/**
- * Method to remove all persistent keys with prefix from styleguide.
- */
-export const clearAllPersistentItems = (): void => {
+const deletePersistentItem = (key: string): void => {
+  try {
+    localStorage.removeItem(`${prefix}${key}`);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Failed to delete persistent item with key "${key}"`, error);
+  }
+};
+
+const clearAllPersistentItems = (): void => {
   try {
     Object.keys(localStorage).forEach((key) => {
       if (key.startsWith(prefix)) {
@@ -48,10 +48,7 @@ export const clearAllPersistentItems = (): void => {
   }
 };
 
-/**
- * Returns the count of persisted items with the vas- prefix.
- */
-export const getPersistentItemCount = (): number => {
+const getPersistentItemCount = (): number => {
   try {
     return Object.keys(localStorage).filter((key) => key.startsWith(prefix)).length;
   } catch {
@@ -59,10 +56,7 @@ export const getPersistentItemCount = (): number => {
   }
 };
 
-/**
- * Returns the total size in bytes of all persisted items with the vas- prefix.
- */
-export const getPersistentItemsSize = (): number => {
+const getPersistentItemsSize = (): number => {
   try {
     return Object.keys(localStorage)
       .filter((key) => key.startsWith(prefix))
@@ -71,3 +65,21 @@ export const getPersistentItemsSize = (): number => {
     return 0;
   }
 };
+
+const localStore = {
+  get: <T>(key: string, fallback: T): T => getPersistentItem(key, fallback),
+  set: (key: string, value: unknown): void => setPersistentItem(key, value),
+  delete: (key: string): void => deletePersistentItem(key),
+  empty: (): void => clearAllPersistentItems(),
+  analytics: {
+    get itemCount() {
+      return getPersistentItemCount();
+    },
+    get storageSize() {
+      return getPersistentItemsSize();
+    },
+  },
+};
+
+export const useVasLocalStore = (): typeof localStore => localStore;
+export type VasLocalStore = typeof localStore;

@@ -5,7 +5,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { getPersistentItem, setPersistentItem } from '../stores/helper';
+  import { useVasLocalStore } from '../stores/local-store';
 
   // type Setup = {};
 
@@ -33,14 +33,14 @@
     // },
     data(): Data {
       return {
-        enabled: getPersistentItem<boolean>(STORAGE_KEY, true),
+        enabled: useVasLocalStore().get<boolean>(STORAGE_KEY, true),
       };
     },
 
     // computed: {},
     watch: {
       enabled(enabled: boolean) {
-        setPersistentItem(STORAGE_KEY, enabled);
+        useVasLocalStore().set(STORAGE_KEY, enabled);
       },
     },
 

@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import type { Icon } from '../types/icon';
-import { getPersistentItem, setPersistentItem } from './helper';
+import { useVasLocalStore } from './local-store';
 
 export const THEMES = ['system', 'light', 'dark'] as const;
 export type Theme = (typeof THEMES)[number];
@@ -12,8 +12,10 @@ export const THEME_CONFIG: Record<Theme, { label: string; icon: Icon }> = {
   dark: { label: 'Dark', icon: 'i-moon' },
 };
 
+const vasLocalStore = useVasLocalStore();
+
 const state = reactive({
-  theme: getPersistentItem<Theme>('theme', 'system'),
+  theme: vasLocalStore.get<Theme>('theme', 'system'),
 });
 
 export const useVasSettingsStore = () => {
@@ -22,7 +24,7 @@ export const useVasSettingsStore = () => {
 
     setTheme(theme: Theme) {
       state.theme = theme;
-      setPersistentItem('theme', theme);
+      vasLocalStore.set('theme', theme);
     },
   };
 };

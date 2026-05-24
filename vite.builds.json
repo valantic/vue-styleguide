@@ -5,7 +5,7 @@
   "profileBuild": "app",
   "modes": {
     "app": {
-      "input": ["./src/main.ts"]
+      "input": ["./index.html"]
     }
   }
 }

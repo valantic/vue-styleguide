@@ -7,7 +7,7 @@ import './setup/styles.scss';
 const vuePlugins = plugins;
 let vueOptions = options;
 
-if (import.meta.env.DEV) {
+if (import.meta.env.DEV || import.meta.env.MODE === 'app') {
   const styleguideOptions = await import('./styleguide/setup');
 
   vueOptions = {

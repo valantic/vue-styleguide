@@ -119,11 +119,12 @@
       <div :class="b('elements-container', { column: true })">
         <c-vas-panel-action
           variant="icon"
-          icon="i-star"
-          tooltip="Features"
+          icon="i-bug"
+          tooltip="Report a Bug / Issue."
           tooltip-position="left"
-          :active="activePanel === 'features'"
-          @click="activePanel = 'features'"
+          :href="bugReportUrl"
+          target="_blank"
+          rel="noopener noreferrer"
         />
       </div>
     </div>
@@ -140,6 +141,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
+  import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import { type VasSessionStore, useVasSessionStore } from '../stores/session';
@@ -158,6 +160,7 @@
     router: ReturnType<typeof useRouter>;
     viewport: Viewport;
     vasSessionStore: VasSessionStore;
+    bugReportUrl: string;
   };
 
   type Data = {
@@ -191,6 +194,7 @@
         router: useRouter(),
         viewport: useViewport(),
         vasSessionStore: useVasSessionStore(),
+        bugReportUrl: packageJson.projectGitUrls.issues,
       };
     },
     data(): Data {
@@ -264,7 +268,6 @@
 
       &--left {
         grid-area: left;
-        justify-content: space-between;
       }
 
       &--right {
@@ -274,6 +277,7 @@
       &--left,
       &--right {
         flex-direction: column;
+        justify-content: space-between;
         padding: 6px 4px;
         height: 100%;
       }
@@ -295,6 +299,7 @@
       gap: 4px;
       padding-left: 5px;
       font-weight: bold;
+      user-select: none;
     }
 
     &__top-bar,

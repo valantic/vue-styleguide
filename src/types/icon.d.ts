@@ -1,15 +1,14 @@
 // Don't edit this file. Use the NPM script 'build:icons' instead.
 export type Icon = 'i-bin' |
+  'i-bug' |
   'i-chevron--down' |
   'i-close' |
   'i-cog-wheel' |
   'i-computer' |
   'i-control-alt' |
   'i-control' |
-  'i-favorite' |
   'i-folder' |
   'i-key-cmd--filled' |
-  'i-key-cmd' |
   'i-key-ctrl' |
   'i-key-esc' |
   'i-key-shift' |

@@ -6,6 +6,7 @@ import { Mode, plugin as mdPlugin } from 'vite-plugin-markdown';
 import { ViteUserConfigExport } from 'vitest/config';
 import viteBuilds from './vite.builds.json';
 
+
 interface Modes {
   [key: string]: {
     input: string[];
@@ -68,14 +69,15 @@ export default defineConfig(({ command, mode }) => {
 
       config.base = base;
       config.build = {
+        target: 'esnext', // Use modern JS features for a smaller bundle
+        minify: 'esbuild', // Faster and efficient minification
         outDir: `${outDir}/${mode}`,
         assetsInlineLimit: 0, // TODO: check if it makes sense to increase this value.
-        manifest: true,
+        manifest: 'manifest.json',
         emptyOutDir: true,
         sourcemap: true,
         copyPublicDir: true,
 
-        // TODO: watch?
         rollupOptions: {
           external: [
             /!dev/, // Removes styleguide/dev only assets.

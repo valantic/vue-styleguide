@@ -37,17 +37,10 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import cVasModal from '../components/c-vas-modal.vue';
+  import { HOTKEYS, resolveHotkey } from '../config/hotkeys';
+  import { isMac } from '../utils/platform';
 
   // type Setup = {};
-
-  type Mapping = {
-    hotkeys: string[][];
-    description: string;
-  };
-
-  type Data = {
-    mappings: Mapping[];
-  };
 
   /**
    * Displays a list of hotkeys that can be used to navigate the styleguide.
@@ -74,34 +67,20 @@
     // setup(): Setup {
     //   return {};
     // },
-    data(): Data {
-      return {
-        mappings: [
-          {
-            hotkeys: [['Shift'], ['Shift']],
-            description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
-          },
-          {
-            hotkeys: [['↑'], ['↓']],
-            description: 'Navigate through menu items.',
-          },
-          {
-            hotkeys: [['Enter']],
-            description: 'Open the selected menu item.',
-          },
-          {
-            hotkeys: [['Shift', '+', 'Ctrl', '+', 'O']],
-            description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
-          },
-          {
-            hotkeys: [['Esc']],
-            description: 'Closes the sidebar, closes modal.',
-          },
-        ],
-      };
-    },
+    // data() {
+    //   return {};
+    // },
 
     computed: {
+      mappings() {
+        const mac = isMac();
+
+        return HOTKEYS.map((entry) => {
+          const resolved = resolveHotkey(entry, mac);
+
+          return { hotkeys: resolved.display, description: resolved.description };
+        });
+      },
       isOpenInternal: {
         get() {
           return this.isOpen;

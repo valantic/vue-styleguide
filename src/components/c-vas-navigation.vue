@@ -8,6 +8,7 @@
     <div :class="b('search-container')">
       <e-vas-input
         v-model.trim="navigationFilter"
+        ref="searchInput"
         :class="b('search-input')"
         name="filter"
         placeholder="Search Menu ..."
@@ -222,6 +223,11 @@
     // unmounted() {},
 
     methods: {
+      // eslint-disable-next-line vue/no-unused-properties
+      focusSearch(): void {
+        (this.$refs.searchInput as InstanceType<typeof eVasInput>).focusInput();
+      },
+
       /**
        * Scrolls the selected navigation item into view.
        */

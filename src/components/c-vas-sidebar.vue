@@ -17,7 +17,10 @@
       </template>
 
       <template #content>
-        <c-vas-panel @open-hotkeys-modal="isHotkeysModalOpen = true">
+        <c-vas-panel
+          :is-open="isMainFlyoutOpen"
+          @open-hotkeys-modal="isHotkeysModalOpen = true"
+        >
           <template
             v-if="$slots.customSettings"
             #customSettings
@@ -41,6 +44,7 @@
   import { useVasSessionStore } from '../stores/session';
   import type { VasSettingsStore } from '../stores/settings';
   import { useVasSettingsStore } from '../stores/settings';
+  import { isMac } from '../utils/platform';
   import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
@@ -245,7 +249,7 @@
         }
 
         // Hotkeys for the main flyout.
-        if (event.metaKey && event.shiftKey && event.key === 'o') {
+        if ((isMac() ? event.metaKey : event.ctrlKey) && event.shiftKey && event.key === 'o') {
           event.preventDefault();
           this.onToggleMainFlyout();
 

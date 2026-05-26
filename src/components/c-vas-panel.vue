@@ -76,6 +76,7 @@
     <div :class="b('content')">
       <c-vas-navigation
         v-if="activePanel === 'navigation'"
+        ref="navigation"
         :routes="router.options.routes"
       />
 
@@ -187,7 +188,15 @@
       cVasTips,
     },
 
-    // props: {},
+    props: {
+      /**
+       * Whether the flyout containing this panel is currently open.
+       */
+      isOpen: {
+        type: Boolean,
+        default: false,
+      },
+    },
     emits: {
       openHotkeysModal: () => true,
     },
@@ -211,7 +220,15 @@
         return `Viewport: ${this.viewport.viewportWidth}w / ${this.viewport.viewportHeight}h`;
       },
     },
-    // watch: {},
+    watch: {
+      isOpen(value: boolean): void {
+        if (value && this.activePanel === 'navigation') {
+          setTimeout(() => {
+            (this.$refs.navigation as InstanceType<typeof cVasNavigation>)?.focusSearch();
+          }, 300);
+        }
+      },
+    },
 
     // beforeCreate() {},
     // created() {},
@@ -320,6 +337,7 @@
         font-weight: bold;
         line-height: 1;
         aspect-ratio: 1;
+        cursor: default;
       }
     }
 

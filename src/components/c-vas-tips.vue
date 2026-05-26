@@ -15,14 +15,12 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
+  import { HOTKEYS, resolveHotkey } from '../config/hotkeys';
+  import { isMac } from '../utils/platform';
 
-  const TIPS = [
-    '⇧ + ⇧ — toggle sidebar',
-    '↑ / ↓ — navigate pages',
-    'Enter — open selected page',
-    'Esc — close panel or modal',
-    '⌘ + ⇧ + O — toggle sidebar',
-  ];
+  const TIPS = HOTKEYS.map((entry) => resolveHotkey(entry, isMac()).tip).filter(
+    (tip): tip is string => tip !== null,
+  );
 
   // type Setup = {};
   type Data = {

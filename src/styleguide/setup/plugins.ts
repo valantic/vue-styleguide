@@ -4,7 +4,7 @@ import styleguideRoutes from './routes';
 
 const router = createRouter({
   routes: styleguideRoutes,
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
 });
 
 export default [{ plugin: router }] satisfies CustomPlugin[];

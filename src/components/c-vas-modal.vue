@@ -155,9 +155,6 @@
     // },
 
     computed: {
-      /**
-       * Returns modifier classes.
-       */
       modifiers(): Modifiers {
         return {
           size: this.size,
@@ -166,9 +163,6 @@
       },
     },
     watch: {
-      /**
-       * Triggers opening/closing modal.
-       */
       isOpen(state: boolean): void {
         if (state) {
           this.open();
@@ -196,19 +190,18 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Opens the modal.
-       */
       open(): void {
+        // Attach before the nextTick so the listener is always registered even when
+        // the Transition is disabled (e.g., in test environments).
+        document.removeEventListener('keydown', this.onKeyDown); // prevent duplicate
+        document.addEventListener('keydown', this.onKeyDown);
+
         this.$nextTick(() => {
-          this.$el.showModal(); // Native function of `HTMLDialogElement`
+          (this.$el as HTMLDialogElement | null)?.showModal?.();
           this.$emit('update:isOpen', true);
         });
       },
 
-      /**
-       * Closes the modal.
-       */
       close(): void {
         if (this.isOpen) {
           this.$emit('update:isOpen', false);
@@ -219,31 +212,21 @@
         this.$emit('close');
       },
 
-      /**
-       * Handler for keypress events.
-       */
       onKeyDown(event: KeyboardEvent): void {
         if (this.isOpen && event.code === 'Escape') {
           this.close();
         }
       },
 
-      /**
-       * Handler for outside click event.
-       */
       onOutsideClick(): void {
         if (this.closeOnOutsideClick && this.isOpen) {
           this.close();
         }
       },
 
-      /**
-       * Handler for when the modal open-animation is completed.
-       */
       onAfterEnter(): void {
         this.$emit('open');
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keydown', this.onKeyDown);
+        // Listener is already managed by open() / close() / beforeUnmount().
       },
     },
     // render() {},
@@ -260,8 +243,10 @@
     max-width: 100vw;
     padding: 0;
     overflow-x: hidden;
-    border: none;
     background: none;
+    color: var(--vas-theme-text-color);
+    border: 1px solid var(--vas-theme-border-color);
+    border-radius: 6px;
 
     @include mixins.media($down: sm) {
       height: 100vh;
@@ -301,7 +286,7 @@
       width: 100%;
       height: 100vh;
       overflow-y: auto;
-      background-color: variables.$vas-color-grayscale--1000;
+      background-color: var(--vas-theme-background-content);
       justify-self: center;
 
       @include mixins.media(md) {
@@ -317,11 +302,11 @@
       display: flex;
       justify-content: space-between;
       gap: variables.$vas-spacing--20;
-      border-bottom: 1px solid variables.$vas-color-grayscale--600;
+      border-bottom: 1px solid var(--vas-theme-border-color);
     }
 
     &__title {
-      font-size: variables.$vas-font-size--18;
+      font-size: variables.$vas-font-size--heading;
       line-height: 22px;
       font-weight: bold;
     }
@@ -341,7 +326,7 @@
     }
 
     &__footer {
-      border-top: 1px solid variables.$vas-color-grayscale--600;
+      border-top: 1px solid var(--vas-theme-border-color);
     }
   }
 
@@ -349,7 +334,7 @@
   .c-vas-modal--fade-animation-leave-active {
     &,
     &::backdrop {
-      transition: opacity 150ms ease-in-out;
+      transition: opacity variables.$vas-transition-duration--default ease-in-out;
     }
   }
 

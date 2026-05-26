@@ -40,7 +40,7 @@
         default: false,
       },
     },
-    // emits: [],
+    // emits: {},
 
     // setup(): Setup {
     //   return {};
@@ -73,20 +73,20 @@
   @use '../setup/scss/variables';
 
   .e-vas-toggle-button {
-    $border-radius: 6px;
+    $border-radius: variables.$vas-theme-border-radius;
 
     display: inline-flex;
     cursor: pointer;
     user-select: none;
     overflow: hidden;
     position: relative;
-    color: variables.$vas-color-grayscale--300;
-    border: 1px solid variables.$vas-color-grayscale--700;
+    color: var(--vas-theme-text-color-muted);
+    border: 1px solid var(--vas-theme-border-color);
     padding: variables.$vas-spacing--6;
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
     font-weight: 500;
     outline-color: transparent;
-    background-color: variables.$vas-color-grayscale--800;
+    background-color: var(--vas-theme-background-surface);
     border-radius: $border-radius;
     transition:
       color variables.$vas-transition--default,
@@ -94,11 +94,11 @@
       background-color variables.$vas-transition--default;
 
     &:hover:not(&--active) {
-      background-color: variables.$vas-color-grayscale--700;
+      background-color: var(--vas-theme-background-surface-hover);
     }
 
     &--active {
-      color: variables.$vas-color-grayscale--0;
+      color: var(--vas-theme-text-color);
     }
 
     &--is-animated {
@@ -113,11 +113,11 @@
       align-items: center;
       justify-content: center;
       gap: variables.$vas-spacing--4;
-      border-right: $border-radius;
+      border-radius: $border-radius;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--12;
 
       &--active {
-        background-color: variables.$vas-color-white;
+        background-color: var(--vas-theme-background-content);
         box-shadow:
           0 1px 2px 0 rgba(variables.$vas-color-black, 0.02),
           0 1px 2px 0 rgba(variables.$vas-color-black, 0.04);

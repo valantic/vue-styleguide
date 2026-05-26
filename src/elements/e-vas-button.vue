@@ -14,7 +14,14 @@
     @click="onClick"
   >
     <e-vas-progress v-if="progress" />
-    <slot v-else></slot>
+    <template v-else>
+      <e-vas-icon
+        v-if="icon"
+        :icon="icon"
+        size="16"
+      />
+      <slot></slot>
+    </template>
   </component>
 </template>
 
@@ -22,6 +29,8 @@
   import type { ClassValue, PropType } from 'vue';
   import { defineComponent } from 'vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import type { Icon } from '../types/icon';
+  import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};
@@ -63,6 +72,7 @@
     name: 'e-vas-button',
 
     components: {
+      eVasIcon,
       eVasProgress,
     },
 
@@ -134,6 +144,22 @@
         default: 'default',
         validator: (value: string) => BUTTON_COLORS.includes(value),
       },
+
+      /**
+       * Name of the svg icon to display inside the button.
+       */
+      icon: {
+        type: String as PropType<Icon | null>,
+        default: null,
+      },
+
+      /**
+       * When true, removes horizontal padding to create a square icon-only button.
+       */
+      iconOnly: {
+        type: Boolean,
+        default: false,
+      },
     },
 
     emits: {
@@ -168,6 +194,8 @@
           touch: this.hasTouch,
           variant: this.variant,
           color: this.color,
+          hasIcon: !!this.icon,
+          iconOnly: this.iconOnly,
         };
       },
 
@@ -258,13 +286,14 @@
   @use '../setup/scss/variables';
 
   .e-vas-button {
-    --e-vas-button-font-color: #{variables.$vas-theme-text-color};
-    --e-vas-button-border-color: #{variables.$vas-color-grayscale--600};
-    --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+    --e-vas-button-font-color: var(--vas-theme-text-color);
+    --e-vas-button-border-color: var(--vas-theme-button-bg);
+    --e-vas-button-background-color: var(--vas-theme-button-bg);
 
     position: relative;
     display: inline-flex;
     vertical-align: middle;
+    align-items: center;
     justify-content: center;
     padding: variables.$vas-form-field-padding (variables.$vas-form-field-padding * 3);
     outline: none;
@@ -273,7 +302,7 @@
     background-color: var(--e-vas-button-background-color);
     cursor: pointer;
     color: var(--e-vas-button-font-color);
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
     transition-property: background-color, transform, opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -285,14 +314,14 @@
 
     &--hover:not(&--touch),
     &:hover:not(&--touch) {
-      --e-vas-button-border-color: #{variables.$vas-color-grayscale--700};
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
+      --e-vas-button-border-color: var(--vas-theme-button-bg-hover);
+      --e-vas-button-background-color: var(--vas-theme-button-bg-hover);
     }
 
     &--focus,
     &:focus {
-      --e-vas-button-border-color: #{variables.$vas-color-grayscale--700};
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+      --e-vas-button-border-color: var(--vas-theme-button-bg-hover);
+      --e-vas-button-background-color: var(--vas-theme-button-bg);
 
       outline: none;
     }
@@ -306,7 +335,7 @@
 
     &:active:not([disabled]),
     &--active:not([disabled]) {
-      --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+      --e-vas-button-background-color: var(--vas-theme-button-bg);
 
       position: relative;
     }
@@ -335,6 +364,14 @@
       margin-top: -2px; // Creates unified height for text/progress button
       margin-bottom: -1px;
     }
+
+    &--has-icon {
+      gap: variables.$vas-spacing--6;
+    }
+
+    &--icon-only {
+      padding: variables.$vas-form-field-padding;
+    }
   }
 
   .e-vas-button--variant-default {
@@ -361,38 +398,38 @@
 
   .e-vas-button--variant-text {
     &.e-vas-button--color-default {
-      --e-vas-button-font-color: #{variables.$vas-theme-text-color};
+      --e-vas-button-font-color: var(--vas-theme-text-color);
       --e-vas-button-border-color: transparent;
       --e-vas-button-background-color: transparent;
 
       &.e-vas-button:hover:not(.e-vas-button--touch),
       &.e-vas-button--hover:not(.e-vas-button--touch) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--700};
+        --e-vas-button-background-color: var(--vas-theme-background-surface-hover);
       }
 
       &.e-vas-button:active:not([disabled]),
       &.e-vas-button--active:not([disabled]) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--600};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
     }
 
     &.e-vas-button--color-primary {
-      --e-vas-button-font-color: #{variables.$vas-theme-text-color};
+      --e-vas-button-font-color: var(--vas-theme-text-color);
       --e-vas-button-border-color: transparent;
       --e-vas-button-background-color: transparent;
 
       &.e-vas-button:hover:not(.e-vas-button--touch),
       &.e-vas-button--hover:not(.e-vas-button--touch) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--500};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
 
       &.e-vas-button:active:not([disabled]),
       &.e-vas-button--active:not([disabled]) {
         --e-vas-button-border-color: transparent;
-        --e-vas-button-background-color: #{variables.$vas-color-grayscale--500};
+        --e-vas-button-background-color: var(--vas-theme-background-surface);
       }
     }
   }

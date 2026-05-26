@@ -18,7 +18,12 @@
     >
       {{ routeTitle }}
       <span :class="b('overlay')"></span>
-      <span :class="b('icon')"></span>
+      <span :class="b('icon')">
+        <e-vas-icon
+          icon="i-chevron--down"
+          size="12"
+        />
+      </span>
     </component>
 
     <transition name="collapse">
@@ -44,6 +49,7 @@
   import { defineComponent } from 'vue';
   import type { RouteRecordRaw } from 'vue-router';
   import { useRoute, useRouter } from 'vue-router';
+  import eVasIcon from '../elements/e-vas-icon.vue';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
@@ -59,8 +65,9 @@
    */
   export default defineComponent({
     name: 'c-vas-navigation-block',
-
-    // components: {},
+    components: {
+      eVasIcon,
+    },
 
     props: {
       /**
@@ -165,9 +172,6 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Defines what is to do if an item is clicked.
-       */
       onItemClick(): void {
         if (this.hasChildren) {
           this.onToggle();
@@ -178,9 +182,6 @@
         this.onNavigate();
       },
 
-      /**
-       * Toggles the expanded state of a parent route.
-       */
       onToggle(): void {
         if (!this.hasChildren) {
           return;
@@ -241,10 +242,10 @@
       max-width: 100%;
       width: 100%;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 $padding-left;
-      font-size: 15px;
+      font-size: variables.$vas-font-size--base;
       line-height: 20px;
       text-decoration: none;
-      color: variables.$vas-font-color--text !important; // stylelint-disable-line declaration-no-important
+      color: var(--vas-theme-text-color) !important; // stylelint-disable-line declaration-no-important
       cursor: pointer;
       border-radius: 2px;
       overflow-wrap: break-word;
@@ -254,7 +255,7 @@
       scroll-margin-top: 100px;
 
       &--selected {
-        outline: 2px dashed variables.$vas-color-grayscale--300;
+        outline: 2px dashed var(--vas-theme-border-color);
 
         #{$this}__overlay {
           opacity: 0.4;
@@ -266,12 +267,13 @@
         top: 0;
         margin-top: 0;
         display: grid;
-        border-bottom: 1px dashed variables.$vas-color-grayscale--400;
-        background-color: variables.$vas-color-grayscale--1000;
+        border-bottom: 1px dashed var(--vas-theme-border-color);
+        background-color: var(--vas-theme-background-content);
         z-index: 1;
-        font-size: 13px;
+        font-size: variables.$vas-font-size--small;
         font-weight: bold;
         text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
+        padding-left: variables.$vas-spacing--4;
 
         #{$this}__logo,
         #{$this}__icon {
@@ -281,6 +283,7 @@
 
       &--active {
         font-weight: bold;
+        color: var(--vas-theme-text-color-highlight) !important; // stylelint-disable-line declaration-no-important
 
         #{$this}__overlay {
           opacity: 1;
@@ -306,7 +309,7 @@
       position: absolute;
       transition: 0.2s ease-in-out;
       transition-property: opacity, color;
-      background-color: rgba(variables.$vas-color-grayscale--0, 0.08);
+      background-color: var(--vas-theme-highlight);
     }
 
     &__icon {
@@ -314,10 +317,6 @@
       width: 12px;
       height: 12px;
       margin-right: variables.$vas-spacing--8;
-      background-image: url('../assets/icons/i-chevron--down.svg');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
       transition: transform 0.2s ease;
       position: absolute;
       right: -1px;

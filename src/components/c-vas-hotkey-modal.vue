@@ -7,83 +7,28 @@
     <p>You can use these hotkeys to navigate the styleguide.</p>
 
     <div :class="b('mapping')">
-      <div :class="b('row')">
+      <div
+        v-for="(mapping, index) in mappings"
+        :key="index"
+        :class="b('row')"
+      >
         <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-          </div>
-          <div :class="b('hotkey')">
-            <span>Shift</span>
+          <div
+            v-for="(hotkey, hotkeyIndex) in mapping.hotkeys"
+            :key="hotkeyIndex"
+            :class="b('hotkey')"
+          >
+            <span
+              v-for="(key, keyIndex) in hotkey"
+              :key="keyIndex"
+            >
+              {{ key }}
+            </span>
           </div>
         </div>
         <div :class="b('right')">
-          Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.
+          {{ mapping.description }}
         </div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>&uarr;</span>
-          </div>
-          <div :class="b('hotkey')">
-            <span>&darr;</span>
-          </div>
-        </div>
-        <div :class="b('right')">Navigate through menu items.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Enter</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the selected menu item.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>O</span>
-          </div>
-        </div>
-        <div :class="b('right')">
-          Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.
-        </div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>.</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the styleguide sidebar with the config tab preselected.</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Shift</span>
-            <span>+</span>
-            <span>Ctrl</span>
-            <span>+</span>
-            <span>,</span>
-          </div>
-        </div>
-        <div :class="b('right')">Open the page configuration sidebar. (if slot is prefilled)</div>
-      </div>
-      <div :class="b('row')">
-        <div :class="b('left')">
-          <div :class="b('hotkey')">
-            <span>Esc</span>
-          </div>
-        </div>
-        <div :class="b('right')">Closes the sidebar, closes modal.</div>
       </div>
     </div>
   </c-vas-modal>
@@ -92,20 +37,19 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import cVasModal from '../components/c-vas-modal.vue';
+  import { HOTKEYS, resolveHotkey } from '../config/hotkeys';
+  import { isMac } from '../utils/platform';
 
   // type Setup = {};
-  // type Data = {};
 
   /**
-   *
+   * Displays a list of hotkeys that can be used to navigate the styleguide.
    */
   export default defineComponent({
     name: 'c-vas-hotkey-modal',
     components: {
       cVasModal,
     },
-
-    // components: {},
 
     props: {
       /**
@@ -119,16 +63,24 @@
     emits: {
       'update:isOpen': (state: unknown): boolean => typeof state === 'boolean',
     },
-    // emits: [],
 
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
+    // data() {
     //   return {};
     // },
 
     computed: {
+      mappings() {
+        const mac = isMac();
+
+        return HOTKEYS.map((entry) => {
+          const resolved = resolveHotkey(entry, mac);
+
+          return { hotkeys: resolved.display, description: resolved.description };
+        });
+      },
       isOpenInternal: {
         get() {
           return this.isOpen;
@@ -169,10 +121,10 @@
 
     &__row {
       display: grid;
-      grid-template-columns: 0.8fr 1fr;
+      grid-template-columns: 30% 70%;
       gap: variables.$vas-spacing--16;
       padding: variables.$vas-spacing--16 variables.$vas-spacing--8;
-      border-bottom: 1px dashed variables.$vas-color-grayscale--600;
+      border-bottom: 1px dashed var(--vas-theme-border-color);
 
       &:last-child {
         border-bottom: 0;
@@ -191,11 +143,11 @@
       align-items: center;
       justify-content: center;
       gap: variables.$vas-spacing--4;
-      font-size: 14px;
+      font-size: variables.$vas-font-size--base;
       font-weight: 600;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--6;
-      background-color: variables.$vas-color-grayscale--800;
-      border: 1px solid variables.$vas-color-grayscale--600;
+      background-color: var(--vas-theme-background-surface);
+      border: 1px solid var(--vas-theme-border-color);
       border-radius: 5px;
     }
   }

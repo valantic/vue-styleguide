@@ -54,12 +54,13 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
   import eVasInput from '../../../elements/e-vas-input.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
+  // type Setup = {};
   type Option = { label: string; value: string };
   type Data = {
     selected: string;
@@ -87,6 +88,12 @@
       lVasLayout,
     },
 
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         selected: '',
@@ -106,6 +113,23 @@
         progress: false,
       };
     },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>
 

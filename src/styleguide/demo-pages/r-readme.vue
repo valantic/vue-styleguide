@@ -6,7 +6,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasRenderMarkdownFile from '../../components/c-vas-render-markdown-file.vue';
+  import cVasRenderMarkdownFile from '../../features/c-vas-render-markdown-file.vue';
   import lVasLayout from '../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
@@ -22,7 +22,9 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },

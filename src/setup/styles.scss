@@ -1,4 +1,6 @@
 // General project styles
 @use 'scss/basics';
+// Theme definitions (CSS custom properties)
+@use 'scss/themes';
 // Style reset
 @use 'the-new-css-reset/css/reset';

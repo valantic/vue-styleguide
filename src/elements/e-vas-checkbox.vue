@@ -177,7 +177,7 @@
     display: block;
     margin-bottom: 8px;
     cursor: pointer;
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
 
     &__field {
       position: absolute;
@@ -235,7 +235,7 @@
         height: math.div($e-vas-checkbox--toggle-size, 3) * 2;
         margin: 0 math.div($e-vas-checkbox--toggle-size, 2);
         border-radius: $e-vas-checkbox--toggle-size;
-        background-color: variables.$vas-color-grayscale--500;
+        background-color: var(--vas-theme-border-color);
         transition: background-color variables.$vas-transition-duration--default;
 
         &::before {
@@ -246,8 +246,8 @@
           width: $e-vas-checkbox--toggle-size;
           height: $e-vas-checkbox--toggle-size;
           border-radius: 50%;
-          background-color: variables.$vas-color-grayscale--1000;
-          box-shadow: 0 1px 2px 1px rgba(variables.$vas-color-grayscale--0, 0.2);
+          background-color: var(--vas-theme-background-content);
+          box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 20%);
           transform: translateY(-50%);
           transition: left variables.$vas-transition-duration--default;
         }
@@ -257,7 +257,7 @@
         &:checked ~ #{$this}__indicator {
           &::before {
             left: calc(100% - (#{$e-vas-checkbox--toggle-size} / 2));
-            background-color: variables.$vas-color-grayscale--0;
+            background-color: var(--vas-theme-text-color);
             transform: translateY(-50%);
           }
         }
@@ -270,43 +270,43 @@
       padding-left: variables.$vas-spacing--10;
 
       &:hover {
-        color: variables.$vas-color-grayscale--0;
+        color: var(--vas-theme-text-color);
 
         &::before {
-          border-color: variables.$vas-color-grayscale--0;
+          border-color: var(--vas-theme-text-color);
         }
       }
     }
 
     &__field:checked {
       ~ #{$this}__label-text {
-        color: variables.$vas-color-grayscale--0;
+        color: var(--vas-theme-text-color);
       }
     }
 
     &__field:checked:disabled {
       ~ #{$this}__indicator {
-        border-color: variables.$vas-color-grayscale--500;
+        border-color: var(--vas-theme-border-color);
       }
 
       ~ #{$this}__indicator:before {
-        background: variables.$vas-color-grayscale--500;
+        background: var(--vas-theme-border-color);
         cursor: not-allowed;
       }
     }
 
     &__field:disabled {
       ~ #{$this}__indicator {
-        border-color: variables.$vas-color-grayscale--500;
+        border-color: var(--vas-theme-border-color);
         cursor: not-allowed;
       }
 
       ~ #{$this}__label-text {
         cursor: not-allowed;
-        color: variables.$vas-color-grayscale--400;
+        color: var(--vas-theme-text-color-muted);
 
         &::before {
-          border-color: variables.$vas-color-grayscale--500;
+          border-color: var(--vas-theme-border-color);
         }
       }
     }

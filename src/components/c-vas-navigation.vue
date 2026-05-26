@@ -5,11 +5,36 @@
     @keydown.up.prevent="onKeyDownUp"
     @keydown.enter.prevent="onKeyDownEnter"
   >
-    <div :class="b('filter-wrapper')">
-      <c-vas-navigation-filter v-model="navigationFilter" />
+    <div :class="b('search-container')">
+      <e-vas-input
+        v-model.trim="navigationFilter"
+        ref="searchInput"
+        :class="b('search-input')"
+        name="filter"
+        placeholder="Search Menu ..."
+        autofocus
+        select-on-focus
+        @click.stop
+      />
+      <button
+        v-if="navigationFilter"
+        :class="b('search-clear-button')"
+        type="button"
+        @click.stop="navigationFilter = ''"
+      >
+        <e-vas-icon
+          icon="i-close"
+          size="8"
+        />
+      </button>
     </div>
 
     <div :class="b('menu')">
+      <c-vas-navigation-block
+        v-if="!navigationFilter && lastOpenedRoutes.length"
+        :route-definition="lastOpenedGroup"
+        :selected-route-name="selectedRouteName"
+      />
       <c-vas-navigation-block
         v-for="routeItem in groupedRoutes"
         :key="`${routeItem.name as string}-${navigationFilter}`"
@@ -24,10 +49,17 @@
   import type { PropType } from 'vue';
   import { defineComponent } from 'vue';
   import type { RouteRecordRaw } from 'vue-router';
+  import eVasIcon from '../elements/e-vas-icon.vue';
+  import eVasInput from '../elements/e-vas-input.vue';
+  import type { VasSessionStore } from '../stores/session';
+  import { useVasSessionStore } from '../stores/session';
+  import { validateRoutes } from '../utils/route-validator';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
-  import cVasNavigationFilter from './c-vas-navigation-filter.vue';
 
-  // type Setup = {};
+  type Setup = {
+    vasSessionStore: VasSessionStore;
+  };
+
   type Data = {
     navigationFilter: string;
     activeIndex: number;
@@ -40,8 +72,9 @@
     name: 'c-vas-navigation',
 
     components: {
+      eVasIcon,
+      eVasInput,
       cVasNavigationBlock,
-      cVasNavigationFilter,
     },
 
     props: {
@@ -63,7 +96,11 @@
     },
     // emits: {},
 
-    // setup(): Setup {},
+    setup(): Setup {
+      return {
+        vasSessionStore: useVasSessionStore(),
+      };
+    },
     data(): Data {
       return {
         navigationFilter: '',
@@ -72,6 +109,19 @@
     },
 
     computed: {
+      lastOpenedRoutes(): RouteRecordRaw[] {
+        return this.vasSessionStore.state.lastOpenedRoutes;
+      },
+
+      lastOpenedGroup(): RouteRecordRaw {
+        return {
+          path: 'last-opened',
+          name: 'last-opened',
+          meta: { title: 'Last Opened' },
+          children: this.lastOpenedRoutes,
+        };
+      },
+
       favoriteRoutes(): RouteRecordRaw[] {
         return this.getFavorites(this.filteredRoutes);
       },
@@ -161,6 +211,7 @@
     // created() {},
     // beforeMount() {},
     mounted() {
+      validateRoutes(this.routes);
       this.scrollSelectedIntoView();
     },
 
@@ -172,6 +223,11 @@
     // unmounted() {},
 
     methods: {
+      // eslint-disable-next-line vue/no-unused-properties
+      focusSearch(): void {
+        (this.$refs.searchInput as InstanceType<typeof eVasInput>).focusInput();
+      },
+
       /**
        * Scrolls the selected navigation item into view.
        */
@@ -184,35 +240,32 @@
           element?.scrollIntoView({ block: 'nearest' });
         });
       },
+
       onKeyDownDown(): void {
         // Avoid it under any circumstances that the active index of the list is -1, which could happen if you e.g.,
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.
-        let nextIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
+        const startIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
 
-        while (nextIndex < this.flattenedRoutes.length) {
-          const route = this.flattenedRoutes[nextIndex];
+        for (let i = startIndex; i < this.flattenedRoutes.length; i++) {
+          const route = this.flattenedRoutes[i];
 
           if (!route?.children?.length) {
-            this.activeIndex = nextIndex;
+            this.activeIndex = i;
 
             return;
           }
-          nextIndex++;
         }
       },
 
       onKeyDownUp(): void {
-        let prevIndex = this.activeIndex - 1;
-
-        while (prevIndex >= 0) {
-          const route = this.flattenedRoutes[prevIndex];
+        for (let i = this.activeIndex - 1; i >= 0; i--) {
+          const route = this.flattenedRoutes[i];
 
           if (!route?.children?.length) {
-            this.activeIndex = prevIndex;
+            this.activeIndex = i;
 
             return;
           }
-          prevIndex--;
         }
       },
 
@@ -348,27 +401,50 @@
     flex-direction: column;
     flex: 0 1 auto;
 
-    &__filter-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: variables.$vas-spacing--8;
+    &__search-container {
       margin-bottom: variables.$vas-spacing--8;
       position: sticky;
       top: 0;
-      background-color: variables.$vas-color-white;
       z-index: 5;
-      padding: variables.$vas-spacing--12 0 variables.$vas-spacing--4 0;
-      box-shadow: 0 12px 7px rgba(variables.$vas-color-white, 0.4);
+      padding-bottom: variables.$vas-spacing--8;
+      border-bottom: 1px solid var(--vas-theme-background-container);
 
       &::after {
         content: '';
         position: absolute;
-        background-color: variables.$vas-color-white;
+        background-color: var(--vas-theme-background-content);
         top: -12px;
         left: -12px;
         width: calc(100% + 24px);
         height: calc(100% + 12px);
         z-index: -1;
+      }
+    }
+
+    &__search-input {
+      position: relative;
+      width: 100%;
+      padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
+      font-size: variables.$vas-font-size--base;
+    }
+
+    &__search-clear-button {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--vas-theme-highlight);
+      padding: variables.$vas-spacing--2;
+      z-index: 99;
+
+      &:hover {
+        background-color: var(--vas-theme-button-bg-hover);
       }
     }
 

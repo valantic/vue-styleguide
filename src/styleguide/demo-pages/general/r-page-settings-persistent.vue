@@ -47,13 +47,19 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasButton from '../../../elements/e-vas-button.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
-  import { getPersistentItem, setPersistentItem } from '../../../stores/helper';
+  import { useVasLocalStore } from '../../../stores/local-store';
 
   const STORAGE_KEY = 'page-settings-persistent';
+
+  // type Setup = {};
+  type Data = {
+    count: number;
+    toggleValue: boolean;
+  };
 
   /**
    * Styleguide page for persistent page settings.
@@ -68,18 +74,25 @@
       lVasLayout,
     },
 
-    data() {
-      const defaults = {
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
+      const defaults: Data = {
         count: 0,
         toggleValue: false,
       };
 
       return {
         ...defaults,
-        ...getPersistentItem(STORAGE_KEY, {}),
+        ...useVasLocalStore().get(STORAGE_KEY, {}),
       };
     },
 
+    // computed: {},
     watch: {
       count() {
         this.saveSettings();
@@ -89,12 +102,23 @@
       },
     },
 
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
     methods: {
       /**
        * Example of a save settings method.
        */
       saveSettings() {
-        setPersistentItem(STORAGE_KEY, {
+        useVasLocalStore().set(STORAGE_KEY, {
           count: this.count,
           toggleValue: this.toggleValue,
         });
@@ -107,8 +131,9 @@
         this.count = 0;
         this.toggleValue = false;
 
-        setPersistentItem(STORAGE_KEY, {});
+        useVasLocalStore().set(STORAGE_KEY, {});
       },
     },
+    // render() {},
   });
 </script>

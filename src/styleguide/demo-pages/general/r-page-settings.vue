@@ -40,13 +40,16 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasButton from '../../../elements/e-vas-button.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    count: number;
+    toggleValue: boolean;
+  };
 
   /**
    * Styleguide page for c-vas-demo-card.
@@ -64,8 +67,10 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
-    data() {
+    // setup(): Setup {
+    //   return {};
+    // },
+    data(): Data {
       return {
         count: 0,
         toggleValue: false,

@@ -35,11 +35,12 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasDemoCard from '../../../components/c-vas-demo-card.vue';
   import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
   import eVasRadio from '../../../elements/e-vas-radio.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
+  // type Setup = {};
   type Option = { label: string; value: string | number; name: string };
   type Data = {
     value: string | number;
@@ -63,6 +64,12 @@
       lVasLayout,
     },
 
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
     data(): Data {
       return {
         value: 'yes',
@@ -78,5 +85,22 @@
         },
       };
     },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
   });
 </script>

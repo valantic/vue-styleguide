@@ -17,8 +17,8 @@
   import cVasNavigation from '../../../components/c-vas-navigation.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
-  // type Setup = {}
-  // type Data = {}
+  // type Setup = {};
+  // type Data = {};
 
   /**
    * Demo page for the navigation component.
@@ -34,7 +34,9 @@
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },
@@ -65,7 +67,7 @@
               name: `${section}-subchild-${sectionIndex}`,
               component: { template: '<div>Child Content</div>' },
               meta: {
-                title: 'Sub Child'
+                title: 'Sub Child',
               },
             },
           ];

@@ -41,8 +41,7 @@
     },
 
     // setup(): Setup {
-    //   return {
-    //   };
+    //   return {};
     // },
     // data(): Data {
     //   return {};
@@ -83,15 +82,15 @@
     $this: &;
     $e-vas-toggle-size: 18px;
 
-    --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--500};
-    --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--0};
+    --e-vas-toggle-background-color: var(--vas-theme-border-color);
+    --e-vas-toggle-toggle-color: var(--vas-theme-text-color);
 
     display: flex;
     justify-content: space-between;
 
     &--active {
-      --e-vas-toggle-background-color: #{variables.$vas-color-grayscale--0};
-      --e-vas-toggle-toggle-color: #{variables.$vas-color-grayscale--1000};
+      --e-vas-toggle-background-color: var(--vas-theme-text-color);
+      --e-vas-toggle-toggle-color: var(--vas-theme-background-content);
     }
 
     &__slider {
@@ -102,7 +101,7 @@
       border-radius: $e-vas-toggle-size;
       background-color: var(--e-vas-toggle-background-color);
       cursor: pointer;
-      transition: variables.$vas-transition-duration--default;
+      transition: background-color variables.$vas-transition-duration--default;
       flex-shrink: 0;
 
       &::before {
@@ -117,7 +116,7 @@
         height: $size;
         border-radius: 50%;
         background-color: var(--e-vas-toggle-toggle-color);
-        transition: variables.$vas-transition-duration--default;
+        transition: transform variables.$vas-transition-duration--default;
       }
     }
 

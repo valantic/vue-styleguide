@@ -20,10 +20,12 @@
   // type Setup = {};
   type Data = {
     hide: boolean;
+    directionTimer: ReturnType<typeof setTimeout> | null;
   };
 
   export const FLYOUT_DIRECTIONS = ['left', 'right'];
   export type FlyoutDirectionType = (typeof FLYOUT_DIRECTIONS)[number];
+
   /**
    * A flyout.
    */
@@ -37,14 +39,6 @@
        * Toggles the visibility.
        */
       isOpen: {
-        type: Boolean,
-        default: false,
-      },
-
-      /**
-       * Defines if the flyout should be rendered with full opacity.
-       */
-      isOpaque: {
         type: Boolean,
         default: false,
       },
@@ -66,6 +60,7 @@
     data(): Data {
       return {
         hide: false,
+        directionTimer: null,
       };
     },
 
@@ -75,19 +70,24 @@
           direction: this.direction,
           isOpen: this.isOpen,
           hide: this.hide,
-          isOpaque: this.isOpaque,
         };
       },
     },
     watch: {
-      // This is catching an edge case where the flyout changes the direction and is flaky for a moment.
+      // When the direction changes while closed, the CSS transition briefly shows the flyout in the wrong position.
+      // Hiding for one frame prevents the flash.
       direction() {
         if (!this.isOpen) {
           this.hide = true;
 
-          setTimeout(() => {
+          if (this.directionTimer) {
+            clearTimeout(this.directionTimer);
+          }
+
+          this.directionTimer = setTimeout(() => {
             this.hide = false;
-          }, 15);
+            this.directionTimer = null;
+          }, 16); // one frame at 60 fps
         }
       },
     },
@@ -100,7 +100,11 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    // beforeUnmount() {},
+    beforeUnmount() {
+      if (this.directionTimer) {
+        clearTimeout(this.directionTimer);
+      }
+    },
     // unmounted() {},
 
     // methods: {},
@@ -119,18 +123,18 @@
     flex-direction: column;
     width: variables.$vas-flyout--width;
     height: 100%;
-    background-color: variables.$vas-color-grayscale--1000;
+    background-color: var(--vas-theme-background-content);
     border-inline-start-width: 0;
     border-inline-end-width: 0;
     border-inline-style: solid;
-    border-inline-color: variables.$vas-color-grayscale--600;
+    border-inline-color: var(--vas-theme-border-color);
     transition-property: transform, opacity;
     transition-duration: 0.3s;
     transition-timing-function: ease;
     box-shadow:
       0 20px 25px -5px rgba(variables.$vas-color-black, 0.1),
       0 8px 10px -6px rgba(variables.$vas-color-black, 0.1);
-    pointer-events: none;
+    pointer-events: auto;
 
     &--hide {
       display: none;
@@ -138,7 +142,6 @@
 
     &--is-open {
       transform: translateX(0) !important; // stylelint-disable-line declaration-no-important
-      pointer-events: auto;
     }
 
     &--direction-left {
@@ -158,13 +161,12 @@
       top: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: end;
       height: 100%;
-      pointer-events: none;
       align-items: flex-end;
       opacity: 0.2;
       transition: opacity variables.$vas-transition--default;
-      width: 55px;
+      width: 32px;
 
       &:hover:not(&--is-open) {
         opacity: 0.8;
@@ -174,24 +176,18 @@
         opacity: 1;
       }
 
-      &--is-opaque {
-        opacity: 1;
-      }
-
       &--direction-right {
         right: 100%;
       }
 
       &--direction-left {
         left: 100%;
-        justify-content: end;
       }
     }
 
     &__content {
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
       height: 100%;
     }
   }

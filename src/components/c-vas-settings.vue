@@ -1,0 +1,72 @@
+<template>
+  <div :class="b()">
+    <c-vas-typography variant="heading">Appearance</c-vas-typography>
+    <e-vas-theme-selector />
+  </div>
+</template>
+
+<script lang="ts">
+  import { defineComponent } from 'vue';
+  import eVasThemeSelector from '../elements/e-vas-theme-selector.vue';
+  import cVasTypography from './c-vas-typography.vue';
+
+  // type Setup = {};
+  // type Data = {};
+
+  /**
+   * Component for managing global settings.
+   */
+  export default defineComponent({
+    name: 'c-vas-settings',
+
+    components: {
+      eVasThemeSelector,
+      cVasTypography,
+    },
+
+    // props: {},
+    // emits: {},
+
+    // setup(): Setup {
+    //   return {};
+    // },
+    // data(): Data {
+    //   return {};
+    // },
+
+    // computed: {},
+    // watch: {},
+
+    // beforeCreate() {},
+    // created() {},
+    // beforeMount() {},
+    // mounted() {},
+    // beforeUpdate() {},
+    // updated() {},
+    // activated() {},
+    // deactivated() {},
+    // beforeUnmount() {},
+    // unmounted() {},
+
+    // methods: {},
+    // render() {},
+  });
+</script>
+
+<style lang="scss">
+  @use '../setup/scss/variables';
+
+  .c-vas-settings {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$vas-spacing--10;
+
+    &__custom-settings {
+      display: flex;
+      flex-direction: column;
+      gap: variables.$vas-spacing--10;
+      margin-top: variables.$vas-spacing--20;
+      border-top: 1px solid variables.$vas-theme-border-color;
+    }
+  }
+</style>

@@ -1,164 +1,33 @@
 <template>
   <div
     ref="container"
-    class="vas-styleguide-reset"
-    :class="b('', modifiers)"
+    :class="[b('', modifiers), theme]"
   >
-    <c-vas-flyout
-      :is-open="isPageConfigFlyoutOpen"
-      :is-opaque="isToggleButtonAnimated"
-    >
-      <template #controls>
-        <div :class="b('actions')">
-          <c-vas-flyout-toggle-button
-            :active="isPageConfigFlyoutOpen"
-            :is-animated="isToggleButtonAnimated"
-            icon="i-page-setting"
-            @click="onTogglePageConfigFlyout()"
-          />
-        </div>
-      </template>
-      <template #content>
-        <div :class="b('page-config-flyout-content')">
-          <c-vas-icon-headline
-            :class="b('header')"
-            icon="i-page-setting"
-            text="Page Configuration"
-          />
-          <div
-            id="teleportDestinationPageConfigFlyout"
-            :class="b('content-wrapper', { pageConfig: true })"
-          ></div>
-        </div>
-      </template>
-    </c-vas-flyout>
-
     <c-vas-flyout
       :is-open="isMainFlyoutOpen"
       direction="right"
     >
       <template #controls>
-        <c-vas-viewport-info :is-open="isMainFlyoutOpen" />
-
-        <div :class="b('actions')">
-          <c-vas-flyout-toggle-button
-            :active="showConfig && isMainFlyoutOpen"
-            icon="i-cog-wheel"
-            @click="onToggleMainFlyout(false, true)"
-          />
-          <c-vas-flyout-toggle-button
-            :active="showMenu && isMainFlyoutOpen"
-            icon="i-text"
-            @click="onToggleMainFlyout(true)"
-          />
-        </div>
+        <c-vas-flyout-handle
+          icon="i-page-setting"
+          :is-open="isMainFlyoutOpen"
+          :is-animated="isToggleButtonAnimated"
+          @toggle="onToggleMainFlyout"
+        />
       </template>
 
-      <template
-        v-if="isMainFlyoutOpen"
-        #content
-      >
-        <c-vas-icon-headline
-          :class="b('header')"
-          icon="i-vuejs"
-          text="Styleguide"
-        />
-
-        <div :class="b('tabs')">
-          <e-vas-toggle-button
-            :active="showMenu"
-            @click="onToggleMainFlyout(true)"
+      <template #content>
+        <c-vas-panel
+          :is-open="isMainFlyoutOpen"
+          @open-hotkeys-modal="isHotkeysModalOpen = true"
+        >
+          <template
+            v-if="$slots.customSettings"
+            #customSettings
           >
-            <e-vas-icon
-              icon="i-text"
-              size="20"
-            />
-            Menu
-          </e-vas-toggle-button>
-
-          <e-vas-toggle-button
-            :active="showConfig"
-            @click="onToggleMainFlyout(false, true)"
-          >
-            <e-vas-icon
-              icon="i-cog-wheel"
-              size="20"
-            />
-            Settings
-          </e-vas-toggle-button>
-        </div>
-
-        <div :class="b('content-wrapper')">
-          <c-vas-navigation
-            v-if="showMenu"
-            :routes="router.options.routes"
-            :hovered-route-name="hoveredLastOpenedRouteName"
-          />
-          <c-vas-config v-else>
-            <template
-              v-if="$slots.globalSettings"
-              #globalSettings
-            >
-              <slot name="globalSettings"></slot>
-            </template>
-            <template
-              v-if="$slots.customSettings"
-              #customSettings
-            >
-              <slot name="customSettings"></slot>
-            </template>
-          </c-vas-config>
-        </div>
-        <div :class="b('footer')">
-          <!-- TODO: Store this in localstorage. We need to get an identifier from the projects though. -->
-          <div
-            v-if="vasSessionStore.state.lastOpenedRoutes.length"
-            :class="b('footer-row')"
-          >
-            <div :class="b('last-opened-label')">Last opened:</div>
-            <div :class="b('last-opened-wrapper')">
-              <button
-                v-for="routeItem in vasSessionStore.state.lastOpenedRoutes"
-                :key="routeItem.name"
-                :class="b('last-opened-item')"
-                :title="routeItem.meta?.title"
-                type="button"
-                @click="onNavigateToRoute(routeItem)"
-                @mouseenter="hoveredLastOpenedRouteName = routeItem.name as string"
-                @mouseleave="hoveredLastOpenedRouteName = ''"
-              >
-                {{ (routeItem.meta?.title as string)?.substring(0, 3) }}
-              </button>
-            </div>
-          </div>
-          <div :class="b('footer-row')">
-            <div :class="b('footer-info-wrapper')">
-              <button
-                :class="b('hotkeys')"
-                type="button"
-                @click="isHotkeysModalOpen = true"
-              >
-                <e-vas-icon
-                  icon="i-key-cmd--filled"
-                  size="12"
-                />
-                Hotkeys
-              </button>
-              <a
-                :href="githubUrl"
-                target="_blank"
-                rel="noopener noreferrer"
-                :class="b('github-link')"
-              >
-                <e-vas-icon
-                  icon="i-tag"
-                  size="12"
-                />
-                {{ version }}
-              </a>
-            </div>
-          </div>
-        </div>
+            <slot name="customSettings"></slot>
+          </template>
+        </c-vas-panel>
       </template>
     </c-vas-flyout>
 
@@ -167,23 +36,22 @@
 </template>
 
 <script lang="ts">
-  import type { Ref } from 'vue';
+  import type { ComponentPublicInstance, Ref } from 'vue';
   import { defineComponent, ref } from 'vue';
-  import type { RouteRecordRaw } from 'vue-router';
-  import { useRouter } from 'vue-router';
-  import packageJson from '../../package.json';
-  import eVasIcon from '../elements/e-vas-icon.vue';
-  import eVasToggleButton from '../elements/e-vas-toggle-button.vue';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { useVasLocalStore } from '../stores/local-store';
   import type { VasSessionStore } from '../stores/session';
   import { useVasSessionStore } from '../stores/session';
-  import cVasConfig from './c-vas-config.vue';
-  import cVasFlyoutToggleButton from './c-vas-flyout-toggle-button.vue';
+  import type { VasSettingsStore } from '../stores/settings';
+  import { useVasSettingsStore } from '../stores/settings';
+  import { isMac } from '../utils/platform';
+  import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
-  import cVasIconHeadline from './c-vas-icon-headline.vue';
-  import cVasNavigation from './c-vas-navigation.vue';
-  import cVasViewportInfo from './c-vas-viewport-info.vue';
+  import cVasPanel from './c-vas-panel.vue';
+
+  const DOUBLE_SHIFT_DELAY_MS = 500;
+  const PAGE_CONFIG_ANIMATION_DURATION_MS = 600;
 
   type KeyEvent = Event & {
     metaKey: boolean;
@@ -194,37 +62,28 @@
 
   type Setup = {
     vasSessionStore: VasSessionStore;
-    router: ReturnType<typeof useRouter>;
+    vasSettingsStore: VasSettingsStore;
     container: Ref<HTMLDivElement | null | undefined>;
-    version: string;
-    githubUrl: string;
+    colorSchemeQuery: Ref<MediaQueryList | null>;
   };
 
   type Data = {
     isMainFlyoutOpen: boolean;
-    isPageConfigFlyoutOpen: boolean;
-    showMenu: boolean;
-    showConfig: boolean;
     isHotkeysModalOpen: boolean;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
-    hoveredLastOpenedRouteName: string;
     animationTimeout: ReturnType<typeof setTimeout> | null;
+    systemPrefersDark: boolean;
   };
 
   export default defineComponent({
     name: 'c-vas-sidebar',
 
     components: {
-      eVasToggleButton,
-      cVasFlyoutToggleButton,
-      cVasViewportInfo,
+      cVasFlyoutHandle,
       cVasFlyout,
       cVasHotkeyModal,
-      eVasIcon,
-      cVasIconHeadline,
-      cVasNavigation,
-      cVasConfig,
+      cVasPanel,
     },
     // props: {},
 
@@ -233,35 +92,38 @@
     setup(): Setup {
       return {
         vasSessionStore: useVasSessionStore(),
-        router: useRouter(),
+        vasSettingsStore: useVasSettingsStore(),
         container: ref(),
-        version: packageJson.version,
-        githubUrl: `${packageJson.repository.tree}${packageJson.version}`,
+        colorSchemeQuery: ref(null),
       };
     },
 
     data(): Data {
       return {
         isMainFlyoutOpen: false,
-        isPageConfigFlyoutOpen: false,
-        showMenu: false,
-        showConfig: false,
         isHotkeysModalOpen: false,
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
-        hoveredLastOpenedRouteName: '',
         animationTimeout: null,
+        systemPrefersDark: false,
       };
     },
     computed: {
       isFlyoutOpen(): boolean {
-        return this.isMainFlyoutOpen || this.isPageConfigFlyoutOpen;
+        return this.isMainFlyoutOpen;
       },
 
       modifiers(): Modifiers {
         return {
           isFlyoutOpen: this.isFlyoutOpen,
         };
+      },
+
+      theme(): string {
+        const theme = this.vasSettingsStore.state.theme;
+        const resolved = theme === 'system' ? (this.systemPrefersDark ? 'dark' : 'light') : theme;
+
+        return `vas-styleguide-theme-${resolved}`;
       },
     },
     watch: {
@@ -294,7 +156,7 @@
             this.animationTimeout = setTimeout(() => {
               this.isToggleButtonAnimated = false;
               this.animationTimeout = null;
-            }, 600);
+            }, PAGE_CONFIG_ANIMATION_DURATION_MS);
           }
         },
         immediate: true,
@@ -305,6 +167,15 @@
     // beforeMount() {},
     mounted() {
       document.addEventListener('keydown', this.handleHotKeys);
+
+      this.colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this.systemPrefersDark = this.colorSchemeQuery.matches;
+      this.colorSchemeQuery.addEventListener('change', this.handleColorSchemeChange);
+
+      document.body.classList.toggle(
+        'c-vas-html-validation--enabled',
+        useVasLocalStore().get<boolean>('html-validation', true),
+      );
     },
     // beforeUpdate() {},
     // updated() {},
@@ -313,6 +184,7 @@
     beforeUnmount() {
       document.removeEventListener('click', this.handleOutsideClick);
       document.removeEventListener('keydown', this.handleHotKeys);
+      this.colorSchemeQuery?.removeEventListener('change', this.handleColorSchemeChange);
 
       if (this.animationTimeout) {
         clearTimeout(this.animationTimeout);
@@ -320,25 +192,25 @@
     },
     // unmounted() {},
 
+    errorCaptured(error: unknown, _instance: ComponentPublicInstance | null, info: string): boolean {
+      // eslint-disable-next-line no-console
+      console.error('[c-vas-sidebar] Caught child error — the sidebar stays functional:', error, info);
+
+      return false; // Stop propagation; prevents crashing the host app.
+    },
+
     methods: {
+      handleColorSchemeChange(event: MediaQueryListEvent): void {
+        this.systemPrefersDark = event.matches;
+      },
+
       onCloseFlyout(): void {
         this.isMainFlyoutOpen = false;
-        this.isPageConfigFlyoutOpen = false;
         this.isHotkeysModalOpen = false;
       },
 
-      onToggleMainFlyout(
-        showMenu: boolean = false,
-        showConfig: boolean = false,
-        isMainFlyoutOpen: boolean = true,
-      ): void {
-        this.isMainFlyoutOpen = isMainFlyoutOpen;
-        this.showMenu = showMenu;
-        this.showConfig = showConfig;
-      },
-
-      onTogglePageConfigFlyout(): void {
-        this.isPageConfigFlyoutOpen = !this.isPageConfigFlyoutOpen;
+      onToggleMainFlyout(isMainFlyoutOpen?: boolean): void {
+        this.isMainFlyoutOpen = isMainFlyoutOpen ?? !this.isMainFlyoutOpen;
       },
 
       handleOutsideClick(event: Event): void {
@@ -348,15 +220,13 @@
       },
 
       handleHotKeys(event: KeyEvent): void {
-        const doublePressDelay = 500;
-
         // Detect double Shift.
         if (event.key === 'Shift') {
           const currentTime = Date.now();
           const timeSinceLastPress = currentTime - this.lastShiftPress;
 
-          if (timeSinceLastPress > 0 && timeSinceLastPress < doublePressDelay) {
-            this.onToggleMainFlyout(true, false, !this.isMainFlyoutOpen);
+          if (timeSinceLastPress > 0 && timeSinceLastPress < DOUBLE_SHIFT_DELAY_MS) {
+            this.onToggleMainFlyout(!this.isMainFlyoutOpen);
             this.lastShiftPress = 0; // Reset.
 
             return;
@@ -367,7 +237,7 @@
           return;
         }
 
-        // Reset Shift timer on any other key press.
+        // Reset the Shift timer on any other key press.
         this.lastShiftPress = 0;
 
         // ESC for all flyout.
@@ -378,40 +248,13 @@
           return;
         }
 
-        // Hotkeys for main flyout.
-        if (event.metaKey && event.shiftKey && event.key === 'o') {
+        // Hotkeys for the main flyout.
+        if ((isMac() ? event.metaKey : event.ctrlKey) && event.shiftKey && event.key === 'o') {
           event.preventDefault();
-          const openFlyout = !this.isMainFlyoutOpen || !this.showMenu;
-
-          this.onToggleMainFlyout(true, false, openFlyout);
+          this.onToggleMainFlyout();
 
           return;
         }
-
-        if (event.metaKey && event.shiftKey && event.key === ':') {
-          event.preventDefault();
-          const openFlyout = !this.isMainFlyoutOpen || !this.showConfig;
-
-          this.onToggleMainFlyout(false, true, openFlyout);
-
-          return;
-        }
-
-        // Hotkeys for page config flyout.
-        if (event.metaKey && event.shiftKey && event.key === ';') {
-          event.preventDefault();
-          this.onTogglePageConfigFlyout();
-
-          return;
-        }
-      },
-
-      onNavigateToRoute(route: RouteRecordRaw): void {
-        this.router.push({
-          name: route.name as string,
-          params: route.meta?.params as Record<string, string>,
-          query: route.meta?.query as Record<string, string | (string | null)[] | null>,
-        });
       },
     },
     // render() {},
@@ -422,14 +265,14 @@
   @use 'sass:meta';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
+  @use '../setup/scss/themes';
 
-  :where(.vas-styleguide-reset) {
+  :where(.c-vas-sidebar) {
     @include meta.load-css('the-new-css-reset/css/reset');
   }
 
   .c-vas-sidebar {
     $this: &;
-    $c-vas-sidebar--button-size: 40px;
     $c-vas-sidebar--header-height: 40px;
 
     position: fixed;
@@ -437,127 +280,14 @@
     z-index: 999;
     width: 100%;
     height: 100vh;
-    pointer-events: none;
-    background-color: rgba(variables.$vas-color-grayscale--0, 0);
+    background-color: transparent;
+    color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
-    font-size: variables.$vas-font-size--16;
+    font-size: variables.$vas-font-size--label;
+    pointer-events: none;
 
     &--is-flyout-open {
-      background-color: rgba(variables.$vas-color-grayscale--0, 0.25);
-    }
-
-    &__header {
-      flex: 0 0 auto;
-      background-color: variables.$vas-color-grayscale--600;
-      height: $c-vas-sidebar--header-height;
-      position: sticky;
-      top: 0;
-      z-index: 5;
-    }
-
-    &__content-wrapper {
-      overflow-y: auto;
-      padding: 0 variables.$vas-spacing--12 variables.$vas-spacing--12;
-
-      &--page-config {
-        display: flex;
-        flex-direction: column;
-        gap: variables.$vas-spacing--10;
-      }
-    }
-
-    &__tabs {
-      display: flex;
-      border-bottom: 1px solid variables.$vas-color-grayscale--500;
-      position: sticky;
-      top: $c-vas-sidebar--header-height;
-      z-index: 5;
-      background-color: variables.$vas-color-grayscale--800;
-
-      .e-vas-toggle-button {
-        border-radius: 0;
-        font-size: variables.$vas-font-size--12;
-      }
-    }
-
-    &__footer {
-      margin-top: auto;
-      background-color: rgba(variables.$vas-color-green-vue, 0.1);
-      width: 100%;
-      padding: variables.$vas-spacing--8 variables.$vas-spacing--16;
-      font-size: variables.$vas-font-size--12;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid variables.$vas-color-grayscale--600;
-    }
-
-    &__footer-info-wrapper {
-      flex: 0 0 auto;
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    &__last-opened-wrapper {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: variables.$vas-spacing--4;
-      width: 100%;
-      margin-bottom: variables.$vas-spacing--12;
-    }
-
-    &__last-opened-label {
-      padding-bottom: variables.$vas-spacing--2;
-    }
-
-    &__last-opened-item {
-      background: variables.$vas-color-white;
-      border: 1px solid variables.$vas-color-grayscale--500;
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      border-radius: 6px;
-
-      &:hover {
-        background-color: variables.$vas-color-grayscale--900;
-      }
-    }
-
-    &__github-link {
-      display: flex;
-      align-items: center;
-      gap: variables.$vas-spacing--6;
-
-      .e-vas-icon {
-        transform: scaleX(-1);
-      }
-    }
-
-    &__hotkeys {
-      display: flex;
-      align-items: center;
-      gap: variables.$vas-spacing--6;
-      padding: variables.$vas-spacing--4;
-      border: 1px solid variables.$vas-color-grayscale--400;
-      border-radius: 2px;
-      background-color: rgba(variables.$vas-color-grayscale--1000, 0);
-      transition: background-color 0.2s ease-in-out;
-      cursor: pointer;
-
-      &:hover {
-        background-color: rgba(variables.$vas-color-grayscale--1000, 0.4);
-      }
-    }
-
-    &__actions {
-      pointer-events: auto;
+      background-color: var(--vas-theme-overlay);
     }
   }
 </style>

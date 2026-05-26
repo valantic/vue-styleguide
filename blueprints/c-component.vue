@@ -5,21 +5,23 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
 
-  // type Setup = {}
-  // type Data = {}
+  // type Setup = {};
+  // type Data = {};
 
   /**
    * TODO: add component description.
    */
   export default defineComponent({
-    name: 'c-component', // TODO: update name according to filename
+    name: 'c-component',
 
     // components: {},
 
     // props: {},
     // emits: {},
 
-    // setup(): Setup {},
+    // setup(): Setup {
+    //   return {};
+    // },
     // data(): Data {
     //   return {};
     // },

@@ -2,6 +2,20 @@
 
 ## unreleased
 
+- [FEATURE] Add `c-vas-github-version` component — replaces the plain version link in the panel footer with a component that asynchronously checks the GitHub Tags API and surfaces a badge and tooltip when a newer release is available. The network request is fully fire-and-forget and never blocks rendering.
+- [ENHANCEMENT] Merge `c-vas-panel-base` and `c-vas-panel-right` into a single `c-vas-panel` component, removing the intermediate layout-only shell.
+- [BUGFIX] Fix `localStorage.getItem` and `clearAllPersistentItems` throwing uncaught exceptions in private-browsing mode or when storage quota is exceeded; both are now fully wrapped in try/catch.
+- [BUGFIX] Fix `c-vas-modal` keydown listener never attaching when the Vue `<Transition>` is skipped (e.g. in test environments); listener is now registered in `open()` instead of the `onAfterEnter` callback. Added null guard on `$el.showModal()`.
+- [BUGFIX] Fix `c-vas-flyout` direction-change timer never being cancelled on unmount, causing a potential state-update-after-unmount warning.
+- [FEATURE] Add `errorCaptured` hook to `c-vas-sidebar` — child component errors are caught, logged, and contained so the sidebar never crashes the host app.
+- [ENHANCEMENT] Extract `BREAKPOINTS` to `src/setup/breakpoints.ts` as the single source of truth; a new Vitest test enforces that `_variables.scss` stays in sync.
+- [ENHANCEMENT] Extract magic timing constants in `c-vas-sidebar` (`DOUBLE_SHIFT_DELAY_MS`, `PAGE_CONFIG_ANIMATION_DURATION_MS`) and `c-vas-flyout` (16 ms, one frame at 60 fps) from bare numbers to named values with explanatory comments.
+- [ENHANCEMENT] Add `src/utils/route-validator.ts` — emits dev-mode console warnings for routes missing a required `meta.title` or using wrong types on optional meta fields. Called once on mount in `c-vas-navigation`.
+- [ENHANCEMENT] Re-enable `import/extensions` ESLint rule (`never` default, `vue: always`) to catch missing `.vue` extensions and accidental `.ts` extensions in imports.
+- [ENHANCEMENT] Add JSDoc to `src/setup/options.ts` and `src/compositions/uuid.ts` explaining their purpose and constraints.
+- [ENHANCEMENT] Fix pre-existing Vue Router 5 TypeScript error: add `children: []` to the root styleguide route so it satisfies `RouteRecordSingleViewWithChildren`.
+- [TEST] Add test coverage for `c-vas-modal` (listener lifecycle, Escape key, outside-click), `helper.ts` (localStorage error paths), breakpoints TS↔SCSS sync, and icon type completeness.
+
 ## v1.3.0
 
 - [ENHANCEMENT] Hovering a "Last opened" button highlights the corresponding navigation item with the selected state.

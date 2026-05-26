@@ -1,5 +1,9 @@
 <template>
-  <span :class="b(componentModifiers)">
+  <span
+    :class="b(componentModifiers)"
+    role="status"
+    aria-live="polite"
+  >
     <span :class="b('inner')">
       <span :class="b('bubble')"></span>
       <span :class="b('bubble')"></span>
@@ -110,7 +114,7 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    font-size: 1rem;
+    font-size: variables.$vas-font-size--base;
 
     &--spacing-0 {
       padding: 0;
@@ -132,7 +136,7 @@
       height: 0.6em;
       margin: variables.$vas-spacing--6 auto 0;
       border-radius: 50%;
-      background-color: variables.$vas-color-grayscale--0;
+      background-color: var(--vas-theme-text-color);
       animation: e-progress-rotation-animation #{$e-vas-progress--animation-duration} linear infinite;
 
       &:nth-child(1) {
@@ -152,6 +156,12 @@
   .e-vas-progress--negative {
     .e-vas-progress__bubble {
       background-color: variables.$vas-color-grayscale--1000;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .e-vas-progress__bubble {
+      animation: none;
     }
   }
 </style>

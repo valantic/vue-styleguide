@@ -5,7 +5,7 @@ on:
     tags:
       - 'v*.*.*'
     branches:
-      - feature/brand-new-world
+      - main
 
 permissions:
   contents: read

@@ -134,7 +134,7 @@
       gap: variables.$vas-spacing--10;
       border: 1px dashed var(--vas-theme-border-color);
       padding: variables.$vas-spacing--10;
-      margin-bottom: variables.$vas-spacing--20;
+      margin-bottom: variables.$vas-spacing--10;
     }
 
     &__storage-info {
@@ -146,7 +146,8 @@
       display: flex;
       flex-direction: column;
       gap: variables.$vas-spacing--10;
-      margin-top: variables.$vas-spacing--20;
+      margin-top: variables.$vas-spacing--10;
+      padding-top: variables.$vas-spacing--20;
       border-top: 1px solid variables.$vas-theme-border-color;
     }
   }

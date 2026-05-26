@@ -42,7 +42,7 @@
     setup(): Setup {
       return {
         version: packageJson.version,
-        githubUrl: `${packageJson.projectGitUrls.version}${packageJson.version}`,
+        githubUrl: `${packageJson.projectGitUrls.version}v${packageJson.version}`,
       };
     },
     data(): Data {

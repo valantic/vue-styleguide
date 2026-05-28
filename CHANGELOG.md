@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [BUGFIX] Fixed import for types.
 - [ENHANCEMENT] Changed navigation items to be buttons, not links to avoid unwanted style side effects.
 - [ENHANCEMENT] Removed dependency of `the-new-css-reset`.
 - [FEATURE] Add `c-vas-github-version` component — replaces the plain version link in the panel footer with a component that asynchronously checks the GitHub Tags API and surfaces a badge and tooltip when a newer release is available. The network request is fully fire-and-forget and never blocks rendering.

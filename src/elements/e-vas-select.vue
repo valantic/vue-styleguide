@@ -28,9 +28,18 @@
     <span :class="b('icon-wrapper')">
       <span
         v-if="progress"
-        :class="b('progress-container')"
+        :class="b('progress')"
       >
         <e-vas-progress />
+      </span>
+      <span
+        v-else
+        :class="b('icon')"
+      >
+        <e-vas-icon
+          icon="i-chevron--down"
+          size="12"
+        />
       </span>
     </span>
   </span>
@@ -43,6 +52,7 @@
   import useFormStates, { withProps } from '../compositions/form-states';
   import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import type { SelectOptionType } from '../types';
+  import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 
   // type Setup = {};
@@ -57,6 +67,7 @@
     name: 'e-vas-select',
 
     components: {
+      eVasIcon,
       eVasProgress,
     },
     inheritAttrs: false,
@@ -188,10 +199,6 @@
       outline: none;
       border: 1px solid variables.$vas-color-grayscale--500;
       border-radius: 3px;
-      background-image: url('../assets/icons/i-chevron--down.svg');
-      background-repeat: no-repeat;
-      background-position: calc(100% - 8px) center;
-      background-size: 10px;
       cursor: pointer;
       appearance: none;
 
@@ -203,9 +210,15 @@
     // separator for state icons
     &__icon-wrapper {
       position: absolute;
-      top: 50%;
-      right: variables.$vas-spacing--6;
-      transform: translateY(-50%);
+      top: 0;
+      right: 0;
+      width: 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      pointer-events: none;
     }
 
     // hover
@@ -229,11 +242,9 @@
       color: var(--vas-theme-text-color-muted);
     }
 
-    &__progress-container {
+    &__progress {
       position: absolute;
-      top: 50%;
-      right: 30px;
-      transform: translateY(-50%);
+      right: 0;
     }
   }
 </style>

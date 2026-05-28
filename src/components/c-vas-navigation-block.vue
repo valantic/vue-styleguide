@@ -215,10 +215,6 @@
 
     position: relative;
 
-    &:not(:first-child) {
-      margin-top: variables.$vas-spacing--8;
-    }
-
     &--expanded {
       #{$this}__icon {
         transform: rotate(0deg);

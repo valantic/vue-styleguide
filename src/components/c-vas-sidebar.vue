@@ -268,7 +268,7 @@
   @use '../setup/scss/themes';
 
   :where(.c-vas-sidebar) {
-    @include meta.load-css('the-new-css-reset/css/reset');
+    @include meta.load-css('../setup/scss/css-reset');
   }
 
   .c-vas-sidebar {

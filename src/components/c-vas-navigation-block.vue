@@ -231,7 +231,7 @@
       max-width: 100%;
       width: 100%;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--30 variables.$vas-spacing--4 $padding-left;
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
       line-height: 20px;
       text-decoration: none;
       color: var(--vas-theme-text-color) !important; // stylelint-disable-line declaration-no-important
@@ -259,7 +259,7 @@
         border-bottom: 1px dashed var(--vas-theme-border-color);
         background-color: var(--vas-theme-background-content);
         z-index: 1;
-        font-size: variables.$vas-font-size--small;
+        font-size: var(--vas-font-size-small);
         font-weight: bold;
         text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
         padding-left: variables.$vas-spacing--4;

@@ -14,8 +14,13 @@ export const THEME_CONFIG: Record<Theme, { label: string; icon: Icon }> = {
 
 const vasLocalStore = useVasLocalStore();
 
+export const FONT_SIZE_MIN = 10;
+export const FONT_SIZE_MAX = 16;
+export const FONT_SIZE_DEFAULT = 13;
+
 const state = reactive({
   theme: vasLocalStore.get<Theme>('theme', 'system'),
+  fontSize: vasLocalStore.get<number>('fontSize', FONT_SIZE_DEFAULT),
 });
 
 export const useVasSettingsStore = () => {
@@ -25,6 +30,13 @@ export const useVasSettingsStore = () => {
     setTheme(theme: Theme) {
       state.theme = theme;
       vasLocalStore.set('theme', theme);
+    },
+
+    setFontSize(size: number): void {
+      const clamped = Math.min(FONT_SIZE_MAX, Math.max(FONT_SIZE_MIN, size));
+
+      state.fontSize = clamped;
+      vasLocalStore.set('fontSize', clamped);
     },
   };
 };

@@ -2,6 +2,7 @@
   <div
     ref="container"
     :class="[b('', modifiers), theme]"
+    :style="fontSizeStyle"
   >
     <c-vas-flyout
       :is-open="isMainFlyoutOpen"
@@ -124,6 +125,10 @@
         const resolved = theme === 'system' ? (this.systemPrefersDark ? 'dark' : 'light') : theme;
 
         return `vas-styleguide-theme-${resolved}`;
+      },
+
+      fontSizeStyle(): { '--vas-font-size-root': string } {
+        return { '--vas-font-size-root': `${this.vasSettingsStore.state.fontSize}px` };
       },
     },
     watch: {
@@ -275,6 +280,13 @@
     $this: &;
     $c-vas-sidebar--header-height: 40px;
 
+    --vas-font-size-root: 13px;
+    --vas-font-size-tiny: calc(var(--vas-font-size-root) * 0.769);
+    --vas-font-size-small: calc(var(--vas-font-size-root) * 0.846);
+    --vas-font-size-base: calc(var(--vas-font-size-root) * 0.923);
+    --vas-font-size-label: var(--vas-font-size-root);
+    --vas-font-size-heading: calc(var(--vas-font-size-root) * 1.154);
+
     position: fixed;
     inset: 0;
     z-index: 999;
@@ -283,7 +295,7 @@
     background-color: transparent;
     color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
-    font-size: variables.$vas-font-size--label;
+    font-size: var(--vas-font-size-root);
     pointer-events: none;
 
     &--is-flyout-open {

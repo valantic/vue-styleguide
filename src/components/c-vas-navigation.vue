@@ -425,7 +425,7 @@
       position: relative;
       width: 100%;
       padding: variables.$vas-spacing--8 variables.$vas-spacing--30 variables.$vas-spacing--8 variables.$vas-spacing--8;
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
     }
 
     &__search-clear-button {

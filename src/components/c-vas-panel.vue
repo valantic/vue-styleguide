@@ -315,7 +315,7 @@
     &__logo {
       display: flex;
       align-items: center;
-      font-size: variables.$vas-font-size--small;
+      font-size: var(--vas-font-size-small);
       gap: 4px;
       padding-left: 5px;
       font-weight: bold;
@@ -333,7 +333,7 @@
       .c-vas-panel-action {
         padding: 2px 0;
         text-transform: uppercase !important; // stylelint-disable-line declaration-no-important
-        font-size: variables.$vas-font-size--small;
+        font-size: var(--vas-font-size-small);
         font-weight: bold;
         line-height: 1;
         aspect-ratio: 1;

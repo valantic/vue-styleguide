@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [FEATURE] Made font size configurable in the settings.
 - [BUGFIX] Fixed import for types.
 - [ENHANCEMENT] Changed navigation items to be buttons, not links to avoid unwanted style side effects.
 - [ENHANCEMENT] Removed dependency of `the-new-css-reset`.

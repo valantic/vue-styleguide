@@ -94,7 +94,7 @@
     &__text {
       display: block;
       white-space: nowrap;
-      font-size: variables.$vas-font-size--small;
+      font-size: var(--vas-font-size-small);
       color: var(--vas-theme-text-color-muted);
     }
 

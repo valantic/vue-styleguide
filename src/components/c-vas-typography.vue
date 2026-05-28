@@ -94,26 +94,26 @@
 
   .c-vas-typography {
     &--variant-heading {
-      font-size: variables.$vas-font-size--heading;
+      font-size: var(--vas-font-size-heading);
       font-weight: variables.$vas-font-weight--bold;
       color: var(--vas-theme-text-color-muted);
       margin-bottom: variables.$vas-spacing--10;
     }
 
     &--variant-label {
-      font-size: variables.$vas-font-size--label;
+      font-size: var(--vas-font-size-label);
     }
 
     &--variant-body {
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
     }
 
     &--variant-small {
-      font-size: variables.$vas-font-size--small;
+      font-size: var(--vas-font-size-small);
     }
 
     &--variant-tiny {
-      font-size: variables.$vas-font-size--tiny;
+      font-size: var(--vas-font-size-tiny);
     }
   }
 </style>

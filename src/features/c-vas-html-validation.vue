@@ -79,7 +79,7 @@
         border: 1px solid variables.$vas-color-status--error;
         background: color.adjust(variables.$vas-color-status--error, $lightness: 40%);
         color: variables.$vas-color-grayscale--0;
-        font-size: variables.$vas-font-size--small;
+        font-size: var(--vas-font-size-small);
       }
     }
 

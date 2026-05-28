@@ -143,7 +143,7 @@
       align-items: center;
       justify-content: center;
       gap: variables.$vas-spacing--4;
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
       font-weight: 600;
       padding: variables.$vas-spacing--4 variables.$vas-spacing--6;
       background-color: var(--vas-theme-background-surface);

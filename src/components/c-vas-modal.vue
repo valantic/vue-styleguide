@@ -306,7 +306,7 @@
     }
 
     &__title {
-      font-size: variables.$vas-font-size--heading;
+      font-size: var(--vas-font-size-heading);
       line-height: 22px;
       font-weight: bold;
     }

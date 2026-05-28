@@ -235,7 +235,7 @@
     padding: 0;
     gap: variables.$vas-spacing--4;
     font-family: inherit;
-    font-size: variables.$vas-font-size--small;
+    font-size: var(--vas-font-size-small);
     line-height: 1;
     border-radius: variables.$vas-theme-border-radius;
     flex-shrink: 0;

@@ -3,9 +3,8 @@
     :class="b('', { expanded: isExpanded })"
     :style="{ '--vas-nav-depth': depth }"
   >
-    <component
-      :is="hasChildren ? 'button' : 'a'"
-      :href="!hasChildren ? getLinkHref : undefined"
+    <button
+      type="button"
       :class="
         b('item', {
           isParent: hasChildren,
@@ -24,7 +23,7 @@
           size="12"
         />
       </span>
-    </component>
+    </button>
 
     <transition name="collapse">
       <div
@@ -132,16 +131,6 @@
         return !!this.routeDefinition.children?.length;
       },
 
-      getLinkHref(): string {
-        try {
-          const route = this.routeDefinition;
-
-          return this.router.resolve({ name: route.name, params: route.meta?.params, query: route.meta?.query }).href;
-        } catch {
-          return '';
-        }
-      },
-
       isSelected(): boolean {
         const key = (this.routeDefinition.meta?.selectionKey as string) ?? this.routeUrlName;
 
@@ -205,9 +194,13 @@
           return;
         }
 
-        const route = this.routeDefinition;
+        try {
+          const route = this.routeDefinition;
 
-        this.router.push({ name: route.name, params: route.meta?.params, query: route.meta?.query });
+          this.router.push({ name: route.name, params: route.meta?.params, query: route.meta?.query });
+        } catch {
+          return;
+        }
       },
     },
     // render() {},

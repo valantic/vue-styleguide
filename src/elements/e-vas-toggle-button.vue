@@ -83,7 +83,7 @@
     color: var(--vas-theme-text-color-muted);
     border: 1px solid var(--vas-theme-border-color);
     padding: variables.$vas-spacing--6;
-    font-size: variables.$vas-font-size--label;
+    font-size: var(--vas-font-size-label);
     font-weight: 500;
     outline-color: transparent;
     background-color: var(--vas-theme-background-surface);

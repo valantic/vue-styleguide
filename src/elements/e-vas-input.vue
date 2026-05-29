@@ -295,8 +295,8 @@
       border-radius: variables.$vas-form-border-radius;
       background-color: var(--vas-theme-background-content);
       color: var(--vas-theme-text-color);
-      font-family: variables.$vas-font-family--primary;
-      font-size: variables.$vas-font-size--label;
+      font-family: variables.$vas-font-family--sidebar;
+      font-size: var(--vas-font-size-label);
 
       // disable iPhone styling
       -webkit-appearance: none;
@@ -326,21 +326,21 @@
       // WebKit, Blink, Edge
       opacity: 1;
       color: var(--vas-theme-text-color-muted);
-      font-family: variables.$vas-font-family--primary;
+      font-family: variables.$vas-font-family--sidebar;
     }
 
     &__field:-moz-placeholder {
       // Mozilla Firefox 4 to 18
       opacity: 1;
       color: var(--vas-theme-text-color-muted);
-      font-family: variables.$vas-font-family--primary;
+      font-family: variables.$vas-font-family--sidebar;
     }
 
     &__field::placeholder {
       // Most modern browsers support this now
       opacity: 1;
       color: var(--vas-theme-text-color-muted);
-      font-family: variables.$vas-font-family--primary;
+      font-family: variables.$vas-font-family--sidebar;
     }
 
     &__fixed-label {
@@ -350,7 +350,7 @@
       display: flex;
       transform: translateY(-50%);
       color: var(--vas-theme-text-color-muted);
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
     }
 
     &__slot-wrapper {
@@ -365,7 +365,7 @@
     &__slot {
       display: flex;
       color: var(--vas-theme-text-color-muted);
-      font-size: variables.$vas-font-size--base;
+      font-size: var(--vas-font-size-base);
     }
 
     // active

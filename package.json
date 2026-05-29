@@ -131,10 +131,8 @@
       "import": "./src/features/index.ts"
     },
     "./types": {
-      "types": "./src/types/index.d.ts"
-    },
-    "./types/*": {
-      "types": "./src/types/*.d.ts"
+      "types": "./src/types/index.d.ts",
+      "import": "./src/types/index.d.ts"
     }
   }
 }

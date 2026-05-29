@@ -11,8 +11,8 @@
   height: 100%;
   background-color: variables.$vas-color-grayscale--1000;
   color: variables.$vas-color-grayscale--0;
-  font-family: variables.$vas-font-family--primary;
-  font-size: variables.$vas-font-size--base;
+  font-family: variables.$vas-font-family--demo;
+  font-size: var(--vas-font-size-base);
   line-height: 1.3;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,7 +25,7 @@
   h6 {
     @include headline();
 
-    font-size: variables.$vas-font-size--heading;
+    font-size: var(--vas-font-size-heading);
   }
 
   a {

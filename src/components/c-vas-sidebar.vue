@@ -2,6 +2,7 @@
   <div
     ref="container"
     :class="[b('', modifiers), theme]"
+    :style="fontSizeStyle"
   >
     <c-vas-flyout
       :is-open="isMainFlyoutOpen"
@@ -124,6 +125,10 @@
         const resolved = theme === 'system' ? (this.systemPrefersDark ? 'dark' : 'light') : theme;
 
         return `vas-styleguide-theme-${resolved}`;
+      },
+
+      fontSizeStyle(): { '--vas-font-size-root': string } {
+        return { '--vas-font-size-root': `${this.vasSettingsStore.state.fontSize}px` };
       },
     },
     watch: {
@@ -267,6 +272,9 @@
   @use '../setup/scss/mixins';
   @use '../setup/scss/themes';
 
+  /* stylelint-disable-next-line import-notation, no-invalid-position-at-import-rule */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
   :where(.c-vas-sidebar) {
     @include meta.load-css('../setup/scss/css-reset');
   }
@@ -274,6 +282,13 @@
   .c-vas-sidebar {
     $this: &;
     $c-vas-sidebar--header-height: 40px;
+
+    --vas-font-size-root: 13px;
+    --vas-font-size-tiny: calc(var(--vas-font-size-root) * 0.769);
+    --vas-font-size-small: calc(var(--vas-font-size-root) * 0.846);
+    --vas-font-size-base: calc(var(--vas-font-size-root) * 0.923);
+    --vas-font-size-label: var(--vas-font-size-root);
+    --vas-font-size-heading: calc(var(--vas-font-size-root) * 1.154);
 
     position: fixed;
     inset: 0;
@@ -283,7 +298,8 @@
     background-color: transparent;
     color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
-    font-size: variables.$vas-font-size--label;
+    font-family: variables.$vas-font-family--sidebar;
+    font-size: var(--vas-font-size-root);
     pointer-events: none;
 
     &--is-flyout-open {

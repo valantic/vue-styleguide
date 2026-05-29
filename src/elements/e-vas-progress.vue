@@ -114,7 +114,7 @@
     display: flex;
     align-items: center;
     padding: 5px;
-    font-size: variables.$vas-font-size--base;
+    font-size: var(--vas-font-size-base);
 
     &--spacing-0 {
       padding: 0;
@@ -124,17 +124,16 @@
       position: relative;
       display: block;
       float: left;
-      width: calc(1em * 4);
-      height: 1.1em;
+      width: 4em;
     }
 
     &__bubble {
       position: absolute;
+      top: -0.3em;
       left: 50%;
       display: block;
       width: 0.6em;
-      height: 0.6em;
-      margin: variables.$vas-spacing--6 auto 0;
+      aspect-ratio: 1;
       border-radius: 50%;
       background-color: var(--vas-theme-text-color);
       animation: e-progress-rotation-animation #{$e-vas-progress--animation-duration} linear infinite;

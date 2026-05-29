@@ -27,17 +27,47 @@ export const HOTKEYS: HotkeyEntry[] = [
   {
     id: 'toggle-double-shift',
     tip: '⇧ + ⇧ — toggle sidebar',
-    description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
+    description: 'Toggle the styleguide sidebar. Opens the sidebar with the last active tab preselected.',
     display: [['Shift'], ['Shift']],
   },
   {
     id: 'toggle-cmd-shift-o',
     tip: 'Ctrl + Shift + O — toggle sidebar',
-    description: 'Toggle the styleguide sidebar. Opens the sidebar with the navigation tab preselected.',
+    description: 'Toggle the styleguide sidebar. Opens the sidebar with the last active tab preselected.',
     display: [['Ctrl', '+', 'Shift', '+', 'O']],
     mac: {
       tip: '⌘ + ⇧ + O — toggle sidebar',
       display: [['⌘', '+', 'Shift', '+', 'O']],
+    },
+  },
+  {
+    id: 'tab-navigation',
+    tip: 'Ctrl + 1 — Navigation tab',
+    description: 'Open the sidebar and switch to the Navigation tab.',
+    display: [['Ctrl', '+', '1']],
+    mac: {
+      tip: '⌘ + 1 — Navigation tab',
+      display: [['⌘', '+', '1']],
+    },
+  },
+  {
+    id: 'tab-global-config',
+    tip: 'Ctrl + 2 — Global Config tab',
+    description: 'Open the sidebar and switch to the Global Configuration tab.',
+    display: [['Ctrl', '+', '2']],
+    mac: {
+      tip: '⌘ + 2 — Global Config tab',
+      display: [['⌘', '+', '2']],
+    },
+  },
+  {
+    id: 'tab-page-config',
+    tip: 'Ctrl + 3 — Page Config tab',
+    description: 'Open the sidebar and switch to the Page Configuration tab (only when available).',
+    display: [['Ctrl', '+', '3']],
+    mac: {
+      tip: '⌘ + 3 — Page Config tab',
+      display: [['⌘', '+', '3']],
     },
   },
   {

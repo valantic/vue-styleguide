@@ -16,7 +16,7 @@
           tooltip="Settings"
           tooltip-position="bottom"
           :active="activePanel === 'settings'"
-          @click="activePanel = 'settings'"
+          @click="$emit('update:activePanel', 'settings')"
         />
       </div>
     </div>
@@ -29,7 +29,7 @@
           tooltip="Navigation"
           tooltip-position="right"
           :active="activePanel === 'navigation'"
-          @click="activePanel = 'navigation'"
+          @click="$emit('update:activePanel', 'navigation')"
         />
 
         <c-vas-panel-action
@@ -38,7 +38,7 @@
           tooltip="Global Configuration"
           tooltip-position="right"
           :active="activePanel === 'globalConfig'"
-          @click="activePanel = 'globalConfig'"
+          @click="$emit('update:activePanel', 'globalConfig')"
         />
 
         <c-vas-panel-action
@@ -50,7 +50,7 @@
           :disabled="!vasSessionStore.state.hasPageConfig"
           :badge="vasSessionStore.state.hasPageConfig"
           :highlighted="vasSessionStore.state.hasPageConfig"
-          @click="activePanel = 'pageConfig'"
+          @click="$emit('update:activePanel', 'pageConfig')"
         />
 
         <c-vas-panel-action
@@ -116,7 +116,7 @@
           tooltip="Features"
           tooltip-position="left"
           :active="activePanel === 'features'"
-          @click="activePanel = 'features'"
+          @click="$emit('update:activePanel', 'features')"
         />
       </div>
 
@@ -158,17 +158,13 @@
   import cVasTips from './c-vas-tips.vue';
   import cVasTypography from './c-vas-typography.vue';
 
-  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig' | 'features';
+  export type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig' | 'features';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
     viewport: Viewport;
     vasSessionStore: VasSessionStore;
     bugReportUrl: string;
-  };
-
-  type Data = {
-    activePanel: ActivePanel;
   };
 
   /**
@@ -196,9 +192,19 @@
         type: Boolean,
         default: false,
       },
+
+      /**
+       * The currently active panel tab.
+       */
+      activePanel: {
+        type: String as () => ActivePanel,
+        required: true,
+      },
     },
     emits: {
       openHotkeysModal: () => true,
+      // ESLint disallows unused params, so we use `panel` in the body to satisfy the type checker.
+      'update:activePanel': (panel: ActivePanel) => !!panel,
     },
 
     setup(): Setup {
@@ -209,12 +215,6 @@
         bugReportUrl: packageJson.projectGitUrls.issues,
       };
     },
-    data(): Data {
-      return {
-        activePanel: 'navigation',
-      };
-    },
-
     computed: {
       viewPortTooltip(): string {
         return `Viewport: ${this.viewport.viewportWidth}w / ${this.viewport.viewportHeight}h`;

@@ -272,6 +272,9 @@
   @use '../setup/scss/mixins';
   @use '../setup/scss/themes';
 
+  /* stylelint-disable-next-line import-notation, no-invalid-position-at-import-rule */
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
   :where(.c-vas-sidebar) {
     @include meta.load-css('../setup/scss/css-reset');
   }
@@ -295,6 +298,7 @@
     background-color: transparent;
     color: var(--vas-theme-text-color);
     transition: background-color variables.$vas-transition--default;
+    font-family: variables.$vas-font-family--sidebar;
     font-size: var(--vas-font-size-root);
     pointer-events: none;
 

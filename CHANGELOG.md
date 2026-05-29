@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.0.0
+
 - [FEATURE] Made font size configurable in the settings.
 - [BUGFIX] Fixed import for types.
 - [ENHANCEMENT] Changed navigation items to be buttons, not links to avoid unwanted style side effects.

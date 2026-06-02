@@ -265,7 +265,7 @@
         }
 
         // Hotkeys for tab switching.
-        if ((isMac() ? event.metaKey : event.ctrlKey) && !event.shiftKey && event.key === '1') {
+        if (event.ctrlKey && !event.shiftKey && event.key === '1') {
           event.preventDefault();
           this.onToggleMainFlyout(true);
           this.activePanel = 'navigation';
@@ -273,7 +273,7 @@
           return;
         }
 
-        if ((isMac() ? event.metaKey : event.ctrlKey) && !event.shiftKey && event.key === '2') {
+        if (event.ctrlKey && !event.shiftKey && event.key === '2') {
           event.preventDefault();
           this.onToggleMainFlyout(true);
           this.activePanel = 'globalConfig';
@@ -282,7 +282,7 @@
         }
 
         if (
-          (isMac() ? event.metaKey : event.ctrlKey) &&
+          event.ctrlKey &&
           !event.shiftKey &&
           event.key === '3' &&
           this.vasSessionStore.state.hasPageConfig

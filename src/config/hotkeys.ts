@@ -45,30 +45,18 @@ export const HOTKEYS: HotkeyEntry[] = [
     tip: 'Ctrl + 1 — Navigation tab',
     description: 'Open the sidebar and switch to the Navigation tab.',
     display: [['Ctrl', '+', '1']],
-    mac: {
-      tip: '⌘ + 1 — Navigation tab',
-      display: [['⌘', '+', '1']],
-    },
   },
   {
     id: 'tab-global-config',
     tip: 'Ctrl + 2 — Global Config tab',
     description: 'Open the sidebar and switch to the Global Configuration tab.',
     display: [['Ctrl', '+', '2']],
-    mac: {
-      tip: '⌘ + 2 — Global Config tab',
-      display: [['⌘', '+', '2']],
-    },
   },
   {
     id: 'tab-page-config',
     tip: 'Ctrl + 3 — Page Config tab',
     description: 'Open the sidebar and switch to the Page Configuration tab (only when available).',
     display: [['Ctrl', '+', '3']],
-    mac: {
-      tip: '⌘ + 3 — Page Config tab',
-      display: [['⌘', '+', '3']],
-    },
   },
   {
     id: 'navigate-vertical',

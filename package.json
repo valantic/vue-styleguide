@@ -1,6 +1,6 @@
 {
   "name": "@valantic/vue-styleguide",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A demo tool to test a vue project locally.",
   "keywords": [
     "vue",

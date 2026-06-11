@@ -167,6 +167,7 @@
       opacity: 0.2;
       transition: opacity variables.$vas-transition--default;
       width: 32px;
+      pointer-events: none;
 
       &:hover:not(&--is-open) {
         opacity: 0.8;

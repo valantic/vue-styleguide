@@ -1,6 +1,8 @@
 # valantic vue styleguide
 
 ## unreleased
+ 
+- [BUGFIX] The control section of the flyout needs to have pointer events none to not block any user interaction in a user project.
 
 ## v2.0.0
 

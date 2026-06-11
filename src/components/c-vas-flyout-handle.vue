@@ -104,6 +104,7 @@
       color variables.$vas-transition--default,
       background-color variables.$vas-transition--default,
       border-color variables.$vas-transition--default;
+    pointer-events: all;
 
     &:hover {
       color: var(--vas-theme-text-color);

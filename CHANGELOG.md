@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [FEATURE] Added PATCH to the local store to update data.
+
 ## v2.0.1
  
 - [BUGFIX] The control section of the flyout needs to have pointer events none to not block any user interaction in a user project.

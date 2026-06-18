@@ -53,6 +53,33 @@ describe('useVasLocalStore — persistent storage', () => {
     });
   });
 
+  describe('patch', () => {
+    test('updates specific properties of an object', () => {
+      localStorage.setItem('vas-test', JSON.stringify({ a: 1, b: 2 }));
+      store.patch<{ a: number; b: number }>('test', { b: 3 });
+      expect(JSON.parse(localStorage.getItem('vas-test')!)).toEqual({ a: 1, b: 3 });
+    });
+
+    test('creates a new object if key does not exist', () => {
+      store.patch<{ a: number }>('test', { a: 1 });
+      expect(JSON.parse(localStorage.getItem('vas-test')!)).toEqual({ a: 1 });
+    });
+
+    test('overwrites non-object existing data', () => {
+      localStorage.setItem('vas-test', '"string"');
+      store.patch<{ a: number }>('test', { a: 1 });
+      expect(JSON.parse(localStorage.getItem('vas-test')!)).toEqual({ a: 1 });
+    });
+
+    test('does not throw when patching fails', () => {
+      vi.spyOn(console, 'error').mockImplementation(() => {});
+      vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
+        throw new Error('fail');
+      });
+      expect(() => store.patch('test', { a: 1 })).not.toThrow();
+    });
+  });
+
   describe('delete', () => {
     test('removes a single key with the vas- prefix', () => {
       localStorage.setItem('vas-theme', '"dark"');
@@ -117,6 +144,17 @@ describe('useVasLocalStore — persistent storage', () => {
       Object.defineProperty(localStorage, 'length', { value: 1, configurable: true });
 
       expect(store.analytics.itemCount).toBe(0);
+
+      Object.defineProperty(localStorage, 'length', { value: 0, configurable: true });
+    });
+
+    test('storageSize returns 0 when localStorage throws', () => {
+      vi.spyOn(Storage.prototype, 'key').mockImplementation(() => {
+        throw new DOMException('SecurityError');
+      });
+      Object.defineProperty(localStorage, 'length', { value: 1, configurable: true });
+
+      expect(store.analytics.storageSize).toBe(0);
 
       Object.defineProperty(localStorage, 'length', { value: 0, configurable: true });
     });

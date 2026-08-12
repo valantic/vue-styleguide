@@ -58,4 +58,14 @@ export const HOTKEYS: HotkeyEntry[] = [
     description: 'Closes the sidebar, closes modal.',
     display: [['Esc']],
   },
+  {
+    id: 'toggle-x-ray-mode',
+    tip: 'Ctrl + Shift + X — toggle x-ray mode',
+    description: 'Toggle x-ray mode. Hover any element to see its Vue component name, click to copy it.',
+    display: [['Ctrl', '+', 'Shift', '+', 'X']],
+    mac: {
+      tip: '⌘ + ⇧ + X — toggle x-ray mode',
+      display: [['⌘', '+', 'Shift', '+', 'X']],
+    },
+  },
 ];

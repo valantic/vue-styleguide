@@ -33,6 +33,8 @@
     </c-vas-flyout>
 
     <c-vas-hotkey-modal :is-open="isHotkeysModalOpen" />
+
+    <c-vas-x-ray-overlay v-if="vasSettingsStore.state.isXRayModeEnabled" />
   </div>
 </template>
 
@@ -50,6 +52,7 @@
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasPanel from './c-vas-panel.vue';
+  import cVasXRayOverlay from './c-vas-x-ray-overlay.vue';
 
   const DOUBLE_SHIFT_DELAY_MS = 500;
   const PAGE_CONFIG_ANIMATION_DURATION_MS = 600;
@@ -85,6 +88,7 @@
       cVasFlyout,
       cVasHotkeyModal,
       cVasPanel,
+      cVasXRayOverlay,
     },
     // props: {},
 
@@ -257,6 +261,14 @@
         if ((isMac() ? event.metaKey : event.ctrlKey) && event.shiftKey && event.key === 'o') {
           event.preventDefault();
           this.onToggleMainFlyout();
+
+          return;
+        }
+
+        // Hotkey for x-ray mode.
+        if ((isMac() ? event.metaKey : event.ctrlKey) && event.shiftKey && event.key.toLowerCase() === 'x') {
+          event.preventDefault();
+          this.vasSettingsStore.setXRayModeEnabled(!this.vasSettingsStore.state.isXRayModeEnabled);
 
           return;
         }

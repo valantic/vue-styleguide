@@ -209,6 +209,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .c-vas-navigation-block {
     $this: &;
@@ -223,6 +224,9 @@
 
     &__item {
       $padding-left: calc(#{variables.$vas-spacing--12} * var(--vas-nav-depth, 0));
+
+      @include mixins.focus-ring;
+      @include mixins.press-feedback;
 
       position: relative;
       display: flex;
@@ -276,6 +280,10 @@
 
         #{$this}__overlay {
           opacity: 1;
+        }
+
+        &:not(#{$this}__item--is-parent) {
+          border-left: 2px solid variables.$vas-color-valantic-primary;
         }
       }
 

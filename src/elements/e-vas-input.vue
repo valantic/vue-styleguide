@@ -279,6 +279,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .e-vas-input {
     $this: &;
@@ -288,6 +289,8 @@
 
     // input
     &__field {
+      @include mixins.focus-glow;
+
       position: relative;
       width: 100%;
       padding: variables.$vas-form-field-padding;

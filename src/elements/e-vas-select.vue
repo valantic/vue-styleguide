@@ -186,6 +186,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .e-vas-select {
     $this: &;
@@ -194,6 +195,8 @@
     display: block;
 
     &__select {
+      @include mixins.focus-glow;
+
       width: 100%;
       padding: 8px;
       outline: none;

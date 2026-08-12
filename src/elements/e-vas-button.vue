@@ -284,11 +284,14 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .e-vas-button {
     --e-vas-button-font-color: var(--vas-theme-text-color);
     --e-vas-button-border-color: var(--vas-theme-button-bg);
     --e-vas-button-background-color: var(--vas-theme-button-bg);
+
+    @include mixins.focus-ring;
 
     position: relative;
     display: inline-flex;
@@ -338,6 +341,8 @@
       --e-vas-button-background-color: var(--vas-theme-button-bg);
 
       position: relative;
+      transform: scale(0.97);
+      transition-duration: variables.$vas-transition-duration--press;
     }
 
     &[disabled],

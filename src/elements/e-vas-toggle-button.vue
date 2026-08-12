@@ -75,6 +75,9 @@
   .e-vas-toggle-button {
     $border-radius: variables.$vas-theme-border-radius;
 
+    @include mixins.focus-ring;
+    @include mixins.press-feedback;
+
     display: inline-flex;
     cursor: pointer;
     user-select: none;

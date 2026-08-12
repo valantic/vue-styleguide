@@ -209,6 +209,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   @keyframes c-vas-panel-action-pulse {
     0%,
@@ -223,6 +224,9 @@
 
   .c-vas-panel-action {
     $this: &;
+
+    @include mixins.focus-ring;
+    @include mixins.press-feedback;
 
     position: relative;
     display: inline-flex;
@@ -239,6 +243,7 @@
     line-height: 1;
     border-radius: variables.$vas-theme-border-radius;
     flex-shrink: 0;
+    transition: background-color variables.$vas-transition--fast, transform variables.$vas-transition-duration--press;
 
     &--is-link {
       text-decoration: none; // stylelint-disable-line declaration-no-important

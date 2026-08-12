@@ -152,35 +152,45 @@
       color: var(--vas-theme-text-color);
       font-size: var(--vas-font-size-base);
       padding: variables.$vas-spacing--8;
-      transition: opacity variables.$vas-transition--default;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
 
       &--top {
         bottom: calc(100% + 5px);
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(4px);
       }
 
       &--bottom {
         top: calc(100% + 5px);
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(-4px);
       }
 
       &--left {
         right: calc(100% + 5px);
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateX(4px) translateY(-50%);
       }
 
       &--right {
         left: calc(100% + 5px);
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateX(-4px) translateY(-50%);
       }
     }
 
     &:hover &__bubble {
       opacity: 1;
+
+      &--top,
+      &--bottom {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      &--left,
+      &--right {
+        transform: translateX(0) translateY(-50%);
+      }
     }
   }
 </style>

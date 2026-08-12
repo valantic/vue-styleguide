@@ -56,6 +56,16 @@ export const routes = [
           alternativeTitles: ['Dark mode', 'Light mode', 'Colors'],
         },
       },
+      {
+        path: 'sg-test-page-micro-interactions',
+        name: 'sg-test-page-micro-interactions',
+        component: () => import('../demo-pages/general/r-micro-interactions.vue'),
+        meta: {
+          title: 'Micro-interactions',
+          sortOrder: 5,
+          alternativeTitles: ['Hover', 'Focus', 'Animation', 'Transitions', 'Feedback'],
+        },
+      },
     ],
   },
 ];

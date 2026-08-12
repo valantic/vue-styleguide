@@ -167,6 +167,7 @@
 <style lang="scss">
   @use 'sass:math';
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .e-vas-checkbox {
     $this: &;
@@ -181,13 +182,21 @@
 
     &__field {
       position: absolute;
-      left: -200vw;
-      visibility: hidden;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
     }
 
     &--variant-default {
       display: flex;
       align-items: center;
+
+      #{$this}__field:focus-visible ~ #{$this}__indicator {
+        outline: variables.$vas-focus-ring-width solid variables.$vas-focus-ring-color;
+        outline-offset: variables.$vas-focus-ring-offset;
+      }
 
       #{$this}__indicator {
         position: relative;
@@ -228,6 +237,11 @@
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      #{$this}__field:focus-visible ~ #{$this}__indicator {
+        outline: variables.$vas-focus-ring-width solid variables.$vas-focus-ring-color;
+        outline-offset: variables.$vas-focus-ring-offset;
+      }
 
       #{$this}__indicator {
         position: relative;

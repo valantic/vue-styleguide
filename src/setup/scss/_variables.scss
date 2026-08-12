@@ -106,6 +106,15 @@ $vas-spacing--30: 30px;
 // --- transition
 $vas-transition-duration--default: 300ms;
 $vas-transition--default: 0.3s ease;
+$vas-transition-duration--fast: 150ms;
+$vas-transition--fast: 0.15s ease;
+$vas-transition-duration--press: 100ms;
+
+// --- focus ring
+$vas-focus-ring-color: $vas-color-valantic-primary;
+$vas-focus-ring-width: 2px;
+$vas-focus-ring-offset: 2px;
+$vas-focus-glow-spread: 3px;
 
 // --- Form
 $vas-form-field-padding: 8px;

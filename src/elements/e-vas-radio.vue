@@ -133,6 +133,7 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .e-vas-radio {
     $e-vas-radio--label-size: 18px;
@@ -184,6 +185,11 @@
         transform: scale(0);
         transition: transform 0.1s ease-in-out;
       }
+    }
+
+    &__field:focus-visible + &__label::before {
+      outline: variables.$vas-focus-ring-width solid variables.$vas-focus-ring-color;
+      outline-offset: variables.$vas-focus-ring-offset;
     }
 
     &__field:checked + &__label {

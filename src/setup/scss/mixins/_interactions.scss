@@ -1,0 +1,25 @@
+/* stylelint-disable nesting-selector-no-missing-scoping-root */
+@use '../variables';
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: variables.$vas-focus-ring-width solid variables.$vas-focus-ring-color;
+    outline-offset: variables.$vas-focus-ring-offset;
+  }
+}
+
+@mixin press-feedback {
+  &:active:not([disabled]) {
+    transform: scale(0.97);
+    transition-duration: variables.$vas-transition-duration--press;
+  }
+}
+
+@mixin focus-glow {
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 variables.$vas-focus-glow-spread rgba(variables.$vas-focus-ring-color, 0.2);
+    transition: box-shadow variables.$vas-transition--fast;
+  }
+}
+/* stylelint-enable nesting-selector-no-missing-scoping-root */

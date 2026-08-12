@@ -1,10 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-## Overview
-
-`@valantic/vue-styleguide` is a Vue 3 library that provides a DX utility sidebar (`c-vas-sidebar`) for use during development in consumer Vue 3 projects. It acts as a testing harness with navigation, config toggles, and demo page infrastructure. The sidebar is only ever loaded in `DEV` mode (see `src/main.ts`).
+`@valantic/vue-styleguide` is a Vue 3 developer utility library that provides a DX utility sidebar (`c-vas-sidebar`) 
+for use during development in consumer Vue projects. It acts as a testing harness with navigation, config toggles, 
+and demo page infrastructure. The sidebar is only ever loaded in `DEV` mode (see `src/main.ts`).
 
 ## Architecture
 

@@ -84,8 +84,11 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/mixins';
 
   .c-vas-flyout-handle {
+    @include mixins.focus-ring;
+
     display: inline-flex;
     align-items: center;
     justify-content: center;

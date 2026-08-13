@@ -8,16 +8,19 @@ clipboard, ready to paste into an AI coding prompt.
 ## Setup (recommended)
 
 X-ray mode works out of the box with zero configuration, but its accuracy is limited without one
-extra step: register the `vasXRayInspector` plugin once, before `app.mount()`.
+extra step: register the `vasXRayInspector` plugin once, before `app.mount()`. Import it
+dynamically inside a dev-only check — the same pattern this package's own `main.ts` uses for its
+dev-only setup — so it's never even requested in a production build:
 
 ```js
-import { vasXRayInspector } from '@valantic/vue-styleguide';
 import { createApp } from 'vue';
 import App from './App.vue';
 
 const app = createApp(App);
 
 if (import.meta.env.DEV) {
+  const { vasXRayInspector } = await import('@valantic/vue-styleguide');
+
   app.use(vasXRayInspector);
 }
 
@@ -26,6 +29,11 @@ app.mount('#app');
 
 If you see a warning under the "X-ray mode" toggle in the Features panel, this step is missing (or
 was registered on a different app instance than the one the sidebar is mounted in).
+
+Note this only guards the plugin's own registration. The x-ray overlay UI itself is a `c-vas-sidebar`
+feature, wired up the same way every other feature (e.g. HTML validation) already is — whether it
+(and the rest of the sidebar) reaches a production bundle depends on how you guard your own use of
+`c-vas-sidebar`, not on this plugin.
 
 ## Why this step is needed
 

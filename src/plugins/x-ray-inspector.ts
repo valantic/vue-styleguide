@@ -5,11 +5,12 @@ import { markComponentInstance } from '../utils/vue-component-inspector';
  * Marks every component's root DOM element with its name and source file, via a global mixin,
  * so x-ray mode can resolve accurate component boundaries — including third-party components
  * (e.g. from Vuetify) — instead of relying solely on Vue's internal, single-slot
- * `__vueParentComponent` reference. Register once, before `app.mount()`:
- *
- *   import { vasXRayInspector } from '@valantic/vue-styleguide';
+ * `__vueParentComponent` reference. Register once, before `app.mount()` — import it dynamically
+ * inside a dev-only check so it's never even requested in a production build:
  *
  *   if (import.meta.env.DEV) {
+ *     const { vasXRayInspector } = await import('@valantic/vue-styleguide');
+ *
  *     app.use(vasXRayInspector);
  *   }
  *

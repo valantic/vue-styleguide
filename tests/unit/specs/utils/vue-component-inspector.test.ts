@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest';
 import {
+  collectStackedInstances,
   findComponentInstance,
   formatCopyText,
   getComponentDisplayName,
@@ -7,7 +8,11 @@ import {
   resolveComponentAtElement,
 } from '../../../../src/utils/vue-component-inspector';
 
-type FakeInstance = { type: { name?: string; __name?: string; __file?: string } };
+type FakeInstance = {
+  type: { name?: string; __name?: string; __file?: string };
+  parent?: FakeInstance | null;
+  vnode?: { el: unknown };
+};
 
 const withVueInstance = (el: Element, instance: FakeInstance): Element => {
   Object.assign(el, { __vueParentComponent: instance });
@@ -48,33 +53,61 @@ describe('findComponentInstance', () => {
   });
 });
 
+describe('collectStackedInstances', () => {
+  test('returns a single-entry stack when no parent shares the same root element', () => {
+    const el = document.createElement('div');
+    const instance: FakeInstance = { type: { name: 'c-vas-demo-card' }, parent: null, vnode: { el } };
+
+    expect(collectStackedInstances(instance as never, el)).toEqual([instance]);
+  });
+
+  test('collects every layer collapsed onto the same DOM node (e.g. a wrapper around a library component)', () => {
+    const el = document.createElement('button');
+    const outer: FakeInstance = { type: { name: 'e-button', __file: '/repo/src/elements/e-button.vue' }, parent: null, vnode: { el } };
+    const inner: FakeInstance = { type: { name: 'VBtn' }, parent: outer, vnode: { el } };
+
+    expect(collectStackedInstances(inner as never, el)).toEqual([inner, outer]);
+  });
+
+  test('stops once a parent renders a different root element', () => {
+    const el = document.createElement('button');
+    const otherElement = document.createElement('div');
+    const outer: FakeInstance = { type: { name: 'r-demo-page' }, parent: null, vnode: { el: otherElement } };
+    const inner: FakeInstance = { type: { name: 'VBtn' }, parent: outer, vnode: { el } };
+
+    expect(collectStackedInstances(inner as never, el)).toEqual([inner]);
+  });
+});
+
 describe('getComponentDisplayName', () => {
   test('prefers the explicit Options API name', () => {
-    expect(getComponentDisplayName({ type: { name: 'c-vas-demo-card', __name: 'anon' } })).toBe('c-vas-demo-card');
+    expect(getComponentDisplayName({ type: { name: 'c-vas-demo-card', __name: 'anon' } } as never)).toBe(
+      'c-vas-demo-card',
+    );
   });
 
   test('falls back to the compiler-injected __name', () => {
-    expect(getComponentDisplayName({ type: { __name: 'r-demo-page' } })).toBe('r-demo-page');
+    expect(getComponentDisplayName({ type: { __name: 'r-demo-page' } } as never)).toBe('r-demo-page');
   });
 
   test('returns null when neither is present', () => {
-    expect(getComponentDisplayName({ type: {} })).toBeNull();
+    expect(getComponentDisplayName({ type: {} } as never)).toBeNull();
   });
 });
 
 describe('getComponentFilePath', () => {
   test('returns null when no __file is present', () => {
-    expect(getComponentFilePath({ type: {} })).toBeNull();
+    expect(getComponentFilePath({ type: {} } as never)).toBeNull();
   });
 
   test('trims the absolute path down to the last /src/ segment', () => {
-    const file = getComponentFilePath({ type: { __file: '/Users/dev/project/src/components/UserCard.vue' } });
+    const file = getComponentFilePath({ type: { __file: '/Users/dev/project/src/components/UserCard.vue' } } as never);
 
     expect(file).toBe('src/components/UserCard.vue');
   });
 
   test('returns the raw path when no /src/ marker is found', () => {
-    const file = getComponentFilePath({ type: { __file: '/Users/dev/project/UserCard.vue' } });
+    const file = getComponentFilePath({ type: { __file: '/Users/dev/project/UserCard.vue' } } as never);
 
     expect(file).toBe('/Users/dev/project/UserCard.vue');
   });
@@ -91,7 +124,7 @@ describe('resolveComponentAtElement', () => {
     expect(resolveComponentAtElement(el)).toBeNull();
   });
 
-  test('returns name, file, and the matched element', () => {
+  test('returns name, file, and the matched element for a plain (non-stacked) component', () => {
     const el = withVueInstance(document.createElement('div'), {
       type: { name: 'c-vas-demo-card', __file: '/repo/src/components/c-vas-demo-card.vue' },
     });
@@ -99,6 +132,35 @@ describe('resolveComponentAtElement', () => {
     expect(resolveComponentAtElement(el)).toEqual({
       name: 'c-vas-demo-card',
       file: 'src/components/c-vas-demo-card.vue',
+      wraps: null,
+      el,
+    });
+  });
+
+  test('prefers a same-root wrapper with a source file over an inner library component without one', () => {
+    const el = document.createElement('button');
+    const outer: FakeInstance = { type: { name: 'e-button', __file: '/repo/src/elements/e-button.vue' }, parent: null, vnode: { el } };
+
+    withVueInstance(el, { type: { name: 'VBtn' }, parent: outer, vnode: { el } });
+
+    expect(resolveComponentAtElement(el)).toEqual({
+      name: 'e-button',
+      file: 'src/elements/e-button.vue',
+      wraps: 'VBtn',
+      el,
+    });
+  });
+
+  test('falls back to the outermost layer when nothing in the stack has a source file', () => {
+    const el = document.createElement('button');
+    const outer: FakeInstance = { type: { name: 'SomeUiKitButton' }, parent: null, vnode: { el } };
+
+    withVueInstance(el, { type: { name: 'VBtn' }, parent: outer, vnode: { el } });
+
+    expect(resolveComponentAtElement(el)).toEqual({
+      name: 'SomeUiKitButton',
+      file: null,
+      wraps: 'VBtn',
       el,
     });
   });
@@ -106,12 +168,18 @@ describe('resolveComponentAtElement', () => {
 
 describe('formatCopyText', () => {
   test('combines name and file when a file path exists', () => {
-    expect(formatCopyText({ name: 'UserCard', file: 'src/components/UserCard.vue', el: document.body })).toBe(
-      'UserCard (src/components/UserCard.vue)',
-    );
+    expect(
+      formatCopyText({ name: 'UserCard', file: 'src/components/UserCard.vue', wraps: null, el: document.body }),
+    ).toBe('UserCard (src/components/UserCard.vue)');
   });
 
   test('falls back to just the name when no file path exists', () => {
-    expect(formatCopyText({ name: 'UserCard', file: null, el: document.body })).toBe('UserCard');
+    expect(formatCopyText({ name: 'UserCard', file: null, wraps: null, el: document.body })).toBe('UserCard');
+  });
+
+  test('appends the wrapped component when one was substituted in', () => {
+    expect(
+      formatCopyText({ name: 'e-button', file: 'src/elements/e-button.vue', wraps: 'VBtn', el: document.body }),
+    ).toBe('e-button (src/elements/e-button.vue) — wraps VBtn');
   });
 });

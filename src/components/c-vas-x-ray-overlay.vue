@@ -16,6 +16,10 @@
             v-if="filePath"
             :class="b('path')"
           >{{ filePath }}</span>
+          <span
+            v-if="wraps"
+            :class="b('wraps')"
+          >wraps {{ wraps }}</span>
         </template>
       </div>
     </template>
@@ -33,6 +37,7 @@
     hasComponent: boolean;
     label: string;
     filePath: string | null;
+    wraps: string | null;
     copyText: string;
     copied: boolean;
     copiedTimeout: ReturnType<typeof setTimeout> | null;
@@ -64,6 +69,7 @@
         hasComponent: false,
         label: '',
         filePath: null,
+        wraps: null,
         copyText: '',
         copied: false,
         copiedTimeout: null,
@@ -152,6 +158,7 @@
           this.hasComponent = true;
           this.label = resolved.name;
           this.filePath = resolved.file;
+          this.wraps = resolved.wraps;
           this.copyText = formatCopyText(resolved);
 
           return;
@@ -161,6 +168,7 @@
         this.hasComponent = false;
         this.label = `<${el.tagName.toLowerCase()}>`;
         this.filePath = null;
+        this.wraps = null;
         this.copyText = this.label;
       },
 
@@ -244,7 +252,8 @@
       }
     }
 
-    &__path {
+    &__path,
+    &__wraps {
       font-weight: normal;
       opacity: 0.85;
     }

@@ -1,25 +1,29 @@
 <template>
   <div :class="b()">
-    <template v-if="target">
+    <template v-if="current">
       <div
-        :class="b('box', { unresolved: !hasComponent })"
+        :class="b('box', { unresolved: !current.hasComponent })"
         :style="boxStyle"
       ></div>
       <div
-        :class="b('label', { unresolved: !hasComponent, copied })"
+        :class="b('label', { unresolved: !current.hasComponent, copied })"
         :style="labelStyle"
       >
         <template v-if="copied">Copied!</template>
         <template v-else>
-          <span :class="b('name')">{{ label }}</span>
+          <span :class="b('name')">{{ current.name }}</span>
           <span
-            v-if="filePath"
+            v-if="current.file"
             :class="b('path')"
-          >{{ filePath }}</span>
+          >{{ current.file }}</span>
           <span
-            v-if="wraps"
+            v-if="current.wraps"
             :class="b('wraps')"
-          >wraps {{ wraps }}</span>
+          >wraps {{ current.wraps }}</span>
+          <span
+            v-if="depthHint"
+            :class="b('depth')"
+          >{{ depthHint }} · Alt+↑/↓</span>
         </template>
       </div>
     </template>
@@ -28,17 +32,22 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { formatCopyText, resolveComponentAtElement } from '../utils/vue-component-inspector';
+  import { formatCopyText, getComponentBreadcrumb } from '../utils/vue-component-inspector';
 
   // type Setup = {};
 
-  type Data = {
-    target: Element | null;
-    hasComponent: boolean;
-    label: string;
-    filePath: string | null;
+  type DisplayEntry = {
+    el: Element;
+    name: string;
+    file: string | null;
     wraps: string | null;
-    copyText: string;
+    hasComponent: boolean;
+  };
+
+  type Data = {
+    breadcrumb: DisplayEntry[];
+    selectedIndex: number;
+    hoveredEl: Element | null;
     copied: boolean;
     copiedTimeout: ReturnType<typeof setTimeout> | null;
     frame: number | null;
@@ -49,8 +58,9 @@
   const COPIED_FEEDBACK_MS = 1200;
 
   /**
-   * Full-viewport hover inspector for x-ray mode: highlights the Vue component under the
-   * cursor and copies its name + file path to the clipboard on click.
+   * Full-viewport hover inspector for x-ray mode: highlights the Vue component under the cursor,
+   * lets you step through its component-only ancestor chain (Alt+↑ parent / Alt+↓ child) — skipping
+   * every plain DOM node in between — and copies the selected one's name + file path on click.
    */
   export default defineComponent({
     name: 'c-vas-x-ray-overlay',
@@ -65,12 +75,9 @@
     // },
     data(): Data {
       return {
-        target: null,
-        hasComponent: false,
-        label: '',
-        filePath: null,
-        wraps: null,
-        copyText: '',
+        breadcrumb: [],
+        selectedIndex: 0,
+        hoveredEl: null,
         copied: false,
         copiedTimeout: null,
         frame: null,
@@ -78,6 +85,26 @@
     },
 
     computed: {
+      current(): DisplayEntry | null {
+        if (this.breadcrumb.length > 0) {
+          return this.breadcrumb[this.selectedIndex] ?? this.breadcrumb[0] ?? null;
+        }
+
+        if (!this.hoveredEl) {
+          return null;
+        }
+
+        return { el: this.hoveredEl, name: `<${this.hoveredEl.tagName.toLowerCase()}>`, file: null, wraps: null, hasComponent: false };
+      },
+
+      depthHint(): string | null {
+        return this.breadcrumb.length > 1 ? `${this.selectedIndex + 1}/${this.breadcrumb.length}` : null;
+      },
+
+      copyText(): string {
+        return this.current ? formatCopyText(this.current) : '';
+      },
+
       boxStyle(): Record<string, string> {
         return this.rectStyle(0);
       },
@@ -94,6 +121,7 @@
     mounted() {
       document.addEventListener('mousemove', this.handleMouseMove);
       document.addEventListener('click', this.handleClick, { capture: true });
+      document.addEventListener('keydown', this.handleKeyDown);
     },
     // beforeUpdate() {},
     // updated() {},
@@ -102,6 +130,7 @@
     beforeUnmount() {
       document.removeEventListener('mousemove', this.handleMouseMove);
       document.removeEventListener('click', this.handleClick, { capture: true });
+      document.removeEventListener('keydown', this.handleKeyDown);
 
       if (this.frame !== null) {
         cancelAnimationFrame(this.frame);
@@ -115,11 +144,11 @@
 
     methods: {
       rectStyle(topOffset: number): Record<string, string> {
-        if (!this.target) {
+        if (!this.current) {
           return {};
         }
 
-        const rect = this.target.getBoundingClientRect();
+        const rect = this.current.el.getBoundingClientRect();
 
         return {
           top: `${rect.top + topOffset}px`,
@@ -146,30 +175,35 @@
 
       updateTarget(el: Element | null): void {
         if (!el || this.isSidebarChrome(el)) {
-          this.target = null;
+          this.breadcrumb = [];
+          this.hoveredEl = null;
 
           return;
         }
 
-        const resolved = resolveComponentAtElement(el);
-
-        if (resolved) {
-          this.target = resolved.el;
-          this.hasComponent = true;
-          this.label = resolved.name;
-          this.filePath = resolved.file;
-          this.wraps = resolved.wraps;
-          this.copyText = formatCopyText(resolved);
-
+        // Same leaf DOM node as last time — keep the current selection (which may have been
+        // navigated away from the nearest match via Alt+↑/↓) instead of resetting it every frame.
+        if (el === this.hoveredEl) {
           return;
         }
 
-        this.target = el;
-        this.hasComponent = false;
-        this.label = `<${el.tagName.toLowerCase()}>`;
-        this.filePath = null;
-        this.wraps = null;
-        this.copyText = this.label;
+        this.hoveredEl = el;
+        this.breadcrumb = getComponentBreadcrumb(el).map((resolved) => ({ ...resolved, hasComponent: true }));
+        this.selectedIndex = 0;
+      },
+
+      handleKeyDown(event: KeyboardEvent): void {
+        if (!event.altKey || this.breadcrumb.length < 2) {
+          return;
+        }
+
+        if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          this.selectedIndex = Math.min(this.selectedIndex + 1, this.breadcrumb.length - 1);
+        } else if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          this.selectedIndex = Math.max(this.selectedIndex - 1, 0);
+        }
       },
 
       handleClick(event: MouseEvent): void {
@@ -253,7 +287,8 @@
     }
 
     &__path,
-    &__wraps {
+    &__wraps,
+    &__depth {
       font-weight: normal;
       opacity: 0.85;
     }

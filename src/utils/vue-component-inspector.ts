@@ -83,22 +83,18 @@ export function getComponentFilePath(instance: VueInternalInstance): string | nu
   return markerIndex === -1 ? file : file.slice(markerIndex + 1);
 }
 
-// Prefer the outermost layer in the stack that has a resolvable source file. Third-party
-// components (e.g. from Vuetify) are pre-compiled and never carry one, so this naturally
-// skips past them to surface the consumer's own wrapping component instead.
+// Prefer the innermost layer in the stack that has a resolvable source file — i.e. skip past
+// third-party components (e.g. from Vuetify), which are pre-compiled and never carry one, but
+// stop at the first layer that does rather than climbing all the way out to some outer,
+// unrelated container that merely happens to also render without a wrapping element.
 function pickPreferredInstance(stack: ComponentStack): VueInternalInstance {
-  const outerToInner = [...stack].reverse();
-
-  for (const candidate of outerToInner) {
+  for (const candidate of stack) {
     if (getComponentFilePath(candidate)) {
       return candidate;
     }
   }
 
-  // Array.prototype.at() isn't in this project's configured TS lib target — index access is
-  // equivalent here since `stack` is always non-empty.
-  // eslint-disable-next-line unicorn/prefer-at
-  return stack[stack.length - 1] ?? stack[0];
+  return stack[0];
 }
 
 export function resolveComponentAtElement(el: Element | null): ResolvedComponent | null {
@@ -131,4 +127,89 @@ export function formatCopyText(resolved: ResolvedComponent): string {
   const base = resolved.file ? `${resolved.name} (${resolved.file})` : resolved.name;
 
   return resolved.wraps ? `${base} — wraps ${resolved.wraps}` : base;
+}
+
+// --- Marker-based resolution -------------------------------------------------------------
+//
+// __vueParentComponent only ever reflects the single deepest component sharing a DOM root.
+// It can't see past a nearby generic container (e.g. a Vuetify VCol) to a meaningful ancestor
+// elsewhere in the DOM tree — that's a different node entirely, not a collapsed-root situation.
+//
+// The `vasXRayInspector` plugin (see ../plugins/x-ray-inspector) fixes this by having every
+// component mark its own root element via markComponentInstance() when mounted, using a global
+// mixin — which also applies to third-party components (Vuetify, etc.), since they're mounted by
+// the same app. That gives an accurate, complete marker at every real component boundary, letting
+// the breadcrumb walk below build a clean, component-only ancestor chain. __vueParentComponent
+// remains as a same-element fallback for when the plugin isn't installed.
+
+export type MarkerEntry = { name: string; file: string | null };
+
+type MarkedElement = Element & { vasComponents?: MarkerEntry[] };
+
+export function markComponentInstance(el: unknown, name: string | null, file: string | null): void {
+  if (!(el instanceof Element) || !name) {
+    return;
+  }
+
+  const marked = el as MarkedElement;
+
+  marked.vasComponents = [...(marked.vasComponents ?? []), { name, file }];
+}
+
+// Used to detect whether the plugin is actually registered on the running app — check a DOM
+// element known to belong to a component that definitely mounted (e.g. the feature toggle's own
+// $el): if the plugin ran, that exact element carries at least one marker.
+export function hasComponentMarker(el: unknown): boolean {
+  return el instanceof Element && Boolean((el as MarkedElement).vasComponents?.length);
+}
+
+function pickPreferredMarkerEntry(entries: [MarkerEntry, ...MarkerEntry[]]): MarkerEntry {
+  for (const entry of entries) {
+    if (entry.file) {
+      return entry;
+    }
+  }
+
+  return entries[0];
+}
+
+function resolveMarkedElement(el: Element, entries: [MarkerEntry, ...MarkerEntry[]]): ResolvedComponent {
+  const preferred = pickPreferredMarkerEntry(entries);
+  const innermost = entries[0];
+  const wraps = preferred === innermost ? null : innermost.name;
+
+  return {
+    name: preferred.name,
+    file: preferred.file,
+    wraps: wraps === preferred.name ? null : wraps,
+    el,
+  };
+}
+
+// Walks every ancestor carrying component markers, nearest first — a clean, component-only
+// breadcrumb that skips every plain DOM node in between (divs, spans, layout wrappers with no
+// matching Vue component of their own). Falls back to a single best-effort entry via
+// resolveComponentAtElement() when no marker is found anywhere in the chain, i.e. the
+// vasXRayInspector plugin isn't installed on this app.
+export function getComponentBreadcrumb(el: Element | null): ResolvedComponent[] {
+  const breadcrumb: ResolvedComponent[] = [];
+  let current = el;
+
+  while (current) {
+    const entries = (current as MarkedElement).vasComponents;
+
+    if (entries && entries.length > 0) {
+      breadcrumb.push(resolveMarkedElement(current, entries as [MarkerEntry, ...MarkerEntry[]]));
+    }
+
+    current = current.parentElement;
+  }
+
+  if (breadcrumb.length > 0) {
+    return breadcrumb;
+  }
+
+  const fallback = resolveComponentAtElement(el);
+
+  return fallback ? [fallback] : [];
 }

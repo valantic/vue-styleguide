@@ -68,4 +68,11 @@ export const HOTKEYS: HotkeyEntry[] = [
       display: [['⌘', '+', 'Shift', '+', 'X']],
     },
   },
+  {
+    id: 'x-ray-mode-navigate-ancestors',
+    tip: 'Alt + ↑ / ↓ — navigate component ancestors',
+    description:
+      'While x-ray mode is hovering an element, step through its component-only ancestor chain (Alt + ↑ for the parent component, Alt + ↓ back down).',
+    display: [['Alt', '+', '↑'], ['Alt', '+', '↓']],
+  },
 ];

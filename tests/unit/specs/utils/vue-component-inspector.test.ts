@@ -3,8 +3,11 @@ import {
   collectStackedInstances,
   findComponentInstance,
   formatCopyText,
+  getComponentBreadcrumb,
   getComponentDisplayName,
   getComponentFilePath,
+  hasComponentMarker,
+  markComponentInstance,
   resolveComponentAtElement,
 } from '../../../../src/utils/vue-component-inspector';
 
@@ -151,18 +154,131 @@ describe('resolveComponentAtElement', () => {
     });
   });
 
-  test('falls back to the outermost layer when nothing in the stack has a source file', () => {
+  test('falls back to the innermost layer when nothing in the stack has a source file', () => {
     const el = document.createElement('button');
     const outer: FakeInstance = { type: { name: 'SomeUiKitButton' }, parent: null, vnode: { el } };
 
     withVueInstance(el, { type: { name: 'VBtn' }, parent: outer, vnode: { el } });
 
     expect(resolveComponentAtElement(el)).toEqual({
-      name: 'SomeUiKitButton',
+      name: 'VBtn',
       file: null,
+      wraps: null,
+      el,
+    });
+  });
+
+  test('stops at the first same-root layer with a source file, not the outermost one', () => {
+    // Regression test: a deep stack of consumer-owned wrappers (e.g. AppShell > Section > e-button)
+    // all collapsed onto the same DOM node used to resolve to the outermost one (AppShell) instead
+    // of the most specific, actually-relevant one (e-button).
+    const el = document.createElement('button');
+    const appShell: FakeInstance = { type: { name: 'AppShell', __file: '/repo/src/layouts/AppShell.vue' }, parent: null, vnode: { el } };
+    const eButton: FakeInstance = {
+      type: { name: 'e-button', __file: '/repo/src/elements/e-button.vue' },
+      parent: appShell,
+      vnode: { el },
+    };
+
+    withVueInstance(el, { type: { name: 'VBtn' }, parent: eButton, vnode: { el } });
+
+    expect(resolveComponentAtElement(el)).toEqual({
+      name: 'e-button',
+      file: 'src/elements/e-button.vue',
       wraps: 'VBtn',
       el,
     });
+  });
+});
+
+describe('markComponentInstance', () => {
+  test('does nothing for a non-Element target', () => {
+    const fakeElement = {};
+
+    markComponentInstance(fakeElement, 'e-button', 'src/elements/e-button.vue');
+
+    expect(hasComponentMarker(fakeElement)).toBe(false);
+  });
+
+  test('does nothing when name is null', () => {
+    const el = document.createElement('div');
+
+    markComponentInstance(el, null, 'src/elements/e-button.vue');
+
+    expect(hasComponentMarker(el)).toBe(false);
+  });
+
+  test('accumulates multiple marks on the same element instead of overwriting', () => {
+    const el = document.createElement('button');
+
+    markComponentInstance(el, 'VBtn', null);
+    markComponentInstance(el, 'e-button', 'src/elements/e-button.vue');
+
+    expect(hasComponentMarker(el)).toBe(true);
+  });
+});
+
+describe('hasComponentMarker', () => {
+  test('returns false for a plain element with no marks', () => {
+    expect(hasComponentMarker(document.createElement('div'))).toBe(false);
+  });
+
+  test('returns false for a non-Element value', () => {
+    expect(hasComponentMarker(null)).toBe(false);
+  });
+
+  test('returns true once the element has been marked', () => {
+    const el = document.createElement('div');
+
+    markComponentInstance(el, 'c-vas-demo-card', 'src/components/c-vas-demo-card.vue');
+
+    expect(hasComponentMarker(el)).toBe(true);
+  });
+});
+
+describe('getComponentBreadcrumb', () => {
+  test('returns an empty array when nothing resolves at all', () => {
+    expect(getComponentBreadcrumb(document.createElement('div'))).toEqual([]);
+  });
+
+  test('builds a component-only chain, nearest first, skipping unmarked DOM nodes in between', () => {
+    const card = document.createElement('div');
+    const wrapper = document.createElement('div'); // plain DOM node, e.g. a layout <div> — no marker
+    const button = document.createElement('button');
+
+    markComponentInstance(card, 'ProductCard', 'src/components/ProductCard.vue');
+    markComponentInstance(button, 'e-button', 'src/elements/e-button.vue');
+
+    card.append(wrapper);
+    wrapper.append(button);
+
+    const breadcrumb = getComponentBreadcrumb(button);
+
+    expect(breadcrumb).toEqual([
+      { name: 'e-button', file: 'src/elements/e-button.vue', wraps: null, el: button },
+      { name: 'ProductCard', file: 'src/components/ProductCard.vue', wraps: null, el: card },
+    ]);
+  });
+
+  test('prefers the innermost marked layer with a file when several stack on the same node', () => {
+    const el = document.createElement('button');
+
+    markComponentInstance(el, 'VBtn', null);
+    markComponentInstance(el, 'e-button', 'src/elements/e-button.vue');
+
+    expect(getComponentBreadcrumb(el)).toEqual([
+      { name: 'e-button', file: 'src/elements/e-button.vue', wraps: 'VBtn', el },
+    ]);
+  });
+
+  test('falls back to the __vueParentComponent-based resolution when no marker exists anywhere', () => {
+    const el = withVueInstance(document.createElement('div'), {
+      type: { name: 'c-vas-demo-card', __file: '/repo/src/components/c-vas-demo-card.vue' },
+    });
+
+    expect(getComponentBreadcrumb(el)).toEqual([
+      { name: 'c-vas-demo-card', file: 'src/components/c-vas-demo-card.vue', wraps: null, el },
+    ]);
   });
 });
 

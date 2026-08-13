@@ -20,10 +20,9 @@
             v-if="current.wraps"
             :class="b('wraps')"
           >wraps {{ current.wraps }}</span>
-          <span
-            v-if="depthHint"
-            :class="b('depth')"
-          >{{ depthHint }} · {{ navigateHint }}</span>
+          <span :class="b('depth')">
+            <template v-if="depthHint">{{ depthHint }} · {{ navigateHint }} · </template>Enter to copy
+          </span>
         </template>
       </div>
     </template>
@@ -62,7 +61,8 @@
    * Full-viewport hover inspector for x-ray mode: highlights the Vue component under the cursor,
    * lets you step through its component-only ancestor chain (Alt/Option+↑ parent / Alt/Option+↓
    * child) — skipping every plain DOM node in between — and copies the selected one's file path
-   * (or name, if no file is resolvable) on click.
+   * (or name, if no file is resolvable) on click or on Enter, so the whole flow can be driven from
+   * the keyboard once the mouse has picked a starting element.
    */
   export default defineComponent({
     name: 'c-vas-x-ray-overlay',
@@ -207,6 +207,15 @@
       },
 
       handleKeyDown(event: KeyboardEvent): void {
+        // Enter copies the currently selected entry without needing a mouse click — lets the whole
+        // hover → navigate ancestors → copy flow stay on the keyboard once hovering has started.
+        if (event.key === 'Enter' && this.current) {
+          event.preventDefault();
+          this.performCopy();
+
+          return;
+        }
+
         if (!event.altKey || this.breadcrumb.length < 2) {
           return;
         }
@@ -229,7 +238,10 @@
 
         event.preventDefault();
         event.stopPropagation();
+        this.performCopy();
+      },
 
+      performCopy(): void {
         if (!this.copyText) {
           return;
         }

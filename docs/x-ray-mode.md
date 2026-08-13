@@ -1,10 +1,11 @@
 # X-ray mode
 
 X-ray mode is a hover inspector built into the styleguide sidebar. Turn it on (Features panel, or
-`Ctrl + Alt + X` / `⌘ + ⌥ + X` on Mac), then hover any element on the page to see the name and
-source file of the Vue component it belongs to — click to copy its file path (project-relative,
-e.g. `src/components/UserCard.vue`) to your clipboard, ready to paste into an AI coding prompt. If
-no file path can be resolved, the component (or DOM tag) name is copied instead.
+`Ctrl + Alt + X` / `⌘ + ⌥ + X` on Mac) — a brief toast in the top-right corner confirms it's now on
+or off, however you toggled it — then hover any element on the page to see the name and source
+file of the Vue component it belongs to — click to copy its file path (project-relative, e.g.
+`src/components/UserCard.vue`) to your clipboard, ready to paste into an AI coding prompt. If no
+file path can be resolved, the component (or DOM tag) name is copied instead.
 
 ## Setup (recommended)
 
@@ -66,9 +67,11 @@ own). While hovering:
 
 - **Alt + ↑** (`⌥ + ↑` on Mac) — select the parent component (step outward).
 - **Alt + ↓** (`⌥ + ↓` on Mac) — select the child component again (step back inward).
+- **Enter** — copy the currently selected component, same as clicking it.
 
 The label shows a `2/5`-style counter whenever there's more than one component to step through.
-Clicking always copies whichever entry is currently selected.
+Together with Enter, the whole hover → navigate → copy flow can stay on the keyboard once the
+mouse has picked a starting element.
 
 ## Limitations
 

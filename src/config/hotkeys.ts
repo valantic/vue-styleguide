@@ -79,4 +79,11 @@ export const HOTKEYS: HotkeyEntry[] = [
       display: [['⌥', '+', '↑'], ['⌥', '+', '↓']],
     },
   },
+  {
+    id: 'x-ray-mode-copy',
+    tip: 'Enter — copy selected component',
+    description:
+      'While x-ray mode is hovering an element, copy the currently selected component (same as clicking it) without needing the mouse.',
+    display: [['Enter']],
+  },
 ];

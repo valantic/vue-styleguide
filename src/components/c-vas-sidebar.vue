@@ -35,6 +35,7 @@
     <c-vas-hotkey-modal :is-open="isHotkeysModalOpen" />
 
     <c-vas-x-ray-overlay v-if="vasSettingsStore.state.isXRayModeEnabled" />
+    <c-vas-x-ray-toast />
   </div>
 </template>
 
@@ -53,6 +54,7 @@
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
   import cVasPanel from './c-vas-panel.vue';
   import cVasXRayOverlay from './c-vas-x-ray-overlay.vue';
+  import cVasXRayToast from './c-vas-x-ray-toast.vue';
 
   const DOUBLE_SHIFT_DELAY_MS = 500;
   const PAGE_CONFIG_ANIMATION_DURATION_MS = 600;
@@ -63,6 +65,7 @@
     shiftKey: boolean;
     altKey: boolean;
     key: string;
+    code: string;
   };
 
   type Setup = {
@@ -90,6 +93,7 @@
       cVasHotkeyModal,
       cVasPanel,
       cVasXRayOverlay,
+      cVasXRayToast,
     },
     // props: {},
 
@@ -250,10 +254,14 @@
         // Reset the Shift timer on any other key press.
         this.lastShiftPress = 0;
 
-        // ESC for all flyout.
+        // ESC for all flyout, and also turns off x-ray mode if it's currently on.
         if (event.key === 'Escape') {
           event.preventDefault();
           this.onCloseFlyout();
+
+          if (this.vasSettingsStore.state.isXRayModeEnabled) {
+            this.vasSettingsStore.setXRayModeEnabled(false);
+          }
 
           return;
         }
@@ -268,7 +276,9 @@
 
         // Hotkey for x-ray mode. Uses Alt/Option rather than Shift — Ctrl/Cmd+Shift+X collides
         // with the default shortcut of some password manager browser extensions (e.g. 1Password).
-        if ((isMac() ? event.metaKey : event.ctrlKey) && event.altKey && event.key.toLowerCase() === 'x') {
+        // Checks `event.code` (the physical key), not `event.key`: on Mac, holding Option remaps
+        // the produced character (Option+X types "≈", not "x"), so `event.key` never matches.
+        if ((isMac() ? event.metaKey : event.ctrlKey) && event.altKey && event.code === 'KeyX') {
           event.preventDefault();
           this.vasSettingsStore.setXRayModeEnabled(!this.vasSettingsStore.state.isXRayModeEnabled);
 

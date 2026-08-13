@@ -9,6 +9,7 @@ import {
   hasComponentMarker,
   markComponentInstance,
   resolveComponentAtElement,
+  toProjectRelativePath,
 } from '../../../../src/utils/vue-component-inspector';
 
 type FakeInstance = {
@@ -109,10 +110,28 @@ describe('getComponentFilePath', () => {
     expect(file).toBe('src/components/UserCard.vue');
   });
 
-  test('returns the raw path when no /src/ marker is found', () => {
+  test('returns null when no /src/ marker is found, rather than leaking the absolute path', () => {
     const file = getComponentFilePath({ type: { __file: '/Users/dev/project/UserCard.vue' } } as never);
 
-    expect(file).toBe('/Users/dev/project/UserCard.vue');
+    expect(file).toBeNull();
+  });
+});
+
+describe('toProjectRelativePath', () => {
+  test('returns null for a nullish input', () => {
+    expect(toProjectRelativePath(null)).toBeNull();
+    // eslint-disable-next-line unicorn/no-useless-undefined -- exercising the undefined branch of the union type
+    expect(toProjectRelativePath(undefined)).toBeNull();
+  });
+
+  test('trims an absolute path down to the last /src/ segment', () => {
+    expect(toProjectRelativePath('/Users/dev/project/src/components/UserCard.vue')).toBe(
+      'src/components/UserCard.vue',
+    );
+  });
+
+  test('returns null (never the raw absolute path) when no /src/ marker is found', () => {
+    expect(toProjectRelativePath('/Users/dev/project/UserCard.vue')).toBeNull();
   });
 });
 
@@ -195,7 +214,7 @@ describe('markComponentInstance', () => {
   test('does nothing for a non-Element target', () => {
     const fakeElement = {};
 
-    markComponentInstance(fakeElement, 'e-button', 'src/elements/e-button.vue');
+    markComponentInstance(fakeElement, 'e-button', '/repo/src/elements/e-button.vue');
 
     expect(hasComponentMarker(fakeElement)).toBe(false);
   });
@@ -203,7 +222,7 @@ describe('markComponentInstance', () => {
   test('does nothing when name is null', () => {
     const el = document.createElement('div');
 
-    markComponentInstance(el, null, 'src/elements/e-button.vue');
+    markComponentInstance(el, null, '/repo/src/elements/e-button.vue');
 
     expect(hasComponentMarker(el)).toBe(false);
   });
@@ -212,9 +231,27 @@ describe('markComponentInstance', () => {
     const el = document.createElement('button');
 
     markComponentInstance(el, 'VBtn', null);
-    markComponentInstance(el, 'e-button', 'src/elements/e-button.vue');
+    markComponentInstance(el, 'e-button', '/repo/src/elements/e-button.vue');
 
     expect(hasComponentMarker(el)).toBe(true);
+  });
+
+  test('trims the raw absolute __file path to a project-relative one, never storing it as-is', () => {
+    const el = document.createElement('div');
+
+    markComponentInstance(el, 'c-vas-demo-card', '/Users/dev/project/src/components/c-vas-demo-card.vue');
+
+    expect(getComponentBreadcrumb(el)).toEqual([
+      { name: 'c-vas-demo-card', file: 'src/components/c-vas-demo-card.vue', wraps: null, el },
+    ]);
+  });
+
+  test('drops the file entirely (falls back to name-only) when no /src/ marker is found', () => {
+    const el = document.createElement('div');
+
+    markComponentInstance(el, 'c-vas-demo-card', '/Users/dev/project/c-vas-demo-card.vue');
+
+    expect(getComponentBreadcrumb(el)).toEqual([{ name: 'c-vas-demo-card', file: null, wraps: null, el }]);
   });
 });
 
@@ -230,7 +267,7 @@ describe('hasComponentMarker', () => {
   test('returns true once the element has been marked', () => {
     const el = document.createElement('div');
 
-    markComponentInstance(el, 'c-vas-demo-card', 'src/components/c-vas-demo-card.vue');
+    markComponentInstance(el, 'c-vas-demo-card', '/repo/src/components/c-vas-demo-card.vue');
 
     expect(hasComponentMarker(el)).toBe(true);
   });
@@ -246,8 +283,8 @@ describe('getComponentBreadcrumb', () => {
     const wrapper = document.createElement('div'); // plain DOM node, e.g. a layout <div> — no marker
     const button = document.createElement('button');
 
-    markComponentInstance(card, 'ProductCard', 'src/components/ProductCard.vue');
-    markComponentInstance(button, 'e-button', 'src/elements/e-button.vue');
+    markComponentInstance(card, 'ProductCard', '/repo/src/components/ProductCard.vue');
+    markComponentInstance(button, 'e-button', '/repo/src/elements/e-button.vue');
 
     card.append(wrapper);
     wrapper.append(button);
@@ -264,7 +301,7 @@ describe('getComponentBreadcrumb', () => {
     const el = document.createElement('button');
 
     markComponentInstance(el, 'VBtn', null);
-    markComponentInstance(el, 'e-button', 'src/elements/e-button.vue');
+    markComponentInstance(el, 'e-button', '/repo/src/elements/e-button.vue');
 
     expect(getComponentBreadcrumb(el)).toEqual([
       { name: 'e-button', file: 'src/elements/e-button.vue', wraps: 'VBtn', el },
@@ -283,19 +320,19 @@ describe('getComponentBreadcrumb', () => {
 });
 
 describe('formatCopyText', () => {
-  test('combines name and file when a file path exists', () => {
+  test('prefers the file path over the name when a file is resolvable', () => {
     expect(
       formatCopyText({ name: 'UserCard', file: 'src/components/UserCard.vue', wraps: null, el: document.body }),
-    ).toBe('UserCard (src/components/UserCard.vue)');
+    ).toBe('src/components/UserCard.vue');
   });
 
-  test('falls back to just the name when no file path exists', () => {
+  test('falls back to the bare name when no file path exists', () => {
     expect(formatCopyText({ name: 'UserCard', file: null, wraps: null, el: document.body })).toBe('UserCard');
   });
 
-  test('appends the wrapped component when one was substituted in', () => {
+  test('ignores wraps entirely — the copy payload is always exactly one of file or name', () => {
     expect(
       formatCopyText({ name: 'e-button', file: 'src/elements/e-button.vue', wraps: 'VBtn', el: document.body }),
-    ).toBe('e-button (src/elements/e-button.vue) — wraps VBtn');
+    ).toBe('src/elements/e-button.vue');
   });
 });

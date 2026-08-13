@@ -1,9 +1,10 @@
 # X-ray mode
 
 X-ray mode is a hover inspector built into the styleguide sidebar. Turn it on (Features panel, or
-`Ctrl/⌘ + Shift + X`), then hover any element on the page to see the name and source file of the
-Vue component it belongs to — click to copy `ComponentName (src/path/to/File.vue)` to your
-clipboard, ready to paste into an AI coding prompt.
+`Ctrl + Alt + X` / `⌘ + ⌥ + X` on Mac), then hover any element on the page to see the name and
+source file of the Vue component it belongs to — click to copy its file path (project-relative,
+e.g. `src/components/UserCard.vue`) to your clipboard, ready to paste into an AI coding prompt. If
+no file path can be resolved, the component (or DOM tag) name is copied instead.
 
 ## Setup (recommended)
 
@@ -63,8 +64,8 @@ Once the plugin is installed, hovering an element resolves its full chain of mar
 skipping every plain DOM node in between (divs, spans, layout wrappers with no component of their
 own). While hovering:
 
-- **Alt + ↑** — select the parent component (step outward).
-- **Alt + ↓** — select the child component again (step back inward).
+- **Alt + ↑** (`⌥ + ↑` on Mac) — select the parent component (step outward).
+- **Alt + ↓** (`⌥ + ↓` on Mac) — select the child component again (step back inward).
 
 The label shows a `2/5`-style counter whenever there's more than one component to step through.
 Clicking always copies whichever entry is currently selected.
@@ -73,8 +74,10 @@ Clicking always copies whichever entry is currently selected.
 
 - `__file` (used for the source path) is only available in dev builds and is an absolute
   filesystem path — it's trimmed to start at the last `/src/` segment as a best-effort guess at a
-  project-relative path. This won't be accurate for projects that don't root their source in a
-  `src/` folder.
+  project-relative path. If that marker can't be found (e.g. your project doesn't root its source
+  in a `src/` folder), the path is treated as unresolvable rather than copying the raw absolute
+  path — the component (or DOM tag) name is copied instead, so a full local filesystem path never
+  ends up on your clipboard.
 - Components with no resolvable name at all (no explicit `name`, and no compiler-injected
   `__name` — effectively only hand-written, non-SFC render functions) can't be identified and are
   skipped.

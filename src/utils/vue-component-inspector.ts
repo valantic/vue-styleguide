@@ -68,19 +68,23 @@ export function getComponentDisplayName(instance: VueInternalInstance): string |
 }
 
 // `__file` is a dev-only absolute filesystem path. Trimming to the last `/src/` segment is a
-// best-effort heuristic for a project-relative path — it won't be accurate for projects that
-// don't root their source in a `src/` folder.
-export function getComponentFilePath(instance: VueInternalInstance): string | null {
-  // eslint-disable-next-line no-underscore-dangle
-  const file = instance.type.__file;
-
+// best-effort heuristic for a project-relative path. When no such marker is found, this returns
+// null rather than the raw absolute path — that path contains the local username/filesystem layout,
+// which must never end up in the clipboard text. Callers fall back to the component name instead;
+// see formatCopyText().
+export function toProjectRelativePath(file: string | null | undefined): string | null {
   if (!file) {
     return null;
   }
 
   const markerIndex = file.lastIndexOf(SRC_MARKER);
 
-  return markerIndex === -1 ? file : file.slice(markerIndex + 1);
+  return markerIndex === -1 ? null : file.slice(markerIndex + 1);
+}
+
+export function getComponentFilePath(instance: VueInternalInstance): string | null {
+  // eslint-disable-next-line no-underscore-dangle
+  return toProjectRelativePath(instance.type.__file);
 }
 
 // Prefer the innermost layer in the stack that has a resolvable source file — i.e. skip past
@@ -123,10 +127,12 @@ export function resolveComponentAtElement(el: Element | null): ResolvedComponent
   };
 }
 
+// The clipboard payload is deliberately just one or the other, not a combined "Name (file)"
+// string: the file path (project-relative, not the full absolute user path) is the more directly
+// actionable reference for an AI coding prompt, and the name is only a fallback for when no file
+// is resolvable at all (e.g. a third-party component, or a plain DOM element with no component).
 export function formatCopyText(resolved: ResolvedComponent): string {
-  const base = resolved.file ? `${resolved.name} (${resolved.file})` : resolved.name;
-
-  return resolved.wraps ? `${base} — wraps ${resolved.wraps}` : base;
+  return resolved.file ?? resolved.name;
 }
 
 // --- Marker-based resolution -------------------------------------------------------------
@@ -146,6 +152,9 @@ export type MarkerEntry = { name: string; file: string | null };
 
 type MarkedElement = Element & { vasComponents?: MarkerEntry[] };
 
+// `file` is the raw, dev-only __file value straight off the component's options — trimmed to a
+// project-relative path here (see toProjectRelativePath()) so every caller gets the same
+// Leak-free result regardless of where the mark originates.
 export function markComponentInstance(el: unknown, name: string | null, file: string | null): void {
   if (!(el instanceof Element) || !name) {
     return;
@@ -153,7 +162,7 @@ export function markComponentInstance(el: unknown, name: string | null, file: st
 
   const marked = el as MarkedElement;
 
-  marked.vasComponents = [...(marked.vasComponents ?? []), { name, file }];
+  marked.vasComponents = [...(marked.vasComponents ?? []), { name, file: toProjectRelativePath(file) }];
 }
 
 // Used to detect whether the plugin is actually registered on the running app — check a DOM

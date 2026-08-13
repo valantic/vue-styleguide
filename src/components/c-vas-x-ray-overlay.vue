@@ -23,7 +23,7 @@
           <span
             v-if="depthHint"
             :class="b('depth')"
-          >{{ depthHint }} · Alt+↑/↓</span>
+          >{{ depthHint }} · {{ navigateHint }}</span>
         </template>
       </div>
     </template>
@@ -33,6 +33,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { formatCopyText, getComponentBreadcrumb } from '../utils/vue-component-inspector';
+  import { isMac } from '../utils/platform';
 
   // type Setup = {};
 
@@ -54,13 +55,14 @@
   };
 
   const SIDEBAR_SELECTOR = '.c-vas-sidebar';
-  const LABEL_OFFSET_PX = 22;
+  const LABEL_INSET_PX = 6;
   const COPIED_FEEDBACK_MS = 1200;
 
   /**
    * Full-viewport hover inspector for x-ray mode: highlights the Vue component under the cursor,
-   * lets you step through its component-only ancestor chain (Alt+↑ parent / Alt+↓ child) — skipping
-   * every plain DOM node in between — and copies the selected one's name + file path on click.
+   * lets you step through its component-only ancestor chain (Alt/Option+↑ parent / Alt/Option+↓
+   * child) — skipping every plain DOM node in between — and copies the selected one's file path
+   * (or name, if no file is resolvable) on click.
    */
   export default defineComponent({
     name: 'c-vas-x-ray-overlay',
@@ -101,16 +103,43 @@
         return this.breadcrumb.length > 1 ? `${this.selectedIndex + 1}/${this.breadcrumb.length}` : null;
       },
 
+      navigateHint(): string {
+        return isMac() ? '⌥+↑/↓' : 'Alt+↑/↓';
+      },
+
       copyText(): string {
         return this.current ? formatCopyText(this.current) : '';
       },
 
       boxStyle(): Record<string, string> {
-        return this.rectStyle(0);
+        if (!this.current) {
+          return {};
+        }
+
+        const rect = this.current.el.getBoundingClientRect();
+
+        return {
+          top: `${rect.top}px`,
+          left: `${rect.left}px`,
+          width: `${rect.width}px`,
+          height: `${rect.height}px`,
+        };
       },
 
+      // Anchored to the box's own inner top-left corner rather than floating above it — a label
+      // placed above the box goes off-screen (invisible) whenever the highlighted element sits at
+      // or near the very top of the viewport.
       labelStyle(): Record<string, string> {
-        return this.rectStyle(-LABEL_OFFSET_PX);
+        if (!this.current) {
+          return {};
+        }
+
+        const rect = this.current.el.getBoundingClientRect();
+
+        return {
+          top: `${rect.top + LABEL_INSET_PX}px`,
+          left: `${rect.left + LABEL_INSET_PX}px`,
+        };
       },
     },
     // watch: {},
@@ -143,21 +172,6 @@
     // unmounted() {},
 
     methods: {
-      rectStyle(topOffset: number): Record<string, string> {
-        if (!this.current) {
-          return {};
-        }
-
-        const rect = this.current.el.getBoundingClientRect();
-
-        return {
-          top: `${rect.top + topOffset}px`,
-          left: `${rect.left}px`,
-          width: topOffset === 0 ? `${rect.width}px` : 'auto',
-          height: topOffset === 0 ? `${rect.height}px` : 'auto',
-        };
-      },
-
       isSidebarChrome(el: Element | null): boolean {
         return Boolean(el?.closest(SIDEBAR_SELECTOR));
       },

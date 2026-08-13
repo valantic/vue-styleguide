@@ -61,6 +61,7 @@
     metaKey: boolean;
     ctrlKey: boolean;
     shiftKey: boolean;
+    altKey: boolean;
     key: string;
   };
 
@@ -265,8 +266,9 @@
           return;
         }
 
-        // Hotkey for x-ray mode.
-        if ((isMac() ? event.metaKey : event.ctrlKey) && event.shiftKey && event.key.toLowerCase() === 'x') {
+        // Hotkey for x-ray mode. Uses Alt/Option rather than Shift — Ctrl/Cmd+Shift+X collides
+        // with the default shortcut of some password manager browser extensions (e.g. 1Password).
+        if ((isMac() ? event.metaKey : event.ctrlKey) && event.altKey && event.key.toLowerCase() === 'x') {
           event.preventDefault();
           this.vasSettingsStore.setXRayModeEnabled(!this.vasSettingsStore.state.isXRayModeEnabled);
 

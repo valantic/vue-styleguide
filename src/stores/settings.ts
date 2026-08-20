@@ -21,6 +21,7 @@ export const FONT_SIZE_DEFAULT = 13;
 const state = reactive({
   theme: vasLocalStore.get<Theme>('theme', 'system'),
   fontSize: vasLocalStore.get<number>('fontSize', FONT_SIZE_DEFAULT),
+  isXRayModeEnabled: vasLocalStore.get<boolean>('x-ray-mode', false),
 });
 
 export const useVasSettingsStore = () => {
@@ -37,6 +38,11 @@ export const useVasSettingsStore = () => {
 
       state.fontSize = clamped;
       vasLocalStore.set('fontSize', clamped);
+    },
+
+    setXRayModeEnabled(enabled: boolean): void {
+      state.isXRayModeEnabled = enabled;
+      vasLocalStore.set('x-ray-mode', enabled);
     },
   };
 };

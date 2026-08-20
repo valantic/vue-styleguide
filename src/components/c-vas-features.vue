@@ -5,12 +5,14 @@
       text="Features"
     />
     <c-vas-html-validation />
+    <c-vas-x-ray-mode />
   </div>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
   import cVasHtmlValidation from '../features/c-vas-html-validation.vue';
+  import cVasXRayMode from '../features/c-vas-x-ray-mode.vue';
   import cVasTypography from './c-vas-typography.vue';
 
   // type Setup = {};
@@ -24,6 +26,7 @@
 
     components: {
       cVasHtmlValidation,
+      cVasXRayMode,
       cVasTypography,
     },
 

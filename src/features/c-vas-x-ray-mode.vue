@@ -3,16 +3,18 @@
     <e-vas-toggle v-model="enabled"> X-ray mode </e-vas-toggle>
 
     <p
-      v-if="enabled && !markerActive"
+      v-if="true"
       :class="b('warning')"
     >
       For accurate results across third-party components, install the x-ray inspector plugin — see the
       <a
         :href="setupGuideUrl"
+        :class="b('link')"
         target="_blank"
         rel="noopener noreferrer"
-        >setup guide</a
-      >.
+      >
+        setup guide.
+      </a>
     </p>
   </div>
 </template>
@@ -104,14 +106,16 @@
     gap: variables.$vas-spacing--8;
 
     &__warning {
+      background-color: rgba(variables.$vas-color-status--error, 40%);
       margin: 0;
-      color: variables.$vas-color-status--error;
+      color: variables.$vas-color-white;
       font-size: var(--vas-font-size-small);
+      padding: variables.$vas-spacing--10;
+    }
 
-      a {
-        color: inherit;
-        text-decoration: underline;
-      }
+    &__link {
+      color: variables.$vas-color-white !important; // stylelint-disable-line
+      text-decoration: underline;
     }
   }
 </style>

@@ -15,11 +15,13 @@
           <span
             v-if="current.file"
             :class="b('path')"
-          >{{ current.file }}</span>
+          >
+            {{ current.file }}</span>
           <span
             v-if="current.wraps"
             :class="b('wraps')"
-          >wraps {{ current.wraps }}</span>
+          >
+            wraps {{ current.wraps }}</span>
           <span :class="b('depth')">
             <template v-if="depthHint">{{ depthHint }} · {{ navigateHint }} · </template>Enter to copy
           </span>

@@ -2,8 +2,9 @@
 
 X-ray mode is a hover inspector built into the styleguide sidebar. Turn it on (Features panel, or
 `Ctrl + Alt + X` / `⌘ + ⌥ + X` on Mac) — a brief toast in the top-right corner confirms it's now on
-or off, however you toggled it — then hover any element on the page to see the name and source
-file of the Vue component it belongs to — click to copy its file path (project-relative, e.g.
+or off, however you toggled it (the hotkey, the Features panel switch, or — for turning it off
+only — pressing `Escape`) — then hover any element on the page to see the name and source file of
+the Vue component it belongs to — click to copy its file path (project-relative, e.g.
 `src/components/UserCard.vue`) to your clipboard, ready to paste into an AI coding prompt. If no
 file path can be resolved, the component (or DOM tag) name is copied instead.
 

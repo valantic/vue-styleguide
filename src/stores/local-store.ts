@@ -29,7 +29,8 @@ const setPersistentItem = (key: string, value: unknown): void => {
 const patchPersistentItem = <T extends Record<string, unknown>>(key: string, value: Partial<T>): void => {
   try {
     const current = getPersistentItem<T | null>(key, null);
-    const newValue = current && typeof current === 'object' ? { ...current, ...value } : value;
+    const newValue =
+      current && typeof current === 'object' && !Array.isArray(current) ? { ...current, ...value } : value;
 
     setPersistentItem(key, newValue);
   } catch (error) {

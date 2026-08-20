@@ -94,11 +94,11 @@
 
     // computed: {},
     watch: {
-      count() {
-        this.saveSettings();
+      count(count: number) {
+        useVasLocalStore().patch(STORAGE_KEY, { count });
       },
-      toggleValue() {
-        this.saveSettings();
+      toggleValue(toggleValue: boolean) {
+        useVasLocalStore().patch(STORAGE_KEY, { toggleValue });
       },
     },
 
@@ -114,16 +114,6 @@
     // unmounted() {},
 
     methods: {
-      /**
-       * Example of a save settings method.
-       */
-      saveSettings() {
-        useVasLocalStore().set(STORAGE_KEY, {
-          count: this.count,
-          toggleValue: this.toggleValue,
-        });
-      },
-
       /**
        * Example of a clear persisted data handler.
        */

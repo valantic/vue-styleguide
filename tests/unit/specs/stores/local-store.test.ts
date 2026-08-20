@@ -71,6 +71,12 @@ describe('useVasLocalStore — persistent storage', () => {
       expect(JSON.parse(localStorage.getItem('vas-test')!)).toEqual({ a: 1 });
     });
 
+    test('overwrites an existing array instead of merging into it', () => {
+      localStorage.setItem('vas-test', JSON.stringify([1, 2, 3]));
+      store.patch<{ a: number }>('test', { a: 1 });
+      expect(JSON.parse(localStorage.getItem('vas-test')!)).toEqual({ a: 1 });
+    });
+
     test('does not throw when patching fails', () => {
       vi.spyOn(console, 'error').mockImplementation(() => {});
       vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {

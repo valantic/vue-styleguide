@@ -2,7 +2,7 @@
 
 ## unreleased
 
-- [FEATURE] Added PATCH to the local store to update data.
+- [FEATURE] Added `patch()` to the local store for partial updates to persisted objects.
 
 ## v2.0.1
  

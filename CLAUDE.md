@@ -28,5 +28,11 @@ Only four things are exported for consumer projects:
 - Always import with `@use '../setup/scss/variables'` and `@use '../setup/scss/mixins'` (namespaced, not `@import`)
 - The `vas-styleguide-reset` CSS reset wrapper is applied at the root of `c-vas-sidebar` to scope the reset
 
+### Production safety is the consumer's responsibility
+- This package ships raw, uncompiled source — `package.json`'s `main`/`module`/`exports` point directly at `src/index.ts`, there is no separate build/dist step for npm distribution. A consumer's own Vite/Rollup build processes these files exactly like first-party source, so whatever survives *their* tree-shaking ends up in *their* bundle.
+- `c-vas-sidebar` and every feature registered under it (`c-vas-features.vue`, e.g. `c-vas-html-validation`, `c-vas-x-ray-mode`) are wired together via ordinary static imports. Nothing in this package internally gates itself behind `import.meta.env.DEV` — there is no bundling boundary here to strip dev-only code from.
+- It is the **consuming project's** job to keep this out of production, e.g. by guarding its own usage of `c-vas-sidebar` (and any exported plugin, such as `vasXRayInspector`) behind `import.meta.env.DEV` — ideally via a dynamic `import()` for a stronger guarantee than relying on tree-shaking alone (see `docs/x-ray-mode.md` for a worked example, and this package's own `src/main.ts` for the same pattern used internally).
+- Don't add dev-only guards inside this package's own components/features to compensate for a consumer skipping that step — that responsibility intentionally lives in the consumer's app entry, not here.
+
 ### Testing
 - For all tasks, run all tests with `npm run test` and always fix the issues.

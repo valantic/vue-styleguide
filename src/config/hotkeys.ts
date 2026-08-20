@@ -58,4 +58,32 @@ export const HOTKEYS: HotkeyEntry[] = [
     description: 'Closes the sidebar, closes modal.',
     display: [['Esc']],
   },
+  {
+    id: 'toggle-x-ray-mode',
+    tip: 'Ctrl + Alt + X — toggle x-ray mode',
+    description: 'Toggle x-ray mode. Hover any element to see its Vue component name, click to copy it.',
+    display: [['Ctrl', '+', 'Alt', '+', 'X']],
+    mac: {
+      tip: '⌘ + ⌥ + X — toggle x-ray mode',
+      display: [['⌘', '+', '⌥', '+', 'X']],
+    },
+  },
+  {
+    id: 'x-ray-mode-navigate-ancestors',
+    tip: 'Alt + ↑ / ↓ — navigate component ancestors',
+    description:
+      'While x-ray mode is hovering an element, step through its component-only ancestor chain (Alt/Option + ↑ for the parent component, Alt/Option + ↓ back down).',
+    display: [['Alt', '+', '↑'], ['Alt', '+', '↓']],
+    mac: {
+      tip: '⌥ + ↑ / ↓ — navigate component ancestors',
+      display: [['⌥', '+', '↑'], ['⌥', '+', '↓']],
+    },
+  },
+  {
+    id: 'x-ray-mode-copy',
+    tip: 'Enter — copy selected component',
+    description:
+      'While x-ray mode is hovering an element, copy the currently selected component (same as clicking it) without needing the mouse.',
+    display: [['Enter']],
+  },
 ];

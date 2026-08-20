@@ -9,3 +9,5 @@ export * from './features/index';
 
 export * from './stores/settings';
 export * from './stores/local-store';
+
+export { default as vasXRayInspector } from './plugins/x-ray-inspector';

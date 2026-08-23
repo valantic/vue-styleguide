@@ -26,6 +26,19 @@ const setPersistentItem = (key: string, value: unknown): void => {
   }
 };
 
+const patchPersistentItem = <T extends Record<string, unknown>>(key: string, value: Partial<T>): void => {
+  try {
+    const current = getPersistentItem<T | null>(key, null);
+    const newValue =
+      current && typeof current === 'object' && !Array.isArray(current) ? { ...current, ...value } : value;
+
+    setPersistentItem(key, newValue);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Failed to patch persistent item with key "${key}"`, error);
+  }
+};
+
 const deletePersistentItem = (key: string): void => {
   try {
     localStorage.removeItem(`${prefix}${key}`);
@@ -69,6 +82,7 @@ const getPersistentItemsSize = (): number => {
 const localStore = {
   get: <T>(key: string, fallback: T): T => getPersistentItem(key, fallback),
   set: (key: string, value: unknown): void => setPersistentItem(key, value),
+  patch: <T extends Record<string, unknown>>(key: string, value: Partial<T>): void => patchPersistentItem(key, value),
   delete: (key: string): void => deletePersistentItem(key),
   empty: (): void => clearAllPersistentItems(),
   analytics: {

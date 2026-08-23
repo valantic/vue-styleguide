@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.1.0
+
 - [FEATURE] Added `patch()` to the local store for partial updates to persisted objects.
 
 ## v2.0.1

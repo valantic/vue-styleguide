@@ -1,5 +1,6 @@
 // It's mandatory that common styles are imported before the application. Else they will come last in the CSS build
 import { createApp } from 'vue';
+import vasXRayInspector from './plugins/x-ray-inspector';
 import options from './setup/options';
 import plugins from './setup/plugins';
 import './setup/styles.scss';
@@ -20,12 +21,8 @@ if (import.meta.env.DEV || import.meta.env.MODE === 'app') {
 
 const app = createApp(vueOptions);
 
-if (import.meta.env.DEV) {
-  const { vasXRayInspector } = await import('@valantic/vue-styleguide');
-
-  app.use(vasXRayInspector);
-}
-
 vuePlugins.forEach(({ plugin, options: pluginOptions }) => app.use(plugin, pluginOptions));
+
+app.use(vasXRayInspector);
 
 app.mount('#app');

@@ -154,6 +154,12 @@
         }
       },
 
+      'vasSettingsStore.state.isXRayModeEnabled': function (enabled: boolean) {
+        if (enabled) {
+          this.onCloseFlyout();
+        }
+      },
+
       'vasSessionStore.state.hasPageConfig': {
         handler(value) {
           if (this.animationTimeout) {

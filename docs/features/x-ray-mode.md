@@ -8,6 +8,9 @@ the Vue component it belongs to — click to copy its file path (project-relativ
 `src/components/UserCard.vue`) to your clipboard, ready to paste into an AI coding prompt. If no
 file path can be resolved, the component (or DOM tag) name is copied instead.
 
+Turning x-ray mode on from the Features panel automatically closes the sidebar, so nothing blocks
+the page you're about to hover over.
+
 ## Setup (recommended)
 
 X-ray mode works out of the box with zero configuration, but its accuracy is limited without one

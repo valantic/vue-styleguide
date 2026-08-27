@@ -11,7 +11,8 @@
             v-model="value"
             name="value"
           >
-            value</e-vas-checkbox>
+            value
+          </e-vas-checkbox>
         </template>
       </c-vas-demo-card>
     </div>

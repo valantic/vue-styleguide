@@ -24,7 +24,8 @@
               v-if="color.note"
               :class="b('swatch-note')"
             >
-              {{ color.note }}</span>
+              {{ color.note }}
+            </span>
           </div>
         </div>
       </div>
@@ -33,10 +34,8 @@
     <section :class="b('group')">
       <h2 :class="b('group-title')">Theme Tokens</h2>
       <p :class="b('theme-hint')">
-        Theme tokens are CSS custom properties. Their values depend on the active theme class (<code
-          >.vas-styleguide-theme-light</code
-        >
-        / <code>.vas-styleguide-theme-dark</code>).
+        Theme tokens are CSS custom properties. Their values depend on the active theme class
+        (<code>.vas-styleguide-theme-light</code> / <code>.vas-styleguide-theme-dark</code>).
       </p>
       <div :class="b('theme-tokens')">
         <div

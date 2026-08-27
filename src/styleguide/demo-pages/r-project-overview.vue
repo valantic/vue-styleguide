@@ -41,7 +41,8 @@
               v-if="step.note"
               :class="b('step-note')"
             >
-              {{ step.note }}</p>
+              {{ step.note }}
+            </p>
           </div>
         </div>
       </div>

@@ -104,8 +104,7 @@
         <div
           id="teleportDestinationPageConfigFlyout"
           :class="b('page-config')"
-        >
-        </div>
+        ></div>
       </div>
     </div>
 

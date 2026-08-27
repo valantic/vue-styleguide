@@ -42,8 +42,7 @@
               v-if="['mask', 'css'].includes(variant)"
               :class="b('icon', { variant })"
               :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
-            >
-            </div>
+            ></div>
             <e-vas-icon
               v-else
               :key="icon.name"

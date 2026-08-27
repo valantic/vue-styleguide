@@ -36,6 +36,7 @@ Find available versions here: [Github Releases](https://github.com/valantic/vue-
 See the [Installation](https://valantic.github.io/vue-styleguide/guide/installation) and
 [Setup](https://valantic.github.io/vue-styleguide/guide/setup) guides for the full walkthrough.
 
+---
 
 <div align="center">
 

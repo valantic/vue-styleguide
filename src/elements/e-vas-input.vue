@@ -151,7 +151,7 @@
 
         return {
           ...this.stateModifiers,
-          type: this.$attrs.type !== null || 'text',
+          type: (this.$attrs.type as string | undefined) ?? 'text',
           noNativeControl,
         };
       },

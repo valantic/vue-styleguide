@@ -2,8 +2,14 @@
 
 ## unreleased
 
-- [ENHANCEMENT] Project-wide cleanup to match the frontend/Vue/TypeScript style guidelines: normalized multi-line-attribute template tag formatting, replaced index-based `:key`s with stable ones and extracted a complex inline `v-if` into a computed in `c-vas-modal`, merged `import type` statements into plain imports, added explicit return types to `useVasSettingsStore`/`useVasSessionStore`, replaced `while`/classic `for` loops with recursion/`for...of` in `vue-component-inspector.ts` and `c-vas-navigation`, and replaced hardcoded hex/rgba colors with `$vas-color-*`/`$vas-shadow-color-*` SCSS variables (adding new tokens where no match existed).
-- [FEATURE] Add a VitePress documentation site (`docs/`), deployed alongside the demo app on GitHub Pages (site at the root, demo under `/demo/`). Covers installation, sidebar setup, demo pages, the sidebar interface, hotkeys, settings, custom settings slots, the demo card, and one page per Features-panel toggle (e.g. x-ray mode, HTML validation).
+### Breaking Changes
+
+- [fix] `e-vas-input`'s `type` BEM modifier class now reflects the actual `type` attribute (e.g. `e-vas-input--type-number`, `e-vas-input--type-hidden`) instead of always being the broken `e-vas-input--type-true`. **Migration:** if you targeted `.e-vas-input--type-true` with custom CSS as a workaround, update the selector to the correct type-specific modifier class (e.g. `.e-vas-input--type-hidden`).
+
+- [docs] Add a VitePress documentation site (`docs/`), deployed alongside the demo app on GitHub Pages (site at the root, demo under `/demo/`). Covers installation, sidebar setup, demo pages, the sidebar interface, hotkeys, settings, custom settings slots, the demo card, and one page per Features-panel toggle (e.g. x-ray mode, HTML validation).
+- [test] Add unit tests (Vitest + `@vue/test-utils`) for all form field elements — `e-vas-input`, `e-vas-checkbox`, `e-vas-radio`, `e-vas-select`, `e-vas-multiselect` — covering `v-model` sync, emitted events, and state/disabled modifiers.
+- [refactor] Project-wide cleanup to match the frontend/Vue/TypeScript style guidelines: normalized multi-line-attribute template tag formatting, replaced index-based `:key`s with stable ones and extracted a complex inline `v-if` into a computed in `c-vas-modal`, merged `import type` statements into plain imports, added explicit return types to `useVasSettingsStore`/`useVasSessionStore`, replaced `while`/classic `for` loops with recursion/`for...of` in `vue-component-inspector.ts` and `c-vas-navigation`, and replaced hardcoded hex/rgba colors with `$vas-color-*`/`$vas-shadow-color-*` SCSS variables (adding new tokens where no match existed).
+- [fix] Fix `e-vas-checkbox`'s `aria-checked` always being `"true"` for group/array-based checkboxes (e.g. inside `e-vas-multiselect`) regardless of the actual selection state; it now correctly reflects whether the checkbox's `value` is present in the array `modelValue`.
 
 ## v2.1.0
 

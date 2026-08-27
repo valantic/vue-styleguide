@@ -132,7 +132,7 @@
        * Evaluates if the checkbox is currently selected.
        */
       isChecked(): boolean {
-        return Array.isArray(this.value) ? this.value.includes(this.modelValue) : this.value;
+        return Array.isArray(this.modelValue) ? this.modelValue.includes(this.value) : this.modelValue;
       },
     },
     // watch: {},

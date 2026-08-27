@@ -13,6 +13,9 @@ gen
 /node_modules/
 /dist/
 /tests/unit/coverage/
+/pages-dist/
+docs/.vitepress/cache/
+docs/.vitepress/dist/
 
 # Visual Studio Code
 .vscode

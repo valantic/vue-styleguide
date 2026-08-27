@@ -40,14 +40,11 @@
 </template>
 
 <script lang="ts">
-  import type { ComponentPublicInstance, Ref } from 'vue';
-  import { defineComponent, ref } from 'vue';
-  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { ComponentPublicInstance, Ref, defineComponent, ref } from 'vue';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { useVasLocalStore } from '../stores/local-store';
-  import type { VasSessionStore } from '../stores/session';
-  import { useVasSessionStore } from '../stores/session';
-  import type { VasSettingsStore } from '../stores/settings';
-  import { useVasSettingsStore } from '../stores/settings';
+  import { VasSessionStore, useVasSessionStore } from '../stores/session';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import { isMac } from '../utils/platform';
   import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyout from './c-vas-flyout.vue';

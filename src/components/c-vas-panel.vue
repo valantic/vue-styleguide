@@ -104,7 +104,8 @@
         <div
           id="teleportDestinationPageConfigFlyout"
           :class="b('page-config')"
-        ></div>
+        >
+        </div>
       </div>
     </div>
 
@@ -147,8 +148,8 @@
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
-  import { type Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
-  import { type VasSessionStore, useVasSessionStore } from '../stores/session';
+  import { Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
+  import { VasSessionStore, useVasSessionStore } from '../stores/session';
   import cVasConfig from './c-vas-config.vue';
   import cVasFeatures from './c-vas-features.vue';
   import cVasGithubVersion from './c-vas-github-version.vue';

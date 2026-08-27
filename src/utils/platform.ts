@@ -5,6 +5,8 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData
  */
 export const isMac = (): boolean => {
+  // any is unavoidable here: NavigatorUAData isn't part of the standard lib.dom types yet,
+  // so it can't be narrowed without casting.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const nav = navigator as any;
 

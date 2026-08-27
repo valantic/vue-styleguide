@@ -47,7 +47,7 @@
   import eVasSelect from '../../../elements/e-vas-select.vue';
   import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
-  import type { SelectOptionType } from '../../../types';
+  import { SelectOptionType } from '../../../types';
 
   // type Setup = {};
   type Data = {

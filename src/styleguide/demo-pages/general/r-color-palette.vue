@@ -15,15 +15,16 @@
           <div
             :class="b('swatch-block')"
             :style="{ backgroundColor: color.value }"
-          ></div>
+          >
+          </div>
           <div :class="b('swatch-info')">
             <code :class="b('swatch-token')">{{ color.token }}</code>
             <span :class="b('swatch-value')">{{ color.value }}</span>
             <span
               v-if="color.note"
               :class="b('swatch-note')"
-              >{{ color.note }}</span
             >
+              {{ color.note }}</span>
           </div>
         </div>
       </div>
@@ -47,11 +48,13 @@
             <div
               :class="b('theme-token-block', { light: true })"
               :style="{ backgroundColor: token.light }"
-            ></div>
+            >
+            </div>
             <div
               :class="b('theme-token-block', { dark: true })"
               :style="{ backgroundColor: token.dark }"
-            ></div>
+            >
+            </div>
           </div>
           <div :class="b('theme-token-info')">
             <code :class="b('theme-token-prop')">{{ token.prop }}</code>

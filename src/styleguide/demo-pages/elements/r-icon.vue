@@ -31,8 +31,8 @@
       </div>
       <div :class="b('grid')">
         <div
-          v-for="(icon, index) in filteredIcons"
-          :key="index"
+          v-for="icon in filteredIcons"
+          :key="icon.name"
           :class="b('grid-item', { negative: icon.negative })"
           role="button"
           @click="copyToClipboard(icon)"
@@ -42,7 +42,8 @@
               v-if="['mask', 'css'].includes(variant)"
               :class="b('icon', { variant })"
               :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
-            ></div>
+            >
+            </div>
             <e-vas-icon
               v-else
               :key="icon.name"
@@ -72,15 +73,14 @@
 </template>
 
 <script lang="ts">
-  import type { Ref } from 'vue';
-  import { defineComponent, ref } from 'vue';
+  import { Ref, defineComponent, ref } from 'vue';
   import spritePath from '../../../assets/icons.svg';
   import eVasIcon from '../../../elements/e-vas-icon.vue';
   import eVasInput from '../../../elements/e-vas-input.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
-  import type { SelectOptionType } from '../../../types';
-  import type { Icon } from '../../../types/icon';
+  import { SelectOptionType } from '../../../types';
+  import { Icon } from '../../../types/icon';
 
   type Setup = {
     input: Ref<HTMLInputElement | null>;
@@ -244,7 +244,7 @@
       min-width: 100px;
       margin: 5px;
       overflow: hidden;
-      border: 1px solid #000000;
+      border: 1px solid variables.$vas-color-black;
       cursor: pointer;
 
       &::before {

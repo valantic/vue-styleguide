@@ -13,10 +13,16 @@ const state = reactive({
   lastOpenedRoutes: [] as RouteRecordRaw[],
 });
 
+export type VasSessionStore = {
+  state: typeof state;
+  setHasPageConfig(value: boolean): void;
+  addLastOpenedRoute(route: RouteRecordRaw | RouteLocationNormalized): void;
+};
+
 /**
  * A simple, encapsulated reactive store for session data.
  */
-export const useVasSessionStore = () => {
+export const useVasSessionStore = (): VasSessionStore => {
   return {
     state,
 
@@ -48,5 +54,3 @@ export const useVasSessionStore = () => {
     },
   };
 };
-
-export type VasSessionStore = ReturnType<typeof useVasSessionStore>;

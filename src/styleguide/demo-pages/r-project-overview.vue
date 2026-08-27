@@ -40,7 +40,8 @@
             <p
               v-if="step.note"
               :class="b('step-note')"
-            >{{ step.note }}</p>
+            >
+              {{ step.note }}</p>
           </div>
         </div>
       </div>
@@ -284,7 +285,7 @@ import { styleguideRouterConfig, styleguideTestPages } from '@valantic/vue-style
       justify-content: center;
       border-radius: 50%;
       background-color: variables.$vas-color-valantic-primary;
-      color: #ffffff;
+      color: variables.$vas-color-white;
       font-size: variables.$vas-font-size--tiny;
       font-weight: variables.$vas-font-weight--bold;
       flex-shrink: 0;

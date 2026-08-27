@@ -1,5 +1,5 @@
 // this plugin is a copy of https://www.npmjs.com/package/vue-bem-cn with some optimisations applied
-import type { App, Plugin } from 'vue';
+import { App, Plugin } from 'vue';
 import bemCn from './bem-cn';
 import { DEFAULT_CONFIG, DEFAULT_DELIMITERS } from './globals';
 import { hyphenate, isString } from './utils';
@@ -27,6 +27,8 @@ export default {
         const nsBlock = cfg.delimiters.ns + block;
         const generator = bemCn(cfg.hyphenate ? hyphenate(nsBlock) : nsBlock, cfg);
 
+        // any is unavoidable here: the BEM helper is attached dynamically under a consumer-configured
+        // method name and forwards whatever arguments the component template passes it.
         this[cfg.methodName] = (...args: any[]): string => generator(...(args as [string]));
       },
     });

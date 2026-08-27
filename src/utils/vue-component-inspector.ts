@@ -27,18 +27,19 @@ export type ResolvedComponent = {
 
 const SRC_MARKER = '/src/';
 
-export function findComponentInstance(el: Element | null): { instance: VueInternalInstance; el: Element } | null {
-  let current = el;
+// Recursion instead of a loop — walks up via parentElement, nearest first.
+function collectAncestorElements(el: Element | null): Element[] {
+  return el ? [el, ...collectAncestorElements(el.parentElement)] : [];
+}
 
-  while (current) {
+export function findComponentInstance(el: Element | null): { instance: VueInternalInstance; el: Element } | null {
+  for (const candidate of collectAncestorElements(el)) {
     // eslint-disable-next-line no-underscore-dangle
-    const instance = (current as VueInternalElement).__vueParentComponent;
+    const instance = (candidate as VueInternalElement).__vueParentComponent;
 
     if (instance?.type) {
-      return { instance, el: current };
+      return { instance, el: candidate };
     }
-
-    current = current.parentElement;
   }
 
   return null;
@@ -50,16 +51,17 @@ type ComponentStack = [VueInternalInstance, ...VueInternalInstance[]];
 // instances share the exact same DOM node — Vue only keeps the innermost one on `__vueParentComponent`.
 // Walking `instance.parent` while its root element (`vnode.el`) stays the same DOM node recovers
 // the full stack of collapsed layers at that spot, ordered innermost (leaf) to outermost.
-export function collectStackedInstances(instance: VueInternalInstance, el: Element): ComponentStack {
-  const stack: ComponentStack = [instance];
-  let current = instance;
-
-  while (current.parent && current.parent.vnode?.el === el) {
-    current = current.parent;
-    stack.push(current);
+// Recursion instead of a loop.
+function collectStackedInstanceChain(instance: VueInternalInstance, el: Element): ComponentStack {
+  if (instance.parent && instance.parent.vnode?.el === el) {
+    return [instance, ...collectStackedInstanceChain(instance.parent, el)];
   }
 
-  return stack;
+  return [instance];
+}
+
+export function collectStackedInstances(instance: VueInternalInstance, el: Element): ComponentStack {
+  return collectStackedInstanceChain(instance, el);
 }
 
 export function getComponentDisplayName(instance: VueInternalInstance): string | null {
@@ -202,16 +204,13 @@ function resolveMarkedElement(el: Element, entries: [MarkerEntry, ...MarkerEntry
 // vasXRayInspector plugin isn't installed on this app.
 export function getComponentBreadcrumb(el: Element | null): ResolvedComponent[] {
   const breadcrumb: ResolvedComponent[] = [];
-  let current = el;
 
-  while (current) {
+  for (const current of collectAncestorElements(el)) {
     const entries = (current as MarkedElement).vasComponents;
 
     if (entries && entries.length > 0) {
       breadcrumb.push(resolveMarkedElement(current, entries as [MarkerEntry, ...MarkerEntry[]]));
     }
-
-    current = current.parentElement;
   }
 
   if (breadcrumb.length > 0) {

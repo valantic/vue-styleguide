@@ -1,4 +1,4 @@
-import type { Delimiters } from '../globals';
+import { Delimiters } from '../globals';
 import { hyphenate, isPObject, isString } from '../utils';
 import bemNames from './bem-names';
 
@@ -11,6 +11,8 @@ type Options = {
  * Returns a BEM name creator method with the given options applied.
  */
 export default function bemCn(block: string, options: Options) {
+  // any is unavoidable here: elem accepts either an element-name string or a mods object,
+  // and is narrowed at runtime via isString/isPObject below.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function entities(elem: any, mods?: string | object, mix?: string): string {
     const resultObj = {

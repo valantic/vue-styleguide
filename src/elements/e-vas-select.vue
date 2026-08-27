@@ -46,12 +46,11 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, toRefs } from 'vue';
-  import type { FormStates } from '../compositions/form-states';
+  import { PropType, defineComponent, toRefs } from 'vue';
+  import { FormStates } from '../compositions/form-states';
   import useFormStates, { withProps } from '../compositions/form-states';
-  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import type { SelectOptionType } from '../types';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { SelectOptionType } from '../types';
   import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 

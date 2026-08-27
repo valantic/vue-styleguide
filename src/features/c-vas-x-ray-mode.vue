@@ -22,7 +22,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { type VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import { hasComponentMarker } from '../utils/vue-component-inspector';
 
   type Setup = {

@@ -1,4 +1,4 @@
-import type { StyleguideRouterConfig } from '../types';
+import { StyleguideRouterConfig } from '../types';
 
 export { BREAKPOINTS } from './breakpoints';
 export type { ViewportBreakPoint } from './breakpoints';

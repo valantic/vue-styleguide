@@ -1,5 +1,5 @@
 import { reactive } from 'vue';
-import type { Icon } from '../types/icon';
+import { Icon } from '../types/icon';
 import { useVasLocalStore } from './local-store';
 
 export const THEMES = ['system', 'light', 'dark'] as const;
@@ -24,7 +24,14 @@ const state = reactive({
   isXRayModeEnabled: vasLocalStore.get<boolean>('x-ray-mode', false),
 });
 
-export const useVasSettingsStore = () => {
+export type VasSettingsStore = {
+  state: typeof state;
+  setTheme(theme: Theme): void;
+  setFontSize(size: number): void;
+  setXRayModeEnabled(enabled: boolean): void;
+};
+
+export const useVasSettingsStore = (): VasSettingsStore => {
   return {
     state,
 
@@ -46,5 +53,3 @@ export const useVasSettingsStore = () => {
     },
   };
 };
-
-export type VasSettingsStore = ReturnType<typeof useVasSettingsStore>;

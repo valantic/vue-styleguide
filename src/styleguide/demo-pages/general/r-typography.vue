@@ -178,7 +178,7 @@
     &__section {
       margin-bottom: 2rem;
       padding: variables.$vas-spacing--16;
-      background-color: #fbfbfb;
+      background-color: variables.$vas-color-grayscale--925;
     }
 
     &__scale-title {

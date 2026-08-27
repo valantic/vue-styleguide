@@ -17,7 +17,8 @@
             <div
               :class="b('step-bar')"
               :style="{ width: step.value }"
-            ></div>
+            >
+            </div>
           </div>
         </div>
       </div>

@@ -8,8 +8,8 @@
 
     <div :class="b('mapping')">
       <div
-        v-for="(mapping, index) in mappings"
-        :key="index"
+        v-for="mapping in mappings"
+        :key="mapping.description"
         :class="b('row')"
       >
         <div :class="b('left')">

@@ -18,9 +18,8 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import type { Theme, VasSettingsStore } from '../stores/settings';
-  import { THEMES, THEME_CONFIG, useVasSettingsStore } from '../stores/settings';
-  import type { Icon } from '../types/icon';
+  import { Theme, VasSettingsStore, THEMES, THEME_CONFIG, useVasSettingsStore } from '../stores/settings';
+  import { Icon } from '../types/icon';
   import eVasIcon from './e-vas-icon.vue';
 
   type Setup = {
@@ -107,7 +106,7 @@
         color: var(--vas-theme-text-color);
         border-color: var(--vas-theme-text-color-muted);
         font-weight: variables.$vas-font-weight--semi-bold;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 12%);
+        box-shadow: 0 1px 3px variables.$vas-shadow-color--soft;
       }
     }
   }

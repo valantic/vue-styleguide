@@ -7,8 +7,8 @@
       <span
         :key="currentIndex"
         :class="b('text')"
-        >{{ currentTip }}</span
       >
+        {{ currentTip }}</span>
     </transition>
   </div>
 </template>

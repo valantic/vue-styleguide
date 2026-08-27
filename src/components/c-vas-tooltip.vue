@@ -18,8 +18,7 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
 
   // type Setup = {};
   type Data = {

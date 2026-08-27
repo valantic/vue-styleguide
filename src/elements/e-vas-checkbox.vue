@@ -23,11 +23,10 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent, toRefs } from 'vue';
-  import type { FormStates } from '../compositions/form-states';
+  import { PropType, defineComponent, toRefs } from 'vue';
+  import { FormStates } from '../compositions/form-states';
   import useFormStates, { withProps } from '../compositions/form-states';
-  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
@@ -247,7 +246,7 @@
           height: $e-vas-checkbox--toggle-size;
           border-radius: 50%;
           background-color: var(--vas-theme-background-content);
-          box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 20%);
+          box-shadow: 0 1px 2px 1px variables.$vas-shadow-color--default;
           transform: translateY(-50%);
           transition: left variables.$vas-transition-duration--default;
         }

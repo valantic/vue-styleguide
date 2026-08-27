@@ -27,33 +27,7 @@ To reduce dev overhead it is currently only installable by a github link. Add th
 
 Find available versions here: [Github Releases](https://github.com/valantic/vue-styleguide/tags)
 
-<<<<<<< HEAD
-Roadmap:
-
-- More config possibilities for a certain feature or page.
-- Slots in `l-vas-layout` for common used things like documentation link or description.
-
-## Documentation
-
-Full documentation — installation, setup, demo pages, x-ray mode, release process — lives at
-**[valantic.github.io/vue-styleguide](https://valantic.github.io/vue-styleguide)**.
-
-## Demo
-
-See this project in action: [Demo-Page](https://valantic.github.io/vue-styleguide/demo/)
-
-## Quickstart
-
-This lib is part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a more complex usage.
-
-To reduce dev overhead it is currently only installable by a github link. Add this to your package.json.
-
-Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
-
-```
-=======
 ```bash
->>>>>>> feature/vitpress
   "devDependencies": {
     "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.1.0",
   }
@@ -61,8 +35,6 @@ Find available versions here: [https://github.com/valantic/vue-styleguide/tags](
 
 See the [Installation](https://valantic.github.io/vue-styleguide/guide/installation) and
 [Setup](https://valantic.github.io/vue-styleguide/guide/setup) guides for the full walkthrough.
-<<<<<<< HEAD
-=======
 
 ---
 
@@ -71,7 +43,6 @@ See the [Installation](https://valantic.github.io/vue-styleguide/guide/installat
 ## from valantic - with love
 
 Built and maintained by [valantic](https://www.valantic.com/en/careers/) — we're hiring, check out our [open positions](https://www.valantic.com/en/careers/).
->>>>>>> feature/vitpress
 
 ## License
 

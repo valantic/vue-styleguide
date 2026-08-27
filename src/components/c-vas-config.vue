@@ -64,7 +64,7 @@
 
     // setup(): Setup {
     //   return {};
-    // },,
+    // },
     data(): Data {
       return {
         persistedCount: 0,

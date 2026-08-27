@@ -9,18 +9,18 @@
     <div :class="b('mapping')">
       <div
         v-for="mapping in mappings"
-        :key="mapping.description"
+        :key="mapping.id"
         :class="b('row')"
       >
         <div :class="b('left')">
           <div
-            v-for="(hotkey, hotkeyIndex) in mapping.hotkeys"
-            :key="hotkeyIndex"
+            v-for="hotkey in mapping.hotkeys"
+            :key="hotkey.join('')"
             :class="b('hotkey')"
           >
             <span
               v-for="(key, keyIndex) in hotkey"
-              :key="keyIndex"
+              :key="`${key}-${keyIndex}`"
             >
               {{ key }}
             </span>
@@ -78,7 +78,7 @@
         return HOTKEYS.map((entry) => {
           const resolved = resolveHotkey(entry, mac);
 
-          return { hotkeys: resolved.display, description: resolved.description };
+          return { id: entry.id, hotkeys: resolved.display, description: resolved.description };
         });
       },
       isOpenInternal: {

@@ -282,10 +282,10 @@
     // updated() {},
     // activated() {},
     // deactivated() {},
-    beforeUnmount() {
+    // beforeUnmount() {},
+    unmounted() {
       document.removeEventListener('click', this.onDocumentClick, { capture: true });
     },
-    // unmounted() {},
 
     methods: {
       onDocumentClick(event: MouseEvent): void {

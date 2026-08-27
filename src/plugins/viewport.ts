@@ -164,17 +164,17 @@ const onResize = () => {
   viewportHeight.value = window.innerHeight;
 };
 
-export function addViewportResizeEvent(): void {
+export const addViewportResizeEvent = (): void => {
   if (typeof window !== 'undefined') {
     window.addEventListener('resize', onResize);
   }
-}
+};
 
-export function removeViewportResizeEvent(): void {
+export const removeViewportResizeEvent = (): void => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('resize', onResize);
   }
-}
+};
 
 // Singleton instance
 const viewport = new Viewport();
@@ -182,6 +182,6 @@ const viewport = new Viewport();
 /**
  * Composable for accessing the shared viewport state.
  */
-export function useViewport(): Viewport {
+export const useViewport = (): Viewport => {
   return viewport;
-}
+};

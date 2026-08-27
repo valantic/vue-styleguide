@@ -2,10 +2,7 @@
   <div :class="b()">
     <e-vas-toggle v-model="enabled"> X-ray mode </e-vas-toggle>
 
-    <p
-      v-if="true"
-      :class="b('warning')"
-    >
+    <p :class="b('warning')">
       For accurate results across third-party components, install the x-ray inspector plugin — see the
       <a
         :href="setupGuideUrl"

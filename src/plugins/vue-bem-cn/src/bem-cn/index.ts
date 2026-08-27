@@ -10,11 +10,12 @@ type Options = {
 /**
  * Returns a BEM name creator method with the given options applied.
  */
-export default function bemCn(block: string, options: Options) {
-  // any is unavoidable here: elem accepts either an element-name string or a mods object,
-  // and is narrowed at runtime via isString/isPObject below.
+// any is unavoidable here: elem accepts either an element-name string or a mods object,
+// and is narrowed at runtime via isString/isPObject below.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const bemCn = (block: string, options: Options): ((elem: any, mods?: string | object, mix?: string) => string) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return function entities(elem: any, mods?: string | object, mix?: string): string {
+  const entities = (elem: any, mods?: string | object, mix?: string): string => {
     const resultObj = {
       block,
       el: '',
@@ -46,4 +47,8 @@ export default function bemCn(block: string, options: Options) {
 
     return options.hyphenate ? hyphenate(bemClasses) : bemClasses;
   };
-}
+
+  return entities;
+};
+
+export default bemCn;

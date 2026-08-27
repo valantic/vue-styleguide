@@ -15,7 +15,7 @@ type Entities = {
 /**
  * Create String from BEM entitys.
  */
-export default function bemNames(entities: Entities, delimiters: Delimiters): string {
+const bemNames = (entities: Entities, delimiters: Delimiters): string => {
   let resultString = entities.block;
 
   if (entities.el) {
@@ -37,4 +37,6 @@ export default function bemNames(entities: Entities, delimiters: Delimiters): st
   }
 
   return resultString + (entities.mixin ? ` ${entities.mixin}` : '');
-}
+};
+
+export default bemNames;

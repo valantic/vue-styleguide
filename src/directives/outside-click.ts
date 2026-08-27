@@ -21,11 +21,11 @@ type OutsideClickElement = HTMLElement & {
   [storageKey]: OutsideClickHandlerFunction;
 };
 
-function isClickOnExcludedRefElement(
+const isClickOnExcludedRefElement = (
   excludeRefs: string[],
   eventTarget: Node,
   binding: OutsideClickDirectiveBinding,
-): boolean {
+): boolean => {
   return excludeRefs.some((refName) => {
     const excludedElement = binding.instance?.$refs[refName];
 
@@ -45,19 +45,19 @@ function isClickOnExcludedRefElement(
 
     return false;
   });
-}
+};
 
-function isClickOnExcludedIdElement(excludeIds: string[], eventTarget: Node): boolean {
+const isClickOnExcludedIdElement = (excludeIds: string[], eventTarget: Node): boolean => {
   return excludeIds.some((id) => {
     const element = document.getElementById(id);
 
     return element && element.contains(eventTarget);
   });
-}
+};
 
-function isClickOnExcludedElement(excludeElements: Node[], eventTarget: Node): boolean {
+const isClickOnExcludedElement = (excludeElements: Node[], eventTarget: Node): boolean => {
   return excludeElements.some((element) => element.contains(eventTarget));
-}
+};
 
 /**
  * Directive to handle an outside click for a specific DOM element and/or given excludes.

@@ -66,6 +66,9 @@
 
   // stylelint-disable max-line-length
 
+  // Element selectors are intentional here, not an oversight: this feature lints the DOM
+  // structure of arbitrary consumer-authored markup, so the rules must target raw HTML tags
+  // (a, button, table, ...) rather than BEM classes that consumer markup will never have.
   .c-vas-html-validation--enabled {
     @mixin html-validator-warning($message: '') {
       outline: 5px solid variables.$vas-color-status--error;

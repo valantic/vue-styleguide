@@ -1,5 +1,5 @@
 {
-  "base": "/vue-styleguide/",
+  "base": "/vue-styleguide/demo/",
   "outDir": "dist",
   "assetsDir": "assets",
   "profileBuild": "app",

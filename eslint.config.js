@@ -13,7 +13,15 @@ export default [
   ...eslintConfigValanticPrettier,
   eslintConfigPrettier,
   {
-    ignores: ['dist/', 'node_modules/', 'public/', '**/.DS_Store', 'src/styleguide/translations.json'],
+    ignores: [
+      'dist/',
+      'node_modules/',
+      'public/',
+      '**/.DS_Store',
+      'src/styleguide/translations.json',
+      'docs/.vitepress/dist/',
+      'docs/.vitepress/cache/',
+    ],
   },
   {
     languageOptions: {

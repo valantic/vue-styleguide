@@ -15,23 +15,23 @@ This library provides a standardized, interactive sidebar designed to be integra
 
 Roadmap:
 
-- Better documentation.
 - More config possibilities for a certain feature or page.
 - Slots in `l-vas-layout` for common used things like documentation link or description.
 
+## Documentation
+
+Full documentation — installation, setup, demo pages, x-ray mode, release process — lives at
+**[valantic.github.io/vue-styleguide](https://valantic.github.io/vue-styleguide)**.
+
 ## Demo
 
-See this project in action [Demo-Page](https://valantic.github.io/vue-styleguide)
+See this project in action: [Demo-Page](https://valantic.github.io/vue-styleguide/demo/)
 
-## Introduction
-
-### How to use:
+## Quickstart
 
 This lib is part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a more complex usage.
 
-#### Install via npm
-
-To reduce dev overhead it is currently only installable by a github link. Add this to your package.json
+To reduce dev overhead it is currently only installable by a github link. Add this to your package.json.
 
 Find available versions here: [https://github.com/valantic/vue-styleguide/tags](https://github.com/valantic/vue-styleguide/tags)
 
@@ -41,69 +41,8 @@ Find available versions here: [https://github.com/valantic/vue-styleguide/tags](
   }
 ```
 
-#### Include it in the test section of your project:
-
-See [https://github.com/valantic/vue-template/blob/main/src/styleguide/styleguide.vue](https://github.com/valantic/vue-template/blob/main/src/styleguide/styleguide.vue)
-
-Include the sidebar in your project. This is the minimum example:
-
-[https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-mvp.vue](https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-mvp.vue)
-
-##### More advanced example
-
-In case you want to place global settings here is a more real life scenario
-
-[https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-advanced.vue](https://github.com/valantic/vue-styleguide/blob/main/docs/setup-examples/styleguide-advanced.vue)
-
-
-## Predefined demo pages
-
-### Favorites and Last Opened
-
-The sidebar navigation displays your "Favorites" and "Last 5 Opened" pages at the top.
-
-#### Favorites
-
-You can mark any route as a favorite to group it at the top of the navigation. To do so, add `favorite: true` to the route's `meta` object:
-
-```ts
-{
-  path: 'my-page',
-  name: 'my-page',
-  component: () => import('./MyPage.vue'),
-  meta: {
-    title: 'My Page',
-    favorite: true,
-  },
-}
-```
-
-#### Last Opened
-
-The styleguide automatically tracks the last 5 pages you've visited during your session. They are displayed at the top of the navigation for quick access.
-
-### Readme
-
-Import a default demo page to display the projects README.md file.
-
-In your `styleguide/setup/routes.ts` you can add:
-
-```ts
-import { styleguideRouterConfig, styleguideTestPages } from '@valantic/vue-styleguide';
-
-export default [
-  {
-    path: styleguideRouterConfig.rootPath,
-    name: 'sg-root',
-    component: styleguideRouterConfig.routeChildrenComponentWrapper,
-    redirect: `${styleguideRouterConfig.rootPath}/${styleguideTestPages.readme.path}`,
-    meta: {
-      title: 'Styleguide',
-    },
-    children: [styleguideTestPages.readme],
-  },
-]
-```
+See the [Installation](https://valantic.github.io/vue-styleguide/guide/installation) and
+[Setup](https://valantic.github.io/vue-styleguide/guide/setup) guides for the full walkthrough.
 
 ## License
 

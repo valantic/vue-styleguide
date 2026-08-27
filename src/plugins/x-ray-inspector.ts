@@ -14,7 +14,8 @@ import { markComponentInstance } from '../utils/vue-component-inspector';
  *     app.use(vasXRayInspector);
  *   }
  *
- * See docs/x-ray-mode.md for the full setup guide.
+ * See docs/features/x-ray-mode.md (or https://valantic.github.io/vue-styleguide/features/x-ray-mode)
+ * for the full setup guide.
  */
 export default {
   install(app: App): void {

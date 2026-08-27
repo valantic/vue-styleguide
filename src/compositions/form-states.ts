@@ -1,5 +1,4 @@
-import type { ComputedRef, PropType, Ref } from 'vue';
-import { computed, ref } from 'vue';
+import { computed, ComputedRef, PropType, ref, Ref } from 'vue';
 
 export enum FieldState {
   Default = 'default',

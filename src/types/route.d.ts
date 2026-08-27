@@ -1,4 +1,4 @@
-import type { ComponentPublicInstance } from 'vue';
+import { ComponentPublicInstance } from 'vue';
 
 export type RouteMeta = {
   title: string;

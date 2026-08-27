@@ -2,7 +2,7 @@
   <l-vas-layout>
     <template #pageConfig>
       <e-vas-button
-        style="margin-bottom: 50px"
+        :class="b('reset-button')"
         @click="clearPersistentStore"
       >
         Reset persisted values
@@ -127,3 +127,11 @@
     // render() {},
   });
 </script>
+
+<style lang="scss">
+  .r-vas-page-settings-persistent {
+    &__reset-button {
+      margin-bottom: 50px;
+    }
+  }
+</style>

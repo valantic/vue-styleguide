@@ -3,7 +3,7 @@
     <e-vas-toggle v-model="enabled"> X-ray mode </e-vas-toggle>
 
     <p
-      v-if="true"
+      v-if="!markerActive"
       :class="b('warning')"
     >
       For accurate results across third-party components, install the x-ray inspector plugin — see the
@@ -22,7 +22,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import eVasToggle from '../elements/e-vas-toggle.vue';
-  import { type VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import { hasComponentMarker } from '../utils/vue-component-inspector';
 
   type Setup = {

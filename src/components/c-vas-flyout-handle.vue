@@ -12,10 +12,9 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
-  import type { Icon } from '../types/icon';
+  import { Icon } from '../types/icon';
 
   // type Setup = {};
   // type Data = {};

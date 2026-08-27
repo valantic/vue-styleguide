@@ -31,13 +31,15 @@
         <e-vas-checkbox
           v-model="checkboxChecked"
           name="preview-checked"
-          >Checked</e-vas-checkbox
         >
+          Checked
+        </e-vas-checkbox>
         <e-vas-checkbox
           v-model="checkboxUnchecked"
           name="preview-unchecked"
-          >Unchecked</e-vas-checkbox
         >
+          Unchecked
+        </e-vas-checkbox>
       </div>
     </section>
 
@@ -48,14 +50,16 @@
           v-model="radioValue"
           name="preview-radio"
           value="a"
-          >Option A</e-vas-radio
         >
+          Option A
+        </e-vas-radio>
         <e-vas-radio
           v-model="radioValue"
           name="preview-radio"
           value="b"
-          >Option B</e-vas-radio
         >
+          Option B
+        </e-vas-radio>
       </div>
     </section>
 

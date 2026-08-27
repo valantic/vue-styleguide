@@ -26,10 +26,9 @@
 </template>
 
 <script lang="ts">
-  import type { ClassValue, PropType } from 'vue';
-  import { defineComponent } from 'vue';
-  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
-  import type { Icon } from '../types/icon';
+  import { ClassValue, PropType, defineComponent } from 'vue';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { Icon } from '../types/icon';
   import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 

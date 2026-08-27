@@ -28,8 +28,7 @@
   import { defineComponent } from 'vue';
   import eVasSelect from '../elements/e-vas-select.vue';
   import eVasThemeSelector from '../elements/e-vas-theme-selector.vue';
-  import type { VasSettingsStore } from '../stores/settings';
-  import { useVasSettingsStore } from '../stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
   import cVasTypography from './c-vas-typography.vue';
 
   type Setup = {

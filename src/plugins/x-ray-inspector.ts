@@ -1,4 +1,4 @@
-import type { App, ComponentPublicInstance, Plugin } from 'vue';
+import { App, ComponentPublicInstance, Plugin } from 'vue';
 import { markComponentInstance } from '../utils/vue-component-inspector';
 
 /**

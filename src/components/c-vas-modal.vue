@@ -14,7 +14,7 @@
         @click.stop
       >
         <div
-          v-if="($slots.head || title || isClosable) && !hideHeader"
+          v-if="showHeader"
           :class="b('header')"
         >
           <slot
@@ -56,10 +56,9 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import eVasIcon from '../elements/e-vas-icon.vue';
-  import type { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
 
   // type Setup = {};
   // type Data = {};
@@ -160,6 +159,9 @@
           size: this.size,
           spacing: this.spacing,
         };
+      },
+      showHeader(): boolean {
+        return (!!this.$slots.head || !!this.title || this.isClosable) && !this.hideHeader;
       },
     },
     watch: {

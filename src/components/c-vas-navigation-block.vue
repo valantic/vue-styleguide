@@ -44,10 +44,8 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent } from 'vue';
-  import type { RouteRecordRaw } from 'vue-router';
-  import { useRoute, useRouter } from 'vue-router';
+  import { PropType, defineComponent } from 'vue';
+  import { RouteRecordRaw, useRoute, useRouter } from 'vue-router';
   import eVasIcon from '../elements/e-vas-icon.vue';
 
   type Setup = {

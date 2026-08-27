@@ -11,7 +11,7 @@
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import { type VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
 
   type Setup = {
     vasSettingsStore: VasSettingsStore;
@@ -101,7 +101,7 @@
     font-family: variables.$vas-font-family--sidebar;
     font-size: var(--vas-font-size-base);
     font-weight: variables.$vas-font-weight--semi-bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 20%);
+    box-shadow: 0 4px 12px variables.$vas-shadow-color--default;
     pointer-events: none;
 
     &__fade-enter-active,

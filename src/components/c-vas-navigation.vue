@@ -46,13 +46,11 @@
 </template>
 
 <script lang="ts">
-  import type { PropType } from 'vue';
-  import { defineComponent } from 'vue';
-  import type { RouteRecordRaw } from 'vue-router';
+  import { PropType, defineComponent } from 'vue';
+  import { RouteRecordRaw } from 'vue-router';
   import eVasIcon from '../elements/e-vas-icon.vue';
   import eVasInput from '../elements/e-vas-input.vue';
-  import type { VasSessionStore } from '../stores/session';
-  import { useVasSessionStore } from '../stores/session';
+  import { VasSessionStore, useVasSessionStore } from '../stores/session';
   import { validateRoutes } from '../utils/route-validator';
   import cVasNavigationBlock from './c-vas-navigation-block.vue';
 
@@ -246,11 +244,9 @@
         // search an element and the list is updated somehow - if this happens - the first entry is selected again.
         const startIndex = this.activeIndex === -1 ? 0 : this.activeIndex + 1;
 
-        for (let i = startIndex; i < this.flattenedRoutes.length; i++) {
-          const route = this.flattenedRoutes[i];
-
+        for (const [offset, route] of this.flattenedRoutes.slice(startIndex).entries()) {
           if (!route?.children?.length) {
-            this.activeIndex = i;
+            this.activeIndex = startIndex + offset;
 
             return;
           }
@@ -258,11 +254,11 @@
       },
 
       onKeyDownUp(): void {
-        for (let i = this.activeIndex - 1; i >= 0; i--) {
-          const route = this.flattenedRoutes[i];
+        const candidates = [...this.flattenedRoutes.slice(0, this.activeIndex).entries()].reverse();
 
+        for (const [index, route] of candidates) {
           if (!route?.children?.length) {
-            this.activeIndex = i;
+            this.activeIndex = index;
 
             return;
           }

@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [ENHANCEMENT] Project-wide cleanup to match the frontend/Vue/TypeScript style guidelines: normalized multi-line-attribute template tag formatting, replaced index-based `:key`s with stable ones and extracted a complex inline `v-if` into a computed in `c-vas-modal`, merged `import type` statements into plain imports, added explicit return types to `useVasSettingsStore`/`useVasSessionStore`, replaced `while`/classic `for` loops with recursion/`for...of` in `vue-component-inspector.ts` and `c-vas-navigation`, and replaced hardcoded hex/rgba colors with `$vas-color-*`/`$vas-shadow-color-*` SCSS variables (adding new tokens where no match existed).
+- [FEATURE] Add a VitePress documentation site (`docs/`), deployed alongside the demo app on GitHub Pages (site at the root, demo under `/demo/`). Covers installation, sidebar setup, demo pages, the sidebar interface, hotkeys, settings, custom settings slots, the demo card, and one page per Features-panel toggle (e.g. x-ray mode, HTML validation).
+
 ## v2.1.0
 
 - [FEATURE] Added `patch()` to the local store for partial updates to persisted objects.

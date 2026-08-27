@@ -37,7 +37,7 @@
     },
 
     emits: {
-      'update:modelValue': (value: unknown): boolean => value !== 'undefined',
+      'update:modelValue': (value: unknown): boolean => typeof value === 'boolean',
     },
 
     // setup(): Setup {

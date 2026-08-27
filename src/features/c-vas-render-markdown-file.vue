@@ -8,8 +8,7 @@
 </template>
 
 <script lang="ts">
-  import type { Component, Ref } from 'vue';
-  import { defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
+  import { Component, Ref, defineAsyncComponent, defineComponent, markRaw, ref, watch } from 'vue';
 
   type Setup = {
     markdownComponent: Ref<Component | null>;
@@ -108,6 +107,9 @@
   // stylelint-disable selector-class-pattern,selector-max-id
   @use '../setup/scss/variables';
 
+  // The color values below are a vendored markdown/highlight.js rendering theme, not original
+  // project styling — intentionally excluded from the "reuse $vas-color-* variables" rule so
+  // future upstream theme updates can still be diffed/applied cleanly.
   .c-vas-render-markdown-file {
     $color-black: #000000;
     $color-white: #ffffff;

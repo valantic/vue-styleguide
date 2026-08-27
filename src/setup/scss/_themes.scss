@@ -1,33 +1,35 @@
+@use 'variables';
+
 // Theme definitions via CSS custom properties, scoped to the sidebar reset wrapper.
 // The light theme is the default; .vas-theme--dark overrides the values.
 
 .vas-styleguide-theme-light {
-  --vas-theme-text-color: #1a1a1a;
-  --vas-theme-text-color-muted: rgba(0, 0, 0, 38%);
-  --vas-theme-text-color-highlight: #000000;
-  --vas-theme-border-color: #d3d3d3;
-  --vas-theme-background-content: #ffffff;
-  --vas-theme-background-surface: #f5f5f5;
-  --vas-theme-background-surface-hover: #e9e9e9;
-  --vas-theme-background-container: #f5f5f5;
-  --vas-theme-overlay: rgba(26, 26, 26, 25%);
-  --vas-theme-button-bg: #d3d3d3;
-  --vas-theme-button-bg-hover: #e9e9e9;
-  --vas-theme-highlight: rgba(0, 0, 0, 8%);
+  --vas-theme-text-color: #{variables.$vas-color-grayscale--0};
+  --vas-theme-text-color-muted: #{rgba(variables.$vas-color-black, 38%)};
+  --vas-theme-text-color-highlight: #{variables.$vas-color-black};
+  --vas-theme-border-color: #{variables.$vas-color-grayscale--600};
+  --vas-theme-background-content: #{variables.$vas-color-white};
+  --vas-theme-background-surface: #{variables.$vas-color-grayscale--800};
+  --vas-theme-background-surface-hover: #{variables.$vas-color-grayscale--700};
+  --vas-theme-background-container: #{variables.$vas-color-grayscale--800};
+  --vas-theme-overlay: #{rgba(variables.$vas-color-grayscale--0, 25%)};
+  --vas-theme-button-bg: #{variables.$vas-color-grayscale--600};
+  --vas-theme-button-bg-hover: #{variables.$vas-color-grayscale--700};
+  --vas-theme-highlight: #{rgba(variables.$vas-color-black, 8%)};
 }
 
 .vas-styleguide-theme-dark {
-  --vas-theme-text-color: #BBBBBB;
-  --vas-theme-text-color-muted: rgba(232, 232, 232, 55%);
-  --vas-theme-text-color-highlight: #FEFEFE;
-  --vas-theme-border-color: #606368;
-  --vas-theme-border-color-decent: #3a3a3a;
-  --vas-theme-background-content: #272C34;
-  --vas-theme-background-surface: #1C1E23;
-  --vas-theme-background-surface-hover: #2f2f2f;
-  --vas-theme-background-container: #1C1E23;
-  --vas-theme-overlay: rgba(26, 26, 26, 25%);
-  --vas-theme-button-bg: #3a3a3a;
-  --vas-theme-button-bg-hover: #4a4a4a;
-  --vas-theme-highlight: rgba(255, 255, 255, 8%);
+  --vas-theme-text-color: #{variables.$vas-color-grayscale--550};
+  --vas-theme-text-color-muted: #{rgba(variables.$vas-color-grayscale--750, 55%)};
+  --vas-theme-text-color-highlight: #{variables.$vas-color-grayscale--950};
+  --vas-theme-border-color: #{variables.$vas-color-grayscale--250};
+  --vas-theme-border-color-decent: #{variables.$vas-color-grayscale--150};
+  --vas-theme-background-content: #{variables.$vas-color-slate--800};
+  --vas-theme-background-surface: #{variables.$vas-color-slate--900};
+  --vas-theme-background-surface-hover: #{variables.$vas-color-grayscale--100};
+  --vas-theme-background-container: #{variables.$vas-color-slate--900};
+  --vas-theme-overlay: #{rgba(variables.$vas-color-grayscale--0, 25%)};
+  --vas-theme-button-bg: #{variables.$vas-color-grayscale--150};
+  --vas-theme-button-bg-hover: #{variables.$vas-color-grayscale--200};
+  --vas-theme-highlight: #{rgba(variables.$vas-color-white, 8%)};
 }

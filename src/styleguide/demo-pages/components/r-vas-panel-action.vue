@@ -278,13 +278,15 @@
                 <c-vas-panel-action
                   variant="fluid"
                   icon="i-cog-wheel"
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
                 <c-vas-panel-action
                   variant="fluid"
                   icon="i-close"
-                  >Close</c-vas-panel-action
                 >
+                  Close
+                </c-vas-panel-action>
               </div>
             </td>
             <td>
@@ -295,13 +297,15 @@
                 <c-vas-panel-action
                   variant="fluid"
                   icon="i-cog-wheel"
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
                 <c-vas-panel-action
                   variant="fluid"
                   icon="i-close"
-                  >Close</c-vas-panel-action
                 >
+                  Close
+                </c-vas-panel-action>
               </div>
             </td>
           </tr>
@@ -316,8 +320,9 @@
                   variant="fluid"
                   icon="i-cog-wheel"
                   active
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
               </div>
             </td>
             <td>
@@ -329,8 +334,9 @@
                   variant="fluid"
                   icon="i-cog-wheel"
                   active
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
               </div>
             </td>
           </tr>
@@ -345,8 +351,9 @@
                   variant="fluid"
                   icon="i-cog-wheel"
                   disabled
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
               </div>
             </td>
             <td>
@@ -358,8 +365,9 @@
                   variant="fluid"
                   icon="i-cog-wheel"
                   disabled
-                  >Settings</c-vas-panel-action
                 >
+                  Settings
+                </c-vas-panel-action>
               </div>
             </td>
           </tr>

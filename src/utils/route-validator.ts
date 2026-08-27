@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router';
+import { RouteRecordRaw } from 'vue-router';
 
 /**
  * Emits a console warning for every route whose meta does not satisfy the

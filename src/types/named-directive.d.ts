@@ -1,4 +1,4 @@
-import type { Directive } from 'vue';
+import { Directive } from 'vue';
 
 type NamedDirective = Directive & {
   name: string;

@@ -7,7 +7,10 @@
       >
         Button
       </e-vas-button>
-      <e-vas-toggle v-model="toggleValue"> Toggle me </e-vas-toggle>
+      <e-vas-toggle
+        v-model="toggleValue"
+        label="Toggle me"
+      />
     </template>
 
     <div :class="b()">

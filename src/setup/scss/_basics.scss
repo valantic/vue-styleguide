@@ -132,7 +132,10 @@
     -webkit-appearance: none;
   }
 
-  :focus-visible {
+  // `e-vas-field` draws the focus ring on the field itself, because the control it wraps
+  // only covers part of the field whenever an append (e.g. a select's chevron) sits next
+  // to it. Excluding those controls here keeps this rule's ID specificity from winning.
+  :focus-visible:not(.e-vas-field__control > *) {
     outline: 2px solid currentColor;
     outline-offset: 2px;
   }
@@ -159,7 +162,8 @@
 }
 
 .vas-styleguide-theme-light {
-  :focus-visible {
+  // See the note on the same rule above.
+  :focus-visible:not(.e-vas-field__control > *) {
     outline: 2px solid currentColor;
     outline-offset: 2px;
   }

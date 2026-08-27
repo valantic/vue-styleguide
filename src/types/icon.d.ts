@@ -1,6 +1,7 @@
 // Don't edit this file. Use the NPM script 'build:icons' instead.
 export type Icon = 'i-bin' |
   'i-bug' |
+  'i-check' |
   'i-chevron--down' |
   'i-close' |
   'i-cog-wheel' |

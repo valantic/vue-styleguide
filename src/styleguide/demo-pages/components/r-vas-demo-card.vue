@@ -1,11 +1,21 @@
 <template>
   <l-vas-layout>
     <template #pageConfig>
-      <e-vas-toggle v-model="forceConfigurationTop"> Force configuration on top </e-vas-toggle>
+      <e-vas-toggle
+        v-model="forceConfigurationTop"
+        label="Force configuration on top"
+      />
+      <e-vas-toggle
+        v-model="singleTheme"
+        label="Single theme"
+      />
     </template>
     <div :class="b()">
       <section :class="b('section')">
-        <c-vas-demo-card :force-configuration-top="forceConfigurationTop">
+        <c-vas-demo-card
+          :force-configuration-top="forceConfigurationTop"
+          :single-theme="singleTheme"
+        >
           <template #header> Demo Card Header </template>
           <template #demo>
             <e-vas-button primary>Action</e-vas-button>
@@ -27,6 +37,7 @@
   // type Setup = {};
   type Data = {
     forceConfigurationTop: boolean;
+    singleTheme: boolean;
   };
 
   /**
@@ -51,6 +62,7 @@
     data(): Data {
       return {
         forceConfigurationTop: false,
+        singleTheme: false,
       };
     },
 

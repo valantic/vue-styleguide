@@ -36,6 +36,14 @@ export const routes = [
         },
       },
       {
+        path: 'sg-test-page-vas-textarea',
+        name: 'sg-test-page-vas-textarea',
+        component: () => import('../demo-pages/elements/r-vas-textarea.vue'),
+        meta: {
+          title: 'Textarea',
+        },
+      },
+      {
         path: 'sg-test-page-vas-checkbox',
         name: 'sg-test-page-vas-checkbox',
         component: () => import('../demo-pages/elements/r-vas-checkbox.vue'),

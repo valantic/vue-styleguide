@@ -1,0 +1,85 @@
+@use 'variables';
+
+// Shared building blocks for the form fields.
+//
+// The visual language is a port of Vuetify's `filled` field variant (the framework default),
+// scaled down to the styleguide's compact type scale. All inner sizes are expressed in `em`
+// of the field's own font size, so the proportions survive the user-configurable sidebar
+// font size (see `--vas-font-size-root` in `c-vas-sidebar.vue`) without any JS.
+
+// Opacities taken 1:1 from Vuetify's theme defaults.
+$vas-field-emphasis--medium: 0.6;
+$vas-field-emphasis--high: 0.87;
+$vas-field-opacity--disabled: 0.38;
+$vas-field-overlay-opacity: 0.04;
+$vas-field-overlay-opacity--hover: 0.08;
+$vas-field-overlay-opacity--focus: 0.16;
+$vas-field-border-opacity: 0.38;
+
+// Vuetify shrinks the floating label to 75% of the field font size.
+$vas-field-label-scale: 0.75;
+
+// The keyboard focus ring deliberately stays quieter than the 2px underline that animates
+// in on focus, so the underline remains the element the eye lands on. Both knobs are here
+// to make the ring easy to dial in.
+$vas-field-focus-ring-width: 1px;
+$vas-field-focus-ring-offset: 2px;
+$vas-field-focus-ring-strength: 45%;
+
+$vas-field-transition: 150ms ease;
+$vas-field-transition--subtle: 250ms ease;
+
+/// Declares the geometry of a filled field.
+///
+/// The values are ratios of Vuetify's own (16px based) metrics, re-tuned for the
+/// smaller sidebar type scale so a field ends up at roughly 40px instead of 56px.
+@mixin tokens() {
+  --e-vas-field-font-size: var(--vas-font-size-label, #{variables.$vas-font-size--label});
+  --e-vas-field-line-height: 1.5;
+  --e-vas-field-padding-inline: #{variables.$vas-spacing--10};
+
+  // Distance between the top of the field and the floating label.
+  --e-vas-field-padding-top: 0.35em;
+  --e-vas-field-padding-bottom: 0.3em;
+
+  // Leaves room above the value for the floating label.
+  --e-vas-field-input-padding-top: 1.25em;
+
+  // Vertical travel of the label between its resting and its floating position.
+  --e-vas-field-label-float: 0.62em;
+
+  // Resting height of a field, mirroring Vuetify's fixed 56px control height.
+  --e-vas-field-min-height: calc(
+    var(--e-vas-field-input-padding-top) + (1em * var(--e-vas-field-line-height)) + var(--e-vas-field-padding-bottom)
+  );
+
+  // Drives the underline and the label; overridden by the state modifiers.
+  --e-vas-field-state-color: var(--vas-theme-text-color);
+}
+
+/// Returns the accent color of a form state, used for underlines, labels and indicators.
+@function state-color($state) {
+  @if $state == 'error' {
+    @return variables.$vas-color-status--error;
+  } @else if $state == 'success' {
+    @return variables.$vas-color-green-primary;
+  } @else if $state == 'warning' {
+    @return variables.$vas-color-orange-primary;
+  } @else if $state == 'info' {
+    @return variables.$vas-color-blue-primary;
+  }
+
+  @return var(--vas-theme-text-color);
+}
+
+/// Label of a selection control (checkbox, radio, switch).
+///
+/// Vuetify renders these next to the control instead of floating them, so they only
+/// need the shared typography and the disabled/state colors.
+@mixin selection-label() {
+  color: var(--vas-theme-text-color);
+  font-size: var(--vas-font-size-label, #{variables.$vas-font-size--label});
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  user-select: none;
+}

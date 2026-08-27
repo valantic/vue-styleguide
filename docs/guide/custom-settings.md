@@ -25,7 +25,10 @@ slot content.
 <template>
   <l-vas-layout>
     <template #pageConfig>
-      <e-vas-toggle v-model="showDisabledState">Show disabled state</e-vas-toggle>
+      <e-vas-toggle
+        v-model="showDisabledState"
+        label="Show disabled state"
+      />
     </template>
 
     <my-component :disabled="showDisabledState" />

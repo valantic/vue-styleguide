@@ -2,23 +2,22 @@
   <router-view />
   <c-vas-sidebar>
     <template #customSettings>
-      <e-vas-toggle v-model="isLoggedIn"> Logged In </e-vas-toggle>
+      <e-vas-toggle
+        v-model="isLoggedIn"
+        label="Logged In"
+      />
 
-      <label>
-        Language:
-        <e-vas-select
-          :model-value="currentLocale"
-          :options="locales"
-        />
-      </label>
+      <e-vas-select
+        :model-value="currentLocale"
+        :options="locales"
+        label="Language"
+      />
 
-      <label>
-        Theme:
-        <e-vas-select
-          :model-value="currentTheme"
-          :options="themes"
-        />
-      </label>
+      <e-vas-select
+        :model-value="currentTheme"
+        :options="themes"
+        label="Theme"
+      />
     </template>
   </c-vas-sidebar>
 </template>

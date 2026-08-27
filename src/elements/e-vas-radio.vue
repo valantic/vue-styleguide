@@ -13,8 +13,12 @@
       type="radio"
       @change="onChange"
     />
-    <span :class="b('label')">
-      <slot></slot>
+    <span :class="b('indicator')"></span>
+    <span
+      v-if="$slots.default || label"
+      :class="b('label')"
+    >
+      <slot>{{ label }}</slot>
     </span>
   </label>
 </template>
@@ -30,7 +34,8 @@
 
   /**
    * Renders a radio element. Use a v-for loop to generate a set of radio buttons.
-   * The displayed name can either be provided by the property `displayName` or as a slot.
+   * The displayed name can either be provided by the property `label` or as the default slot,
+   * which takes precedence.
    */
   export default defineComponent({
     name: 'e-vas-radio',
@@ -133,14 +138,18 @@
 
 <style lang="scss">
   @use '../setup/scss/variables';
+  @use '../setup/scss/form-field';
 
   .e-vas-radio {
-    $e-vas-radio--label-size: 18px;
+    $this: &;
+    $e-vas-radio--indicator-size: 18px;
+    $e-vas-radio--ripple-size: 8px;
 
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: variables.$vas-spacing--8;
     cursor: pointer;
-    font-size: var(--vas-font-size-label);
 
     &__field {
       position: absolute;
@@ -148,67 +157,79 @@
       -webkit-appearance: none;
     }
 
-    &__label {
-      display: block;
-      margin: 0;
-      padding-top: 2px;
-      padding-left: variables.$vas-spacing--26;
+    &__indicator {
+      position: relative;
+      display: flex;
+      flex: 0 0 auto;
+      width: $e-vas-radio--indicator-size;
+      height: $e-vas-radio--indicator-size;
+      border: 2px solid var(--vas-theme-text-color);
+      border-radius: 50%;
+      transition: border-color form-field.$vas-field-transition;
+      opacity: form-field.$vas-field-emphasis--medium;
 
-      &:hover {
-        color: var(--vas-theme-text-color);
-
-        &::before {
-          border-color: var(--vas-theme-text-color);
-        }
+      // Vuetify's hover/focus ripple around the control.
+      &::before {
+        position: absolute;
+        content: '';
+        border-radius: 50%;
+        background-color: currentcolor;
+        opacity: 0;
+        transition: opacity form-field.$vas-field-transition--subtle;
+        pointer-events: none;
+        inset: -#{$e-vas-radio--ripple-size};
       }
 
-      &::before,
+      // Selected dot.
       &::after {
         position: absolute;
-        top: 3px;
-        left: 0;
         content: '';
-        width: $e-vas-radio--label-size;
-        height: $e-vas-radio--label-size;
         border-radius: 50%;
-      }
-
-      &::before {
-        border: 1px solid var(--vas-theme-border-color);
-      }
-
-      &::after {
-        opacity: 0;
-        border: 1px solid transparent;
-        background: var(--vas-theme-text-color);
+        background-color: var(--vas-theme-text-color);
         transform: scale(0);
-        transition: transform 0.1s ease-in-out;
+        transition: transform 100ms ease-in-out;
+        inset: 2px;
       }
     }
 
-    &__field:checked + &__label {
-      color: var(--vas-theme-text-color);
+    &:hover &__indicator::before {
+      opacity: form-field.$vas-field-overlay-opacity;
+    }
+
+    &__field:focus-visible ~ &__indicator::before {
+      opacity: form-field.$vas-field-overlay-opacity--focus;
+    }
+
+    &__field:checked ~ &__indicator {
+      opacity: 1;
 
       &::after {
-        opacity: 1;
-        transform: scale(0.6);
+        transform: scale(1);
       }
     }
 
-    &__field:disabled + &__label {
-      cursor: not-allowed;
-      color: var(--vas-theme-text-color-muted);
+    &__label {
+      @include form-field.selection-label;
 
-      &::before {
-        border-color: var(--vas-theme-border-color);
+      display: block;
+      margin: 0;
+    }
+
+    &__field:disabled {
+      ~ #{$this}__indicator,
+      ~ #{$this}__label {
+        cursor: not-allowed;
+        opacity: form-field.$vas-field-opacity--disabled;
       }
     }
 
-    &__field:checked:disabled + &__label {
-      cursor: not-allowed;
+    &--state-error {
+      #{$this}__label {
+        color: #{form-field.state-color('error')};
+      }
 
-      &::after {
-        background: var(--vas-theme-border-color);
+      #{$this}__indicator {
+        border-color: #{form-field.state-color('error')};
       }
     }
   }

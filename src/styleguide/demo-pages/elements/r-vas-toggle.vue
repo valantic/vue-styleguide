@@ -4,15 +4,24 @@
       <c-vas-demo-card>
         <template #header> Toggle </template>
         <template #demo>
-          <e-vas-toggle v-model="value">Notifications</e-vas-toggle>
+          <e-vas-toggle
+            v-model="value"
+            :disabled="disabled"
+            label="Notifications"
+          />
         </template>
         <template #sidebar>
           <e-vas-checkbox
             v-model="value"
             name="value"
-          >
-            value
-          </e-vas-checkbox>
+            label="value"
+          />
+
+          <e-vas-checkbox
+            v-model="disabled"
+            name="disabled"
+            label="disabled"
+          />
         </template>
       </c-vas-demo-card>
     </div>
@@ -29,6 +38,7 @@
   // type Setup = {};
   type Data = {
     value: boolean;
+    disabled: boolean;
   };
 
   /**
@@ -53,6 +63,7 @@
     data(): Data {
       return {
         value: true,
+        disabled: false,
       };
     },
 

@@ -9,6 +9,9 @@
   --vas-theme-text-color-highlight: #{variables.$vas-color-black};
   --vas-theme-border-color: #{variables.$vas-color-grayscale--600};
   --vas-theme-background-content: #{variables.$vas-color-white};
+  // Surfaces floating above the content (dropdowns, menus). White already is the lightest
+  // value here, so on the light theme the separation comes from the border and the shadow.
+  --vas-theme-background-elevated: #{variables.$vas-color-white};
   --vas-theme-background-surface: #{variables.$vas-color-grayscale--800};
   --vas-theme-background-surface-hover: #{variables.$vas-color-grayscale--700};
   --vas-theme-background-container: #{variables.$vas-color-grayscale--800};
@@ -25,6 +28,8 @@
   --vas-theme-border-color: #{variables.$vas-color-grayscale--250};
   --vas-theme-border-color-decent: #{variables.$vas-color-grayscale--150};
   --vas-theme-background-content: #{variables.$vas-color-slate--800};
+  // Lighter than the content it floats above, the way elevation reads on a dark theme.
+  --vas-theme-background-elevated: #{variables.$vas-color-slate--700};
   --vas-theme-background-surface: #{variables.$vas-color-slate--900};
   --vas-theme-background-surface-hover: #{variables.$vas-color-grayscale--100};
   --vas-theme-background-container: #{variables.$vas-color-slate--900};

@@ -146,6 +146,7 @@
           { prop: '--vas-theme-text-color-highlight', light: '#000000', dark: '#FEFEFE' },
           { prop: '--vas-theme-border-color', light: '#d3d3d3', dark: '#606368' },
           { prop: '--vas-theme-background-content', light: '#ffffff', dark: '#272C34' },
+          { prop: '--vas-theme-background-elevated', light: '#ffffff', dark: '#434A55' },
           { prop: '--vas-theme-background-surface', light: '#f5f5f5', dark: '#1C1E23' },
           { prop: '--vas-theme-background-surface-hover', light: '#e9e9e9', dark: '#2f2f2f' },
           { prop: '--vas-theme-button-bg', light: '#d3d3d3', dark: '#3a3a3a' },

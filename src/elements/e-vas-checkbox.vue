@@ -16,8 +16,11 @@
       @focus="onFocus"
     />
     <span :class="b('indicator')"></span>
-    <span :class="b('label-text')">
-      <slot></slot>
+    <span
+      v-if="$slots.default || label"
+      :class="b('label-text')"
+    >
+      <slot>{{ label }}</slot>
     </span>
   </label>
 </template>
@@ -37,6 +40,9 @@
   /**
    * Checkbox component for form elements.
    * Can be used as single element with a Boolean value or multiple checkboxes with an Array.
+   *
+   * The label can either be passed with the `label` property or, if it needs markup, as the
+   * default slot. The slot takes precedence.
    */
   export default defineComponent({
     name: 'e-vas-checkbox',
@@ -132,7 +138,7 @@
        * Evaluates if the checkbox is currently selected.
        */
       isChecked(): boolean {
-        return Array.isArray(this.value) ? this.value.includes(this.modelValue) : this.value;
+        return Array.isArray(this.modelValue) ? this.modelValue.includes(this.value) : this.modelValue;
       },
     },
     // watch: {},
@@ -166,17 +172,20 @@
 <style lang="scss">
   @use 'sass:math';
   @use '../setup/scss/variables';
+  @use '../setup/scss/form-field';
 
   .e-vas-checkbox {
     $this: &;
-    $e-vas-checkbox--label-size: 20px;
+    $e-vas-checkbox--indicator-size: 18px;
+    $e-vas-checkbox--ripple-size: 8px;
     $e-vas-checkbox--toggle-size: 1rem;
 
     position: relative;
-    display: block;
-    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: variables.$vas-spacing--8;
+    margin-bottom: variables.$vas-spacing--8;
     cursor: pointer;
-    font-size: var(--vas-font-size-label);
 
     &__field {
       position: absolute;
@@ -184,50 +193,76 @@
       visibility: hidden;
     }
 
-    &--variant-default {
-      display: flex;
-      align-items: center;
+    &__label-text {
+      @include form-field.selection-label;
 
+      display: block;
+      margin: 0;
+    }
+
+    &--variant-default {
       #{$this}__indicator {
         position: relative;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
-        width: $e-vas-checkbox--label-size;
-        height: $e-vas-checkbox--label-size;
-        border: 1px solid variables.$vas-form-border-color;
-        border-radius: variables.$vas-form-border-radius;
-        background: variables.$vas-color-grayscale--1000;
+        justify-content: center;
+        width: $e-vas-checkbox--indicator-size;
+        height: $e-vas-checkbox--indicator-size;
+        border: 2px solid var(--vas-theme-text-color);
+        border-radius: 2px;
+        transition:
+          background-color form-field.$vas-field-transition,
+          border-color form-field.$vas-field-transition;
+        opacity: form-field.$vas-field-emphasis--medium;
 
+        // Vuetify's hover/focus ripple around the control.
         &::before {
+          position: absolute;
           content: '';
-          width: $e-vas-checkbox--label-size;
-          height: $e-vas-checkbox--label-size;
+          border-radius: 50%;
+          background-color: currentcolor;
           opacity: 0;
-          border: 1px solid transparent;
-          border-radius: 3px;
-          background: variables.$vas-color-grayscale--0;
-          transform: scale(0);
-          transition-timing-function: ease-in-out;
-          transition-duration: 100ms;
-          transition-property: opacity, transform;
-          inset: 0;
+          transition: opacity form-field.$vas-field-transition--subtle;
+          pointer-events: none;
+          inset: -#{$e-vas-checkbox--ripple-size};
+        }
+
+        // Checkmark.
+        &::after {
+          position: absolute;
+          top: 45%;
+          left: 50%;
+          content: '';
+          width: 5px;
+          height: 9px;
+          border: solid var(--vas-theme-background-content);
+          border-width: 0 2px 2px 0;
+          transform: translate(-50%, -50%) rotate(45deg) scale(0);
+          transition: transform 100ms ease-in-out;
         }
       }
 
-      #{$this}__field:checked {
-        ~ #{$this}__indicator::before {
-          opacity: 1;
-          transform: scale(0.6);
+      &:hover #{$this}__indicator::before {
+        opacity: form-field.$vas-field-overlay-opacity;
+      }
+
+      #{$this}__field:focus-visible ~ #{$this}__indicator::before {
+        opacity: form-field.$vas-field-overlay-opacity--focus;
+      }
+
+      #{$this}__field:checked ~ #{$this}__indicator {
+        border-color: var(--vas-theme-text-color);
+        background-color: var(--vas-theme-text-color);
+        opacity: 1;
+
+        &::after {
+          transform: translate(-50%, -50%) rotate(45deg) scale(1);
         }
       }
     }
 
     &--variant-toggle {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-
       #{$this}__indicator {
         position: relative;
         width: calc(1.5 * #{$e-vas-checkbox--toggle-size});
@@ -263,50 +298,21 @@
       }
     }
 
-    &__label-text {
-      display: block;
-      margin: 0;
-      padding-left: variables.$vas-spacing--10;
-
-      &:hover {
-        color: var(--vas-theme-text-color);
-
-        &::before {
-          border-color: var(--vas-theme-text-color);
-        }
-      }
-    }
-
-    &__field:checked {
-      ~ #{$this}__label-text {
-        color: var(--vas-theme-text-color);
-      }
-    }
-
-    &__field:checked:disabled {
-      ~ #{$this}__indicator {
-        border-color: var(--vas-theme-border-color);
-      }
-
-      ~ #{$this}__indicator:before {
-        background: var(--vas-theme-border-color);
-        cursor: not-allowed;
-      }
-    }
-
     &__field:disabled {
-      ~ #{$this}__indicator {
-        border-color: var(--vas-theme-border-color);
-        cursor: not-allowed;
-      }
-
+      ~ #{$this}__indicator,
       ~ #{$this}__label-text {
         cursor: not-allowed;
-        color: var(--vas-theme-text-color-muted);
+        opacity: form-field.$vas-field-opacity--disabled;
+      }
+    }
 
-        &::before {
-          border-color: var(--vas-theme-border-color);
-        }
+    &--state-error {
+      #{$this}__label-text {
+        color: #{form-field.state-color('error')};
+      }
+
+      #{$this}__indicator {
+        border-color: #{form-field.state-color('error')};
       }
     }
   }

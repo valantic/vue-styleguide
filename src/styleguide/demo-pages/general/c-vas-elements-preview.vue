@@ -20,8 +20,14 @@
     <section :class="b('section')">
       <span :class="b('label')">Toggle</span>
       <div :class="b('column')">
-        <e-vas-toggle v-model="toggleOn">Toggle on</e-vas-toggle>
-        <e-vas-toggle :model-value="false">Toggle off</e-vas-toggle>
+        <e-vas-toggle
+          v-model="toggleOn"
+          label="Toggle on"
+        />
+        <e-vas-toggle
+          :model-value="false"
+          label="Toggle off"
+        />
       </div>
     </section>
 
@@ -68,7 +74,18 @@
       <e-vas-input
         v-model="inputValue"
         placeholder="Placeholder text…"
+        label="Input label"
         name="preview-input"
+      />
+    </section>
+
+    <section :class="b('section')">
+      <span :class="b('label')">Textarea</span>
+      <e-vas-textarea
+        v-model="textareaValue"
+        label="Textarea label"
+        name="preview-textarea"
+        rows="3"
       />
     </section>
 
@@ -77,6 +94,7 @@
       <e-vas-select
         v-model="selectValue"
         :options="selectOptions"
+        label="Select label"
       />
     </section>
   </div>
@@ -89,6 +107,7 @@
   import eVasInput from '../../../elements/e-vas-input.vue';
   import eVasRadio from '../../../elements/e-vas-radio.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
+  import eVasTextarea from '../../../elements/e-vas-textarea.vue';
   import eVasToggle from '../../../elements/e-vas-toggle.vue';
 
   // type Setup = {};
@@ -98,6 +117,7 @@
     checkboxUnchecked: boolean;
     radioValue: string;
     inputValue: string;
+    textareaValue: string;
     selectValue: string;
     selectOptions: { value: string; label: string }[];
   };
@@ -111,6 +131,7 @@
       eVasInput,
       eVasRadio,
       eVasSelect,
+      eVasTextarea,
       eVasToggle,
     },
 
@@ -127,6 +148,7 @@
         checkboxUnchecked: false,
         radioValue: 'a',
         inputValue: 'Sample input value',
+        textareaValue: 'Sample multiline value',
         selectValue: 'b',
         selectOptions: [
           { value: 'a', label: 'Option A' },

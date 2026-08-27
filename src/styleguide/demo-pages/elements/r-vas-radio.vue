@@ -10,13 +10,12 @@
             :key="opt.value"
             :name="opt.name"
             :value="opt.value"
+            :label="opt.label"
             :disabled="state.disabled"
             :readonly="state.readonly"
             :error="state.error"
             :valid="state.valid"
-          >
-            {{ opt.label }}
-          </e-vas-radio>
+          />
         </template>
         <template #sidebar>
           <e-vas-checkbox

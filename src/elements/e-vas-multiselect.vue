@@ -3,35 +3,54 @@
     ref="container"
     :class="b(modifiers)"
   >
-    <!-- Search field -->
-    <input
-      v-if="isOpen && hasSearch"
-      v-model="searchTerm"
-      ref="searchField"
-      :class="b('search-field')"
-      type="text"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
-    />
-
-    <!-- Trigger Button -->
-    <button
-      v-else
-      ref="fieldWrapper"
-      :class="b('field-wrapper', { open: isOpen, disabled: isDisabled })"
+    <e-vas-field
+      :label="label"
+      :label-id="labelId"
+      :state="state"
+      :active="isActive"
+      :focused="isOpen"
       :disabled="isDisabled"
-      type="button"
-      @click="isOpen = !isOpen"
-      @mouseenter="hover = true"
-      @mouseleave="hover = false"
     >
-      <span :class="b('output-value')">
-        {{ outputValue }}
-      </span>
-      <span :class="b('progress-wrapper')">
+      <!-- Search field -->
+      <input
+        v-if="isOpen && hasSearch"
+        v-model="searchTerm"
+        ref="searchField"
+        :class="b('search-field')"
+        :aria-labelledby="label ? labelId : undefined"
+        type="text"
+        @mouseenter="hover = true"
+        @mouseleave="hover = false"
+      />
+
+      <!-- Trigger Button -->
+      <button
+        v-else
+        ref="fieldWrapper"
+        :class="b('field-wrapper', { open: isOpen, disabled: isDisabled })"
+        :disabled="isDisabled"
+        :aria-expanded="isOpen ? 'true' : 'false'"
+        :aria-labelledby="label ? labelId : undefined"
+        type="button"
+        @click="isOpen = !isOpen"
+        @mouseenter="hover = true"
+        @mouseleave="hover = false"
+      >
+        <span :class="b('output-value')">
+          {{ outputValue }}
+        </span>
+      </button>
+
+      <template #append>
         <e-vas-progress v-if="progress" />
-      </span>
-    </button>
+        <e-vas-icon
+          v-else
+          :class="b('arrow-icon')"
+          icon="i-chevron--down"
+          size="12"
+        />
+      </template>
+    </e-vas-field>
 
     <!-- Content -->
     <transition name="top-slide">
@@ -68,6 +87,8 @@
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { SelectOptionType } from '../types';
   import eVasCheckbox from './e-vas-checkbox.vue';
+  import eVasField from './e-vas-field.vue';
+  import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 
   type Setup = FormStates &
@@ -90,6 +111,8 @@
 
     components: {
       eVasCheckbox,
+      eVasField,
+      eVasIcon,
       eVasProgress,
     },
 
@@ -200,6 +223,14 @@
       },
 
       /**
+       * Returns the `id` of the label, referenced by the control via `aria-labelledby`.
+       * A `for` attribute is not an option here, since the control is a `button`.
+       */
+      labelId(): string {
+        return `e-vas-multiselect--${this.uuid}`;
+      },
+
+      /**
        * V-model handler for the checkboxes (options).
        */
       internalValue: {
@@ -239,6 +270,14 @@
         }
 
         return '';
+      },
+
+      /**
+       * Evaluates if the label has to float out of the field, which is the case as soon as
+       * the control shows any text of its own.
+       */
+      isActive(): boolean {
+        return this.isOpen || !!this.outputValue || !this.label;
       },
 
       /**
@@ -322,65 +361,45 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      width: 100%;
-      padding: variables.$vas-form-field-padding;
-      border: 1px solid variables.$vas-form-border-color;
-      border-radius: variables.$vas-form-border-radius;
-      background-color: var(--vas-theme-background-content);
       cursor: pointer;
-
-      &:focus {
-        outline: none;
-      }
-    }
-
-    // hover
-    &__field-wrapper:hover,
-    &--hover &__field-wrapper {
-      border-color: variables.$vas-form-border-color--hover;
-    }
-
-    &__field-wrapper--open {
-      border-color: var(--vas-theme-border-color);
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-
-      #{$this}__arrow-icon {
-        transform: rotate(180deg);
-      }
-
-      + #{$this}__options-wrapper {
-        border-color: var(--vas-theme-border-color);
-      }
+      text-align: left;
     }
 
     &__field-wrapper--disabled {
-      color: var(--vas-theme-text-color-muted);
-      pointer-events: none;
+      cursor: default;
+    }
+
+    &__field-wrapper--open {
+      #{$this}__arrow-icon {
+        transform: rotate(180deg);
+      }
     }
 
     &__output-value {
-      flex: 1 0 calc(100% - 20px);
-      max-width: calc(100% - 20px);
       overflow: hidden;
-      text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    &__arrow-icon {
+      display: flex;
+      transition: transform variables.$vas-transition-duration--default;
     }
 
     &__options-wrapper {
       position: absolute;
       top: 100%;
       left: 0;
-      z-index: 1;
+      z-index: 2;
       display: block;
       width: 100%;
       max-height: 300px;
       padding-top: variables.$vas-form-field-padding;
       overflow: auto;
-      border: 1px solid variables.$vas-form-border-color;
+      border: 1px solid var(--vas-theme-border-color);
       border-top: 0;
-      background-color: var(--vas-theme-background-content);
+      background-color: var(--vas-theme-background-elevated);
+      box-shadow: 0 2px 6px variables.$vas-shadow-color--soft;
       transform-origin: top;
     }
 
@@ -392,24 +411,8 @@
       padding: math.div(variables.$vas-form-field-padding, 2) variables.$vas-form-field-padding;
     }
 
-    &__progress-wrapper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-    }
-
     &__search-field {
-      width: 100%;
-      padding: variables.$vas-form-field-padding;
-      outline: none;
-      border: 1px solid variables.$vas-form-border-color;
-      border-top-left-radius: variables.$vas-form-border-radius;
-      border-top-right-radius: variables.$vas-form-border-radius;
+      color: var(--vas-theme-text-color);
     }
   }
 </style>

@@ -25,6 +25,7 @@ export default defineConfig({
           { text: 'Hotkeys', link: '/guide/hotkeys' },
           { text: 'Settings', link: '/guide/settings' },
           { text: 'Custom settings', link: '/guide/custom-settings' },
+          { text: 'Form fields', link: '/guide/form-fields' },
           { text: 'Demo card', link: '/guide/demo-card' },
         ],
       },

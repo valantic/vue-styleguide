@@ -61,6 +61,13 @@ describe('e-vas-select', () => {
     expect(wrapper.find('select').attributes('disabled')).toBeDefined();
   });
 
+  test('disables the select when the disabled attribute is passed', () => {
+    const wrapper = mountSelect({ disabled: true });
+
+    expect(wrapper.find('select').attributes('disabled')).toBeDefined();
+    expect(wrapper.find('.e-vas-field').classes()).toContain('e-vas-field--disabled');
+  });
+
   test('supports custom valueField/labelField', () => {
     const wrapper = mountSelect({
       options: [{ id: 'x', name: 'Option X' }],
@@ -71,5 +78,25 @@ describe('e-vas-select', () => {
 
     expect(customOption.attributes('value')).toBe('x');
     expect(customOption.text()).toBe('Option X');
+  });
+
+  describe('label', () => {
+    test('renders no label element without a label', () => {
+      expect(mountSelect().find('label').exists()).toBe(false);
+    });
+
+    test('renders the label and connects it with the select', () => {
+      const wrapper = mountSelect({ label: 'Category' });
+      const id = wrapper.find('select').attributes('id');
+
+      expect(wrapper.find('label').text()).toBe('Category');
+      expect(wrapper.find('label').attributes('for')).toBe(id);
+    });
+
+    test('always floats the label, since a select always shows a value or its placeholder', () => {
+      const wrapper = mountSelect({ label: 'Category' });
+
+      expect(wrapper.classes()).toContain('e-vas-field--active');
+    });
   });
 });

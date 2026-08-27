@@ -3,7 +3,7 @@
     <div :class="b('grid')">
       <div :class="b('left')">
         <div :class="b('font-highlight')">Aa</div>
-        <div :class="b('font-name')">Arial</div>
+        <div :class="b('font-name')">Inter</div>
         <div :class="b('font-special-chars')">
           ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽabcčćdđefghijklmnopqrsštuvwxyzžАБВГҐ
           ДЂЕЁЄЖЗЅИІЇЙЈКЛЉМНЊОПРСТЋУЎФХЦЧЏШЩЪЫЬЭЮЯабвгґдђеёєжзѕиіїйјклљмнњопр

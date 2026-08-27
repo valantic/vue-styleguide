@@ -10,14 +10,13 @@
             :key="opt.value"
             :name="opt.name"
             :value="opt.value"
+            :label="opt.label"
             :disabled="state.disabled"
             :readonly="state.readonly"
             :error="state.error"
             :valid="state.valid"
             :variant="state.toggle ? 'toggle' : 'default'"
-          >
-            {{ opt.label }}
-          </e-vas-checkbox>
+          />
         </template>
         <template #sidebar>
           <e-vas-checkbox

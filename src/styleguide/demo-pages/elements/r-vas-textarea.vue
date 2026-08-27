@@ -2,40 +2,57 @@
   <l-vas-layout :class="b()">
     <div :class="b('section')">
       <c-vas-demo-card>
-        <template #header> Default Input </template>
+        <template #header> Default Textarea </template>
         <template #demo>
-          <e-vas-input
+          <e-vas-textarea
             v-model="value"
-            name="text-input"
+            :class="b('textarea')"
             :label="label"
             :placeholder="placeholder"
-            :disabled="state.disabled"
-            :readonly="state.readonly"
-            :error="state.error"
-            :valid="state.valid"
+            :rows="rows"
+            :auto-grow="autoGrow"
+            :no-resize="noResize"
+            :disabled="disabled"
+            name="text-area"
           />
         </template>
         <template #sidebar>
           <e-vas-input
             v-model="label"
             name="label"
-            label="Label"
+            label="label"
           />
 
           <e-vas-input
             v-model="placeholder"
             name="placeholder"
-            label="Placeholder"
+            label="placeholder"
+          />
+
+          <e-vas-input
+            v-model="rows"
+            name="rows"
+            type="number"
+            label="rows"
           />
 
           <e-vas-checkbox
-            v-for="key in Object.keys(state)"
-            v-model="state[key]"
-            :key="key"
-            :name="key"
-          >
-            {{ key }}
-          </e-vas-checkbox>
+            v-model="autoGrow"
+            name="autoGrow"
+            label="autoGrow"
+          />
+
+          <e-vas-checkbox
+            v-model="noResize"
+            name="noResize"
+            label="noResize"
+          />
+
+          <e-vas-checkbox
+            v-model="disabled"
+            name="disabled"
+            label="disabled"
+          />
         </template>
       </c-vas-demo-card>
     </div>
@@ -46,6 +63,7 @@
   import { defineComponent } from 'vue';
   import eVasCheckbox from '../../../elements/e-vas-checkbox.vue';
   import eVasInput from '../../../elements/e-vas-input.vue';
+  import eVasTextarea from '../../../elements/e-vas-textarea.vue';
   import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
@@ -54,22 +72,23 @@
     value: string;
     label: string;
     placeholder: string;
-    state: {
-      [key: string]: boolean;
-      disabled: boolean;
-      readonly: boolean;
-      error: boolean;
-      valid: boolean;
-    };
+    rows: string;
+    autoGrow: boolean;
+    noResize: boolean;
+    disabled: boolean;
   };
 
+  /**
+   * Styleguide demo for e-vas-textarea
+   */
   export default defineComponent({
-    name: 'r-vas-input',
+    name: 'r-vas-textarea',
 
     components: {
       cVasDemoCard,
       eVasCheckbox,
       eVasInput,
+      eVasTextarea,
       lVasLayout,
     },
 
@@ -82,14 +101,12 @@
     data(): Data {
       return {
         value: '',
-        label: 'Your name',
-        placeholder: 'Type something...',
-        state: {
-          disabled: false,
-          readonly: false,
-          error: false,
-          valid: false,
-        },
+        label: 'Description',
+        placeholder: 'Tell us more...',
+        rows: '5',
+        autoGrow: false,
+        noResize: false,
+        disabled: false,
       };
     },
 
@@ -111,3 +128,11 @@
     // render() {},
   });
 </script>
+
+<style lang="scss">
+  .r-vas-textarea {
+    &__textarea {
+      width: 300px;
+    }
+  }
+</style>

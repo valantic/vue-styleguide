@@ -12,6 +12,14 @@ const mountCheckbox = (props = {}) =>
     slots: { default: 'Label' },
   });
 
+const mountCheckboxWithoutSlot = (props = {}) =>
+  mount(eVasCheckbox, {
+    global: {
+      plugins: [vueBemCn],
+    },
+    props: { name: 'field', modelValue: false, ...props },
+  });
+
 describe('e-vas-checkbox', () => {
   describe('boolean mode', () => {
     test('reflects an unchecked modelValue', () => {
@@ -71,5 +79,25 @@ describe('e-vas-checkbox', () => {
     const wrapper = mountCheckbox();
 
     expect(wrapper.text()).toContain('Label');
+  });
+
+  describe('label', () => {
+    test('renders the label property', () => {
+      const wrapper = mountCheckboxWithoutSlot({ label: 'From prop' });
+
+      expect(wrapper.find('.e-vas-checkbox__label-text').text()).toBe('From prop');
+    });
+
+    test('prefers the default slot over the label property', () => {
+      const wrapper = mountCheckbox({ label: 'From prop' });
+
+      expect(wrapper.find('.e-vas-checkbox__label-text').text()).toBe('Label');
+    });
+
+    test('renders no label element without a label', () => {
+      const wrapper = mountCheckboxWithoutSlot();
+
+      expect(wrapper.find('.e-vas-checkbox__label-text').exists()).toBe(false);
+    });
   });
 });

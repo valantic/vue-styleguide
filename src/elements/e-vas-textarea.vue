@@ -8,27 +8,20 @@
     :focused="focus"
     :disabled="isDisabled"
   >
-    <input
+    <textarea
       v-model="internalValue"
       :id="fieldId"
-      ref="input"
-      :autocomplete="autocomplete"
+      ref="textarea"
       :class="b('field')"
       :name="name"
       :title="title"
       :placeholder="visiblePlaceholder"
+      :rows="rows"
       v-bind="$attrs"
       @blur="onBlur"
       @focus="onFocus"
       @input="onInput"
-      @keyup.enter="onEnterKeyUp"
-    />
-    <template
-      v-if="$slots.default"
-      #append
-    >
-      <slot></slot>
-    </template>
+    ></textarea>
   </e-vas-field>
 </template>
 
@@ -43,7 +36,7 @@
 
   type Setup = FormStates &
     Uuid & {
-      input: Ref<HTMLInputElement | null>;
+      textarea: Ref<HTMLTextAreaElement | null>;
     };
 
   type Data = {
@@ -51,10 +44,11 @@
   };
 
   /**
-   * Input form component
+   * Renders a multiline text field. It shares the label behaviour and the styling of
+   * `e-vas-input` and only differs in the control it wraps.
    */
   export default defineComponent({
-    name: 'e-vas-input',
+    name: 'e-vas-textarea',
 
     components: {
       eVasField,
@@ -91,7 +85,7 @@
 
       /**
        * Adds a placeholder. While a label is set, the placeholder only appears once the
-       * label has floated out of the field, mirroring Vuetify's behaviour.
+       * label has floated out of the field.
        */
       placeholder: {
         type: String,
@@ -99,37 +93,25 @@
       },
 
       /**
-       * Adds autocomplete
-       * Please refer to:
-       * [HTML5 input autocomplete](https://developer.mozilla.org/de/docs/Web/HTML/Element/Input#attr-autocomplete)
+       * Defines the amount of visible text lines.
        */
-      autocomplete: {
-        type: String,
-        default: 'off',
+      rows: {
+        type: [String, Number],
+        default: 5,
       },
 
       /**
-       * Option for selecting value text on focus.
+       * Grows the field with its content instead of scrolling it.
        */
-      selectOnFocus: {
+      autoGrow: {
         type: Boolean,
         default: false,
       },
 
       /**
-       * Hides the native browser control with CSS.
-       *
-       * Currently supported: `input[type="number"]`
+       * Prevents the user from resizing the field.
        */
-      noNativeControl: {
-        type: Boolean,
-        default: false,
-      },
-
-      /**
-       * Set auto focus.
-       */
-      autofocus: {
+      noResize: {
         type: Boolean,
         default: false,
       },
@@ -139,16 +121,15 @@
       'update:modelValue': (payload: string) => typeof payload === 'string',
       'focus': () => true,
       'blur': () => true,
-      'enter': () => true,
     },
 
     setup(props): Setup {
-      const input = ref();
+      const textarea = ref();
 
       return {
         ...useFormStates(toRefs(props).state),
         ...useUuid(),
-        input,
+        textarea,
       };
     },
 
@@ -157,22 +138,23 @@
         internalValue: this.modelValue,
       };
     },
+
     computed: {
       modifiers(): Modifiers {
         return {
           ...this.stateModifiers,
-          'type': (this.$attrs.type as string | undefined) ?? 'text',
 
           // Kebab-case, because the BEM plugin runs without `hyphenate`.
-          'no-native-control': this.noNativeControl,
+          'auto-grow': this.autoGrow,
+          'no-resize': this.noResize || this.autoGrow,
         };
       },
 
       /**
-       * Returns the `id` connecting the input with the label of the field.
+       * Returns the `id` connecting the textarea with the label of the field.
        */
       fieldId(): string {
-        return `e-vas-input--${this.uuid}`;
+        return `e-vas-textarea--${this.uuid}`;
       },
 
       /**
@@ -203,6 +185,7 @@
       modelValue(value: string) {
         if (value !== this.internalValue) {
           this.internalValue = value;
+          this.$nextTick(this.resize);
         }
       },
     },
@@ -211,9 +194,7 @@
     // created() {},
     // beforeMount() {},
     mounted() {
-      if (this.autofocus) {
-        this.focusInput();
-      }
+      this.resize();
     },
     // beforeUpdate() {},
     // updated() {},
@@ -224,19 +205,15 @@
 
     methods: {
       onInput(event: Event): void {
-        const target = event.target as HTMLInputElement;
+        const target = event.target as HTMLTextAreaElement;
 
         this.internalValue = target.value;
         this.$emit('update:modelValue', target.value);
+        this.resize();
       },
 
       onFocus(): void {
         this.focus = true;
-
-        if (this.selectOnFocus) {
-          this.selectValue();
-        }
-
         this.$emit('focus');
       },
 
@@ -245,37 +222,16 @@
         this.$emit('blur');
       },
 
-      onEnterKeyUp(): void {
-        this.$emit('enter');
-      },
-
       /**
-       * Selects the value of the input field.
+       * Matches the height of the field with the height of its content.
        */
-      selectValue(): void {
-        if (this.modelValue) {
-          // Needed to select a number value on Chrome.
-          this.input?.select();
-
-          // Timeout is needed that it works on all browsers (without there are problems on Safari, Edge, iOS)
-          if ('ontouchstart' in window) {
-            setTimeout(() => {
-              const selectionRange = typeof this.modelValue === 'string' ? this.modelValue.length : this.modelValue;
-
-              this.input?.setSelectionRange(0, selectionRange);
-            });
-          }
+      resize(): void {
+        if (!this.autoGrow || !this.textarea) {
+          return;
         }
-      },
 
-      /**
-       * Focus the input field.
-       */
-      focusInput(): void {
-        // Delay focusing to ensure that it works when the input field is placed within a transition (e.g. sidebar).
-        this.$nextTick(() => {
-          this.input?.focus();
-        });
+        this.textarea.style.height = 'auto';
+        this.textarea.style.height = `${this.textarea.scrollHeight}px`;
       },
     },
     // render() {},
@@ -283,28 +239,12 @@
 </script>
 
 <style lang="scss">
-  .e-vas-input {
+  .e-vas-textarea {
     $this: &;
 
     &__field {
-      // Sets proper input color for safari.
-      -webkit-text-fill-color: initial;
-
-      // Remove the "x" of the native IE/Edge clear control.
-      &::-ms-clear {
-        display: none;
-        width: 0;
-        height: 0;
-      }
-
-      // Hide autofill Safari icon
-      // noinspection CssInvalidPseudoSelector
-      &::-webkit-contacts-auto-fill-button {
-        position: absolute;
-        right: 0;
-        visibility: hidden;
-        pointer-events: none;
-      }
+      // Textareas should only resize vertically so they don't break their container.
+      resize: vertical;
 
       &::placeholder {
         opacity: 1;
@@ -313,19 +253,15 @@
       }
     }
 
-    &--type-hidden {
-      display: none;
+    &--no-resize {
+      #{$this}__field {
+        resize: none;
+      }
     }
 
-    &--no-native-control {
+    &--auto-grow {
       #{$this}__field {
-        appearance: textfield;
-
-        &::-webkit-inner-spin-button,
-        &::-webkit-outer-spin-button {
-          margin: 0;
-          appearance: none;
-        }
+        overflow: hidden;
       }
     }
   }

@@ -12,6 +12,14 @@ const mountRadio = (props = {}) =>
     slots: { default: 'Label' },
   });
 
+const mountRadioWithoutSlot = (props = {}) =>
+  mount(eVasRadio, {
+    global: {
+      plugins: [vueBemCn],
+    },
+    props: { name: 'field', value: 'a', modelValue: '', ...props },
+  });
+
 describe('e-vas-radio', () => {
   test('is not checked when modelValue does not match value', () => {
     const wrapper = mountRadio({ modelValue: 'b', value: 'a' });
@@ -46,5 +54,26 @@ describe('e-vas-radio', () => {
     const wrapper = mountRadio();
 
     expect(wrapper.text()).toContain('Label');
+  });
+
+  describe('label', () => {
+    test('renders the label property', () => {
+      const wrapper = mountRadioWithoutSlot({ label: 'From prop' });
+
+      expect(wrapper.find('.e-vas-radio__label').text()).toBe('From prop');
+    });
+
+    test('prefers the default slot over the label property', () => {
+      const wrapper = mountRadio({ label: 'From prop' });
+
+      expect(wrapper.find('.e-vas-radio__label').text()).toBe('Label');
+    });
+
+    test('renders the indicator even without a label', () => {
+      const wrapper = mountRadioWithoutSlot();
+
+      expect(wrapper.find('.e-vas-radio__label').exists()).toBe(false);
+      expect(wrapper.find('.e-vas-radio__indicator').exists()).toBe(true);
+    });
   });
 });

@@ -7,6 +7,7 @@
           <e-vas-select
             v-model="selected"
             :class="b('select')"
+            :label="label"
             :options="options"
             :placeholder="placeholder"
             :has-selectable-placeholder="hasSelectablePlaceholder"
@@ -41,10 +42,15 @@
           </e-vas-checkbox>
 
           <e-vas-input
+            v-model="label"
+            name="label"
+            label="label"
+          />
+
+          <e-vas-input
             v-model="placeholder"
             name="placeholder"
-            title="placeholder"
-            placeholder="placeholder"
+            label="placeholder"
           />
         </template>
       </c-vas-demo-card>
@@ -72,6 +78,7 @@
       error: boolean;
       valid: boolean;
     };
+    label: string;
     placeholder: string;
     hasSelectablePlaceholder: boolean;
     progress: boolean;
@@ -108,6 +115,7 @@
           error: false,
           valid: false,
         },
+        label: 'Category',
         placeholder: 'Choose an option',
         hasSelectablePlaceholder: false,
         progress: false,

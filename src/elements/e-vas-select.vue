@@ -1,11 +1,22 @@
 <template>
-  <span :class="b(modifiers)">
+  <e-vas-field
+    :class="b(modifiers)"
+    :label="label"
+    :field-id="fieldId"
+    :state="state"
+    :focused="focus"
+    :disabled="isDisabled"
+    active
+  >
     <select
+      :id="fieldId"
       :value="internalValue"
       :class="b('select')"
-      :disabled="progress"
+      :disabled="isDisabled"
       v-bind="$attrs"
+      @blur="onBlur"
       @change="onChange"
+      @focus="onFocus"
       @mouseenter="hover = true"
       @mouseleave="hover = false"
     >
@@ -25,36 +36,37 @@
         {{ option[labelField] }}
       </option>
     </select>
-    <span :class="b('icon-wrapper')">
+    <template #append>
       <span
         v-if="progress"
         :class="b('progress')"
       >
         <e-vas-progress />
       </span>
-      <span
+      <e-vas-icon
         v-else
         :class="b('icon')"
-      >
-        <e-vas-icon
-          icon="i-chevron--down"
-          size="12"
-        />
-      </span>
-    </span>
-  </span>
+        icon="i-chevron--down"
+        size="12"
+      />
+    </template>
+  </e-vas-field>
 </template>
 
 <script lang="ts">
   import { PropType, defineComponent, toRefs } from 'vue';
   import { FormStates } from '../compositions/form-states';
   import useFormStates, { withProps } from '../compositions/form-states';
+  import { Uuid } from '../compositions/uuid';
+  import useUuid from '../compositions/uuid';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
   import { SelectOptionType } from '../types';
+  import eVasField from './e-vas-field.vue';
   import eVasIcon from './e-vas-icon.vue';
   import eVasProgress from './e-vas-progress.vue';
 
-  // type Setup = {};
+  type Setup = FormStates & Uuid;
+
   type Data = {
     internalValue: string;
   };
@@ -66,6 +78,7 @@
     name: 'e-vas-select',
 
     components: {
+      eVasField,
       eVasIcon,
       eVasProgress,
     },
@@ -139,9 +152,10 @@
       'update:modelValue': (value: string): boolean => typeof value === 'string',
     },
 
-    setup(props): FormStates {
+    setup(props): Setup {
       return {
         ...useFormStates(toRefs(props).state),
+        ...useUuid(),
       };
     },
 
@@ -157,8 +171,31 @@
           ...this.stateModifiers,
         };
       },
+
+      /**
+       * Returns the `id` connecting the select with the label of the field.
+       */
+      fieldId(): string {
+        return `e-vas-select--${this.uuid}`;
+      },
+
+      /**
+       * Evaluates the disabled state, which is passed as a plain attribute, combined with the progress state.
+       */
+      isDisabled(): boolean {
+        return this.progress || (this.$attrs.disabled !== undefined && this.$attrs.disabled !== false);
+      },
     },
-    // watch: {},
+    watch: {
+      /**
+       * Updates internal value if model value got changed from parent.
+       */
+      modelValue(value: string) {
+        if (value !== this.internalValue) {
+          this.internalValue = value;
+        }
+      },
+    },
 
     // beforeCreate() {},
     // created() {},
@@ -178,72 +215,35 @@
         this.internalValue = select.value;
         this.$emit('update:modelValue', select.value);
       },
+
+      onFocus(): void {
+        this.focus = true;
+      },
+
+      onBlur(): void {
+        this.focus = false;
+      },
     },
     // render() {},
   });
 </script>
 
 <style lang="scss">
-  @use '../setup/scss/variables';
-
   .e-vas-select {
-    $this: &;
-
-    position: relative;
-    display: block;
-
     &__select {
-      width: 100%;
-      padding: 8px;
-      outline: none;
-      border: 1px solid variables.$vas-color-grayscale--500;
-      border-radius: 3px;
       cursor: pointer;
-      appearance: none;
 
       &::-ms-expand {
         display: none;
       }
-    }
 
-    // separator for state icons
-    &__icon-wrapper {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 24px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    // hover
-    &__select:hover,
-    &--hover &__select {
-      border: 1px solid variables.$vas-color-grayscale--400;
-    }
-
-    // focus
-    &__select:focus,
-    &--focus &__select {
-      outline: none;
-    }
-
-    // disabled
-    &__select:disabled,
-    &--disabled &__select,
-    &--disabled &__select:hover {
-      border-color: var(--vas-theme-border-color);
-      cursor: default;
-      color: var(--vas-theme-text-color-muted);
+      &:disabled {
+        cursor: default;
+      }
     }
 
     &__progress {
-      position: absolute;
-      right: 0;
+      display: flex;
     }
   }
 </style>

@@ -1,6 +1,9 @@
 <template>
   <div :class="b()">
-    <e-vas-toggle v-model="enabled"> X-ray mode </e-vas-toggle>
+    <e-vas-toggle
+      v-model="enabled"
+      label="X-ray mode"
+    />
 
     <p
       v-if="!markerActive"

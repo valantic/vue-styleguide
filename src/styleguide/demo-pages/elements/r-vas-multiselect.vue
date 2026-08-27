@@ -7,6 +7,7 @@
           <e-vas-multiselect
             v-model="values"
             :class="b('multiselect')"
+            :label="label"
             :options="options"
             :placeholder="placeholder"
             :has-search="hasSearch"
@@ -46,13 +47,16 @@
           </e-vas-checkbox>
 
           <e-vas-input
+            v-model="label"
+            name="label"
+            label="label"
+          />
+
+          <e-vas-input
             v-model="placeholder"
             name="placeholder"
-            title="placeholder"
-            placeholder="Placeholder text"
-          >
-            Placeholder
-          </e-vas-input>
+            label="placeholder"
+          />
         </template>
       </c-vas-demo-card>
     </div>
@@ -82,6 +86,7 @@
     hasSearch: boolean;
     disabled: boolean;
     progress: boolean;
+    label: string;
     placeholder: string;
   };
 
@@ -122,6 +127,7 @@
         hasSearch: false,
         disabled: false,
         progress: false,
+        label: 'Tags',
         placeholder: 'Choose options',
       };
     },

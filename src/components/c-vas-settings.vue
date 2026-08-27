@@ -9,12 +9,9 @@
     </div>
 
     <div :class="b('section')">
-      <c-vas-typography
-        variant="heading"
-        text="Font size"
-      />
       <e-vas-select
         name="font-size"
+        label="Font size"
         :model-value="String(settingsStore.state.fontSize)"
         :options="fontSizeOptions"
         :placeholder="false"

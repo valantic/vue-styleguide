@@ -4,6 +4,10 @@
 header, a demo area, and a "Configuration" sidebar area — laid out side by side on wider
 viewports, stacked on narrow ones.
 
+The `#demo` slot is rendered **once per theme**, in a light and a dark pane next to each other.
+Both copies are bound to the same state, so the controls in `#sidebar` drive both panes at once
+and a styling change can be checked on both themes without switching the sidebar theme.
+
 ```vue
 <template>
   <c-vas-demo-card>
@@ -16,7 +20,10 @@ viewports, stacked on narrow ones.
     </template>
 
     <template #sidebar>
-      <e-vas-toggle v-model="disabled">Disabled</e-vas-toggle>
+      <e-vas-toggle
+        v-model="disabled"
+        label="Disabled"
+      />
     </template>
   </c-vas-demo-card>
 </template>
@@ -49,15 +56,27 @@ viewports, stacked on narrow ones.
 
 | Slot | Purpose |
 |---|---|
-| `header` | Card header content — typically a title and short description. |
-| `demo` | The actual component/example being demonstrated. |
-| `sidebar` | The "Configuration" area — controls that drive the props/state of what's in `#demo`. |
+| `header` | Card header content — typically a title and short description. Rendered once. |
+| `demo` | The actual component/example being demonstrated. Rendered once per theme (see `singleTheme`). |
+| `sidebar` | The "Configuration" area — controls that drive the props/state of what's in `#demo`. Rendered once. |
 
 ## Props
 
 | Prop | Type | Default | Purpose |
 |---|---|---|---|
 | `forceConfigurationTop` | `Boolean` | `false` | Places the `#sidebar` area above `#demo` instead of beside it, on all viewport sizes. Useful when the configuration controls need more horizontal room than the side layout allows. |
+| `singleTheme` | `Boolean` | `false` | Renders `#demo` only once, on the light theme, instead of one pane per theme. Use it for demos that bring their own theming, or that must not exist twice on the page (e.g. anything driving a global, page-wide state). |
+
+## Theme panes
+
+Each pane is a `<form>` carrying the `vas-styleguide-theme-light` / `vas-styleguide-theme-dark`
+class. The `<form>` is not there for submitting anything (its `submit` is prevented) — it scopes
+native radio groups, so two `e-vas-radio`s sharing a `name` across the two panes don't end up in
+the same browser radio group and deselect each other.
+
+Because the slot is rendered twice, any component in `#demo` is instantiated twice. That is what
+makes both panes react to the same `#sidebar` controls, but it also means side effects in the
+demo run twice — reach for `singleTheme` when that matters.
 
 ## `#sidebar` vs. `#pageConfig`
 

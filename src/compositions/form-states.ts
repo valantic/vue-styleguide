@@ -31,6 +31,17 @@ export const withProps = () => ({
     type: String as PropType<FieldState>,
     default: 'default',
   },
+
+  /**
+   * Renders a label for the form field, so it does not have to be wrapped and styled
+   * by every consumer. Text fields (input, textarea, select, multiselect) float it out
+   * of the field as soon as they hold a value, selection controls (checkbox, radio,
+   * toggle) render it next to the control.
+   */
+  label: {
+    type: String,
+    default: null,
+  },
 });
 
 /**

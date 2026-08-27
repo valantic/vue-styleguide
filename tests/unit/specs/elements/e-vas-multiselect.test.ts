@@ -81,4 +81,41 @@ describe('e-vas-multiselect', () => {
 
     wrapper.unmount();
   });
+
+  describe('label', () => {
+    test('renders no label element without a label', () => {
+      const wrapper = mountMultiselect();
+
+      expect(wrapper.find('.e-vas-field__label').exists()).toBe(false);
+
+      wrapper.unmount();
+    });
+
+    test('references the label from the trigger, which cannot be targeted by a "for" attribute', () => {
+      const wrapper = mountMultiselect({ label: 'Tags' });
+      const labelId = wrapper.find('.e-vas-field__label').attributes('id');
+
+      expect(wrapper.find('.e-vas-field__label').text()).toBe('Tags');
+      expect(labelId).toBeDefined();
+      expect(wrapper.find('.e-vas-multiselect__field-wrapper').attributes('aria-labelledby')).toBe(labelId);
+
+      wrapper.unmount();
+    });
+
+    test('floats the label while the control shows its placeholder', () => {
+      const wrapper = mountMultiselect({ label: 'Tags', placeholder: 'Pick some' });
+
+      expect(wrapper.find('.e-vas-field').classes()).toContain('e-vas-field--active');
+
+      wrapper.unmount();
+    });
+
+    test('keeps the label inside the field while the control is empty', () => {
+      const wrapper = mountMultiselect({ label: 'Tags', placeholder: false });
+
+      expect(wrapper.find('.e-vas-field').classes()).not.toContain('e-vas-field--active');
+
+      wrapper.unmount();
+    });
+  });
 });

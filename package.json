@@ -108,7 +108,8 @@
     "workerDirectory": "public"
   },
   "files": [
-    "src"
+    "src",
+    "ai"
   ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",

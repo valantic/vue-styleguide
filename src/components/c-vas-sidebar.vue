@@ -329,6 +329,17 @@
     font-size: var(--vas-font-size-root);
     pointer-events: none;
 
+    // The reset above unsets <a> via :where(), which carries zero specificity and therefore can't
+    // reliably beat even a bare `a { color: ... }` rule in the host project's own CSS — regardless
+    // of load order, the host rule wins on specificity alone. Left alone, every link would inherit
+    // whichever link color the host page defines, which is often unreadable against our dark
+    // theme. This selector has real specificity (one class + one type), so it wins against any
+    // plain host `a`/`body a`-style rule. A component that intentionally wants a different link
+    // color (e.g. an accent color on a colored background) overrides it with `!important`.
+    a {
+      color: inherit;
+    }
+
     &--is-flyout-open {
       background-color: var(--vas-theme-overlay);
     }

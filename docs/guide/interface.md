@@ -19,6 +19,8 @@ panel is shown in that pane (except the ones described as "action" buttons below
 
 ## Right icon bar
 
+- **AI** (sparkle icon) — introduces the `vue-styleguide-demo-page` Claude Code skill and links to
+  its setup guide. See [AI skill](/guide/ai-skill).
 - **Features** (star icon) — toggles for X-ray mode and HTML validation. See
   [X-ray mode](/features/x-ray-mode) and [HTML validation](/features/html-validation).
 - **Report a Bug / Issue** (bug icon) — opens this project's GitHub issues page in a new tab.

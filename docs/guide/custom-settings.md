@@ -71,3 +71,10 @@ Besides the `#pageConfig` slot, `l-vas-layout` also accepts:
 | `padding` | `'default'` \| `'0'` | `'default'` | Content padding around the page body. |
 | `variant` | `'default'` \| `'plain'` | `'default'` | `'default'` adds the bordered container look; `'plain'` doesn't. |
 | `showHeadline` | `Boolean` | `true` | Whether to auto-render a headline from `route.meta.title` (falling back to the route name). |
+
+## `l-vas-layout` alone vs. `c-vas-demo-card`
+
+`#pageConfig` is for page-wide scenario toggles on an organism or full page (e.g. "many items in
+the cart", a missing permission, a loading/empty/error state) — those pages should use
+`l-vas-layout` alone, not `c-vas-demo-card`, which is sized and styled for a single small
+component. See [Demo page patterns](/guide/demo-page-patterns) for the full decision rule.

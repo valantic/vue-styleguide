@@ -82,6 +82,8 @@
 
       <c-vas-settings v-else-if="activePanel === 'settings'" />
 
+      <c-vas-ai v-else-if="activePanel === 'ai'" />
+
       <c-vas-features v-else-if="activePanel === 'features'" />
 
       <c-vas-config v-else-if="activePanel === 'globalConfig'">
@@ -110,6 +112,15 @@
 
     <div :class="b('slot', { right: true })">
       <div :class="b('elements-container', { column: true })">
+        <c-vas-panel-action
+          variant="icon"
+          icon="i-ai"
+          tooltip="AI"
+          tooltip-position="left"
+          :active="activePanel === 'ai'"
+          @click="activePanel = 'ai'"
+        />
+
         <c-vas-panel-action
           variant="icon"
           icon="i-star"
@@ -149,6 +160,7 @@
   import eVasIcon from '../elements/e-vas-icon.vue';
   import { Viewport, addViewportResizeEvent, removeViewportResizeEvent, useViewport } from '../plugins/viewport';
   import { VasSessionStore, useVasSessionStore } from '../stores/session';
+  import cVasAi from './c-vas-ai.vue';
   import cVasConfig from './c-vas-config.vue';
   import cVasFeatures from './c-vas-features.vue';
   import cVasGithubVersion from './c-vas-github-version.vue';
@@ -158,7 +170,7 @@
   import cVasTips from './c-vas-tips.vue';
   import cVasTypography from './c-vas-typography.vue';
 
-  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig' | 'features';
+  type ActivePanel = 'navigation' | 'settings' | 'config' | 'globalConfig' | 'pageConfig' | 'features' | 'ai';
 
   type Setup = {
     router: ReturnType<typeof useRouter>;
@@ -177,6 +189,7 @@
   export default defineComponent({
     name: 'c-vas-panel',
     components: {
+      cVasAi,
       cVasFeatures,
       cVasTypography,
       eVasIcon,

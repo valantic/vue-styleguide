@@ -292,7 +292,7 @@
         }
 
         // Hotkeys for tab switching.
-        if (event.ctrlKey && !event.shiftKey && event.key === '1') {
+        if (event.ctrlKey && event.key === '1') {
           event.preventDefault();
           this.onToggleMainFlyout(true);
           this.activePanel = 'navigation';
@@ -300,7 +300,7 @@
           return;
         }
 
-        if (event.ctrlKey && !event.shiftKey && event.key === '2') {
+        if (event.ctrlKey && event.key === '2') {
           event.preventDefault();
           this.onToggleMainFlyout(true);
           this.activePanel = 'globalConfig';
@@ -308,12 +308,7 @@
           return;
         }
 
-        if (
-          event.ctrlKey &&
-          !event.shiftKey &&
-          event.key === '3' &&
-          this.vasSessionStore.state.hasPageConfig
-        ) {
+        if (event.ctrlKey && event.key === '3' && this.vasSessionStore.state.hasPageConfig) {
           event.preventDefault();
           this.onToggleMainFlyout(true);
           this.activePanel = 'pageConfig';

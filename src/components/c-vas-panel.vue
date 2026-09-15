@@ -143,7 +143,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
   import { useRouter } from 'vue-router';
   import packageJson from '../../package.json';
   import eVasIcon from '../elements/e-vas-icon.vue';
@@ -197,7 +197,7 @@
        * The currently active panel tab.
        */
       activePanel: {
-        type: String as () => ActivePanel,
+        type: String as PropType<ActivePanel>,
         required: true,
       },
     },

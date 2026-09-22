@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [fix] `c-vas-panel`'s AI tab button mutated the `activePanel` prop directly instead of emitting `update:activePanel` like every other panel action, triggering the `vue/no-mutating-props` ESLint rule and breaking one-way data flow with the parent.
+
 ### Breaking Changes
 
 - [feat] All form fields now render their own label via a new `label` property, styled after Vuetify's `filled` field variant. `e-vas-input`, `e-vas-textarea`, `e-vas-select` and `e-vas-multiselect` are therefore wrapped in a new `e-vas-field` element, which owns the filled surface, the floating label and the underline; their own blocks (`.e-vas-input`, `.e-vas-select`, …) stay on the root node but the visual styling moved to `.e-vas-field*`. **Migration:** if you styled the frame of a field with custom CSS (borders, background, padding, e.g. `.e-vas-input__field { border: … }`), re-anchor those rules to `.e-vas-field`, `.e-vas-field__control` or `.e-vas-field__outline` — the inner `__field`/`__select` elements are now transparent and borderless.

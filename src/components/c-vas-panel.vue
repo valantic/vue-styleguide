@@ -118,7 +118,7 @@
           tooltip="AI"
           tooltip-position="left"
           :active="activePanel === 'ai'"
-          @click="activePanel = 'ai'"
+          @click="$emit('update:activePanel', 'ai')"
         />
 
         <c-vas-panel-action

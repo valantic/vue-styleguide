@@ -2,12 +2,11 @@
   <div :class="b()">
     <c-vas-typography
       variant="heading"
-      text="AI"
+      text="AI (Beta)"
     />
 
     <p :class="b('intro')">
-      This library ships a Claude Code skill that generates or restructures demo pages for you. See
-      the
+      This library ships a Claude Code skill that generates or restructures demo pages for you. See the
       <a
         :href="setupGuideUrl"
         :class="b('link')"

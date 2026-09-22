@@ -28,7 +28,12 @@
     font-size: var(--vas-font-size-heading);
   }
 
-  a {
+  // Excludes c-vas-sidebar: the sidebar is a self-contained overlay that manages its own
+  // theme-aware anchor color independently (see c-vas-sidebar.vue's `a { color: inherit }`).
+  // Without this exclusion, this ID selector's specificity beats the sidebar's own color rule
+  // and forces every link inside it to this fixed, non-theme-reactive color — unreadable
+  // whenever the sidebar itself is in dark mode, since this value never changes with it.
+  a:not(.c-vas-sidebar, .c-vas-sidebar *) {
     color: variables.$vas-font-color--text;
 
     &:hover {

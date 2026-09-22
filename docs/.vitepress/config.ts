@@ -27,6 +27,8 @@ export default defineConfig({
           { text: 'Custom settings', link: '/guide/custom-settings' },
           { text: 'Form fields', link: '/guide/form-fields' },
           { text: 'Demo card', link: '/guide/demo-card' },
+          { text: 'Demo page patterns', link: '/guide/demo-page-patterns' },
+          { text: 'AI skill', link: '/guide/ai-skill' },
         ],
       },
       {

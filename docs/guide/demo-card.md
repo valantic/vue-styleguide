@@ -87,3 +87,7 @@ renders into the sidebar flyout instead — good for controls that apply to the 
 than one specific card, or that you don't want taking up on-page space. The two are independent
 and can be combined on the same page: one or more `c-vas-demo-card`s with their own inline
 `#sidebar` config, plus one page-wide `#pageConfig` in the surrounding `l-vas-layout`.
+
+`c-vas-demo-card` itself is meant for a single small component, not a whole page or organism —
+see [Demo page patterns](/guide/demo-page-patterns) for the full decision rule, including when to
+use `l-vas-layout` alone instead.

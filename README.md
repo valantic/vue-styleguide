@@ -29,7 +29,7 @@ Find available versions here: [Github Releases](https://github.com/valantic/vue-
 
 ```bash
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.1.0",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.1.1",
   }
 ```
 

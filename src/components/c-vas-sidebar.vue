@@ -19,6 +19,7 @@
 
       <template #content>
         <c-vas-panel
+          v-model:active-panel="activePanel"
           :is-open="isMainFlyoutOpen"
           @open-hotkeys-modal="isHotkeysModalOpen = true"
         >
@@ -49,7 +50,7 @@
   import cVasFlyoutHandle from './c-vas-flyout-handle.vue';
   import cVasFlyout from './c-vas-flyout.vue';
   import cVasHotkeyModal from './c-vas-hotkey-modal.vue';
-  import cVasPanel from './c-vas-panel.vue';
+  import cVasPanel, { type ActivePanel } from './c-vas-panel.vue';
   import cVasXRayOverlay from './c-vas-x-ray-overlay.vue';
   import cVasXRayToast from './c-vas-x-ray-toast.vue';
 
@@ -75,6 +76,7 @@
   type Data = {
     isMainFlyoutOpen: boolean;
     isHotkeysModalOpen: boolean;
+    activePanel: ActivePanel;
     lastShiftPress: number;
     isToggleButtonAnimated: boolean;
     animationTimeout: ReturnType<typeof setTimeout> | null;
@@ -109,6 +111,7 @@
       return {
         isMainFlyoutOpen: false,
         isHotkeysModalOpen: false,
+        activePanel: 'navigation',
         lastShiftPress: 0,
         isToggleButtonAnimated: false,
         animationTimeout: null,
@@ -284,6 +287,31 @@
         if ((isMac() ? event.metaKey : event.ctrlKey) && event.altKey && event.code === 'KeyX') {
           event.preventDefault();
           this.vasSettingsStore.setXRayModeEnabled(!this.vasSettingsStore.state.isXRayModeEnabled);
+
+          return;
+        }
+
+        // Hotkeys for tab switching.
+        if (event.ctrlKey && event.key === '1') {
+          event.preventDefault();
+          this.onToggleMainFlyout(true);
+          this.activePanel = 'navigation';
+
+          return;
+        }
+
+        if (event.ctrlKey && event.key === '2') {
+          event.preventDefault();
+          this.onToggleMainFlyout(true);
+          this.activePanel = 'globalConfig';
+
+          return;
+        }
+
+        if (event.ctrlKey && event.key === '3' && this.vasSessionStore.state.hasPageConfig) {
+          event.preventDefault();
+          this.onToggleMainFlyout(true);
+          this.activePanel = 'pageConfig';
 
           return;
         }

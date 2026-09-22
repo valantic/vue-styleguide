@@ -4,18 +4,22 @@
       :class="b('preview')"
       class="vas-styleguide-theme-dark"
     >
-      <c-vas-panel />
+      <c-vas-panel
+        v-model:active-panel="activePanel"
+      />
     </div>
   </l-vas-layout>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import cVasPanel from '../../../components/c-vas-panel.vue';
+  import cVasPanel, { type ActivePanel } from '../../../components/c-vas-panel.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
-  // type Data = {};
+  type Data = {
+    activePanel: ActivePanel;
+  };
 
   /**
    * Styleguide page for c-vas-panel.
@@ -34,9 +38,11 @@
     // setup(): Setup {
     //   return {};
     // },
-    // data(): Data {
-    //   return {};
-    // },
+    data(): Data {
+      return {
+        activePanel: 'navigation',
+      };
+    },
 
     // computed: {},
     // watch: {},

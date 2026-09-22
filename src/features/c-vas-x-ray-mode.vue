@@ -39,7 +39,7 @@
     markerActive: boolean;
   };
 
-  const SETUP_GUIDE_URL = 'https://valantic.github.io/vue-styleguide/features/x-ray-mode#x-ray-mode';
+  const SETUP_GUIDE_URL = 'https://valantic.github.io/vue-styleguide/features/x-ray-mode';
 
   /**
    * Adds a toggle to en-/disable x-ray mode: hover any element to see its Vue component name

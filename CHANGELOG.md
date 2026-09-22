@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.2.0
+
 ## v2.1.1
 
 ### Breaking Changes

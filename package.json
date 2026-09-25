@@ -1,28 +1,15 @@
 {
   "name": "@valantic/vue-styleguide",
-  "version": "2.2.0",
   "description": "A demo tool to test a vue project locally.",
-  "keywords": [
-    "vue",
-    "vuejs",
-    "valantic"
-  ],
   "author": "valantic CEC",
   "license": "MIT",
-  "projectGitUrls": {
-    "issues": "https://github.com/valantic/vue-styleguide/issues",
-    "homepage": "https://github.com/valantic/vue-styleguide",
-    "releases": "https://github.com/valantic/vue-styleguide/releases",
-    "version": "https://github.com/valantic/vue-styleguide/releases/tag/",
-    "apiGitTags": "https://api.github.com/repos/valantic/vue-styleguide/tags"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/valantic/vue-styleguide.git",
-    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
-  },
-  "type": "module",
+  "version": "2.2.0",
   "lastDependencyUpdate": "12.03.2026",
+  "type": "module",
+  "engines": {
+    "node": ">=22 <26",
+    "npm": ">=10 <12"
+  },
   "scripts": {
     "version": "node scripts/update-release-files.js && git add README.md CHANGELOG.md",
     "release": "npm version patch -m 'Release %s' && git push --follow-tags",
@@ -47,10 +34,6 @@
     "prepare": "husky",
     "prettier": "prettier . --write",
     "tsc": "vue-tsc"
-  },
-  "engines": {
-    "node": ">=22 <26",
-    "npm": ">=10 <12"
   },
   "dependencies": {
     "vue": "~3.5.30"
@@ -138,5 +121,22 @@
       "types": "./src/types/index.d.ts",
       "import": "./src/types/index.d.ts"
     }
-  }
+  },
+  "projectGitUrls": {
+    "issues": "https://github.com/valantic/vue-styleguide/issues",
+    "homepage": "https://github.com/valantic/vue-styleguide",
+    "releases": "https://github.com/valantic/vue-styleguide/releases",
+    "version": "https://github.com/valantic/vue-styleguide/releases/tag/",
+    "apiGitTags": "https://api.github.com/repos/valantic/vue-styleguide/tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valantic/vue-styleguide.git",
+    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "valantic"
+  ]
 }

@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [CI]: Renamed the CI workflow to "CI Test" and updated it to `actions/checkout@v7`, `actions/setup-node@v7`, and
+  Node 25.
 - [DOCS]: Streamlined `.github/PULL_REQUEST_TEMPLATE.md` by removing the obsolete checklist sections.
 
 ## v2.2.0

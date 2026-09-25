@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [DOCS]: Streamlined `.github/PULL_REQUEST_TEMPLATE.md` by removing the obsolete checklist sections.
+
 ## v2.2.0
 
 ## v2.1.1

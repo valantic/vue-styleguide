@@ -16,6 +16,7 @@
   // @trivago/prettier-plugin-sort-imports@latest options
   importOrder: [
     '<THIRD_PARTY_MODULES>',
+    '^@!production/(.*)$',
     '^@/setup/(.*)$',
     '^@/stores/(.*)$',
     '^@/(.*)$',

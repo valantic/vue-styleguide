@@ -1,11 +1,14 @@
-# valantic vue styleguide
+# Changelog
 
 ## unreleased
 
-- [CI]: Renamed the CI workflow to "CI Test" and updated it to `actions/checkout@v7`, `actions/setup-node@v7`, and
+- [docs] Adopted the shared shared-frontend changelog convention (`# Changelog` title, `unreleased` / `vX.Y.Z`
+  headings, `[feat]`/`[fix]`/… prefixes, `### Breaking Changes` with migration notes), documented in `AGENTS.md`.
+  Unreleased entries were moved to the new prefixes; released entries are unchanged.
+- [ci] Renamed the CI workflow to "CI Test" and updated it to `actions/checkout@v7`, `actions/setup-node@v7`, and
   Node 25.
-- [DOCS]: Streamlined `.github/PULL_REQUEST_TEMPLATE.md` by removing the obsolete checklist sections.
-- [CHORE]: Bumped `engines` to `node": ">=22 <26"` / `"npm": ">=10 <12"` (was `node">=20"` / `npm">=10"`) to allow
+- [docs] Streamlined `.github/PULL_REQUEST_TEMPLATE.md` by removing the obsolete checklist sections.
+- [chore] Bumped `engines` to `node": ">=22 <26"` / `"npm": ">=10 <12"` (was `node">=20"` / `npm">=10"`) to allow
   Node 25. Updated `.nvmrc` from `24` to `25`. Added `min-release-age=7` and `ignore-scripts=true` to `.npmrc`.
 
 ## v2.2.0

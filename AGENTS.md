@@ -46,9 +46,23 @@ The VitePress site in `docs/` (served at https://valantic.github.io/vue-stylegui
 - Keep `README.md` short and pointed at the docs site — do not re-duplicate full guide content there; only the elevator pitch, the demo link, the docs link, and the npm install snippet belong in the README.
 - Run `npm run build:docs` after doc changes to confirm the site still builds (broken internal links fail the build).
 
-### Changelog (strict — required for every task)
-`CHANGELOG.md` entries use single-line, [Conventional Commits](https://www.conventionalcommits.org/)-style prefixes — `[feat]`, `[fix]`, `[refactor]`, `[perf]`, `[docs]`, `[test]`, `[build]`, `[ci]`, `[chore]`, `[revert]` — kept per-line (not grouped under category subheadings) so each entry stays self-contained and merge conflicts are easy to resolve line-by-line. The legacy `[FEATURE]` / `[BUGFIX]` / `[ENHANCEMENT]` prefixes used in past releases are retired — do not reuse them in new entries.
-- Every task/ticket that changes behavior, fixes a bug, or adds/removes something user-facing gets one prefixed bullet under `## unreleased` in the same change — do not defer changelog updates to a follow-up task.
-- All breaking changes must additionally be grouped together under a `### Breaking Changes` subheading placed directly under `## unreleased`, above the flat list of regular entries — so they're never buried and always easy to find. Entries there keep their `[feat]`/`[fix]`/etc. prefix too, and must state what a consumer has to do to update/fix their code (a **Migration:** sentence), not just what changed.
+### Changelog (required for every task)
+
+`CHANGELOG.md` follows the convention shared by all valantic shared-frontend repos.
+
+- Every change that alters behavior, fixes a bug, or adds/removes something consumers can see gets one entry under
+  `## unreleased` in the same change — do not defer it to a follow-up task.
+- Format: `- [type] Description.` — one entry per logical change, kept as a flat list (no "Added"/"Fixed" category
+  subheadings), so each entry stays self-contained and merge conflicts can be resolved line by line.
+- Allowed prefixes ([Conventional Commits](https://www.conventionalcommits.org/) types): `[feat]`, `[fix]`,
+  `[refactor]`, `[perf]`, `[docs]`, `[test]`, `[build]`, `[ci]`, `[chore]`, `[revert]`. Older prefixes in released
+  sections (`[ENHANCEMENT]`, `(Change)`, …) are history — do not reuse them and do not rewrite old entries.
+- Write the description so it is understandable without the diff: name the affected module and the effect for
+  consumers.
+- Breaking changes are grouped under a `### Breaking Changes` subheading placed directly under `## unreleased`, above
+  the regular entries. They keep their prefix and must end with a **Migration:** sentence stating what consumers
+  have to do.
 - A change is breaking if it alters public API shape/behavior consumers already depend on (`src/index.ts` exports, prop/emit contracts, exported types) or changes rendered output a consumer could reasonably have relied on (e.g. a BEM modifier class name a consumer might target with custom CSS). A bug fix that merely corrects behavior to match documented/intended behavior with no reasonable reliance surface is not automatically breaking — use judgment, and when in doubt, list it under `### Breaking Changes` rather than omit the migration note.
-- `scripts/update-release-files.js` matches the exact lowercase heading `## unreleased` to rename it to `## vX.Y.Z` on release — keep that heading text exact (lowercase).
+- Headings: title `# Changelog`, unreleased section `## unreleased` (exact, lowercase — release tooling matches it
+  literally), released sections `## vX.Y.Z`. Only the unreleased section is edited; released sections stay as they
+  are. `scripts/update-release-files.js` renames `## unreleased` to `## vX.Y.Z` on release.

@@ -2,7 +2,15 @@
 
 ## unreleased
 
-- [docs] Added a `## Contributing` section to `README.md` linking the `Release process` guide (contribution and release steps).
+- [docs] Restructured `AGENTS.md` to the shared outline (`What this is`, a new `Commands` section, top-level
+  `Changelog`/`Documentation`) and added the shared `## Working rules` section (git rules, no release/publish or
+  dependency changes without approval, engineering priorities, `npm test` before finishing).
+- [docs] Added a `## Code conventions` section to `AGENTS.md` summarizing the valantic frontend guidelines (incl.
+  Options API, Pinia).
+- [docs] Added `CONTRIBUTING.md` (Getting started / Developing / Changelog / Releasing, shared outline).
+- [docs] `README.md` now also links `CONTRIBUTING.md`.
+- [docs] Added a `## Contributing` section to `README.md` linking the `Release process` guide (contribution and release
+  steps).
 - [fix] `npm run release[:minor|:major]` updates `CHANGELOG.md` and `README.md` again. Since `.npmrc` sets
   `ignore-scripts=true`, `npm version` silently skipped the `version` hook (`scripts/update-release-files.js`), so a
   release would have been tagged without renaming `## unreleased` or updating the README pin. The hook is replaced by

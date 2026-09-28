@@ -41,7 +41,7 @@ See the [Installation](https://valantic.github.io/vue-styleguide/guide/installat
 
 ## Contributing
 
-How releases are made is described in the
+How to contribute is described in [CONTRIBUTING.md](./CONTRIBUTING.md), how releases are made in the
 [Release process](https://valantic.github.io/vue-styleguide/contributing/release-process) guide.
 
 ---

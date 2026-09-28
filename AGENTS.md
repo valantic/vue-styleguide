@@ -3,9 +3,33 @@
 This file provides guidance to AI coding agents (Claude Code, Codex, Cursor, Copilot, etc.) when working with code in
 this repository.
 
-## Overview
+## What this is
 
 `@valantic/vue-styleguide` is a Vue 3 library that provides a DX utility sidebar (`c-vas-sidebar`) for use during development in consumer Vue 3 projects. It acts as a testing harness with navigation, config toggles, and demo page infrastructure. The sidebar is only ever loaded in `DEV` mode (see `src/main.ts`).
+
+## Commands
+
+- `npm test` — full check: `npm run lint && npm run test:unit -- --watch=false`. Run it for every task and fix all
+  issues.
+- `npm run lint` — runs `lint:eslint`, `lint:stylelint`, and `tsc` (type-check via `vue-tsc`) together.
+- `npm run test:unit` — Vitest, run from `tests/`. To run a single test file:
+  `npm run test:unit -- tests/unit/specs/plugins/viewport.test.ts`. To run a single test by name:
+  `npm run test:unit -- -t "<test name>"`.
+- `npm run fix:stylelint` — Stylelint with `--fix` (uses `.stylelintrc.fix.js`).
+- `npm run prettier` — formats the whole repo in place.
+- `npm run dev` / `npm run serve` — Vite dev server / preview of the demo app.
+- `npm run build` — Vite build (`--mode=app`); modes are defined in `vite.builds.json`.
+- `npm run build:icons` — regenerates the SVG sprite from `src/assets/icons/*.svg` and updates the icon TS type. Run
+  this after adding/removing an icon SVG.
+- `npm run dev:docs` / `npm run build:docs` / `npm run serve:docs` — VitePress docs site in `docs/`.
+- `npm run clean:caches` — clears `.eslintcache`, `.stylelintcache`, `node_modules/.cache`.
+- `npm run release[:minor|:major]` — runs `scripts/release.mjs` (shared, identical in every shared-frontend repo):
+  checks for a clean, up-to-date `main` and a non-empty `## unreleased`, bumps the version, renames
+  `## unreleased` to `## vX.Y.Z`, updates the README version pin, commits, creates the annotated `vX.Y.Z` tag and
+  pushes. The `Release` workflow (`.github/workflows/release.yml`) then creates the GitHub release from that
+  changelog section. See `docs/contributing/release-process.md`. **Never run a release script unless explicitly
+  asked.**
+- Do not reintroduce an npm `version` lifecycle hook: `.npmrc` sets `ignore-scripts=true`, so `npm version` skips it.
 
 ## Architecture
 
@@ -35,27 +59,50 @@ Only four things are exported for consumer projects:
 - It is the **consuming project's** job to keep this out of production, e.g. by guarding its own usage of `c-vas-sidebar` (and any exported plugin, such as `vasXRayInspector`) behind `import.meta.env.DEV` — ideally via a dynamic `import()` for a stronger guarantee than relying on tree-shaking alone (see `docs/features/x-ray-mode.md` for a worked example, and this package's own `src/main.ts` for the same pattern used internally).
 - Don't add dev-only guards inside this package's own components/features to compensate for a consumer skipping that step — that responsibility intentionally lives in the consumer's app entry, not here.
 
-### Testing
-- For all tasks, run all tests with `npm run test` and always fix the issues.
+## Code conventions
 
-### Release
-- `npm run release[:minor|:major]` — runs `scripts/release.mjs` (shared, identical in every shared-frontend repo):
-  checks for a clean, up-to-date `main` and a non-empty `## unreleased`, bumps the version, renames
-  `## unreleased` to `## vX.Y.Z`, updates the README version pin, commits, creates the annotated `vX.Y.Z` tag and
-  pushes. The `Release` workflow (`.github/workflows/release.yml`) then creates the GitHub release from that
-  changelog section. See `docs/contributing/release-process.md`. **Never run a release script unless explicitly
-  asked.**
-- Do not reintroduce an npm `version` lifecycle hook: `.npmrc` sets `ignore-scripts=true`, so `npm version` skips it.
+Follow the repo's ESLint/Stylelint/Prettier config and `.editorconfig`. On top of that:
 
-### Documentation (strict — required for every task)
-The VitePress site in `docs/` (served at https://valantic.github.io/vue-styleguide) is the source of truth for consumers. It is built via `npm run build:docs` and deployed alongside the demo (`docs/` → site root, demo app → `/demo/`) by `.github/workflows/deploy.yml`.
-- Before marking any task complete, check whether it changed something a consumer-facing doc describes: the public API (`src/index.ts`), setup/installation steps, a feature under `src/features/`, config options, or the release process. If it did, update the corresponding page(s) under `docs/` in the same change — do not defer documentation to a follow-up task.
-- Map of what lives where: `docs/guide/installation.md` (install), `docs/guide/setup.md` (wiring the sidebar into a consumer app — includes `docs/setup-examples/*.vue` via VitePress `<<< @/...` file includes, so keep those example files in sync instead of duplicating code in prose), `docs/guide/demo-pages.md` (Favorites/Last Opened/Readme page), `docs/guide/interface.md` (tour of every sidebar icon — keep in sync with `c-vas-panel.vue`), `docs/guide/hotkeys.md` (keyboard shortcut table — keep in sync with `src/config/hotkeys.ts`), `docs/guide/settings.md` (theme/font size, `localStorage` key reference), `docs/guide/custom-settings.md` (`#customSettings` slot on `c-vas-sidebar` and `#pageConfig` slot on `l-vas-layout`), `docs/guide/demo-card.md` (`c-vas-demo-card`), `docs/features/*.md` (one file per Features-panel toggle, e.g. `x-ray-mode.md`, `html-validation.md`), `docs/contributing/release-process.md` (release script behavior).
-- Adding a new feature under `src/features/` requires a new `docs/features/<feature>.md` page plus a nav/sidebar entry in `docs/.vitepress/config.ts`. A new `localStorage` key requires a row in the table in `docs/guide/settings.md`. A new hotkey (`src/config/hotkeys.ts`) requires a row in `docs/guide/hotkeys.md`.
-- Keep `README.md` short and pointed at the docs site — do not re-duplicate full guide content there; only the elevator pitch, the demo link, the docs link, the npm install snippet, and the link to the release process guide belong in the README.
-- Run `npm run build:docs` after doc changes to confirm the site still builds (broken internal links fail the build).
+- Naming: files `kebab-case`; types, interfaces and enums `PascalCase`; functions, properties and variables
+  `camelCase`. Singular names for single things (types, enums, components, stores), plural only for collections. Use
+  whole, descriptive words — identifiers have at least 3 characters (`id-length`), except the ones whitelisted in the
+  ESLint config.
+- TypeScript: never use `any` — use `unknown` plus narrowing or a generic; if `any` is unavoidable, isolate it and
+  comment why. Use `type` for object shapes; `interface` only for features exclusive to it, without an `I` prefix.
+- Control flow: no `while` or plain `for` loops (use array methods, or `for...of` when `await`/`break`/`continue` is
+  needed), no `switch` (use object literals or `if`/`else`), no one-line `if` bodies.
+- Comments only where the code is not self-explanatory, in JSDoc style.
+- Vue: components use the Options API with `defineComponent` and `<script lang="ts">` — never `<script setup>` or the
+  Composition API style. Use method shorthand (not arrow functions) in `methods`/`computed`. Base new files on
+  `blueprints/` and keep their structure, lifecycle-hook order and commented-out blocks.
+- Templates: no loop index as `v-for` key, no `v-text`, move complex conditions into `computed`. Declare every emitted
+  event in `emits`; remove event listeners in `unmounted`.
+- State management: Pinia, never Vuex.
+- Styles: no hard-coded colors — reuse the existing color variables (add a new `kebab-case` variable if needed).
 
-### Changelog (required for every task)
+valantic developers find the full guidelines in the internal ai-cornerstone repository (`guidelines/frontend/`, skills
+`frontend-best-practices` and `vue-best-practices`).
+
+## Working rules
+
+These rules are identical in every valantic shared-frontend repo.
+
+- Git: never commit unless explicitly asked. Never push unless explicitly asked in that request. Never pull or
+  create/switch branches (`git pull`, `git checkout`, `git switch`, `git branch`, …). Branch names are
+  `feature/<name>` or `bugfix/<name>`.
+- Never run a release script or `npm publish` unless explicitly asked.
+- Never install, update or remove npm packages without approval. Never edit generated or vendored files
+  (`node_modules/`, `dist/`, lock files by hand).
+- Priorities: correctness, simplicity, consistency with the existing code, maintainability, minimal changes. Prefer the
+  smallest correct change.
+- Understand the existing code and search for existing implementations before adding new ones; reuse over new
+  abstractions. Do not refactor unrelated code, change public APIs, or change behavior outside the task's scope.
+- Before finishing, run `npm test` and fix failures caused by the change. Every change gets a changelog entry and,
+  where a feature changes, a doc update (see Changelog and Documentation below).
+- If a requirement is unclear, ask. If only an implementation detail is unclear, follow the existing patterns in this
+  repo.
+
+## Changelog (required for every task)
 
 `CHANGELOG.md` follows the convention shared by all valantic shared-frontend repos.
 
@@ -75,3 +122,11 @@ The VitePress site in `docs/` (served at https://valantic.github.io/vue-stylegui
 - Headings: title `# Changelog`, unreleased section `## unreleased` (exact, lowercase — release tooling matches it
   literally), released sections `## vX.Y.Z`. Only the unreleased section is edited; released sections stay as they
   are. `scripts/release.mjs` renames `## unreleased` to `## vX.Y.Z` on release.
+
+## Documentation (strict — required for every task)
+The VitePress site in `docs/` (served at https://valantic.github.io/vue-styleguide) is the source of truth for consumers. It is built via `npm run build:docs` and deployed alongside the demo (`docs/` → site root, demo app → `/demo/`) by `.github/workflows/deploy.yml`.
+- Before marking any task complete, check whether it changed something a consumer-facing doc describes: the public API (`src/index.ts`), setup/installation steps, a feature under `src/features/`, config options, or the release process. If it did, update the corresponding page(s) under `docs/` in the same change — do not defer documentation to a follow-up task.
+- Map of what lives where: `docs/guide/installation.md` (install), `docs/guide/setup.md` (wiring the sidebar into a consumer app — includes `docs/setup-examples/*.vue` via VitePress `<<< @/...` file includes, so keep those example files in sync instead of duplicating code in prose), `docs/guide/demo-pages.md` (Favorites/Last Opened/Readme page), `docs/guide/interface.md` (tour of every sidebar icon — keep in sync with `c-vas-panel.vue`), `docs/guide/hotkeys.md` (keyboard shortcut table — keep in sync with `src/config/hotkeys.ts`), `docs/guide/settings.md` (theme/font size, `localStorage` key reference), `docs/guide/custom-settings.md` (`#customSettings` slot on `c-vas-sidebar` and `#pageConfig` slot on `l-vas-layout`), `docs/guide/demo-card.md` (`c-vas-demo-card`), `docs/features/*.md` (one file per Features-panel toggle, e.g. `x-ray-mode.md`, `html-validation.md`), `docs/contributing/release-process.md` (release script behavior).
+- Adding a new feature under `src/features/` requires a new `docs/features/<feature>.md` page plus a nav/sidebar entry in `docs/.vitepress/config.ts`. A new `localStorage` key requires a row in the table in `docs/guide/settings.md`. A new hotkey (`src/config/hotkeys.ts`) requires a row in `docs/guide/hotkeys.md`.
+- Keep `README.md` short and pointed at the docs site — do not re-duplicate full guide content there; only the elevator pitch, the demo link, the docs link, the npm install snippet, and the links to `CONTRIBUTING.md` and the release process guide belong in the README.
+- Run `npm run build:docs` after doc changes to confirm the site still builds (broken internal links fail the build).

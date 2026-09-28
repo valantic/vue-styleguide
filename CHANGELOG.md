@@ -14,6 +14,9 @@
   uploads the results to the GitHub Security tab.
 - [ci] `security.yml` now posts (and keeps updated) a pull request comment with the vulnerability breakdown when the
   Trivy scan fails a PR check, instead of only failing the job with no feedback beyond the raw log.
+- [fix] `security.yml`: steps gated on `steps.trivy-sarif.outcome` now also require `always()`. Without it,
+  GitHub Actions implicitly ANDs a bare `if:` with `success()`, so those steps were skipped exactly when the
+  Trivy step failed — the case they exist to handle.
 - [ci] `deploy.yml` now uses `actions/checkout@v7` / `actions/setup-node@v7` and the Node version from `.nvmrc`
   (was Node 24).
 - [chore] Made `.prettierrc.json5` identical to the other shared-frontend repos (added the `^@!production/(.*)$`

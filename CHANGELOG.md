@@ -2,6 +2,10 @@
 
 ## unreleased
 
+- [docs] `AGENTS.md`: added the new production-safety and contributing-conventions pages to the docs map.
+- [docs] Added a "Production safety" guide page (`docs/guide/production-safety.md`, linked from Setup) explaining
+  why this package doesn't guard itself against shipping to production, and a "Conventions" contributing page
+  (`docs/contributing/conventions.md`) covering prefixes, Options API, blueprints, BEM, and the changelog/docs bar.
 - [ci] Aligned `.github/workflows/test.yml` with the other shared-frontend repos: job `test`, step "Run tests"
   (the old label claimed checks that don't run here), Node version read from `.nvmrc`, token limited to
   `contents: read`.
@@ -78,7 +82,7 @@
 - [FEATURE] Added `patch()` to the local store for partial updates to persisted objects.
 
 ## v2.0.1
- 
+
 - [BUGFIX] The control section of the flyout needs to have pointer events none to not block any user interaction in a user project.
 
 ## v2.0.0

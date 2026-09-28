@@ -2,6 +2,7 @@
 
 ## unreleased
 
+- [chore] Harmonized the copyright line in `LICENSE` to `2017-present, valantic CEC Schweiz AG`, matching the README.
 - [docs] Restructured `AGENTS.md` to the shared outline (`What this is`, a new `Commands` section, top-level
   `Changelog`/`Documentation`) and added the shared `## Working rules` section (git rules, no release/publish or
   dependency changes without approval, engineering priorities, `npm test` before finishing).

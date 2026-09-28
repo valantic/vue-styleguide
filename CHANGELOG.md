@@ -2,6 +2,15 @@
 
 ## unreleased
 
+- [docs] Added a `## Contributing` section to `README.md` linking the `Release process` guide (contribution and release steps).
+- [fix] `npm run release[:minor|:major]` updates `CHANGELOG.md` and `README.md` again. Since `.npmrc` sets
+  `ignore-scripts=true`, `npm version` silently skipped the `version` hook (`scripts/update-release-files.js`), so a
+  release would have been tagged without renaming `## unreleased` or updating the README pin. The hook is replaced by
+  the shared `scripts/release.mjs`, which runs every step explicitly and also aborts on uncommitted changes, a `main`
+  behind `origin/main` or an empty `## unreleased` section.
+- [ci] Added the `Release` workflow (`.github/workflows/release.yml`): pushing a `vX.Y.Z` tag creates the GitHub
+  release, using that version's `CHANGELOG.md` section as release notes. It fails if the section is empty.
+- [docs] Updated `docs/contributing/release-process.md` for the new release script and workflow.
 - [docs] Adopted the shared shared-frontend changelog convention (`# Changelog` title, `unreleased` / `vX.Y.Z`
   headings, `[feat]`/`[fix]`/… prefixes, `### Breaking Changes` with migration notes), documented in `AGENTS.md`.
   Unreleased entries were moved to the new prefixes; released entries are unchanged.

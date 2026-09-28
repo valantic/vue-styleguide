@@ -39,6 +39,11 @@ Find available versions here: [Github Releases](https://github.com/valantic/vue-
 See the [Installation](https://valantic.github.io/vue-styleguide/guide/installation) and
 [Setup](https://valantic.github.io/vue-styleguide/guide/setup) guides for the full walkthrough.
 
+## Contributing
+
+How releases are made is described in the
+[Release process](https://valantic.github.io/vue-styleguide/contributing/release-process) guide.
+
 ---
 
 <div id="footer" align="center">

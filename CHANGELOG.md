@@ -2,6 +2,11 @@
 
 ## unreleased
 
+- [fix] `.editorconfig`: removed a stray space in the `[{*.js, *.ts}]` glob (`[{*.js,*.ts}]`) that prevented it from
+  matching `*.ts` files.
+- [fix] `generate-vuln-report.py`: `worst_severity()` no longer raises `ValueError` and aborts the report step when
+  every vulnerability for a package has a severity outside `SEVERITIES` — it now falls back to the lowest rank.
+
 - [docs] `AGENTS.md`: added the new production-safety and contributing-conventions pages to the docs map.
 - [docs] Added a "Production safety" guide page (`docs/guide/production-safety.md`, linked from Setup) explaining
   why this package doesn't guard itself against shipping to production, and a "Conventions" contributing page

@@ -2,6 +2,10 @@
 
 ## unreleased
 
+- [fix] `vite.config.ts`: unit tests run on the `forks` pool with `--no-experimental-webstorage` passed to the
+  forked Node process. On Node 24+, Node's own experimental native `localStorage`/`sessionStorage` globals
+  shadowed jsdom's implementation, making `Storage` methods (`getItem`, `setItem`, `clear`, …) unavailable in
+  tests and failing every spec that touches `localStorage` (e.g. `tests/unit/specs/stores/local-store.test.ts`).
 - [fix] `.editorconfig`: removed a stray space in the `[{*.js, *.ts}]` glob (`[{*.js,*.ts}]`) that prevented it from
   matching `*.ts` files.
 - [fix] `generate-vuln-report.py`: `worst_severity()` no longer raises `ValueError` and aborts the report step when

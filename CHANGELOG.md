@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.2.1
+
 - [fix] `c-vas-panel`'s AI tab button mutated the `activePanel` prop directly instead of emitting `update:activePanel`
   like every other panel action, triggering the `vue/no-mutating-props` ESLint rule and breaking one-way data flow with
   the parent.

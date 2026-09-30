@@ -3,7 +3,7 @@
   "description": "A demo tool to test a vue project locally.",
   "author": "valantic CEC",
   "license": "MIT",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "lastDependencyUpdate": "12.03.2026",
   "type": "module",
   "engines": {

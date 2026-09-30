@@ -32,7 +32,7 @@ Find available versions here: [Github Releases](https://github.com/valantic/vue-
 
 ```bash
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.2.0",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.2.1",
   }
 ```
 

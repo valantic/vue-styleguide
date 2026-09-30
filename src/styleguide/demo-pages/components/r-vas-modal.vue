@@ -1,8 +1,8 @@
 <template>
-  <l-vas-layout>
-    <div :class="b()">
-      <section :class="b('section')">
-        <h2>Default Modal</h2>
+  <l-vas-layout :class="b()">
+    <c-vas-demo-card single-theme>
+      <template #header>Default Modal</template>
+      <template #demo>
         <e-vas-button
           primary
           @click="isDefaultModalOpen = true"
@@ -15,10 +15,12 @@
         >
           <p>This is a default modal with a title and a close button.</p>
         </c-vas-modal>
-      </section>
+      </template>
+    </c-vas-demo-card>
 
-      <section :class="b('section')">
-        <h2>Modal with outside click closing</h2>
+    <c-vas-demo-card single-theme>
+      <template #header>Modal with outside click closing</template>
+      <template #demo>
         <e-vas-button
           primary
           @click="isOutsideClickModalOpen = true"
@@ -32,10 +34,12 @@
         >
           <p>You can close this modal by clicking outside of it.</p>
         </c-vas-modal>
-      </section>
+      </template>
+    </c-vas-demo-card>
 
-      <section :class="b('section')">
-        <h2>Modal with no header</h2>
+    <c-vas-demo-card single-theme>
+      <template #header>Modal with no header</template>
+      <template #demo>
         <e-vas-button
           primary
           @click="isNoHeaderModalOpen = true"
@@ -49,10 +53,12 @@
         >
           <p>You can close this modal by clicking outside of it.</p>
         </c-vas-modal>
-      </section>
+      </template>
+    </c-vas-demo-card>
 
-      <section :class="b('section')">
-        <h2>Modal without close button</h2>
+    <c-vas-demo-card single-theme>
+      <template #header>Modal without close button</template>
+      <template #demo>
         <e-vas-button
           primary
           @click="isNonClosableModalOpen = true"
@@ -70,10 +76,12 @@
           </p>
           <e-vas-button @click="isNonClosableModalOpen = false"> Close from inside </e-vas-button>
         </c-vas-modal>
-      </section>
+      </template>
+    </c-vas-demo-card>
 
-      <section :class="b('section')">
-        <h2>Modal with too much content</h2>
+    <c-vas-demo-card single-theme>
+      <template #header>Modal with too much content</template>
+      <template #demo>
         <e-vas-button
           primary
           @click="isStickyFooterModalOpen = true"
@@ -94,8 +102,8 @@
             <e-vas-button @click="isStickyFooterModalOpen = false"> Close </e-vas-button>
           </template>
         </c-vas-modal>
-      </section>
-    </div>
+      </template>
+    </c-vas-demo-card>
   </l-vas-layout>
 </template>
 
@@ -103,6 +111,7 @@
   import { defineComponent } from 'vue';
   import cVasModal from '../../../components/c-vas-modal.vue';
   import eVasButton from '../../../elements/e-vas-button.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
 
   // type Setup = {};
@@ -123,6 +132,7 @@
     components: {
       cVasModal,
       eVasButton,
+      cVasDemoCard,
       lVasLayout,
     },
 
@@ -161,10 +171,3 @@
   });
 </script>
 
-<style lang="scss">
-  .r-vas-modal {
-    &__section {
-      margin-top: 2rem;
-    }
-  }
-</style>

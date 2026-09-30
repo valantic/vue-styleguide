@@ -1,13 +1,15 @@
 <template>
   <l-vas-layout :class="b()">
-    <div :style="{ '--s-icon-finder--color': color }">
-      <div :class="b('filter')">
+    <c-vas-demo-card
+      force-configuration-top
+      single-theme
+    >
+      <template #sidebar>
         <label :class="b('label')">
           Search:
           <e-vas-input
             v-model="filter"
             name="icon-search"
-            :class="b('filter-input')"
             placeholder="Search …"
           />
         </label>
@@ -16,58 +18,60 @@
           <e-vas-input
             v-model="color"
             name="icon-color"
-            :class="b('filter-input')"
             type="color"
           />
         </label>
-        <label :class="b('label', { variant: true })">
+        <label :class="b('label')">
           Variant:
           <e-vas-select
             v-model="variant"
             :options="variantOptions"
-            :class="b('filter-input')"
           />
         </label>
-      </div>
-      <div :class="b('grid')">
-        <div
-          v-for="icon in filteredIcons"
-          :key="icon.name"
-          :class="b('grid-item', { negative: icon.negative })"
-          role="button"
-          @click="copyToClipboard(icon)"
-        >
-          <div :class="b('icon-wrapper')">
+      </template>
+      <template #demo>
+        <div :style="{ '--s-icon-finder--color': color }">
+          <div :class="b('grid')">
             <div
-              v-if="['mask', 'css'].includes(variant)"
-              :class="b('icon', { variant })"
-              :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
-            ></div>
-            <e-vas-icon
-              v-else
+              v-for="icon in filteredIcons"
               :key="icon.name"
-              :icon="icon.name"
-              :inline="variant === 'inline'"
-              size="80"
-            />
+              :class="b('grid-item', { negative: icon.negative })"
+              role="button"
+              @click="copyToClipboard(icon)"
+            >
+              <div :class="b('icon-wrapper')">
+                <div
+                  v-if="['mask', 'css'].includes(variant)"
+                  :class="b('icon', { variant })"
+                  :style="{ [variant === 'css' ? 'backgroundImage' : 'maskImage']: `url(${spritePath}#${icon.name})` }"
+                ></div>
+                <e-vas-icon
+                  v-else
+                  :key="icon.name"
+                  :icon="icon.name"
+                  :inline="variant === 'inline'"
+                  size="80"
+                />
+              </div>
+              <div :class="b('icon-label')">
+                {{ icon.name }}
+              </div>
+            </div>
           </div>
-          <div :class="b('icon-label')">
-            {{ icon.name }}
+          <div
+            v-if="notification"
+            :class="b('notification')"
+          >
+            {{ notification }}
           </div>
+          <input
+            ref="input"
+            :class="b('clipboard')"
+            type="text"
+          />
         </div>
-      </div>
-      <div
-        v-if="notification"
-        :class="b('notification')"
-      >
-        {{ notification }}
-      </div>
-      <input
-        ref="input"
-        :class="b('clipboard')"
-        type="text"
-      />
-    </div>
+      </template>
+    </c-vas-demo-card>
   </l-vas-layout>
 </template>
 
@@ -77,6 +81,7 @@
   import eVasIcon from '../../../elements/e-vas-icon.vue';
   import eVasInput from '../../../elements/e-vas-input.vue';
   import eVasSelect from '../../../elements/e-vas-select.vue';
+  import cVasDemoCard from '../../../features/c-vas-demo-card.vue';
   import lVasLayout from '../../../layouts/l-vas-layout.vue';
   import { SelectOptionType } from '../../../types';
   import { Icon } from '../../../types/icon';
@@ -111,6 +116,7 @@
     components: {
       eVasSelect,
       eVasInput,
+      cVasDemoCard,
       lVasLayout,
       eVasIcon,
     },
@@ -212,24 +218,10 @@
   @use '../../../setup/scss/variables';
 
   .r-icon {
-    &__filter {
-      display: flex;
-      margin-bottom: variables.$vas-spacing--30;
-    }
-
     &__label {
       display: flex;
       align-items: center;
-      margin: 0 variables.$vas-spacing--10 variables.$vas-spacing--10 0;
-
-      &--variant {
-        margin: 0 0 0 auto;
-      }
-    }
-
-    &__filter-input {
-      display: block;
-      margin-left: variables.$vas-spacing--6;
+      gap: variables.$vas-spacing--6;
     }
 
     &__grid {

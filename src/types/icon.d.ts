@@ -1,5 +1,6 @@
 // Don't edit this file. Use the NPM script 'build:icons' instead.
-export type Icon = 'i-bin' |
+export type Icon = 'i-ai' |
+  'i-bin' |
   'i-bug' |
   'i-check' |
   'i-chevron--down' |

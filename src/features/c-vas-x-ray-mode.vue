@@ -117,7 +117,9 @@
     }
 
     &__link {
-      color: variables.$vas-color-white !important; // stylelint-disable-line
+      // !important: needed to win against c-vas-sidebar's own `a { color: inherit }` default,
+      // which itself needs real specificity to survive host project CSS. See its comment.
+      color: variables.$vas-color-white !important; // stylelint-disable-line declaration-no-important
       text-decoration: underline;
     }
   }

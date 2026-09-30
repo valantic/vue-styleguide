@@ -1,33 +1,19 @@
 {
   "name": "@valantic/vue-styleguide",
-  "version": "2.1.0",
   "description": "A demo tool to test a vue project locally.",
-  "keywords": [
-    "vue",
-    "vuejs",
-    "valantic"
-  ],
   "author": "valantic CEC",
   "license": "MIT",
-  "projectGitUrls": {
-    "issues": "https://github.com/valantic/vue-styleguide/issues",
-    "homepage": "https://github.com/valantic/vue-styleguide",
-    "releases": "https://github.com/valantic/vue-styleguide/releases",
-    "version": "https://github.com/valantic/vue-styleguide/releases/tag/",
-    "apiGitTags": "https://api.github.com/repos/valantic/vue-styleguide/tags"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/valantic/vue-styleguide.git",
-    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
-  },
-  "type": "module",
+  "version": "2.2.0",
   "lastDependencyUpdate": "12.03.2026",
+  "type": "module",
+  "engines": {
+    "node": ">=22 <26",
+    "npm": ">=10 <12"
+  },
   "scripts": {
-    "version": "node scripts/update-release-files.js && git add README.md CHANGELOG.md",
-    "release": "npm version patch -m 'Release %s' && git push --follow-tags",
-    "release:minor": "npm version minor -m 'Release %s' && git push --follow-tags",
-    "release:major": "npm version major -m 'Release %s' && git push --follow-tags",
+    "release": "node scripts/release.mjs patch",
+    "release:minor": "node scripts/release.mjs minor",
+    "release:major": "node scripts/release.mjs major",
     "clean:caches": "rm -rf .eslintcache .stylelintcache node_modules/.cache",
     "dev": "vite",
     "fix:stylelint": "npm run lint:stylelint -- --cache=false --config .stylelintrc.fix.js --fix",
@@ -48,10 +34,6 @@
     "prettier": "prettier . --write",
     "tsc": "vue-tsc"
   },
-  "engines": {
-    "node": ">=20",
-    "npm": ">=10"
-  },
   "dependencies": {
     "vue": "~3.5.30"
   },
@@ -67,7 +49,7 @@
     "cssnano": "~7.1.3",
     "eslint": "~9.39.4",
     "eslint-config-prettier": "~10.1.8",
-    "eslint-config-valantic": "~18.1.0",
+    "eslint-config-valantic": "~18.1.2",
     "eslint-plugin-import": "~2.32.0",
     "eslint-plugin-jsdoc": "~62.8.0",
     "eslint-plugin-unicorn": "~63.0.0",
@@ -82,7 +64,7 @@
     "prettier": "~3.8.1",
     "sass": "~1.98.0",
     "stylelint": "~17.4.0",
-    "stylelint-config-valantic": "~10.1.0",
+    "stylelint-config-valantic": "~10.1.1",
     "svg-sprite": "~2.0.4",
     "svgo": "~4.0.1",
     "typescript": "~5.9.3",
@@ -139,5 +121,22 @@
       "types": "./src/types/index.d.ts",
       "import": "./src/types/index.d.ts"
     }
-  }
+  },
+  "projectGitUrls": {
+    "issues": "https://github.com/valantic/vue-styleguide/issues",
+    "homepage": "https://github.com/valantic/vue-styleguide",
+    "releases": "https://github.com/valantic/vue-styleguide/releases",
+    "version": "https://github.com/valantic/vue-styleguide/releases/tag/",
+    "apiGitTags": "https://api.github.com/repos/valantic/vue-styleguide/tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valantic/vue-styleguide.git",
+    "tree": "https://github.com/valantic/vue-styleguide/tree/v"
+  },
+  "keywords": [
+    "vue",
+    "vuejs",
+    "valantic"
+  ]
 }

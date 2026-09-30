@@ -17,11 +17,14 @@
 
 ## About this project
 
-This library provides a standardized, interactive sidebar designed to be integrated into any Vue 3 project during development. It acts as a "testing harness," allowing developers to quickly navigate test/demo pages and manipulate global application states (like themes and languages) through a unified interface.
+This library provides a standardized, interactive sidebar designed to be integrated into any Vue 3 project during
+development. It acts as a "testing harness," allowing developers to quickly navigate test/demo pages and manipulate
+global application states (like themes and languages) through a unified interface.
 
 ## Quickstart
 
-This lib is also part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a more complex usage.
+This lib is also part of the [vue-template](https://github.com/valantic/vue-template) project. Check this page for a
+more complex usage.
 
 To reduce dev overhead it is currently only installable by a github link. Add this to your package.json.
 
@@ -29,20 +32,26 @@ Find available versions here: [Github Releases](https://github.com/valantic/vue-
 
 ```bash
   "devDependencies": {
-    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.1.0",
+    "@valantic/vue-styleguide": "github:valantic/vue-styleguide#v2.2.0",
   }
 ```
 
 See the [Installation](https://valantic.github.io/vue-styleguide/guide/installation) and
 [Setup](https://valantic.github.io/vue-styleguide/guide/setup) guides for the full walkthrough.
 
+## Contributing
+
+How to contribute is described in [CONTRIBUTING.md](./CONTRIBUTING.md), how releases are made in the
+[Release process](https://valantic.github.io/vue-styleguide/contributing/release-process) guide.
+
 ---
 
-<div align="center">
+<div id="footer" align="center">
 
 ## from valantic - with love
 
-Built and maintained by [valantic](https://www.valantic.com/en/careers/) — we're hiring, check out our [open positions](https://www.valantic.com/en/careers/).
+Built and maintained by [valantic](https://www.valantic.com/en/careers/) — we're hiring, check out
+our [open positions](https://www.valantic.com/en/careers/).
 
 ## License
 

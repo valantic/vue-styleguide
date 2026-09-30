@@ -45,6 +45,11 @@ export default defineConfig(({ command, mode }) => {
     },
     test: {
       environment: 'jsdom',
+      // Node 24+ ships an experimental native `localStorage` global that shadows jsdom's
+      // implementation before the test environment can install it, breaking Storage APIs
+      // in tests. Disable it so jsdom's localStorage/sessionStorage are used instead.
+      pool: 'forks',
+      execArgv: ['--no-experimental-webstorage'],
     },
     css: {
       devSourcemap: true,

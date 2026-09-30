@@ -29,6 +29,7 @@ export default defineConfig({
           { text: 'Demo card', link: '/guide/demo-card' },
           { text: 'Demo page patterns', link: '/guide/demo-page-patterns' },
           { text: 'AI skill', link: '/guide/ai-skill' },
+          { text: 'Production safety', link: '/guide/production-safety' },
         ],
       },
       {
@@ -40,7 +41,10 @@ export default defineConfig({
       },
       {
         text: 'Contributing',
-        items: [{ text: 'Release process', link: '/contributing/release-process' }],
+        items: [
+          { text: 'Conventions', link: '/contributing/conventions' },
+          { text: 'Release process', link: '/contributing/release-process' },
+        ],
       },
     ],
 

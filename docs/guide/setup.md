@@ -15,6 +15,8 @@ if (import.meta.env.DEV) {
 }
 ```
 
+See [Production safety](/guide/production-safety) for why this package doesn't guard itself.
+
 ## Minimal example
 
 Include the sidebar in your project's styleguide entry component. This is the minimum setup:

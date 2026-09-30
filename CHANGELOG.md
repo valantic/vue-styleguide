@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [chore] `scripts/release.mjs`: dropped the temporary `master` fallback from `RELEASE_BRANCHES` now that
+  `stylelint-config-valantic` has moved its default branch to `main`.
 - [fix] `vite.config.ts`: unit tests run on the `forks` pool with `--no-experimental-webstorage` passed to the
   forked Node process. On Node 24+, Node's own experimental native `localStorage`/`sessionStorage` globals
   shadowed jsdom's implementation, making `Storage` methods (`getItem`, `setItem`, `clear`, …) unavailable in

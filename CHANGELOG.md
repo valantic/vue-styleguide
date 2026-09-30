@@ -1,6 +1,63 @@
-# valantic vue styleguide
+# Changelog
 
 ## unreleased
+
+- [chore] `scripts/release.mjs`: dropped the temporary `master` fallback from `RELEASE_BRANCHES` now that
+  `stylelint-config-valantic` has moved its default branch to `main`.
+- [fix] `vite.config.ts`: unit tests run on the `forks` pool with `--no-experimental-webstorage` passed to the
+  forked Node process. On Node 24+, Node's own experimental native `localStorage`/`sessionStorage` globals
+  shadowed jsdom's implementation, making `Storage` methods (`getItem`, `setItem`, `clear`, …) unavailable in
+  tests and failing every spec that touches `localStorage` (e.g. `tests/unit/specs/stores/local-store.test.ts`).
+- [fix] `.editorconfig`: removed a stray space in the `[{*.js, *.ts}]` glob (`[{*.js,*.ts}]`) that prevented it from
+  matching `*.ts` files.
+- [fix] `generate-vuln-report.py`: `worst_severity()` no longer raises `ValueError` and aborts the report step when
+  every vulnerability for a package has a severity outside `SEVERITIES` — it now falls back to the lowest rank.
+
+- [docs] `AGENTS.md`: added the new production-safety and contributing-conventions pages to the docs map.
+- [docs] Added a "Production safety" guide page (`docs/guide/production-safety.md`, linked from Setup) explaining
+  why this package doesn't guard itself against shipping to production, and a "Conventions" contributing page
+  (`docs/contributing/conventions.md`) covering prefixes, Options API, blueprints, BEM, and the changelog/docs bar.
+- [ci] Aligned `.github/workflows/test.yml` with the other shared-frontend repos: job `test`, step "Run tests"
+  (the old label claimed checks that don't run here), Node version read from `.nvmrc`, token limited to
+  `contents: read`.
+- [ci] Added the shared `Security Scan` workflow (`.github/workflows/security.yml`, Trivy): scans the dependencies
+  daily and on pull requests, opens/updates a `security` issue on CRITICAL/HIGH findings, closes it when clean, and
+  uploads the results to the GitHub Security tab.
+- [ci] `security.yml` now posts (and keeps updated) a pull request comment with the vulnerability breakdown when the
+  Trivy scan fails a PR check, instead of only failing the job with no feedback beyond the raw log.
+- [fix] `security.yml`: steps gated on `steps.trivy-sarif.outcome` now also require `always()`. Without it,
+  GitHub Actions implicitly ANDs a bare `if:` with `success()`, so those steps were skipped exactly when the
+  Trivy step failed — the case they exist to handle.
+- [ci] `deploy.yml` now uses `actions/checkout@v7` / `actions/setup-node@v7` and the Node version from `.nvmrc`
+  (was Node 24).
+- [chore] Made `.prettierrc.json5` identical to the other shared-frontend repos (added the `^@!production/(.*)$`
+  import-order group, which has no effect here since this repo has no such alias).
+- [chore] Harmonized the copyright line in `LICENSE` to `2017-present, valantic CEC Schweiz AG`, matching the README.
+- [docs] Restructured `AGENTS.md` to the shared outline (`What this is`, a new `Commands` section, top-level
+  `Changelog`/`Documentation`) and added the shared `## Working rules` section (git rules, no release/publish or
+  dependency changes without approval, engineering priorities, `npm test` before finishing).
+- [docs] Added a `## Code conventions` section to `AGENTS.md` summarizing the valantic frontend guidelines (incl.
+  Options API, Pinia).
+- [docs] Added `CONTRIBUTING.md` (Getting started / Developing / Changelog / Releasing, shared outline).
+- [docs] `README.md` now also links `CONTRIBUTING.md`.
+- [docs] Added a `## Contributing` section to `README.md` linking the `Release process` guide (contribution and release
+  steps).
+- [fix] `npm run release[:minor|:major]` updates `CHANGELOG.md` and `README.md` again. Since `.npmrc` sets
+  `ignore-scripts=true`, `npm version` silently skipped the `version` hook (`scripts/update-release-files.js`), so a
+  release would have been tagged without renaming `## unreleased` or updating the README pin. The hook is replaced by
+  the shared `scripts/release.mjs`, which runs every step explicitly and also aborts on uncommitted changes, a `main`
+  behind `origin/main` or an empty `## unreleased` section.
+- [ci] Added the `Release` workflow (`.github/workflows/release.yml`): pushing a `vX.Y.Z` tag creates the GitHub
+  release, using that version's `CHANGELOG.md` section as release notes. It fails if the section is empty.
+- [docs] Updated `docs/contributing/release-process.md` for the new release script and workflow.
+- [docs] Adopted the shared shared-frontend changelog convention (`# Changelog` title, `unreleased` / `vX.Y.Z`
+  headings, `[feat]`/`[fix]`/… prefixes, `### Breaking Changes` with migration notes), documented in `AGENTS.md`.
+  Unreleased entries were moved to the new prefixes; released entries are unchanged.
+- [ci] Renamed the CI workflow to "CI Test" and updated it to `actions/checkout@v7`, `actions/setup-node@v7`, and
+  Node 25.
+- [docs] Streamlined `.github/PULL_REQUEST_TEMPLATE.md` by removing the obsolete checklist sections.
+- [chore] Bumped `engines` to `node": ">=22 <26"` / `"npm": ">=10 <12"` (was `node">=20"` / `npm">=10"`) to allow
+  Node 25. Updated `.nvmrc` from `24` to `25`. Added `min-release-age=7` and `ignore-scripts=true` to `.npmrc`.
 
 ## v2.2.0
 
@@ -41,7 +98,7 @@
 - [FEATURE] Added `patch()` to the local store for partial updates to persisted objects.
 
 ## v2.0.1
- 
+
 - [BUGFIX] The control section of the flyout needs to have pointer events none to not block any user interaction in a user project.
 
 ## v2.0.0

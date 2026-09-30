@@ -27,6 +27,7 @@ export default defineConfig({
           { text: 'Custom settings', link: '/guide/custom-settings' },
           { text: 'Form fields', link: '/guide/form-fields' },
           { text: 'Demo card', link: '/guide/demo-card' },
+          { text: 'Production safety', link: '/guide/production-safety' },
         ],
       },
       {
@@ -38,7 +39,10 @@ export default defineConfig({
       },
       {
         text: 'Contributing',
-        items: [{ text: 'Release process', link: '/contributing/release-process' }],
+        items: [
+          { text: 'Conventions', link: '/contributing/conventions' },
+          { text: 'Release process', link: '/contributing/release-process' },
+        ],
       },
     ],
 

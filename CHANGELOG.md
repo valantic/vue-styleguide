@@ -2,6 +2,8 @@
 
 ## unreleased
 
+- [fix] `package.json`: added `blueprints` to `files` so the boilerplate templates are part of the published npm package.
+
 ## v2.2.1
 
 - [fix] `c-vas-panel`'s AI tab button mutated the `activePanel` prop directly instead of emitting `update:activePanel`

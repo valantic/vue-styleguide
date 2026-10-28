@@ -91,7 +91,8 @@
   },
   "files": [
     "src",
-    "ai"
+    "ai",
+    "blueprints"
   ],
   "main": "./src/index.ts",
   "module": "./src/index.ts",

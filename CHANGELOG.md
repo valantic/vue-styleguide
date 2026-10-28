@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.2.2
+
 - [fix] `package.json`: added `blueprints` to `files` so the boilerplate templates are part of the published npm package.
 
 ## v2.2.1

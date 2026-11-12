@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [build] `npm run release` now asks which release type (patch, minor, major) to make; `release:patch` added as the
+  non-interactive variant.
+
 ## v2.2.2
 
 - [fix] `package.json`: added `blueprints` to `files` so the boilerplate templates are part of the published npm package.

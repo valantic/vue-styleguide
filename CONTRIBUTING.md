@@ -25,6 +25,6 @@ Breaking changes go under `### Breaking Changes` with a **Migration:** note. The
 
 ## Releasing
 
-Releases are made directly from `main` with `npm run release[:minor|:major]`. The full process is described in the
+Releases are made directly from `main` with `npm run release`. The full process is described in the
 [Release process](https://valantic.github.io/vue-styleguide/contributing/release-process) guide
 (`docs/contributing/release-process.md`).

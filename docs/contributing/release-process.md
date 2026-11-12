@@ -2,11 +2,15 @@
 
 Releases are made directly from `main` via the npm scripts defined in `package.json`. Tags are always `vX.Y.Z`.
 
-| Command                 | Bump  | Example           |
-| ----------------------- | ----- | ----------------- |
-| `npm run release`       | patch | `1.2.0` → `1.2.1` |
-| `npm run release:minor` | minor | `1.2.0` → `1.3.0` |
-| `npm run release:major` | major | `1.2.0` → `2.0.0` |
+| Command                 | Bump  | Example              |
+| ----------------------- | ----- | -------------------- |
+| `npm run release`       | asks  | prompts for the type |
+| `npm run release:patch` | patch | `1.2.0` → `1.2.1`    |
+| `npm run release:minor` | minor | `1.2.0` → `1.3.0`    |
+| `npm run release:major` | major | `1.2.0` → `2.0.0`    |
+
+`npm run release` lists the three options with the resulting versions and waits for the choice; there is no default, so
+pressing Enter aborts. Without a terminal (CI) it requires an explicit type, use the suffixed commands.
 
 ## Before releasing
 
@@ -15,7 +19,7 @@ handles the heading rename — no manual edits needed.
 
 ## What the release script does
 
-All three commands run `scripts/release.mjs`, which is shared by all valantic shared-frontend repos. It runs every step
+All four commands run `scripts/release.mjs`, which is shared by all valantic shared-frontend repos. It runs every step
 explicitly instead of using an npm `version` lifecycle hook, because `.npmrc` sets `ignore-scripts=true`, which makes
 `npm version` skip lifecycle hooks.
 

@@ -4,9 +4,10 @@
 header, a demo area, and a "Configuration" sidebar area — laid out side by side on wider
 viewports, stacked on narrow ones.
 
-The `#demo` slot is rendered **once per theme**, in a light and a dark pane next to each other.
-Both copies are bound to the same state, so the controls in `#sidebar` drive both panes at once
-and a styling change can be checked on both themes without switching the sidebar theme.
+The `#demo` slot is rendered on the **light theme by default**. A "Dark mode" toggle at the right of the header switches
+it to the dark theme and back on demand, so a styling change can be checked on every theme without
+switching the sidebar theme. The selection is local to each card. Alternatively the card can
+[compare](#theme-mode) light and dark side by side.
 
 ```vue
 <template>
@@ -57,7 +58,7 @@ and a styling change can be checked on both themes without switching the sidebar
 | Slot | Purpose |
 |---|---|
 | `header` | Card header content — typically a title and short description. Rendered once. |
-| `demo` | The actual component/example being demonstrated. Rendered once per theme (see `singleTheme`). |
+| `demo` | The actual component/example being demonstrated. Rendered once, on the selected theme (see `singleTheme`). |
 | `sidebar` | The "Configuration" area — controls that drive the props/state of what's in `#demo`. Rendered once. |
 
 ## Props
@@ -65,18 +66,54 @@ and a styling change can be checked on both themes without switching the sidebar
 | Prop | Type | Default | Purpose |
 |---|---|---|---|
 | `forceConfigurationTop` | `Boolean` | `false` | Places the `#sidebar` area above `#demo` instead of beside it, on all viewport sizes. Useful when the configuration controls need more horizontal room than the side layout allows. |
-| `singleTheme` | `Boolean` | `false` | Renders `#demo` only once, on the light theme, instead of one pane per theme. Use it for demos that bring their own theming, or that must not exist twice on the page (e.g. anything driving a global, page-wide state). |
+| `themeMode` | `'toggle' \| 'compare'` | stored setting, else global mode, else `'toggle'` | `toggle`: one pane with the "Dark mode" toggle. `compare`: light and dark pane side by side, no toggle. Overrides the stored setting and the global mode for this card. |
+| `singleTheme` | `Boolean` | `false` | Renders `#demo` on the light theme only, without the "Dark mode" toggle. Use it for demos that bring their own theming. |
 
-## Theme panes
+## Theme mode
 
-Each pane is a `<form>` carrying the `vas-styleguide-theme-light` / `vas-styleguide-theme-dark`
-class. The `<form>` is not there for submitting anything (its `submit` is prevented) — it scopes
-native radio groups, so two `e-vas-radio`s sharing a `name` across the two panes don't end up in
-the same browser radio group and deselect each other.
+| Mode | Result |
+|---|---|
+| `toggle` (default) | One pane on the light theme. The "Dark mode" toggle in the header switches it to dark. |
+| `compare` | A light and a dark pane next to each other. No toggle. |
 
-Because the slot is rendered twice, any component in `#demo` is instantiated twice. That is what
-makes both panes react to the same `#sidebar` controls, but it also means side effects in the
-demo run twice — reach for `singleTheme` when that matters.
+The pane carries the `vas-styleguide-theme-light` / `vas-styleguide-theme-dark` class, so every
+`--vas-theme-*` custom property inside `#demo` resolves for that theme. In `toggle` mode the slot
+is never duplicated: the demo keeps its state and only its theme changes.
+
+In `compare` mode the slot is rendered twice, so a component in `#demo` is instantiated twice and
+side effects in the demo run twice (both copies are bound to the same state, so the `#sidebar`
+controls drive both panes). Each pane is a `<form>` (its `submit` is prevented) so radio groups
+sharing a `name` across the panes don't deselect each other. Use `singleTheme` when the demo must
+exist only once.
+
+### Set the mode globally
+
+Provide `vasDemoThemeModeKey` on the app (or any ancestor) to change the default of every card
+below it:
+
+```ts
+import { vasDemoThemeModeKey } from '@valantic/vue-styleguide/features';
+
+app.provide(vasDemoThemeModeKey, 'compare');
+```
+
+### Set the mode in the settings
+
+The sidebar's [Settings](/guide/settings#demo-card-themes) panel has a "Demo card themes" select. Its stored
+value wins over the provided default, so a dev can switch every card on demand. Custom settings
+components can call `useVasSettingsStore().setDemoThemeMode('compare' | 'toggle' | null)`.
+
+### Mix per card
+
+The `themeMode` prop wins over the provided default and the stored setting, so a single card can deviate either way:
+
+```vue
+<c-vas-demo-card theme-mode="toggle">…</c-vas-demo-card>
+<c-vas-demo-card theme-mode="compare">…</c-vas-demo-card>
+```
+
+This styleguide's own demo app provides `compare` as default, because it documents the components. A dev
+can still change it in the settings.
 
 ## `#sidebar` vs. `#pageConfig`
 

@@ -23,7 +23,7 @@ this repository.
   this after adding/removing an icon SVG.
 - `npm run dev:docs` / `npm run build:docs` / `npm run serve:docs` — VitePress docs site in `docs/`.
 - `npm run clean:caches` — clears `.eslintcache`, `.stylelintcache`, `node_modules/.cache`.
-- `npm run release[:minor|:major]` — runs `scripts/release.mjs` (shared, identical in every shared-frontend repo):
+- `npm run release[:patch|:minor|:major]` — asks for the release type unless a suffix is given; runs `scripts/release.mjs` (shared, identical in every shared-frontend repo):
   checks for a clean, up-to-date `main` and a non-empty `## unreleased`, bumps the version, renames
   `## unreleased` to `## vX.Y.Z`, updates the README version pin, commits, creates the annotated `vX.Y.Z` tag and
   pushes. The `Release` workflow (`.github/workflows/release.yml`) then creates the GitHub release from that

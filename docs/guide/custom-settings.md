@@ -71,6 +71,34 @@ Besides the `#pageConfig` slot, `l-vas-layout` also accepts:
 | `padding` | `'default'` \| `'0'` | `'default'` | Content padding around the page body. |
 | `variant` | `'default'` \| `'plain'` | `'default'` | `'default'` adds the bordered container look; `'plain'` doesn't. |
 | `showHeadline` | `Boolean` | `true` | Whether to auto-render a headline from `route.meta.title` (falling back to the route name). |
+| `bare` | `Boolean` | `false` | For components that bring their own layout (gutters, max-width, headline): removes the padding, max-width, borders and headline in one go. Wins over `padding`, `variant` and `showHeadline`. |
+
+```vue
+<l-vas-layout bare>
+  <my-page-layout-component />
+</l-vas-layout>
+```
+
+### Client gutter, max-width and sticky header
+
+Client projects rarely share the styleguide's default frame. To test primitive components (buttons, inputs, …) in
+the client's real gutter and content width, set these CSS custom properties once in the project's global CSS:
+
+| Custom property | Default | Purpose |
+|---|---|---|
+| `--vas-layout-max-width` | `lg` breakpoint | Content max-width of the `default` variant. |
+| `--vas-layout-gutter` | spacing 30 | Content padding of `padding="default"`. |
+| `--vas-layout-offset-top` | `0` | Space above the layout, e.g. the height of a fixed/sticky header. |
+
+```scss
+:root {
+  --vas-layout-max-width: 1440px;
+  --vas-layout-gutter: 24px;
+  --vas-layout-offset-top: 80px;
+}
+```
+
+`bare` ignores max-width and gutter (the component owns them) but still applies the top offset.
 
 ## `l-vas-layout` alone vs. `c-vas-demo-card`
 

@@ -2,6 +2,16 @@
 
 ## unreleased
 
+- [feat] `c-vas-demo-card` shows the demo on the light theme by default and offers a "Dark mode" toggle in the header to
+  switch to the dark theme on demand, instead of rendering both themes side by side. **Migration:** pass
+  `theme-mode="compare"` per card, or `app.provide(vasDemoThemeModeKey, 'compare')` globally, to keep the side-by-side
+  view.
+- [feat] `c-vas-demo-card`: new `themeMode` prop (`toggle` | `compare`) and `vasDemoThemeModeKey` injection key to set
+  the mode globally; the prop overrides it per card. This styleguide's own demo app uses `compare`.
+- [feat] Settings panel: new "Demo card themes" setting (`useVasSettingsStore().setDemoThemeMode`, persisted as
+  `vas-demo-theme-mode`) that wins over the provided default and is overridden by a card's `themeMode` prop.
+- [docs] The `sg-test-page-vas-demo-card` styleguide page shows every demo card variant: global mode, `toggle`,
+  `compare`, `single-theme` and shared state with radio groups.
 - [build] `npm run release` now asks which release type (patch, minor, major) to make; `release:patch` added as the
   non-interactive variant.
 

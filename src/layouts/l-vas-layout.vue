@@ -8,7 +8,7 @@
       <slot name="pageConfig"></slot>
     </teleport>
     <h1
-      v-if="showHeadline"
+      v-if="isHeadlineVisible"
       :class="b('headline')"
     >
       {{ routeName }}
@@ -64,6 +64,15 @@
         type: Boolean,
         default: true,
       },
+
+      /**
+       * Use when the tested component brings its own layout (gutters, max-width, headline): removes the padding, the
+       * max-width, the borders and the headline. Wins over `padding`, `variant` and `showHeadline`.
+       */
+      bare: {
+        type: Boolean,
+        default: false,
+      },
     },
     // emits: {},
 
@@ -81,10 +90,15 @@
         return this.$route?.meta?.title ?? (this.$route.name as string);
       },
 
+      isHeadlineVisible(): boolean {
+        return this.showHeadline && !this.bare;
+      },
+
       modifiers(): Modifiers {
         return {
           padding: this.padding,
           variant: this.variant,
+          bare: this.bare,
         };
       },
     },
@@ -111,25 +125,44 @@
 </script>
 
 <style lang="scss">
+  @use 'sass:map';
   @use 'sass:meta';
   @use '../setup/scss/variables';
   @use '../setup/scss/mixins';
 
+  /**
+   * Client projects can adapt the layout to their own frame with CSS custom properties, e.g. on `:root`:
+   * --vas-layout-max-width: content max-width (default: `lg` breakpoint)
+   * --vas-layout-gutter: content padding (default: spacing 30)
+   * --vas-layout-offset-top: space above the layout, e.g. the height of a sticky header (default: 0)
+   */
   .l-vas-layout {
     &--variant-default {
       @include mixins.container;
 
+      max-width: var(--vas-layout-max-width, #{map.get(variables.$vas-breakpoints, lg)});
       height: 100%;
       border-right: 1px solid var(--vas-theme-border-color);
       border-left: 1px solid var(--vas-theme-border-color);
     }
 
+    &--variant-default,
+    &--variant-plain {
+      margin-top: var(--vas-layout-offset-top, 0);
+    }
+
     &--padding-default {
-      padding: variables.$vas-spacing--30;
+      padding: var(--vas-layout-gutter, #{variables.$vas-spacing--30});
     }
 
     &--padding-0 {
       padding: 0;
+    }
+
+    &--bare {
+      max-width: none;
+      padding: 0;
+      border: 0;
     }
 
     &__headline {

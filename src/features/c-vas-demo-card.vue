@@ -4,7 +4,18 @@
     class="vas-styleguide-theme-light"
   >
     <div :class="b('header')">
-      <slot name="header"></slot>
+      <div :class="b('header-content')">
+        <slot name="header"></slot>
+      </div>
+      <div
+        v-if="!singleTheme && !isCompare"
+        :class="b('theme-toggle')"
+      >
+        <e-vas-toggle
+          v-model="darkMode"
+          label="Dark mode"
+        />
+      </div>
     </div>
     <div :class="b('demo')">
       <slot
@@ -12,16 +23,22 @@
         name="demo"
       ></slot>
 
-      <!-- Each theme gets its own form, so identically named radio groups in the two panes
-           don't end up in the same native radio group and deselect each other. -->
+      <!-- Each pane gets its own form, so identically named radio groups in the compared panes
+           don't end up in the same native radio group and deselect each other. The index is
+           the key, so toggling patches the pane instead of re-creating the demo. -->
       <template v-else>
         <form
-          v-for="theme in THEMES"
-          :key="theme"
-          :class="[b('demo-pane', { theme }), `vas-styleguide-theme-${theme}`]"
+          v-for="(paneTheme, index) in themes"
+          :key="index"
+          :class="[b('demo-pane'), `vas-styleguide-theme-${paneTheme}`]"
           @submit.prevent
         >
-          <span :class="b('demo-pane-label')">{{ theme }}</span>
+          <span
+            v-if="isCompare"
+            :class="b('demo-pane-label')"
+          >
+            {{ paneTheme }}
+          </span>
           <div :class="b('demo-pane-content')">
             <slot name="demo"></slot>
           </div>
@@ -36,28 +53,52 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { PropType, defineComponent } from 'vue';
+  import eVasToggle from '../elements/e-vas-toggle.vue';
   import { Modifiers } from '../plugins/vue-bem-cn/src/globals';
+  import { VasSettingsStore, useVasSettingsStore } from '../stores/settings';
+  import { DEMO_THEME_MODES, DemoThemeMode, vasDemoThemeModeKey } from './demo-theme-mode';
 
-  // type Setup = {};
+  type Setup = {
+    settingsStore: VasSettingsStore;
+  };
 
   type Data = {
-    THEMES: string[];
+    darkMode: boolean;
   };
 
   /**
    * A demo frame for components.
    *
-   * The `demo` slot is rendered once per theme, side by side, so a styling change can be
-   * checked on the light and the dark theme at the same time. Both copies are bound to the
-   * same state, which means the controls in the `sidebar` slot drive both panes at once.
+   * The `demo` slot is rendered on the light theme by default. A "Dark mode" toggle at the right
+   * of the header switches it to the dark theme (and back) on demand, so a styling change
+   * can be checked on every theme. With `themeMode="compare"` the light and the dark theme
+   * are rendered side by side instead. The default mode can be set globally by providing
+   * `vasDemoThemeModeKey` or by the user in the settings; the `themeMode` prop overrides both per card.
    */
   export default defineComponent({
     name: 'c-vas-demo-card',
 
-    // components: {},
+    components: { eVasToggle },
+
+    inject: {
+      globalThemeMode: {
+        from: vasDemoThemeModeKey,
+        default: 'toggle',
+      },
+    },
 
     props: {
+      /**
+       * `toggle` shows one pane with a "Dark mode" toggle, `compare` shows the light and the
+       * dark theme side by side. Falls back to the stored "Demo card themes" setting, then the provided mode (`toggle` if none).
+       */
+      themeMode: {
+        type: String as PropType<DemoThemeMode>,
+        default: undefined,
+        validator: (value: string): boolean => DEMO_THEME_MODES.includes(value as DemoThemeMode),
+      },
+
       /**
        * If true, forces the configuration section to be placed above the demo section.
        */
@@ -67,9 +108,8 @@
       },
 
       /**
-       * Renders the `demo` slot only once, on the light theme, instead of one pane per theme.
-       * Use it for demos which bring their own theming or which must not exist twice on the
-       * page (e.g. anything driving a global, page-wide state).
+       * Renders the `demo` slot on the light theme only, without the theme toggle.
+       * Use it for demos which bring their own theming.
        */
       singleTheme: {
         type: Boolean,
@@ -78,20 +118,45 @@
     },
     // emits: {},
 
-    // setup(): Setup {
-    //   return {};
-    // },
+    setup(): Setup {
+      return {
+        settingsStore: useVasSettingsStore(),
+      };
+    },
     data(): Data {
       return {
         /**
-         * The themes to render the demo slot for. Matches the `vas-styleguide-theme-*`
-         * classes defined in `setup/scss/_themes.scss`.
+         * Whether the demo is shown on the dark theme. Off (light) by default.
          */
-        THEMES: ['light', 'dark'],
+        darkMode: false,
       };
     },
 
     computed: {
+      /**
+       * Returns the mode in effect: the prop, else the user's stored setting, else the
+       * provided default.
+       */
+      resolvedThemeMode(): DemoThemeMode {
+        return this.themeMode ?? this.settingsStore.state.demoThemeMode ?? (this.globalThemeMode as DemoThemeMode);
+      },
+
+      isCompare(): boolean {
+        return this.resolvedThemeMode === 'compare';
+      },
+
+      /**
+       * Returns the theme of every pane to render. Matches the `vas-styleguide-theme-*`
+       * classes defined in `setup/scss/_themes.scss`.
+       */
+      themes(): ('light' | 'dark')[] {
+        if (this.isCompare) {
+          return ['light', 'dark'];
+        }
+
+        return [this.darkMode ? 'dark' : 'light'];
+      },
+
       /**
        * Returns a configuration Object for modifier classes.
        *
@@ -208,12 +273,21 @@
       color: var(--vas-theme-text-color);
     }
 
+    &__header-content {
+      flex: 1 1 auto;
+    }
+
     &__demo-pane-label {
       color: var(--vas-theme-text-color-muted);
       font-size: variables.$vas-font-size--tiny;
       font-weight: variables.$vas-font-weight--bold;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+    }
+
+    &__theme-toggle {
+      align-self: flex-start;
+      margin-left: auto;
     }
 
     &__demo-pane-content {
@@ -225,8 +299,7 @@
       padding: #{$content-padding * 2} 0;
       flex: 1 1 auto;
 
-      // Demos often set a fixed width (e.g. 300px selects), which would overflow the now
-      // half-width pane.
+      // Demos often set a fixed width (e.g. 300px selects), which would overflow the pane.
       > * {
         max-width: 100%;
       }

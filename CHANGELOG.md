@@ -2,6 +2,8 @@
 
 ## unreleased
 
+## v2.3.0
+
 - [feat] `l-vas-layout`: new `bare` prop for components that bring their own layout; removes padding, max-width,
   borders and headline instead of combining `padding="0"` and `:show-headline="false"`.
 - [feat] `l-vas-layout`: client projects can set `--vas-layout-max-width`, `--vas-layout-gutter` and

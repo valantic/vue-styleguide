@@ -163,6 +163,7 @@
       max-width: none;
       padding: 0;
       border: 0;
+      margin: 0;
     }
 
     &__headline {

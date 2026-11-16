@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [fix] `l-vas-layout`: `bare` prop now also resets the margin, so the container's auto margin and
+  `--vas-layout-offset-top` no longer offset components that bring their own layout.
+
 ## v2.3.0
 
 - [feat] `l-vas-layout`: new `bare` prop for components that bring their own layout; removes padding, max-width,

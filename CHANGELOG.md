@@ -2,6 +2,10 @@
 
 ## unreleased
 
+- [feat] `l-vas-layout`: new `bare` prop for components that bring their own layout; removes padding, max-width,
+  borders and headline instead of combining `padding="0"` and `:show-headline="false"`.
+- [feat] `l-vas-layout`: client projects can set `--vas-layout-max-width`, `--vas-layout-gutter` and
+  `--vas-layout-offset-top` (sticky header) CSS custom properties to match their own frame; defaults are unchanged.
 - [feat] `c-vas-demo-card` shows the demo on the light theme by default and offers a "Dark mode" toggle in the header to
   switch to the dark theme on demand, instead of rendering both themes side by side. **Migration:** pass
   `theme-mode="compare"` per card, or `app.provide(vasDemoThemeModeKey, 'compare')` globally, to keep the side-by-side

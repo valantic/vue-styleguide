@@ -135,6 +135,10 @@
       0 8px 10px -6px rgba(variables.$vas-color-black, 0.1);
     pointer-events: auto;
 
+    @include mixins.media($down: xs) {
+      width: 100%;
+    }
+
     &--hide {
       display: none;
     }
@@ -167,6 +171,17 @@
       transition: opacity variables.$vas-transition--default;
       width: 32px;
       pointer-events: none;
+
+      // The flyout fills the viewport on mobile, so a handle outside its edge would be off-screen.
+      @include mixins.media($down: xs) {
+        &--is-open#{&}--direction-right {
+          right: 0;
+        }
+
+        &--is-open#{&}--direction-left {
+          left: 0;
+        }
+      }
 
       &:hover:not(&--is-open) {
         opacity: 0.8;

@@ -2,6 +2,9 @@
 
 ## unreleased
 
+- [fix] Sidebar flyout uses the full viewport width below 768px (`sm` breakpoint) instead of a fixed 440px; the toggle handle
+  moves inside the open panel there.
+
 ## v2.3.1
 
 - [fix] `l-vas-layout`: `bare` prop now also resets the margin, so the container's auto margin and
